@@ -107,12 +107,12 @@ User.init(
         user.password = await bcrypt.hash(user.password, 10);
       },
       beforeUpdate: async (user: User) => {
-        if (user.changed("password") && user.password) {
-          const isHashed = user.password.startsWith("$2b$");
-
-          if (!isHashed) {
-            user.password = await bcrypt.hash(user.password, 10);
-          }
+        if (
+          user.changed("password") &&
+          user.password &&
+          !user.password.startsWith("$2b$")
+        ) {
+          user.password = await bcrypt.hash(user.password, 12);
         }
       },
     },
