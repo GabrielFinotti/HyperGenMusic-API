@@ -5,14 +5,13 @@ interface SongAttributes {
   id: number;
   title: string;
   songUrl: string;
-  totalTimesPlayed: number;
+  duration: number;
   imageUrl?: string;
   artist?: string;
   genre?: string;
 }
 
-interface SongCreationAttributes
-  extends Optional<SongAttributes, "id" | "totalTimesPlayed"> {}
+interface SongCreationAttributes extends Optional<SongAttributes, "id"> {}
 
 class Music
   extends Model<SongAttributes, SongCreationAttributes>
@@ -21,10 +20,24 @@ class Music
   public id!: number;
   public title!: string;
   public songUrl!: string;
-  public totalTimesPlayed!: number;
+  public duration!: number;
   public imageUrl?: string;
   public artist?: string;
   public genre?: string;
+
+  public getFormattedDuration(): string {
+    const hours = Math.floor(this.duration / 3600);
+    const minutes = Math.floor((this.duration % 3600) / 60);
+    const seconds = this.duration % 60;
+
+    return [
+      hours > 0 ? String(hours).padStart(2, "0") : null,
+      String(minutes).padStart(2, "0"),
+      String(seconds).padStart(2, "0"),
+    ]
+      .filter(Boolean)
+      .join(":");
+  }
 }
 
 Music.init(
@@ -45,9 +58,12 @@ Music.init(
         isUrl: true,
       },
     },
-    totalTimesPlayed: {
+    duration: {
       type: DataTypes.INTEGER,
-      defaultValue: 0,
+      allowNull: false,
+      validate: {
+        min: 1,
+      },
     },
     imageUrl: {
       type: DataTypes.STRING,
@@ -69,6 +85,14 @@ Music.init(
     sequelize,
     tableName: "musics",
     timestamps: true,
+    indexes: [
+      {
+        unique: true,
+        fields: ["title"],
+      },
+      { fields: ["artist"] },
+      { fields: ["genre"] },
+    ],
   }
 );
 
