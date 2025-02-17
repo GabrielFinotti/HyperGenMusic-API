@@ -41,6 +41,9 @@ Music.init(
     songUrl: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isUrl: true,
+      },
     },
     totalTimesPlayed: {
       type: DataTypes.INTEGER,
@@ -49,6 +52,9 @@ Music.init(
     imageUrl: {
       type: DataTypes.STRING,
       allowNull: true,
+      validate: {
+        isUrl: true,
+      },
     },
     artist: {
       type: DataTypes.STRING,
