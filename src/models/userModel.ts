@@ -5,9 +5,9 @@ import sequelize from "../config/database/databaseConfig";
 interface UserAttributes {
   id: number;
   username: string;
-  imageUrl?: string;
   email: string;
   password: string;
+  imageUrl?: string;
   role: "user" | "admin";
 }
 
@@ -112,7 +112,7 @@ User.init(
           user.password &&
           !user.password.startsWith("$2b$")
         ) {
-          user.password = await bcrypt.hash(user.password, 12);
+          user.password = await bcrypt.hash(user.password, 10);
         }
       },
     },

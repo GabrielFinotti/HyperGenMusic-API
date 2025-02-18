@@ -11,20 +11,17 @@ const app = express();
 
 app.use(json(), cors({}));
 
-app.use("/api", routes.musicRoutes, routes.adminRoutes, routes.userRoutes);
-
-(async function connectToDatabase() {
+app.listen(process.env.PORT, async () => {
   try {
+    console.log(`Server running✅`.green.bgBlack);
+
     await createDatabase();
 
     await sequelize.authenticate();
-
     console.log("Database connected✅".green.bgBlack);
 
-    app.listen(process.env.PORT, () => {
-      console.log(`Server running✅`.green.bgBlack);
-    });
+    app.use("/api", routes.musicRoutes, routes.adminRoutes, routes.userRoutes);
   } catch (error) {
     console.error(`Error connecting to database, ${error} ❌`.red.bgBlack);
   }
-})();
+});
