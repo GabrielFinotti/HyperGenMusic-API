@@ -13,15 +13,18 @@ app.use(json(), cors({}));
 
 app.listen(process.env.PORT, async () => {
   try {
-    console.log(`Server running✅`.green.bgBlack);
+    console.log(`Server running!`.green.bgBlack);
 
     await createDatabase();
 
     await sequelize.authenticate();
-    console.log("Database connected✅".green.bgBlack);
+    console.log("Database connected!".green.bgBlack);
+
+    await sequelize.sync({alter: true});
+    console.log("Database synchronized!".green.bgBlack);
 
     app.use("/api", routes.musicRoutes, routes.adminRoutes, routes.userRoutes);
   } catch (error) {
-    console.error(`Error connecting to database, ${error} ❌`.red.bgBlack);
+    console.error(`Error connecting to database, ${error} !`.red.bgBlack);
   }
 });

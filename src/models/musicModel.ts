@@ -17,13 +17,13 @@ class Music
   extends Model<SongAttributes, SongCreationAttributes>
   implements SongAttributes
 {
-  public id!: number;
-  public title!: string;
-  public songUrl!: string;
-  public duration!: number;
-  public imageUrl?: string;
-  public artist?: string;
-  public genre?: string;
+  declare id: number;
+  declare title: string;
+  declare songUrl: string;
+  declare duration: number;
+  declare imageUrl?: string;
+  declare artist?: string;
+  declare genre?: string;
 
   public getFormattedDuration(): string {
     const hours = Math.floor(this.duration / 3600);

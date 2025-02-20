@@ -17,26 +17,12 @@ class User
   extends Model<UserAttributes, UserCreationAttributes>
   implements UserAttributes
 {
-  public id!: number;
-  public username!: string;
-  public imageUrl?: string;
-  public email!: string;
-  public password!: string;
-  public role!: "user" | "admin";
-
-  public async checkPassword(password: string) {
-    return bcrypt.compare(password, this.password);
-  }
-
-  public toJSON() {
-    const values: Partial<UserAttributes> = JSON.parse(
-      JSON.stringify(this.get())
-    );
-
-    delete values.password;
-
-    return values;
-  }
+  declare id: number;
+  declare username: string;
+  declare email: string;
+  declare password: string;
+  declare imageUrl?: string;
+  declare role: "user" | "admin";
 }
 
 User.init(
@@ -104,15 +90,19 @@ User.init(
     ],
     hooks: {
       beforeCreate: async (user: User) => {
-        user.password = await bcrypt.hash(user.password, 10);
+        const plainPassword = user.getDataValue("password");
+
+        user.setDataValue("password", await bcrypt.hash(plainPassword, 10));
       },
       beforeUpdate: async (user: User) => {
         if (
           user.changed("password") &&
-          user.password &&
-          !user.password.startsWith("$2b$")
+          user.getDataValue("password") &&
+          !user.getDataValue("password").startsWith("$2b$")
         ) {
-          user.password = await bcrypt.hash(user.password, 10);
+          const plainPassword = user.getDataValue("password");
+
+          user.setDataValue("password", await bcrypt.hash(plainPassword, 10));
         }
       },
     },
