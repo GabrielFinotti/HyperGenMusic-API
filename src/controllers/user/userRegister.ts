@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Op } from "sequelize";
-import { UserInterface } from "./../../interfaces/userInterface";
+import { UserInterface } from "../../interfaces/userInterface";
 import User from "../../models/userModel";
 
 export const userRegister = async (req: Request, res: Response) => {

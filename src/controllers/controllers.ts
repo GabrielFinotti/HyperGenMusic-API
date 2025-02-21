@@ -1,5 +1,5 @@
-import { userRegister } from "./User/userRegister";
-import { userLogin } from "./User/userLogin";
+import { userRegister } from "./user/userRegister";
+import { userLogin } from "./user/userLogin";
 
 export const controllers = {
   userLogin,
