@@ -67,8 +67,6 @@ export const userRegister = async (req: Request, res: Response) => {
     });
 
     if (existingUser) {
-      console.log(existingUser.dataValues);
-
       return res
         .status(409)
         .json({ errors: ["Username or email already exists!"] });
