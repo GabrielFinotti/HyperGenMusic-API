@@ -16,7 +16,7 @@ export const userLogin = async (req: Request, res: Response) => {
 
     const getProfile = await User.findOne({
       where: { email: userData.email },
-      attributes: ["password", "id"],
+      attributes: { include: ["password"] },
     });
 
     if (!getProfile) {
@@ -35,7 +35,7 @@ export const userLogin = async (req: Request, res: Response) => {
     const token = await generateToken(getProfile.getDataValue("id"));
 
     if (typeof token !== "string") {
-      return res.status(500).json({ error: "Generate login token failed!" });
+      return res.status(500).json({ error: token.error });
     }
 
     return res.status(200).json({
