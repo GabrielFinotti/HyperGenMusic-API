@@ -8,4 +8,4 @@ userRoutes.post("/user/login", controllers.userLogin);
 userRoutes.post("/user/register", controllers.userRegister);
 userRoutes.get("/profile", authenticateToken);
 userRoutes.put("/edit/profile", authenticateToken, controllers.userUpdate);
-userRoutes.delete("/delete/profile", authenticateToken);
+userRoutes.delete("/delete/profile", authenticateToken, controllers.userDelete);
