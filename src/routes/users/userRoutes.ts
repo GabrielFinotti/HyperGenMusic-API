@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { controllers } from "../../controllers/controllers";
-import { authenticateToken } from "../../utils/auth/jwt/tokenVerification";
+import { authenticateToken } from "../../middleware/tokenVerification";
 
 export const userRoutes = Router();
 

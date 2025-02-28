@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { authenticateToken } from "../../utils/auth/jwt/tokenVerification";
+import { authenticateToken } from "../../middleware/tokenVerification";
 import { controllers } from "../../controllers/controllers";
 
 export const musicRoutes = Router();
