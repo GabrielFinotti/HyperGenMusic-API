@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import redisClient from "../config/redis/redisConfig";
 
 dotenv.config();
 
@@ -15,6 +16,12 @@ export const authenticateToken = async (
 
     if (!token) {
       return res.status(401).json({ error: "Access denied!" });
+    }
+
+    const isRevoked = await redisClient.get(`blacklist:${token}`);
+
+    if (isRevoked) {
+      return res.status(403).json({ error: "Token has been revoked!" });
     }
 
     jwt.verify(token, process.env.SECRET_KEY as string, (error, payload) => {

@@ -27,9 +27,11 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "ioredis": "^5.6.0",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.13.3",
     "pg-hstore": "^2.3.4",
+    "redis": "^4.7.0",
     "sequelize": "^6.37.5"
   },
   "devDependencies": {
@@ -39,6 +41,7 @@
     "@types/jsonwebtoken": "^9.0.8",
     "@types/pg": "^8.11.11",
     "@types/sequelize": "^4.28.20",
+    "@types/ioredis": "^4.28.10",
     "tsup": "^8.3.6",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3"
