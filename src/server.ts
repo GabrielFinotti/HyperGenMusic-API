@@ -18,7 +18,7 @@ app.listen(process.env.PORT, async () => {
 
     await createDatabase();
 
-    await redisClient.connect;
+    await redisClient.ping();
 
     await sequelize.authenticate();
     console.log("Database connected!".green.bgBlack);
