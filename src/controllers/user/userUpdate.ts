@@ -4,41 +4,40 @@ import { UserInterface } from "../../interfaces/userInterface";
 import { updateDataVerification } from "../../utils/auth/userAuth/updateDataVerification";
 import { userDataUpdate } from "../../utils/user/userDataUpdate";
 
-export const userUpdate = async (req: Request, res: Response) => {
+export const userUpdate = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
   try {
     const userId = parseInt(req.params.id);
-    const userData = req.body as UserInterface;
-    let user!: User | null;
+    const userData = req.body as Partial<UserInterface>;
 
-    const confirmUserData = updateDataVerification(userData);
+    const validatedUserData = updateDataVerification(userData);
 
-    if (confirmUserData instanceof Array) {
-      return res.status(400).json({ errors: confirmUserData });
+    if (Array.isArray(validatedUserData)) {
+      return res.status(400).json({ errors: validatedUserData });
     }
 
-    if (confirmUserData.password) {
-      user = await User.findOne({
-        where: { id: userId },
-        attributes: { include: ["password"] },
-      });
-    } else {
-      user = await User.findOne({
-        where: { id: userId },
-      });
-    }
+    const user = await User.findOne({
+      where: { id: userId },
+      attributes: {
+        include: validatedUserData.password ? ["password"] : [],
+      },
+    });
 
     if (!user) {
       return res.status(404).json({ error: "User not found!" });
     }
 
-    const info = await userDataUpdate(confirmUserData, user);
+    const result = await userDataUpdate(validatedUserData, user);
 
-    if (info.error) {
-      return res.status(400).json({ error: info.error });
-    } else {
-      return res.status(200).json({ message: info.message });
+    if ("error" in result) {
+      return res.status(400).json({ error: result.error });
     }
+
+    return res.status(200).json({ message: result.message });
   } catch (error) {
-    return res.status(500).json({ error });
+    console.error("Error updating user:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };

@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import { UserInterface } from "../../interfaces/userInterface";
 import User from "../../models/userModel";
 import { getUserData } from "./getUserData";
@@ -7,37 +8,52 @@ export const userDataUpdate = async (
   user: User
 ) => {
   try {
-    const userAttributes = user.dataValues;
+    if (userDataUpdate.email || userDataUpdate.username) {
+      const existingUser = await getUserData(
+        undefined,
+        userDataUpdate.email,
+        userDataUpdate.username
+      );
 
-    const existingUser = await getUserData(
-      undefined,
-      userDataUpdate.email,
-      userDataUpdate.username
-    );
-
-    if (existingUser) {
-      if (existingUser.id !== user.id) {
+      if (existingUser && existingUser.id !== user.id) {
         return { error: "User with this email or username already exists" };
       }
     }
 
-    for (const key of Object.keys(userDataUpdate) as Array<
-      keyof UserInterface
-    >) {
-      if (
-        (userDataUpdate as any)[key] !== undefined &&
-        (userDataUpdate as any)[key] !== userAttributes[key]
-      ) {
-        user.setDataValue(key, (userDataUpdate as any)[key]);
+    if (userDataUpdate.password) {
+      const hasChangePassword = await bcrypt.compare(
+        userDataUpdate.password,
+        user.password
+      );
+
+      if (hasChangePassword) {
+        delete userDataUpdate.password;
       }
+    }
+
+    let hasChanges = false;
+
+    (Object.keys(userDataUpdate) as Array<keyof UserInterface>).forEach(
+      (key) => {
+        const newValue = userDataUpdate[key];
+        const currentValue = user.get(key);
+
+        if (newValue !== undefined && newValue !== currentValue) {
+          user.set(key, newValue);
+          hasChanges = true;
+        }
+      }
+    );
+
+    if (!hasChanges) {
+      return { message: "No changes to update" };
     }
 
     await user.save();
 
     return { message: "User data updated successfully" };
   } catch (error) {
-    console.error(`Error at userDataUpdate: ${error}`.red.bgBlack);
-
-    throw error;
+    console.error(`Error at userDataUpdate:`, error);
+    return { error: "Failed to update user data" };
   }
 };
