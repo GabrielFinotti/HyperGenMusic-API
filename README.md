@@ -1,6 +1,12 @@
-# ProjectSong API
+# 🎵 ProjectSong API
 
 **API para Streaming de Músicas**
+
+[![Node.js](https://img.shields.io/badge/Node.js-16+-green.svg)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
+[![Express](https://img.shields.io/badge/Express-4.x-lightgray.svg)](https://expressjs.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-blue.svg)](https://www.postgresql.org/)
+[![Redis](https://img.shields.io/badge/Redis-Latest-red.svg)](https://redis.io/)
 
 ## 📋 Visão Geral
 
@@ -21,14 +27,35 @@ ProjectSong API é um serviço backend completo para gerenciamento de músicas e
 ```
 src/
  ├── config/           # Configurações (banco de dados, Redis)
- ├── controllers/      # Controladores de rotas
- ├── interfaces/       # Interfaces TypeScript
- ├── middleware/       # Middlewares (autenticação, etc)
- ├── models/           # Modelos de dados
- ├── routes/           # Rotas da API
- ├── utils/            # Funções auxiliares
+ ├── controllers/      # Controladores de rotas (seguindo padrão REST)
+ ├── interfaces/       # Interfaces TypeScript para tipagem
+ ├── middleware/       # Middlewares (autenticação, validação, etc)
+ ├── models/           # Modelos de dados e schemas
+ ├── routes/           # Rotas da API organizadas por domínio
+ ├── utils/            # Funções auxiliares e helpers
  └── server.ts         # Ponto de entrada da aplicação
 ```
+
+## 🧮 Modelos de Dados
+
+### Usuário
+- `id`: Identificador único (chave primária)
+- `username`: Nome de usuário (único)
+- `email`: Email do usuário (único)
+- `password`: Senha criptografada
+- `imageUrl`: URL da imagem de perfil (opcional)
+- `role`: Função do usuário ('user' ou 'admin')
+- Timestamps: `createdAt` e `updatedAt`
+
+### Música
+- `id`: Identificador único (chave primária)
+- `title`: Título da música
+- `songUrl`: URL do arquivo de áudio
+- `duration`: Duração em segundos
+- `imageUrl`: URL da capa (opcional)
+- `artist`: Nome do artista (opcional)
+- `genre`: Gênero musical (opcional)
+- Timestamps: `createdAt` e `updatedAt`
 
 ## 🔌 Endpoints da API
 
@@ -73,13 +100,24 @@ src/
 | DELETE | `/api/user/delete/:id` | Remover usuário | Admin |
 | DELETE | `/api/user/delete/all` | Remover todos usuários | Admin |
 
+## 🔐 Autenticação
+
+- A API utiliza JWT (JSON Web Token) para autenticação
+- Após o login, o token deve ser incluído no header das requisições:
+  ```
+  Authorization: Bearer <seu-token>
+  ```
+- Tokens invalidados (logout) são armazenados em uma blacklist no Redis
+- Tokens expiram após 30 dias por padrão
+
 ## 🚀 Como Executar
 
 ### Pré-requisitos
 
-- Node.js (versão 16+)
-- PostgreSQL
-- Redis
+- [Node.js](https://nodejs.org/) (versão 16+)
+- [PostgreSQL](https://www.postgresql.org/) (versão 13+)
+- [Redis](https://redis.io/) (versão 6+)
+- [Git](https://git-scm.com/)
 
 ### Configuração do Ambiente
 
@@ -94,10 +132,14 @@ src/
    npm install
    ```
 
-3. Configure as variáveis de ambiente no arquivo `.env`:
-   ```
+3. Configure as variáveis de ambiente:
+   
+   Crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo:
+
+   ```env
    # Servidor
    PORT=3000
+   NODE_ENV=development
    
    # Banco de Dados
    DB_NAME=project_song
@@ -113,7 +155,7 @@ src/
    SECRET_KEY=sua_chave_secreta
    ```
 
-4. Execute em modo desenvolvimento:
+4. Execute em modo desenvolvimento com recarga automática:
    ```bash
    npm run dev
    ```
@@ -124,31 +166,30 @@ src/
    npm start
    ```
 
-## 🔐 Autenticação
+### Docker (Opcional)
 
-- A API utiliza JWT (JSON Web Token) para autenticação
-- Após o login, o token deve ser incluído no header das requisições:
-  ```
-  Authorization: Bearer <seu-token>
-  ```
-- Tokens invalidados (logout) são armazenados em uma blacklist no Redis
+Se preferir usar Docker, você pode executar:
 
-## 🧮 Modelos de Dados
+```bash
+# Iniciar serviços (PostgreSQL e Redis)
+docker-compose up -d
 
-### Usuário
-- `username`: Nome de usuário (único)
-- `email`: Email do usuário (único)
-- `password`: Senha criptografada
-- `imageUrl`: URL da imagem de perfil (opcional)
-- `role`: Função do usuário ('user' ou 'admin')
+# Iniciar apenas a aplicação
+npm run dev
+```
 
-### Música
-- `title`: Título da música
-- `songUrl`: URL do arquivo de áudio
-- `duration`: Duração em segundos
-- `imageUrl`: URL da capa (opcional)
-- `artist`: Nome do artista (opcional)
-- `genre`: Gênero musical (opcional)
+## 🧪 Testes
+
+O projeto inclui testes unitários e de integração:
+
+```bash
+# Executar todos os testes
+npm test
+
+# Executar testes específicos
+npm run test:unit
+npm run test:integration
+```
 
 ## 👨‍💻 Desenvolvimento
 
@@ -157,6 +198,26 @@ src/
 - `npm run dev`: Inicia o servidor em modo de desenvolvimento com recarga automática
 - `npm run build`: Compila o código TypeScript para JavaScript
 - `npm start`: Executa a versão compilada da aplicação
+- `npm test`: Executa os testes
+- `npm run lint`: Verifica o estilo de código
+
+### Padrões de Código
+
+Este projeto segue os princípios de:
+- Clean Architecture
+- RESTful API
+- DRY (Don't Repeat Yourself)
+- SOLID
+
+## 🤝 Contribuição
+
+Contribuições são bem-vindas! Por favor, siga estes passos:
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/amazing-feature`)
+3. Faça commit das suas alterações (`git commit -m 'Add some amazing feature'`)
+4. Faça push para a branch (`git push origin feature/amazing-feature`)
+5. Abra um Pull Request
 
 ## 📜 Licença
 
@@ -167,6 +228,12 @@ ISC © Gabriel Henrique Finotti
 # ProjectSong API (English Version)
 
 **Music Streaming API**
+
+[![Node.js](https://img.shields.io/badge/Node.js-16+-green.svg)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
+[![Express](https://img.shields.io/badge/Express-4.x-lightgray.svg)](https://expressjs.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-blue.svg)](https://www.postgresql.org/)
+[![Redis](https://img.shields.io/badge/Redis-Latest-red.svg)](https://redis.io/)
 
 ## 📋 Overview
 
@@ -187,14 +254,35 @@ ProjectSong API is a complete backend service for music and user management, wit
 ```
 src/
  ├── config/           # Configurations (database, Redis)
- ├── controllers/      # Route controllers
- ├── interfaces/       # TypeScript interfaces
- ├── middleware/       # Middlewares (authentication, etc)
- ├── models/           # Data models
- ├── routes/           # API routes
- ├── utils/            # Helper functions
+ ├── controllers/      # Route controllers (following REST pattern)
+ ├── interfaces/       # TypeScript interfaces for typing
+ ├── middleware/       # Middlewares (authentication, validation, etc)
+ ├── models/           # Data models and schemas
+ ├── routes/           # API routes organized by domain
+ ├── utils/            # Helper functions and utilities
  └── server.ts         # Application entry point
 ```
+
+## 🧮 Data Models
+
+### User
+- `id`: Unique identifier (primary key)
+- `username`: Username (unique)
+- `email`: User email (unique)
+- `password`: Encrypted password
+- `imageUrl`: Profile image URL (optional)
+- `role`: User role ('user' or 'admin')
+- Timestamps: `createdAt` and `updatedAt`
+
+### Music
+- `id`: Unique identifier (primary key)
+- `title`: Song title
+- `songUrl`: Audio file URL
+- `duration`: Duration in seconds
+- `imageUrl`: Cover image URL (optional)
+- `artist`: Artist name (optional)
+- `genre`: Music genre (optional)
+- Timestamps: `createdAt` and `updatedAt`
 
 ## 🔌 API Endpoints
 
@@ -239,13 +327,24 @@ src/
 | DELETE | `/api/user/delete/:id` | Remove user | Admin |
 | DELETE | `/api/user/delete/all` | Remove all users | Admin |
 
+## 🔐 Authentication
+
+- The API uses JWT (JSON Web Token) for authentication
+- After login, the token must be included in request headers:
+  ```
+  Authorization: Bearer <your-token>
+  ```
+- Invalidated tokens (logout) are stored in a Redis blacklist
+- Tokens expire after 30 days by default
+
 ## 🚀 How to Run
 
 ### Prerequisites
 
-- Node.js (version 16+)
-- PostgreSQL
-- Redis
+- [Node.js](https://nodejs.org/) (version 16+)
+- [PostgreSQL](https://www.postgresql.org/) (version 13+)
+- [Redis](https://redis.io/) (version 6+)
+- [Git](https://git-scm.com/)
 
 ### Environment Setup
 
@@ -260,10 +359,14 @@ src/
    npm install
    ```
 
-3. Configure environment variables in `.env` file:
-   ```
+3. Configure environment variables:
+   
+   Create a `.env` file in the project root with the following content:
+
+   ```env
    # Server
    PORT=3000
+   NODE_ENV=development
    
    # Database
    DB_NAME=project_song
@@ -279,7 +382,7 @@ src/
    SECRET_KEY=your_secret_key
    ```
 
-4. Run in development mode:
+4. Run in development mode with auto-reload:
    ```bash
    npm run dev
    ```
@@ -290,31 +393,30 @@ src/
    npm start
    ```
 
-## 🔐 Authentication
+### Docker (Optional)
 
-- The API uses JWT (JSON Web Token) for authentication
-- After login, the token must be included in request headers:
-  ```
-  Authorization: Bearer <your-token>
-  ```
-- Invalidated tokens (logout) are stored in a Redis blacklist
+If you prefer using Docker, you can run:
 
-## 🧮 Data Models
+```bash
+# Start services (PostgreSQL and Redis)
+docker-compose up -d
 
-### User
-- `username`: Username (unique)
-- `email`: User email (unique)
-- `password`: Encrypted password
-- `imageUrl`: Profile image URL (optional)
-- `role`: User role ('user' or 'admin')
+# Start only the application
+npm run dev
+```
 
-### Music
-- `title`: Song title
-- `songUrl`: Audio file URL
-- `duration`: Duration in seconds
-- `imageUrl`: Cover image URL (optional)
-- `artist`: Artist name (optional)
-- `genre`: Music genre (optional)
+## 🧪 Testing
+
+The project includes unit and integration tests:
+
+```bash
+# Run all tests
+npm test
+
+# Run specific tests
+npm run test:unit
+npm run test:integration
+```
 
 ## 👨‍💻 Development
 
@@ -323,6 +425,26 @@ src/
 - `npm run dev`: Starts the server in development mode with auto-reload
 - `npm run build`: Compiles TypeScript code to JavaScript
 - `npm start`: Runs the compiled application
+- `npm test`: Runs tests
+- `npm run lint`: Checks code style
+
+### Code Standards
+
+This project follows the principles of:
+- Clean Architecture
+- RESTful API
+- DRY (Don't Repeat Yourself)
+- SOLID
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## 📜 License
 
