@@ -11,7 +11,7 @@ export const userData = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "User not found!" });
     }
 
-    return res.status(200).json(userData.dataValues);
+    return res.status(200).json(userData.toPublicJSON());
   } catch (error) {
     console.error(`Error while getting user data: ${error}`.red.bgBlack);
 

@@ -1,5 +1,3 @@
 import regexGroup from "./regexGroup";
 
-export {
-  regexGroup
-};
+export { regexGroup };

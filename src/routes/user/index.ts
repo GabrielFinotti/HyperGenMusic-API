@@ -5,7 +5,6 @@ import { adaptController } from "../../utils/expressAdapter";
 
 const router = Router();
 
-// Usando o adaptador para todas as rotas
 router.post("/user/login", adaptController(userController.userLogin));
 router.post("/user/register", adaptController(userController.userRegister));
 router.get(

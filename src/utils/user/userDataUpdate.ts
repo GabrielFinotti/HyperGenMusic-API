@@ -1,4 +1,3 @@
-import bcrypt from "bcrypt";
 import { UserInterface } from "../../interfaces/userInterface";
 import User from "../../models/userModel";
 import { userUtils } from "..";
@@ -21,9 +20,9 @@ export const userDataUpdate = async (
     }
 
     if (userDataUpdate.password) {
-      const hasChangePassword = await bcrypt.compare(
-        userDataUpdate.password,
-        user.password
+      // Usando o método comparePassword do modelo
+      const hasChangePassword = await user.comparePassword(
+        userDataUpdate.password
       );
 
       if (hasChangePassword) {

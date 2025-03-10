@@ -25,10 +25,13 @@ class Music
   declare artist?: string;
   declare genre?: string;
 
+  /**
+   * Formata a duração da música em formato legível (HH:MM:SS ou MM:SS)
+   */
   public getFormattedDuration(): string {
     const hours = Math.floor(this.duration / 3600);
     const minutes = Math.floor((this.duration % 3600) / 60);
-    const seconds = this.duration % 60;
+    const seconds = Math.floor(this.duration % 60);
 
     return [
       hours > 0 ? String(hours).padStart(2, "0") : null,
@@ -37,6 +40,24 @@ class Music
     ]
       .filter(Boolean)
       .join(":");
+  }
+
+  /**
+   * Retorna se a música é considerada longa (mais de 5 minutos)
+   */
+  public isLongSong(): boolean {
+    return this.duration > 300; // 5 minutos em segundos
+  }
+
+  /**
+   * Retorna o objeto com dados formatados para API
+   */
+  public toApiFormat() {
+    return {
+      ...this.get({ plain: true }),
+      formattedDuration: this.getFormattedDuration(),
+      isLong: this.isLongSong(),
+    };
   }
 }
 
@@ -50,12 +71,19 @@ Music.init(
     title: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+      set(value: string) {
+        this.setDataValue("title", value.trim());
+      },
     },
     songUrl: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         isUrl: true,
+        notEmpty: true,
       },
     },
     duration: {
@@ -63,6 +91,7 @@ Music.init(
       allowNull: false,
       validate: {
         min: 1,
+        isInt: true,
       },
     },
     imageUrl: {
@@ -75,10 +104,20 @@ Music.init(
     artist: {
       type: DataTypes.STRING,
       allowNull: true,
+      set(value: string | undefined) {
+        if (value) {
+          this.setDataValue("artist", value.trim());
+        }
+      },
     },
     genre: {
       type: DataTypes.STRING,
       allowNull: true,
+      set(value: string | undefined) {
+        if (value) {
+          this.setDataValue("genre", value.trim());
+        }
+      },
     },
   },
   {

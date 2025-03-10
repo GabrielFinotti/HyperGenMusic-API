@@ -5,7 +5,9 @@ export const getMusics = async (req: Request, res: Response) => {
   try {
     const musics = await Music.findAll();
 
-    return res.status(200).json(musics);
+    const formattedMusics = musics.map((music) => music.toApiFormat());
+
+    return res.status(200).json(formattedMusics);
   } catch (error) {
     console.error(`Error retrieving musics: ${error}`.red.bgBlack);
 

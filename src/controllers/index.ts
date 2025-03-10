@@ -1,5 +1,5 @@
 import { userRegister, userLogin, userUpdate, userDelete, userData } from './user/index';
-import { getMusics } from './music/index';
+import { getMusics, getMusicById } from './music/index';
 
 export const userController = {
   userRegister,
@@ -10,7 +10,8 @@ export const userController = {
 };
 
 export const musicController = {
-  getMusics
+  getMusics,
+  getMusicById
 };
 
 export const adminController = {};

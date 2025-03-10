@@ -12,6 +12,11 @@ router.get(
 );
 
 router.get("/music/search");
-router.get("/music/data/:id");
+
+router.get(
+  "/music/data/:id",
+  authenticateToken,
+  adaptController(musicController.getMusicById)
+);
 
 export const musicRoutes = router;

@@ -23,6 +23,17 @@ class User
   declare password: string;
   declare imageUrl?: string;
   declare role: "user" | "admin";
+
+  async comparePassword(candidatePassword: string): Promise<boolean> {
+    return bcrypt.compare(candidatePassword, this.password);
+  }
+
+  toPublicJSON(): Omit<UserAttributes, "password"> {
+    const { password, ...publicData } = this.get({
+      plain: true,
+    }) as UserAttributes;
+    return publicData;
+  }
 }
 
 User.init(
@@ -38,6 +49,7 @@ User.init(
       unique: true,
       validate: {
         len: [6, 12],
+        notEmpty: true,
       },
       set(value: string) {
         this.setDataValue("username", value.trim());
@@ -56,6 +68,7 @@ User.init(
       unique: true,
       validate: {
         isEmail: true,
+        notEmpty: true,
       },
       set(value: string) {
         this.setDataValue("email", value.trim().toLowerCase());
@@ -64,6 +77,10 @@ User.init(
     password: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: true,
+        len: [8, 100],
+      },
     },
     role: {
       type: DataTypes.ENUM("user", "admin"),
