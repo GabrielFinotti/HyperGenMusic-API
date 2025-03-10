@@ -22,14 +22,14 @@ export const userRegister = async (req: Request, res: Response) => {
     if (existingUser) {
       return res
         .status(409)
-        .json({ errors: ["Username or email already exists!"] });
+        .json({ errors: ["Nome de usuário ou e-mail já existe!"] });
     }
 
     await User.create(userData);
 
-    return res.status(201).json({ message: "User registered successfully!" });
+    return res.status(201).json({ message: "Usuário registrado com sucesso!" });
   } catch (error) {
-    console.error(`Error registering user, ${error}!`.red.bgBlack);
+    console.error(`Erro ao registrar usuário, ${error}!`.red.bgBlack);
 
     return res.sendStatus(500);
   }

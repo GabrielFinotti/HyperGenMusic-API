@@ -20,18 +20,18 @@ export const deleteToken = async (token: string) => {
 
         await redisClient.set(`blacklist:${tokenString}`, "1", "EX", ttl);
         console.log(
-          `Token revoked and added to blacklist for ${ttl} seconds!`.yellow
+          `Token revogado e adicionado à lista negra por ${ttl} segundos!`.yellow
             .bgBlack
         );
       }
 
-      return { message: "token invalidated successfully!" };
+      return { message: "token invalidado com sucesso!" };
     }
 
-    return { error: "Invalid token!" };
+    return { error: "Token inválido!" };
   } catch (error) {
-    console.error(`Error revoking token: ${error}!`.red.bgBlack);
+    console.error(`Erro ao revogar token: ${error}!`.red.bgBlack);
 
-    return { error: "Failed to invalidate token!" };
+    return { error: "Falha ao invalidar token!" };
   }
 };

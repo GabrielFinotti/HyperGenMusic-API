@@ -29,8 +29,8 @@ export const getUserData = async (
       return null;
     }
   } catch (error) {
-    console.error(`Error at get user data: ${error}`.red.bgBlack);
+    console.error(`Erro ao obter dados do usuário: ${error}`.red.bgBlack);
 
-    throw new Error("Failed to get user");
+    throw new Error("Falha ao obter usuário");
   }
 };

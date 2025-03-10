@@ -9,8 +9,8 @@ export const getMusics = async (req: Request, res: Response) => {
 
     return res.status(200).json(formattedMusics);
   } catch (error) {
-    console.error(`Error retrieving musics: ${error}`.red.bgBlack);
+    console.error(`Erro ao recuperar músicas: ${error}`.red.bgBlack);
 
-    return res.status(500).send({ message: `Error retrieving musics!` });
+    return res.status(500).send({ message: `Erro ao recuperar músicas!` });
   }
 };

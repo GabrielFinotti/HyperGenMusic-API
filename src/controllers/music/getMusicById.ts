@@ -6,19 +6,19 @@ export const getMusicById = async (req: Request, res: Response) => {
     const musicId = parseInt(req.params.id);
 
     if (isNaN(musicId)) {
-      return res.status(400).json({ error: "Invalid music ID" });
+      return res.status(400).json({ error: "ID de música inválido" });
     }
 
     const music = await Music.findByPk(musicId);
 
     if (!music) {
-      return res.status(404).json({ error: "Music not found" });
+      return res.status(404).json({ error: "Música não encontrada" });
     }
 
     return res.status(200).json(music.toApiFormat());
   } catch (error) {
-    console.error(`Error retrieving music data: ${error}`.red.bgBlack);
+    console.error(`Erro ao recuperar dados da música: ${error}`.red.bgBlack);
 
-    return res.status(500).json({ error: "Failed to retrieve music data" });
+    return res.status(500).json({ error: "Falha ao recuperar dados da música" });
   }
 };

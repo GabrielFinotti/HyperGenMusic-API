@@ -26,7 +26,7 @@ export const userUpdate = async (
     });
 
     if (!user) {
-      return res.status(404).json({ error: "User not found!" });
+      return res.status(404).json({ error: "Usuário não encontrado!" });
     }
 
     const result = await userUtils.userDataUpdate(validatedUserData, user);
@@ -37,7 +37,7 @@ export const userUpdate = async (
 
     return res.status(200).json({ message: result.message });
   } catch (error) {
-    console.error("Error updating user:", error);
-    return res.status(500).json({ error: "Internal server error" });
+    console.error("Erro ao atualizar usuário:", error);
+    return res.status(500).json({ error: "Erro interno do servidor" });
   }
 };

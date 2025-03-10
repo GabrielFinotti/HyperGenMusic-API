@@ -36,17 +36,17 @@ export const createDatabase = async () => {
     if (res.rowCount === 0) {
       await client.query(`CREATE DATABASE ${process.env.DB_NAME}`);
       console.log(
-        `Database ${process.env.DB_NAME} created successfully!`.green.bgBlack
+        `Banco de dados ${process.env.DB_NAME} criado com sucesso!`.green.bgBlack
       );
     } else {
       console.log(
-        `Database ${process.env.DB_NAME} already exists!`.yellow.bgBlack
+        `Banco de dados ${process.env.DB_NAME} já existe!`.yellow.bgBlack
       );
     }
 
     await client.end();
   } catch (error) {
-    console.error(`Error creating the database: ${error}`.red.bgBlack);
+    console.error(`Erro ao criar o banco de dados: ${error}`.red.bgBlack);
   }
 };
 

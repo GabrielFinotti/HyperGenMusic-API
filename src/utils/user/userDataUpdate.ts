@@ -15,12 +15,11 @@ export const userDataUpdate = async (
       );
 
       if (existingUser && existingUser.id !== user.id) {
-        return { error: "User with this email or username already exists" };
+        return { error: "Usuário com este e-mail ou nome de usuário já existe" };
       }
     }
 
     if (userDataUpdate.password) {
-      // Usando o método comparePassword do modelo
       const hasChangePassword = await user.comparePassword(
         userDataUpdate.password
       );
@@ -45,14 +44,14 @@ export const userDataUpdate = async (
     );
 
     if (!hasChanges) {
-      return { message: "No changes to update" };
+      return { message: "Nenhuma alteração para atualizar" };
     }
 
     await user.save();
 
-    return { message: "User data updated successfully" };
+    return { message: "Dados do usuário atualizados com sucesso" };
   } catch (error) {
-    console.error(`Error at userDataUpdate:`, error);
-    return { error: "Failed to update user data" };
+    console.error(`Erro em userDataUpdate:`, error);
+    return { error: "Falha ao atualizar dados do usuário" };
   }
 };

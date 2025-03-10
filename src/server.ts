@@ -14,20 +14,20 @@ app.use(json(), cors({}));
 
 app.listen(process.env.PORT, async () => {
   try {
-    console.log(`Server running!`.green.bgBlack);
+    console.log(`Servidor em execução!`.green.bgBlack);
 
     await createDatabase();
 
     await redisClient.ping();
 
     await sequelize.authenticate();
-    console.log("Database connected!".green.bgBlack);
+    console.log("Banco de dados conectado!".green.bgBlack);
 
     await sequelize.sync({ alter: true });
-    console.log("Database synchronized!".green.bgBlack);
+    console.log("Banco de dados sincronizado!".green.bgBlack);
 
     app.use("/api", musicRoutes, adminRoutes, userRoutes);
   } catch (error) {
-    console.error(`Error during server initialization: ${error}`.red.bgBlack);
+    console.error(`Erro durante a inicialização do servidor: ${error}`.red.bgBlack);
   }
 });

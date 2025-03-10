@@ -15,20 +15,20 @@ export const authenticateToken = async (
     const token = authHeader && authHeader.split(" ")[1];
 
     if (!token) {
-      res.status(401).json({ error: "Access denied!" });
+      res.status(401).json({ error: "Acesso negado!" });
       return;
     }
 
     const isRevoked = await redisClient.get(`blacklist:${token}`);
 
     if (isRevoked) {
-      res.status(403).json({ error: "Token has been revoked!" });
+      res.status(403).json({ error: "Token foi revogado!" });
       return;
     }
 
     jwt.verify(token, process.env.SECRET_KEY as string, (error, payload) => {
       if (error) {
-        res.status(403).json({ error: "Token is not valid!" });
+        res.status(403).json({ error: "Token não é válido!" });
         return;
       }
 
@@ -39,9 +39,9 @@ export const authenticateToken = async (
     });
   } catch (error) {
     console.error(
-      `Error when trying to authenticate token: ${error}!`.red.bgBlack
+      `Erro ao tentar autenticar token: ${error}!`.red.bgBlack
     );
 
-    res.status(500).json({ error: "Server error!" });
+    res.status(500).json({ error: "Erro do servidor!" });
   }
 };

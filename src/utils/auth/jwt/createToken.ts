@@ -11,8 +11,8 @@ export const generateToken = async (userId: number) => {
       expiresIn: "30d",
     });
   } catch (error) {
-    console.error(`Generate login token failed! Error: ${error}`.red.bgBlack);
+    console.error(`Falha ao gerar token de login! Erro: ${error}`.red.bgBlack);
 
-    return { error: "Generate login token failed!" };
+    return { error: "Falha ao gerar token de login!" };
   }
 };
