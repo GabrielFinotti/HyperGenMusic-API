@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { getUserData } from "../../utils/user/getUserData";
+import { userUtils } from "../../utils";
 
 export const userData = async (req: Request, res: Response) => {
   try {
     const userId = parseInt(req.params.id);
 
-    const userData = await getUserData(userId);
+    const userData = await userUtils.getUserData(userId);
 
     if (!userData) {
       return res.status(404).json({ message: "User not found!" });

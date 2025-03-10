@@ -1,13 +1,11 @@
 import { UserInterface } from "../../../interfaces/userInterface";
-import regexGroup from "../regex/regexGroup";
+import { regex } from "../../auth";
 
 export const updateDataVerification = (userData: Partial<UserInterface>) => {
   const errors: string[] = [];
 
   validateUsername(userData.username, errors);
-
   validatePassword(userData.password, errors);
-
   validateEmail(userData.email, errors);
 
   return errors.length > 0 ? errors : userData;
@@ -38,13 +36,13 @@ function validatePassword(password?: string, errors: string[] = []): void {
 
   const missingConditions: string[] = [];
 
-  if (!regexGroup.uppercase.test(password)) {
+  if (!regex.regexGroup.uppercase.test(password)) {
     missingConditions.push("an uppercase letter");
   }
-  if (!regexGroup.number.test(password)) {
+  if (!regex.regexGroup.number.test(password)) {
     missingConditions.push("a number");
   }
-  if (!regexGroup.specialChar.test(password)) {
+  if (!regex.regexGroup.specialChar.test(password)) {
     missingConditions.push("a special character");
   }
 
@@ -62,7 +60,7 @@ function validateEmail(email?: string, errors: string[] = []): void {
     errors.push("Email cannot start or end with whitespace!");
   }
 
-  if (!regexGroup.email.test(email)) {
+  if (!regex.regexGroup.email.test(email)) {
     errors.push("Invalid email format!");
   }
 }

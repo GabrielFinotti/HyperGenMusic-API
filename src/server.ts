@@ -1,7 +1,7 @@
 import express, { json } from "express";
 import sequelize, { createDatabase } from "./config/database/databaseConfig";
 import redisClient from "./config/redis/redisConfig";
-import { routes } from "./routes/routes";
+import { musicRoutes, adminRoutes, userRoutes } from "./routes";
 import cors from "cors";
 import dotenv from "dotenv";
 export * from "colors";
@@ -26,7 +26,7 @@ app.listen(process.env.PORT, async () => {
     await sequelize.sync({ alter: true });
     console.log("Database synchronized!".green.bgBlack);
 
-    app.use("/api", routes.musicRoutes, routes.adminRoutes, routes.userRoutes);
+    app.use("/api", musicRoutes, adminRoutes, userRoutes);
   } catch (error) {
     console.error(`Error during server initialization: ${error}`.red.bgBlack);
   }

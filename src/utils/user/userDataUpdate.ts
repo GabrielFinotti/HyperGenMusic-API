@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { UserInterface } from "../../interfaces/userInterface";
 import User from "../../models/userModel";
-import { getUserData } from "./getUserData";
+import { userUtils } from "..";
 
 export const userDataUpdate = async (
   userDataUpdate: Partial<UserInterface>,
@@ -9,7 +9,7 @@ export const userDataUpdate = async (
 ) => {
   try {
     if (userDataUpdate.email || userDataUpdate.username) {
-      const existingUser = await getUserData(
+      const existingUser = await userUtils.getUserData(
         undefined,
         userDataUpdate.email,
         userDataUpdate.username

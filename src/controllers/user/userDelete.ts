@@ -1,13 +1,12 @@
 import { Request, Response } from "express";
-import { getUserData } from "../../utils/user/getUserData";
-import { deleteToken } from "../../utils/auth/jwt/deleteToken";
+import { userUtils, authUtils } from "../../utils";
 
 export const userDelete = async (req: Request, res: Response) => {
   try {
     const userId = parseInt(req.params.id);
     const authHeader = req.headers.authorization;
 
-    const userData = await getUserData(userId);
+    const userData = await userUtils.getUserData(userId);
 
     if (!userData) {
       return res.status(404).json({ message: "User not found!" });
@@ -17,7 +16,7 @@ export const userDelete = async (req: Request, res: Response) => {
       return res.status(401).json({ message: "Unauthorized!" });
     }
 
-    const revogeToken = await deleteToken(authHeader);
+    const revogeToken = await authUtils.jwt.deleteToken(authHeader);
 
     if (revogeToken.error) {
       return res

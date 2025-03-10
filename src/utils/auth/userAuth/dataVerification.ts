@@ -1,15 +1,12 @@
 import { UserInterface } from "../../../interfaces/userInterface";
-import regexGroup from "../regex/regexGroup";
+import { regex } from "../../auth";
 
 export const userDataVerification = (userData: UserInterface) => {
   const errors: string[] = [];
 
   validateWhitespace(userData, errors);
-
   validateFieldLengths(userData, errors);
-
   validatePasswordComplexity(userData.password, errors);
-
   validateEmailFormat(userData.email, errors);
 
   if (!userData.role) {
@@ -46,15 +43,15 @@ function validateFieldLengths(userData: UserInterface, errors: string[]): void {
 function validatePasswordComplexity(password: string, errors: string[]): void {
   const missingConditions: string[] = [];
 
-  if (!regexGroup.uppercase.test(password)) {
+  if (!regex.regexGroup.uppercase.test(password)) {
     missingConditions.push("an uppercase letter");
   }
 
-  if (!regexGroup.number.test(password)) {
+  if (!regex.regexGroup.number.test(password)) {
     missingConditions.push("a number");
   }
 
-  if (!regexGroup.specialChar.test(password)) {
+  if (!regex.regexGroup.specialChar.test(password)) {
     missingConditions.push("a special character");
   }
 
@@ -66,7 +63,7 @@ function validatePasswordComplexity(password: string, errors: string[]): void {
 }
 
 function validateEmailFormat(email: string, errors: string[]): void {
-  if (!regexGroup.email.test(email)) {
+  if (!regex.regexGroup.email.test(email)) {
     errors.push("Invalid email format!");
   }
 }

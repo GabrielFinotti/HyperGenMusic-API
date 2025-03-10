@@ -1,20 +1,19 @@
 import { Request, Response } from "express";
 import { UserInterface } from "../../interfaces/userInterface";
 import User from "../../models/userModel";
-import { userDataVerification } from "../../utils/auth/userAuth/dataVerification";
-import { getUserData } from "../../utils/user/getUserData";
+import { authUtils, userUtils } from "../../utils";
 
 export const userRegister = async (req: Request, res: Response) => {
   try {
     const userData = req.body as UserInterface;
 
-    const confirmUserData = userDataVerification(userData);
+    const confirmUserData = authUtils.userAuth.userDataVerification(userData);
 
     if (confirmUserData instanceof Array) {
       return res.status(400).json({ errors: confirmUserData });
     }
 
-    const existingUser = await getUserData(
+    const existingUser = await userUtils.getUserData(
       undefined,
       userData.email,
       userData.username

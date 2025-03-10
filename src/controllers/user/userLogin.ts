@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import User from "../../models/userModel";
 import bcrypt from "bcrypt";
 import { UserInterface } from "../../interfaces/userInterface";
-import { generateToken } from "../../utils/auth/jwt/createToken";
+import { authUtils } from "../../utils";
 
 export const userLogin = async (req: Request, res: Response) => {
   try {
@@ -32,7 +32,7 @@ export const userLogin = async (req: Request, res: Response) => {
       return res.status(401).json({ error: "Invalid password!" });
     }
 
-    const token = await generateToken(getProfile.getDataValue("id"));
+    const token = await authUtils.jwt.generateToken(getProfile.getDataValue("id"));
 
     if (typeof token !== "string") {
       return res.status(500).json({ error: token.error });

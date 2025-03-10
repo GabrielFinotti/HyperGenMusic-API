@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import User from "../../models/userModel";
 import { UserInterface } from "../../interfaces/userInterface";
-import { updateDataVerification } from "../../utils/auth/userAuth/updateDataVerification";
-import { userDataUpdate } from "../../utils/user/userDataUpdate";
+import { authUtils, userUtils } from "../../utils";
 
 export const userUpdate = async (
   req: Request,
@@ -12,7 +11,8 @@ export const userUpdate = async (
     const userId = parseInt(req.params.id);
     const userData = req.body as Partial<UserInterface>;
 
-    const validatedUserData = updateDataVerification(userData);
+    const validatedUserData =
+      authUtils.userAuth.updateDataVerification(userData);
 
     if (Array.isArray(validatedUserData)) {
       return res.status(400).json({ errors: validatedUserData });
@@ -29,7 +29,7 @@ export const userUpdate = async (
       return res.status(404).json({ error: "User not found!" });
     }
 
-    const result = await userDataUpdate(validatedUserData, user);
+    const result = await userUtils.userDataUpdate(validatedUserData, user);
 
     if ("error" in result) {
       return res.status(400).json({ error: result.error });
