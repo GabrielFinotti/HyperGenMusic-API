@@ -2,21 +2,35 @@
   "name": "projectsong-api",
   "version": "1.0.0",
   "description": "Api Streaming Music",
+  "author": "Gabriel Henrique Finotti",
+  "license": "Proprietária",
+  "private": true,
   "main": "server.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "scripts": {
-    "dev": "tsx watch src/server.ts",
-    "test": "",
     "build": "tsup src",
-    "start": "node dist/server.js"
+    "clean": "rm -rf dist",
+    "dev": "tsx watch src/server.ts",
+    "lint": "tsc --noEmit",
+    "prebuild": "npm run clean",
+    "start": "node dist/server.js",
+    "test": "echo \"No tests specified\" && exit 0"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GabrielFinotti/ProjectSong-API.git"
   },
-  "keywords": [],
-  "author": "Gabriel Henrique Finotti",
-  "license": "Proprietária",
-  "type": "commonjs",
+  "keywords": [
+    "api",
+    "streaming",
+    "music",
+    "node",
+    "typescript",
+    "express"
+  ],
   "bugs": {
     "url": "https://github.com/GabrielFinotti/ProjectSong-API/issues"
   },
@@ -31,17 +45,16 @@
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.13.3",
     "pg-hstore": "^2.3.4",
-    "redis": "^4.7.0",
     "sequelize": "^6.37.5"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
+    "@types/ioredis": "^4.28.10",
     "@types/jsonwebtoken": "^9.0.8",
     "@types/pg": "^8.11.11",
     "@types/sequelize": "^4.28.20",
-    "@types/ioredis": "^4.28.10",
     "tsup": "^8.3.6",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3"
