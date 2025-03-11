@@ -10,7 +10,8 @@ export const userRegister = async (req: Request, res: Response) => {
     const confirmUserData = authUtils.userAuth.userDataVerification(userData);
 
     if (confirmUserData instanceof Array) {
-      return res.status(400).json({ errors: confirmUserData });
+      res.status(400).json({ errors: confirmUserData });
+      return;
     }
 
     const existingUser = await userUtils.getUserData(
@@ -20,17 +21,18 @@ export const userRegister = async (req: Request, res: Response) => {
     );
 
     if (existingUser) {
-      return res
+      res
         .status(409)
         .json({ errors: ["Nome de usuário ou e-mail já existe!"] });
+      return;
     }
 
     await User.create(userData);
 
-    return res.status(201).json({ message: "Usuário registrado com sucesso!" });
+    res.status(201).json({ message: "Usuário registrado com sucesso!" });
   } catch (error) {
     console.error(`Erro ao registrar usuário, ${error}!`.red.bgBlack);
 
-    return res.sendStatus(500);
+    res.sendStatus(500);
   }
 };

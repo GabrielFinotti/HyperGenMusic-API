@@ -8,13 +8,14 @@ export const userData = async (req: Request, res: Response) => {
     const userData = await userUtils.getUserData(userId);
 
     if (!userData) {
-      return res.status(404).json({ message: "Usuário não encontrado!" });
+      res.status(404).json({ message: "Usuário não encontrado!" });
+      return;
     }
 
-    return res.status(200).json(userData.toPublicJSON());
+    res.status(200).json(userData.toPublicJSON());
   } catch (error) {
     console.error(`Erro ao obter dados do usuário: ${error}`.red.bgBlack);
 
-    return res.status(500).json({ message: "Erro interno do servidor!" });
+    res.status(500).json({ message: "Erro interno do servidor!" });
   }
 };

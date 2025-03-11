@@ -9,29 +9,32 @@ export const userDelete = async (req: Request, res: Response) => {
     const userData = await userUtils.getUserData(userId);
 
     if (!userData) {
-      return res.status(404).json({ message: "Usuário não encontrado!" });
+      res.status(404).json({ message: "Usuário não encontrado!" });
+      return;
     }
 
     if (!authHeader) {
-      return res.status(401).json({ message: "Não autorizado!" });
+      res.status(401).json({ message: "Não autorizado!" });
+      return;
     }
 
     const revogeToken = await authUtils.jwt.deleteToken(authHeader);
 
     if (revogeToken.error) {
-      return res
+      res
         .status(400)
         .json({ message: `Erro ao excluir usuário: ${revogeToken.error}` });
+      return;
     }
 
     await userData.destroy();
 
-    return res
-      .status(200)
-      .json({ message: `Usuário excluído com sucesso, ${revogeToken.message}!` });
+    res.status(200).json({
+      message: `Usuário excluído com sucesso, ${revogeToken.message}!`,
+    });
   } catch (error) {
     console.error(`Erro ao excluir usuário: ${error}`.red.bgBlack);
 
-    return res.status(500).json({ message: "Erro interno do servidor!" });
+    res.status(500).json({ message: "Erro interno do servidor!" });
   }
 };

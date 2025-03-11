@@ -9,7 +9,7 @@ export const authenticateToken = async (
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<void> => {
+) => {
   try {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(" ")[1];
@@ -38,10 +38,9 @@ export const authenticateToken = async (
       }
     });
   } catch (error) {
-    console.error(
-      `Erro ao tentar autenticar token: ${error}!`.red.bgBlack
-    );
+    console.error(`Erro ao tentar autenticar token: ${error}!`.red.bgBlack);
 
     res.status(500).json({ error: "Erro do servidor!" });
+    return;
   }
 };

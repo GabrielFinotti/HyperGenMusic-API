@@ -8,9 +8,8 @@ export const userLogin = async (req: Request, res: Response) => {
     const userData = req.body as UserInterface;
 
     if (!userData.email || !userData.password) {
-      return res
-        .status(400)
-        .json({ error: "Email e senha são obrigatórios!" });
+      res.status(400).json({ error: "Email e senha são obrigatórios!" });
+      return;
     }
 
     const getProfile = await User.findOne({
@@ -19,27 +18,30 @@ export const userLogin = async (req: Request, res: Response) => {
     });
 
     if (!getProfile) {
-      return res.status(404).json({ error: "Usuário não encontrado!" });
+      res.status(404).json({ error: "Usuário não encontrado!" });
+      return;
     }
 
     const isValidPassword = await getProfile.comparePassword(userData.password);
 
     if (!isValidPassword) {
-      return res.status(401).json({ error: "Senha inválida!" });
+      res.status(401).json({ error: "Senha inválida!" });
+      return;
     }
 
     const token = await authUtils.jwt.generateToken(getProfile.id);
 
     if (typeof token !== "string") {
-      return res.status(500).json({ error: token.error });
+      res.status(500).json({ error: token.error });
+      return;
     }
 
-    return res.status(200).json({
+    res.status(200).json({
       message: "Usuário logado com sucesso!",
       token,
     });
   } catch (error) {
     console.error("Erro durante o login:", error);
-    return res.sendStatus(500);
+    res.sendStatus(500);
   }
 };

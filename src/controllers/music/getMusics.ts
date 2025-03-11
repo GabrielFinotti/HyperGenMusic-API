@@ -7,10 +7,10 @@ export const getMusics = async (req: Request, res: Response) => {
 
     const formattedMusics = musics.map((music) => music.toApiFormat());
 
-    return res.status(200).json(formattedMusics);
+    res.status(200).json(formattedMusics);
   } catch (error) {
     console.error(`Erro ao recuperar músicas: ${error}`.red.bgBlack);
 
-    return res.status(500).send({ message: `Erro ao recuperar músicas!` });
+    res.status(500).send({ message: `Erro ao recuperar músicas!` });
   }
 };
