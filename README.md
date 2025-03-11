@@ -3,10 +3,11 @@
 **API para Streaming de Músicas**
 
 [![Node.js](https://img.shields.io/badge/Node.js-16+-green.svg)](https://nodejs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
-[![Express](https://img.shields.io/badge/Express-4.x-lightgray.svg)](https://expressjs.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7+-blue.svg)](https://www.typescriptlang.org/)
+[![Express](https://img.shields.io/badge/Express-4.21+-lightgray.svg)](https://expressjs.com/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-blue.svg)](https://www.postgresql.org/)
 [![Redis](https://img.shields.io/badge/Redis-Latest-red.svg)](https://redis.io/)
+[![Sequelize](https://img.shields.io/badge/Sequelize-6.37+-orange.svg)](https://sequelize.org/)
 
 ## 📋 Visão Geral
 
@@ -21,6 +22,9 @@ ProjectSong API é um serviço backend completo para gerenciamento de músicas e
 - **JWT** - Autenticação baseada em tokens
 - **Redis** - Armazenamento de cache e lista de tokens inválidos
 - **bcrypt** - Criptografia de senhas
+- **IoRedis** - Cliente Redis para Node.js
+- **CORS** - Middleware para habilitar CORS
+- **dotenv** - Carregamento de variáveis de ambiente
 
 ## 🏗️ Arquitetura do Projeto
 
@@ -185,21 +189,18 @@ O projeto inclui testes unitários e de integração:
 ```bash
 # Executar todos os testes
 npm test
-
-# Executar testes específicos
-npm run test:unit
-npm run test:integration
 ```
 
 ## 👨‍💻 Desenvolvimento
 
 ### Scripts Disponíveis
 
-- `npm run dev`: Inicia o servidor em modo de desenvolvimento com recarga automática
-- `npm run build`: Compila o código TypeScript para JavaScript
+- `npm run dev`: Inicia o servidor em modo de desenvolvimento com recarga automática (usando tsx)
+- `npm run build`: Compila o código TypeScript para JavaScript (usando tsup)
+- `npm run clean`: Remove a pasta de distribuição
 - `npm start`: Executa a versão compilada da aplicação
+- `npm run lint`: Verifica a tipagem do código TypeScript
 - `npm test`: Executa os testes
-- `npm run lint`: Verifica o estilo de código
 
 ### Padrões de Código
 
@@ -208,6 +209,16 @@ Este projeto segue os princípios de:
 - RESTful API
 - DRY (Don't Repeat Yourself)
 - SOLID
+
+## 🧰 Funcionalidades Principais
+
+- **Autenticação Segura**: Sistema de login/registro com tokens JWT
+- **Gestão de Usuários**: Criação, atualização e exclusão de contas
+- **Catálogo de Músicas**: Acesso a informações detalhadas de músicas
+- **Gestão Administrativa**: Ferramentas para administradores gerenciarem usuários e conteúdos
+- **Validação de Dados**: Verificação rigorosa dos dados de entrada
+- **Proteção de Rotas**: Middleware de autenticação para rotas protegidas
+- **Invalidação de Tokens**: Sistema de blacklist para tokens revogados
 
 ## 🤝 Contribuição
 
@@ -221,7 +232,7 @@ Contribuições são bem-vindas! Por favor, siga estes passos:
 
 ## 📜 Licença
 
-ISC © Gabriel Henrique Finotti
+Proprietária © Gabriel Henrique Finotti. Todos os direitos reservados.
 
 ---
 
@@ -230,10 +241,11 @@ ISC © Gabriel Henrique Finotti
 **Music Streaming API**
 
 [![Node.js](https://img.shields.io/badge/Node.js-16+-green.svg)](https://nodejs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
-[![Express](https://img.shields.io/badge/Express-4.x-lightgray.svg)](https://expressjs.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7+-blue.svg)](https://www.typescriptlang.org/)
+[![Express](https://img.shields.io/badge/Express-4.21+-lightgray.svg)](https://expressjs.com/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-blue.svg)](https://www.postgresql.org/)
 [![Redis](https://img.shields.io/badge/Redis-Latest-red.svg)](https://redis.io/)
+[![Sequelize](https://img.shields.io/badge/Sequelize-6.37+-orange.svg)](https://sequelize.org/)
 
 ## 📋 Overview
 
@@ -248,6 +260,9 @@ ProjectSong API is a complete backend service for music and user management, wit
 - **JWT** - Token-based authentication
 - **Redis** - Cache storage and invalidated token list
 - **bcrypt** - Password encryption
+- **IoRedis** - Redis client for Node.js
+- **CORS** - Middleware for enabling CORS
+- **dotenv** - Environment variable loader
 
 ## 🏗️ Project Architecture
 
@@ -412,21 +427,18 @@ The project includes unit and integration tests:
 ```bash
 # Run all tests
 npm test
-
-# Run specific tests
-npm run test:unit
-npm run test:integration
 ```
 
 ## 👨‍💻 Development
 
 ### Available Scripts
 
-- `npm run dev`: Starts the server in development mode with auto-reload
-- `npm run build`: Compiles TypeScript code to JavaScript
+- `npm run dev`: Starts the server in development mode with auto-reload (using tsx)
+- `npm run build`: Compiles TypeScript code to JavaScript (using tsup)
+- `npm run clean`: Removes the distribution folder
 - `npm start`: Runs the compiled application
+- `npm run lint`: Checks TypeScript type correctness
 - `npm test`: Runs tests
-- `npm run lint`: Checks code style
 
 ### Code Standards
 
@@ -435,6 +447,16 @@ This project follows the principles of:
 - RESTful API
 - DRY (Don't Repeat Yourself)
 - SOLID
+
+## 🧰 Core Features
+
+- **Secure Authentication**: Login/register system with JWT tokens
+- **User Management**: Creation, updating, and deletion of accounts
+- **Music Catalog**: Access to detailed music information
+- **Administrative Management**: Tools for administrators to manage users and content
+- **Data Validation**: Rigorous validation of input data
+- **Route Protection**: Authentication middleware for protected routes
+- **Token Invalidation**: Blacklist system for revoked tokens
 
 ## 🤝 Contributing
 
@@ -448,4 +470,4 @@ Contributions are welcome! Please follow these steps:
 
 ## 📜 License
 
-ISC © Gabriel Henrique Finotti
+Proprietary © Gabriel Henrique Finotti. All rights reserved.
