@@ -25,9 +25,6 @@ class Music
   declare artist?: string;
   declare genre?: string;
 
-  /**
-   * Formata a duração da música em formato legível (HH:MM:SS ou MM:SS)
-   */
   public getFormattedDuration(): string {
     const hours = Math.floor(this.duration / 3600);
     const minutes = Math.floor((this.duration % 3600) / 60);
@@ -42,16 +39,10 @@ class Music
       .join(":");
   }
 
-  /**
-   * Retorna se a música é considerada longa (mais de 5 minutos)
-   */
   public isLongSong(): boolean {
-    return this.duration > 300; // 5 minutos em segundos
+    return this.duration > 300;
   }
 
-  /**
-   * Retorna o objeto com dados formatados para API
-   */
   public toApiFormat() {
     return {
       ...this.get({ plain: true }),
