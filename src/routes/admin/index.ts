@@ -1,8 +1,10 @@
 import { Router } from "express";
+import { authenticateToken } from "../../middleware";
+import { insertMusic } from "../../controllers/admin";
 
 const router = Router();
 
-router.post("/music/insert");
+router.post("/music/insert", authenticateToken, insertMusic);
 router.put("/music/edit/:id");
 router.delete("/music/delete/:id");
 router.delete("/music/delete/all");

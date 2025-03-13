@@ -21,9 +21,7 @@ export const userRegister = async (req: Request, res: Response) => {
     );
 
     if (existingUser) {
-      res
-        .status(409)
-        .json({ errors: ["Nome de usuário ou e-mail já existe!"] });
+      res.status(409).json({ errors: "Nome de usuário ou e-mail já esta em uso!" });
       return;
     }
 
