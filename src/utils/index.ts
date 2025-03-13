@@ -1,4 +1,3 @@
-// Importações diretas dos módulos
 import { jwt, regex, userAuth } from "./auth/index";
 import { getUserData, userDataUpdate } from "./user/index";
 

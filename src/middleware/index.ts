@@ -1,5 +1,3 @@
-import { authenticateToken } from './auth/tokenVerification';
+import { authenticateToken } from "./auth/tokenVerification";
 
-export {
-  authenticateToken
-};
+export { authenticateToken };
