@@ -1,153 +1,94 @@
 # 🎵 ProjectSong API
 
-**API para Streaming de Músicas**
+![Node.js](https://img.shields.io/badge/Node.js-16%2B-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.7%2B-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Express](https://img.shields.io/badge/Express-4.21%2B-000000?style=for-the-badge&logo=express&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-Latest-DC382D?style=for-the-badge&logo=redis&logoColor=white)
+![Sequelize](https://img.shields.io/badge/Sequelize-6.37%2B-52B0E7?style=for-the-badge&logo=sequelize&logoColor=white)
 
-[![Node.js](https://img.shields.io/badge/Node.js-16+-green.svg)](https://nodejs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.7+-blue.svg)](https://www.typescriptlang.org/)
-[![Express](https://img.shields.io/badge/Express-4.21+-lightgray.svg)](https://expressjs.com/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-blue.svg)](https://www.postgresql.org/)
-[![Redis](https://img.shields.io/badge/Redis-Latest-red.svg)](https://redis.io/)
-[![Sequelize](https://img.shields.io/badge/Sequelize-6.37+-orange.svg)](https://sequelize.org/)
+## 📋 Sobre
 
-## 📋 Visão Geral
+API completa para um serviço de streaming de músicas com autenticação, gerenciamento de usuários e controle administrativo. Desenvolvida com Node.js, Express, TypeScript, PostgreSQL e Redis para uma experiência robusta e escalável.
 
-ProjectSong API é um serviço backend completo para gerenciamento de músicas e usuários, com diferentes níveis de acesso e funcionalidades específicas para usuários comuns e administradores. O sistema implementa autenticação JWT, conexão com banco de dados PostgreSQL e utiliza Redis para gerenciamento de tokens.
+## 🛠️ Tecnologias Principais
 
-## 🛠️ Tecnologias Utilizadas
+- **Backend**: Node.js com Express e TypeScript
+- **Banco de Dados**: PostgreSQL com ORM Sequelize
+- **Cache e Tokens**: Redis
+- **Autenticação**: JWT com blacklist de tokens revogados
+- **Segurança**: bcrypt para criptografia de senhas
 
-- **Node.js** - Ambiente de execução JavaScript
-- **Express** - Framework web minimalista
-- **TypeScript** - Superset JavaScript tipado
-- **Sequelize** - ORM para PostgreSQL
-- **JWT** - Autenticação baseada em tokens
-- **Redis** - Armazenamento de cache e lista de tokens inválidos
-- **bcrypt** - Criptografia de senhas
-- **IoRedis** - Cliente Redis para Node.js
-- **CORS** - Middleware para habilitar CORS
-- **dotenv** - Carregamento de variáveis de ambiente
-
-## 🏗️ Arquitetura do Projeto
+## 🏗️ Estrutura do Projeto
 
 ```
 src/
- ├── config/           # Configurações (banco de dados, Redis)
- ├── controllers/      # Controladores de rotas (seguindo padrão REST)
- ├── interfaces/       # Interfaces TypeScript para tipagem
- ├── middleware/       # Middlewares (autenticação, validação, etc)
+ ├── config/           # Configurações (banco de dados, Redis, upload)
+ │   ├── database/     # Configuração do PostgreSQL
+ │   ├── multer/       # Configuração de upload de arquivos
+ │   └── redis/        # Configuração do Redis
+ ├── controllers/      # Controladores para lógica de negócios
+ │   ├── admin/        # Controladores administrativos
+ │   ├── music/        # Controladores para músicas
+ │   └── user/         # Controladores para usuários
+ ├── interfaces/       # Definição de tipos e interfaces
+ ├── middleware/       # Middleware (autenticação, validação)
  ├── models/           # Modelos de dados e schemas
- ├── routes/           # Rotas da API organizadas por domínio
- ├── utils/            # Funções auxiliares e helpers
+ ├── routes/           # Definição de rotas da API
+ ├── utils/            # Funções utilitárias
+ │   ├── auth/         # Utilidades de autenticação
+ │   ├── multer/       # Utilidades para upload
+ │   └── user/         # Utilidades para usuários
  └── server.ts         # Ponto de entrada da aplicação
 ```
 
-## 🧮 Modelos de Dados
+## 🚀 Funcionalidades
 
-### Usuário
-- `id`: Identificador único (chave primária)
-- `username`: Nome de usuário (único)
-- `email`: Email do usuário (único)
-- `password`: Senha criptografada
-- `imageUrl`: URL da imagem de perfil (opcional)
-- `role`: Função do usuário ('user' ou 'admin')
-- Timestamps: `createdAt` e `updatedAt`
+### Autenticação & Usuários
+- 🔐 Sistema completo de registro e login
+- 👤 Perfis de usuário com níveis de acesso
+- 🔄 Atualização de dados de perfil
+- 🗑️ Exclusão de conta
 
-### Música
-- `id`: Identificador único (chave primária)
-- `title`: Título da música
-- `songUrl`: URL do arquivo de áudio
-- `duration`: Duração em segundos
-- `imageUrl`: URL da capa (opcional)
-- `artist`: Nome do artista (opcional)
-- `genre`: Gênero musical (opcional)
-- Timestamps: `createdAt` e `updatedAt`
+### Gerenciamento de Músicas
+- 📋 Listagem de músicas disponíveis
+- 🔍 Busca por título, artista ou gênero
+- 📊 Detalhes completos de cada música
 
-## 🔌 Endpoints da API
+### Funções Administrativas
+- 👥 Gerenciamento completo de usuários
+- 🎵 Adicionar, editar e remover músicas
+- 🛡️ Controle de acesso por função
 
-### Autenticação e Perfil de Usuário
+## ⚙️ Requisitos
 
-| Método | Rota | Descrição | Autenticação |
-|--------|------|-----------|--------------|
-| POST | `/api/user/login` | Login de usuário | Não |
-| POST | `/api/user/register` | Registro de novo usuário | Não |
-| GET | `/api/profile` | Dados do perfil | Sim |
-| PUT | `/api/edit/profile` | Atualizar perfil | Sim |
-| DELETE | `/api/delete/profile` | Remover conta | Sim |
+- **Node.js** 16 ou superior
+- **PostgreSQL** 13 ou superior
+- **Redis** 6 ou superior
 
-### Rotas de Música
-
-| Método | Rota | Descrição | Autenticação |
-|--------|------|-----------|--------------|
-| GET | `/api/musics` | Listar todas músicas | Sim |
-| GET | `/api/music/search` | Buscar músicas por critérios | Sim |
-| GET | `/api/music/data/:id` | Dados de música específica | Sim |
-
-### Rotas de Administrador
-
-#### Gerenciamento de Músicas
-
-| Método | Rota | Descrição | Autenticação |
-|--------|------|-----------|--------------|
-| POST | `/api/music/insert` | Adicionar nova música | Admin |
-| PUT | `/api/music/edit/:id` | Editar música | Admin |
-| DELETE | `/api/music/delete/:id` | Remover música | Admin |
-| DELETE | `/api/music/delete/all` | Remover todas músicas | Admin |
-
-#### Gerenciamento de Usuários
-
-| Método | Rota | Descrição | Autenticação |
-|--------|------|-----------|--------------|
-| GET | `/api/users` | Listar todos usuários | Admin |
-| GET | `/api/user/name` | Buscar usuário por nome | Admin |
-| GET | `/api/user/data/:id` | Dados de usuário específico | Admin |
-| POST | `/api/user/create` | Criar novo usuário | Admin |
-| PUT | `/api/user/edit/:id` | Editar usuário | Admin |
-| DELETE | `/api/user/delete/:id` | Remover usuário | Admin |
-| DELETE | `/api/user/delete/all` | Remover todos usuários | Admin |
-
-## 🔐 Autenticação
-
-- A API utiliza JWT (JSON Web Token) para autenticação
-- Após o login, o token deve ser incluído no header das requisições:
-  ```
-  Authorization: Bearer <seu-token>
-  ```
-- Tokens invalidados (logout) são armazenados em uma blacklist no Redis
-- Tokens expiram após 30 dias por padrão
-
-## 🚀 Como Executar
-
-### Pré-requisitos
-
-- [Node.js](https://nodejs.org/) (versão 16+)
-- [PostgreSQL](https://www.postgresql.org/) (versão 13+)
-- [Redis](https://redis.io/) (versão 6+)
-- [Git](https://git-scm.com/)
+## 🚦 Começando
 
 ### Configuração do Ambiente
 
-1. Clone o repositório:
+1. **Clone o repositório**
    ```bash
    git clone https://github.com/GabrielFinotti/ProjectSong-API.git
    cd ProjectSong-API
    ```
 
-2. Instale as dependências:
+2. **Instale as dependências**
    ```bash
    npm install
    ```
 
-3. Configure as variáveis de ambiente:
-   
-   Crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo:
-
+3. **Configure o arquivo .env**
    ```env
    # Servidor
    PORT=3000
-   NODE_ENV=development
    
    # Banco de Dados
    DB_NAME=project_song
-   DB_USER=postgres
+   DB_USER=seu_usuario
    DB_PASSWORD=sua_senha
    DB_HOST=localhost
    DB_PORT=5432
@@ -159,315 +100,80 @@ src/
    SECRET_KEY=sua_chave_secreta
    ```
 
-4. Execute em modo desenvolvimento com recarga automática:
+4. **Inicie o servidor de desenvolvimento**
    ```bash
    npm run dev
    ```
 
-5. Para build de produção:
-   ```bash
-   npm run build
-   npm start
-   ```
-
-### Docker (Opcional)
-
-Se preferir usar Docker, você pode executar:
-
-```bash
-# Iniciar serviços (PostgreSQL e Redis)
-docker-compose up -d
-
-# Iniciar apenas a aplicação
-npm run dev
-```
-
-## 🧪 Testes
-
-O projeto inclui testes unitários e de integração:
-
-```bash
-# Executar todos os testes
-npm test
-```
-
-## 👨‍💻 Desenvolvimento
-
 ### Scripts Disponíveis
 
-- `npm run dev`: Inicia o servidor em modo de desenvolvimento com recarga automática (usando tsx)
-- `npm run build`: Compila o código TypeScript para JavaScript (usando tsup)
+- `npm run dev`: Inicia o servidor com recarga automática
+- `npm run build`: Compila o código TypeScript
+- `npm start`: Executa a versão compilada
+- `npm run lint`: Verifica tipos e sintaxe
 - `npm run clean`: Remove a pasta de distribuição
-- `npm start`: Executa a versão compilada da aplicação
-- `npm run lint`: Verifica a tipagem do código TypeScript
-- `npm test`: Executa os testes
 
-### Padrões de Código
+## 📡 Endpoints da API
 
-Este projeto segue os princípios de:
-- Clean Architecture
-- RESTful API
-- DRY (Don't Repeat Yourself)
-- SOLID
+### 👤 Usuários
 
-## 🧰 Funcionalidades Principais
+| Método | Rota                  | Descrição             | Autenticação |
+|--------|----------------------|------------------------|--------------|
+| POST   | `/api/user/register` | Registro de usuário    | Não          |
+| POST   | `/api/user/login`    | Login                  | Não          |
+| GET    | `/api/profile`       | Dados do perfil        | Sim          |
+| PUT    | `/api/edit/profile`  | Atualizar perfil       | Sim          |
+| DELETE | `/api/delete/profile`| Excluir conta          | Sim          |
 
-- **Autenticação Segura**: Sistema de login/registro com tokens JWT
-- **Gestão de Usuários**: Criação, atualização e exclusão de contas
-- **Catálogo de Músicas**: Acesso a informações detalhadas de músicas
-- **Gestão Administrativa**: Ferramentas para administradores gerenciarem usuários e conteúdos
-- **Validação de Dados**: Verificação rigorosa dos dados de entrada
-- **Proteção de Rotas**: Middleware de autenticação para rotas protegidas
-- **Invalidação de Tokens**: Sistema de blacklist para tokens revogados
+### 🎵 Músicas
 
-## 🤝 Contribuição
+| Método | Rota                  | Descrição             | Autenticação |
+|--------|----------------------|------------------------|--------------|
+| GET    | `/api/musics`        | Listar músicas         | Sim          |
+| GET    | `/api/music/search`  | Buscar músicas         | Sim          |
+| GET    | `/api/music/data/:id`| Detalhes da música     | Sim          |
 
-Contribuições são bem-vindas! Por favor, siga estes passos:
+### 👑 Administração
+
+| Método | Rota                     | Descrição             | Autenticação |
+|--------|--------------------------|-----------------------|--------------|
+| POST   | `/api/music/insert`      | Adicionar música      | Admin        |
+| PUT    | `/api/music/edit/:id`    | Editar música         | Admin        |
+| DELETE | `/api/music/delete/:id`  | Remover música        | Admin        |
+| GET    | `/api/users`             | Listar usuários       | Admin        |
+| PUT    | `/api/user/edit/:id`     | Editar usuário        | Admin        |
+| DELETE | `/api/user/delete/:id`   | Remover usuário       | Admin        |
+
+## 🔒 Autenticação
+
+A API usa autenticação JWT. Os tokens devem ser enviados no header:
+
+```
+Authorization: Bearer seu_token_aqui
+```
+
+Os tokens invalidados (logout) são armazenados em uma blacklist no Redis para garantir que não possam ser reutilizados.
+
+## 💡 Boas Práticas Implementadas
+
+- ✅ Arquitetura em camadas para melhor separação de responsabilidades
+- ✅ Validação rigorosa de dados de entrada
+- ✅ Tratamento centralizado de erros
+- ✅ Criptografia forte para senhas
+- ✅ Blacklist de tokens JWT para segurança aprimorada
+- ✅ Convenções consistentes de nomenclatura
+- ✅ Tipagem forte com TypeScript
+
+## 🤝 Contribuições
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
 
 1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/amazing-feature`)
-3. Faça commit das suas alterações (`git commit -m 'Add some amazing feature'`)
-4. Faça push para a branch (`git push origin feature/amazing-feature`)
+2. Crie sua branch de feature (`git checkout -b feature/incrivel`)
+3. Commit suas alterações (`git commit -m 'Adiciona recurso incrível'`)
+4. Push para a branch (`git push origin feature/incrivel`)
 5. Abra um Pull Request
 
 ## 📜 Licença
 
 Proprietária © Gabriel Henrique Finotti. Todos os direitos reservados.
-
----
-
-# ProjectSong API (English Version)
-
-**Music Streaming API**
-
-[![Node.js](https://img.shields.io/badge/Node.js-16+-green.svg)](https://nodejs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.7+-blue.svg)](https://www.typescriptlang.org/)
-[![Express](https://img.shields.io/badge/Express-4.21+-lightgray.svg)](https://expressjs.com/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-blue.svg)](https://www.postgresql.org/)
-[![Redis](https://img.shields.io/badge/Redis-Latest-red.svg)](https://redis.io/)
-[![Sequelize](https://img.shields.io/badge/Sequelize-6.37+-orange.svg)](https://sequelize.org/)
-
-## 📋 Overview
-
-ProjectSong API is a complete backend service for music and user management, with different access levels and specific functionalities for regular users and administrators. The system implements JWT authentication, PostgreSQL database connection, and uses Redis for token management.
-
-## 🛠️ Technologies Used
-
-- **Node.js** - JavaScript runtime environment
-- **Express** - Minimalist web framework
-- **TypeScript** - Typed JavaScript superset
-- **Sequelize** - ORM for PostgreSQL
-- **JWT** - Token-based authentication
-- **Redis** - Cache storage and invalidated token list
-- **bcrypt** - Password encryption
-- **IoRedis** - Redis client for Node.js
-- **CORS** - Middleware for enabling CORS
-- **dotenv** - Environment variable loader
-
-## 🏗️ Project Architecture
-
-```
-src/
- ├── config/           # Configurations (database, Redis)
- ├── controllers/      # Route controllers (following REST pattern)
- ├── interfaces/       # TypeScript interfaces for typing
- ├── middleware/       # Middlewares (authentication, validation, etc)
- ├── models/           # Data models and schemas
- ├── routes/           # API routes organized by domain
- ├── utils/            # Helper functions and utilities
- └── server.ts         # Application entry point
-```
-
-## 🧮 Data Models
-
-### User
-- `id`: Unique identifier (primary key)
-- `username`: Username (unique)
-- `email`: User email (unique)
-- `password`: Encrypted password
-- `imageUrl`: Profile image URL (optional)
-- `role`: User role ('user' or 'admin')
-- Timestamps: `createdAt` and `updatedAt`
-
-### Music
-- `id`: Unique identifier (primary key)
-- `title`: Song title
-- `songUrl`: Audio file URL
-- `duration`: Duration in seconds
-- `imageUrl`: Cover image URL (optional)
-- `artist`: Artist name (optional)
-- `genre`: Music genre (optional)
-- Timestamps: `createdAt` and `updatedAt`
-
-## 🔌 API Endpoints
-
-### Authentication and User Profile
-
-| Method | Route | Description | Authentication |
-|--------|-------|-------------|---------------|
-| POST | `/api/user/login` | User login | No |
-| POST | `/api/user/register` | Register new user | No |
-| GET | `/api/profile` | Profile data | Yes |
-| PUT | `/api/edit/profile` | Update profile | Yes |
-| DELETE | `/api/delete/profile` | Remove account | Yes |
-
-### Music Routes
-
-| Method | Route | Description | Authentication |
-|--------|-------|-------------|---------------|
-| GET | `/api/musics` | List all songs | Yes |
-| GET | `/api/music/search` | Search songs by criteria | Yes |
-| GET | `/api/music/data/:id` | Specific song data | Yes |
-
-### Admin Routes
-
-#### Music Management
-
-| Method | Route | Description | Authentication |
-|--------|-------|-------------|---------------|
-| POST | `/api/music/insert` | Add new song | Admin |
-| PUT | `/api/music/edit/:id` | Edit song | Admin |
-| DELETE | `/api/music/delete/:id` | Remove song | Admin |
-| DELETE | `/api/music/delete/all` | Remove all songs | Admin |
-
-#### User Management
-
-| Method | Route | Description | Authentication |
-|--------|-------|-------------|---------------|
-| GET | `/api/users` | List all users | Admin |
-| GET | `/api/user/name` | Search user by name | Admin |
-| GET | `/api/user/data/:id` | Specific user data | Admin |
-| POST | `/api/user/create` | Create new user | Admin |
-| PUT | `/api/user/edit/:id` | Edit user | Admin |
-| DELETE | `/api/user/delete/:id` | Remove user | Admin |
-| DELETE | `/api/user/delete/all` | Remove all users | Admin |
-
-## 🔐 Authentication
-
-- The API uses JWT (JSON Web Token) for authentication
-- After login, the token must be included in request headers:
-  ```
-  Authorization: Bearer <your-token>
-  ```
-- Invalidated tokens (logout) are stored in a Redis blacklist
-- Tokens expire after 30 days by default
-
-## 🚀 How to Run
-
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) (version 16+)
-- [PostgreSQL](https://www.postgresql.org/) (version 13+)
-- [Redis](https://redis.io/) (version 6+)
-- [Git](https://git-scm.com/)
-
-### Environment Setup
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/GabrielFinotti/ProjectSong-API.git
-   cd ProjectSong-API
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Configure environment variables:
-   
-   Create a `.env` file in the project root with the following content:
-
-   ```env
-   # Server
-   PORT=3000
-   NODE_ENV=development
-   
-   # Database
-   DB_NAME=project_song
-   DB_USER=postgres
-   DB_PASSWORD=your_password
-   DB_HOST=localhost
-   DB_PORT=5432
-   
-   # Redis
-   REDIS_URL=redis://localhost:6379
-   
-   # JWT
-   SECRET_KEY=your_secret_key
-   ```
-
-4. Run in development mode with auto-reload:
-   ```bash
-   npm run dev
-   ```
-
-5. For production build:
-   ```bash
-   npm run build
-   npm start
-   ```
-
-### Docker (Optional)
-
-If you prefer using Docker, you can run:
-
-```bash
-# Start services (PostgreSQL and Redis)
-docker-compose up -d
-
-# Start only the application
-npm run dev
-```
-
-## 🧪 Testing
-
-The project includes unit and integration tests:
-
-```bash
-# Run all tests
-npm test
-```
-
-## 👨‍💻 Development
-
-### Available Scripts
-
-- `npm run dev`: Starts the server in development mode with auto-reload (using tsx)
-- `npm run build`: Compiles TypeScript code to JavaScript (using tsup)
-- `npm run clean`: Removes the distribution folder
-- `npm start`: Runs the compiled application
-- `npm run lint`: Checks TypeScript type correctness
-- `npm test`: Runs tests
-
-### Code Standards
-
-This project follows the principles of:
-- Clean Architecture
-- RESTful API
-- DRY (Don't Repeat Yourself)
-- SOLID
-
-## 🧰 Core Features
-
-- **Secure Authentication**: Login/register system with JWT tokens
-- **User Management**: Creation, updating, and deletion of accounts
-- **Music Catalog**: Access to detailed music information
-- **Administrative Management**: Tools for administrators to manage users and content
-- **Data Validation**: Rigorous validation of input data
-- **Route Protection**: Authentication middleware for protected routes
-- **Token Invalidation**: Blacklist system for revoked tokens
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the project
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📜 License
-
-Proprietary © Gabriel Henrique Finotti. All rights reserved.
