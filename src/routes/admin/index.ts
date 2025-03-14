@@ -1,10 +1,20 @@
 import { Router } from "express";
 import { authenticateToken } from "../../middleware";
 import { insertMusic } from "../../controllers/admin";
+import multerConfig from "../../config/multer";
 
 const router = Router();
 
-router.post("/music/insert", authenticateToken, insertMusic);
+router.post(
+  "/music/insert",
+  authenticateToken,
+  multerConfig.fields([
+    { name: "music", maxCount: 1 },
+    { name: "image", maxCount: 1 },
+  ]),
+  insertMusic
+);
+
 router.put("/music/edit/:id");
 router.delete("/music/delete/:id");
 router.delete("/music/delete/all");

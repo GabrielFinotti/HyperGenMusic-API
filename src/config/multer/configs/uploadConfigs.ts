@@ -2,7 +2,6 @@ import multer from "multer";
 import {
   generateFilename,
   getDestination,
-  createFileFilter,
 } from "../../../utils/multer/fileHandlers";
 import { MAX_FILE_SIZE, ALLOWED_MIMES } from "../constants/uploadConstants";
 

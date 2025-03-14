@@ -14,5 +14,5 @@ export const MUSICS_DIR = path.join(UPLOAD_BASE_DIR, "musics");
 
 export const ALLOWED_MIMES = {
   images: ["image/png"],
-  musics: ["video/mp4", "audio/mp4"],
+  musics: ["audio/mp4"],
 };
