@@ -18,6 +18,7 @@ API completa para um serviço de streaming de músicas com autenticação, geren
 - **Cache e Tokens**: Redis
 - **Autenticação**: JWT com blacklist de tokens revogados
 - **Segurança**: bcrypt para criptografia de senhas
+- **Upload de Arquivos**: Multer para gerenciamento de uploads de músicas e imagens
 
 ## 🏗️ Estrutura do Projeto
 
@@ -54,10 +55,14 @@ src/
 - 📋 Listagem de músicas disponíveis
 - 🔍 Busca por título, artista ou gênero
 - 📊 Detalhes completos de cada música
+- ⏱️ Exibição de duração formatada
+- 🏷️ Categorização por gêneros musicais
 
 ### Funções Administrativas
 - 👥 Gerenciamento completo de usuários
 - 🎵 Adicionar, editar e remover músicas
+- 🖼️ Upload de imagens de capa para músicas
+- 🔊 Upload de arquivos de áudio em formato MP4
 - 🛡️ Controle de acesso por função
 
 ## ⚙️ Requisitos
@@ -135,14 +140,45 @@ src/
 
 ### 👑 Administração
 
-| Método | Rota                     | Descrição             | Autenticação |
-|--------|--------------------------|-----------------------|--------------|
-| POST   | `/api/music/insert`      | Adicionar música      | Admin        |
-| PUT    | `/api/music/edit/:id`    | Editar música         | Admin        |
-| DELETE | `/api/music/delete/:id`  | Remover música        | Admin        |
-| GET    | `/api/users`             | Listar usuários       | Admin        |
-| PUT    | `/api/user/edit/:id`     | Editar usuário        | Admin        |
-| DELETE | `/api/user/delete/:id`   | Remover usuário       | Admin        |
+| Método | Rota                     | Descrição                    | Autenticação |
+|--------|--------------------------|------------------------------|--------------|
+| POST   | `/api/music/insert`      | Adicionar música com upload  | Admin        |
+| PUT    | `/api/music/edit/:id`    | Editar música                | Admin        |
+| DELETE | `/api/music/delete/:id`  | Remover música               | Admin        |
+| DELETE | `/api/music/delete/all`  | Remover todas as músicas     | Admin        |
+| GET    | `/api/users`             | Listar usuários              | Admin        |
+| GET    | `/api/user/name`         | Buscar usuário por nome      | Admin        |
+| GET    | `/api/user/data/:id`     | Detalhes do usuário          | Admin        |
+| POST   | `/api/user/create`       | Criar novo usuário           | Admin        |
+| PUT    | `/api/user/edit/:id`     | Editar usuário               | Admin        |
+| DELETE | `/api/user/delete/:id`   | Remover usuário              | Admin        |
+| DELETE | `/api/user/delete/all`   | Remover todos os usuários    | Admin        |
+
+## 📤 Upload de Arquivos
+
+A API suporta upload de arquivos para:
+
+- **Músicas**: Formato audio/mp4
+- **Imagens**: Formato image/png
+
+Exemplo de requisição para inserir música (utilizando FormData):
+```javascript
+const formData = new FormData();
+formData.append('music', arquivoDeAudio);
+formData.append('image', imagemDeCapa);
+formData.append('title', 'Nome da Música');
+formData.append('artist', 'Nome do Artista');
+formData.append('genre', 'Gênero Musical');
+formData.append('duration', '180'); // Duração em segundos
+
+fetch('/api/music/insert', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer seu_token_aqui'
+  },
+  body: formData
+});
+```
 
 ## 🔒 Autenticação
 
@@ -163,6 +199,7 @@ Os tokens invalidados (logout) são armazenados em uma blacklist no Redis para g
 - ✅ Blacklist de tokens JWT para segurança aprimorada
 - ✅ Convenções consistentes de nomenclatura
 - ✅ Tipagem forte com TypeScript
+- ✅ Gerenciamento seguro de uploads de arquivos
 
 ## 🤝 Contribuições
 
