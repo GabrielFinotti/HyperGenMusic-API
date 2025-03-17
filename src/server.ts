@@ -9,25 +9,46 @@ export * from "colors";
 dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-app.use(json(), cors({}));
+// Middleware
+app.use(json());
+app.use(cors({}));
 
-app.listen(process.env.PORT, async () => {
+// Configuração das rotas
+app.use("/api", musicRoutes, adminRoutes, userRoutes);
+
+// Inicialização do servidor
+const startServer = async () => {
   try {
-    console.log(`Servidor em execução!`.green.bgBlack);
+    console.log(`Inicializando servidor...`.blue.bgBlack);
 
+    // Criar banco de dados se não existir
     await createDatabase();
 
+    // Verificar conexão com Redis
     await redisClient.ping();
+    console.log(`Conexão com Redis estabelecida`.green.bgBlack);
 
+    // Conectar ao banco de dados
     await sequelize.authenticate();
     console.log("Banco de dados conectado!".green.bgBlack);
 
+    // Sincronizar modelos com o banco de dados
     await sequelize.sync({ alter: true });
     console.log("Banco de dados sincronizado!".green.bgBlack);
 
-    app.use("/api", musicRoutes, adminRoutes, userRoutes);
+    // Iniciar servidor HTTP
+    app.listen(PORT, () => {
+      console.log(`Servidor em execução na porta ${PORT}!`.green.bgBlack);
+    });
   } catch (error) {
-    console.error(`Erro durante a inicialização do servidor: ${error}`.red.bgBlack);
+    console.error(
+      `Erro durante a inicialização do servidor: ${error}`.red.bgBlack
+    );
+    process.exit(1);
   }
-});
+};
+
+// Iniciar servidor
+startServer();

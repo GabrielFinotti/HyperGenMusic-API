@@ -1,17 +1,13 @@
 import { Router } from "express";
-import { authenticateToken } from "../../middleware";
+import { authenticateToken, isAdmin } from "../../middleware";
 import { insertMusic } from "../../controllers/admin";
-import multerConfig from "../../config/multer";
 
 const router = Router();
 
 router.post(
   "/music/insert",
   authenticateToken,
-  multerConfig.fields([
-    { name: "music", maxCount: 1 },
-    { name: "image", maxCount: 1 },
-  ]),
+  isAdmin,
   insertMusic
 );
 
