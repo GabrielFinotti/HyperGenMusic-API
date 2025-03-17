@@ -36,7 +36,8 @@ export const createDatabase = async () => {
     if (res.rowCount === 0) {
       await client.query(`CREATE DATABASE ${process.env.DB_NAME}`);
       console.log(
-        `Banco de dados ${process.env.DB_NAME} criado com sucesso!`.green.bgBlack
+        `Banco de dados ${process.env.DB_NAME} criado com sucesso!`.green
+          .bgBlack
       );
     } else {
       console.log(
