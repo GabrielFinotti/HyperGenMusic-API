@@ -4,6 +4,7 @@ import redisClient from "./config/redis/redisConfig";
 import { musicRoutes, adminRoutes, userRoutes } from "./routes";
 import cors from "cors";
 import dotenv from "dotenv";
+import { folderUtils } from "./utils";
 export * from "colors";
 
 dotenv.config();
@@ -21,6 +22,9 @@ const startServer = async () => {
     console.log(`Inicializando servidor...`.blue.bgBlack);
 
     await createDatabase();
+
+    await folderUtils.setupUploadDirectories();
+    console.log(`Diretórios de upload criados`.green.bgBlack);
 
     await redisClient.ping();
     console.log(`Conexão com Redis estabelecida`.green.bgBlack);
