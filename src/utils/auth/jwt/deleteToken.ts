@@ -9,6 +9,7 @@ export const deleteToken = async (token: string) => {
     const tokenString = token.startsWith("Bearer ")
       ? token.split(" ")[1]
       : token;
+
     const payload = jwt.verify(tokenString, process.env.SECRET_KEY as string);
 
     if (payload && typeof payload === "object") {
@@ -20,8 +21,8 @@ export const deleteToken = async (token: string) => {
 
         await redisClient.set(`blacklist:${tokenString}`, "1", "EX", ttl);
         console.log(
-          `Token revogado e adicionado à lista negra por ${ttl} segundos!`.yellow
-            .bgBlack
+          `Token revogado e adicionado à lista negra por ${ttl} segundos!`
+            .yellow.bgBlack
         );
       }
 

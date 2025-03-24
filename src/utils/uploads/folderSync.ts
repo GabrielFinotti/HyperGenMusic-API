@@ -3,8 +3,8 @@ import path from "path";
 import { existsSync } from "fs";
 
 const setupUploadDirectories = async () => {
-  const rootDir = path.resolve(__dirname, "../../../uploads");
-  const uploadDir = path.join(rootDir, "src", "uploads");
+  const rootDir = path.resolve(__dirname, "../../../src");
+  const uploadDir = path.join(rootDir, "uploads");
   const imagesDir = path.join(uploadDir, "images");
   const songsDir = path.join(uploadDir, "music");
 

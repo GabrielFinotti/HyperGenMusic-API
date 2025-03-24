@@ -15,7 +15,9 @@ export const userDataUpdate = async (
       );
 
       if (existingUser && existingUser.id !== user.id) {
-        return { error: "Usuário com este e-mail ou nome de usuário já existe" };
+        return {
+          error: "Usuário com este e-mail ou nome de usuário já existe",
+        };
       }
     }
 
@@ -44,7 +46,7 @@ export const userDataUpdate = async (
     );
 
     if (!hasChanges) {
-      return { message: "Nenhuma alteração para atualizar" };
+      return { message: "Tudo está como antes, nada para atualizar" };
     }
 
     await user.save();

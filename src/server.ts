@@ -19,7 +19,7 @@ app.use("/api", musicRoutes, adminRoutes, userRoutes);
 
 const startServer = async () => {
   try {
-    console.log(`Inicializando servidor...`.blue.bgBlack);
+    console.log(`Inicializando servidor...`.cyan.bgBlack);
 
     await createDatabase();
 

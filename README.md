@@ -38,7 +38,7 @@ src/
  ├── routes/           # Definição de rotas da API
  ├── utils/            # Funções utilitárias
  │   ├── auth/         # Utilidades de autenticação
- │   ├── multer/       # Utilidades para upload
+ │   ├── uploads/      # Utilidades para gerenciamento de diretórios
  │   └── user/         # Utilidades para usuários
  └── server.ts         # Ponto de entrada da aplicação
 ```
@@ -62,7 +62,7 @@ src/
 - 👥 Gerenciamento completo de usuários
 - 🎵 Adicionar, editar e remover músicas
 - 🖼️ Upload de imagens de capa para músicas
-- 🔊 Upload de arquivos de áudio em formato MP4
+- 🔊 Upload de arquivos de áudio em formatos MP3, WAV e OGG
 - 🛡️ Controle de acesso por função
 
 ## ⚙️ Requisitos
@@ -158,8 +158,19 @@ src/
 
 A API suporta upload de arquivos para:
 
-- **Músicas**: Formato audio/mp4
-- **Imagens**: Formato image/png
+- **Imagens**: Formatos PNG e JPEG, limite de 20MB
+- **Músicas**: Formatos MP3, WAV e OGG, limite de 400MB
+
+Os arquivos são armazenados em diretórios específicos:
+- `/uploads/images` para imagens
+- `/uploads/music` para arquivos de áudio
+
+### Gerenciamento Seguro de Uploads
+
+- Validação rigorosa de tipos MIME
+- Geração de nomes de arquivo aleatórios usando hash criptográfico
+- Verificação e criação automática de diretórios de upload
+- Filtros de arquivo para garantir que o tipo correto seja enviado em cada campo
 
 Exemplo de requisição para inserir música (utilizando FormData):
 ```javascript
@@ -200,6 +211,8 @@ Os tokens invalidados (logout) são armazenados em uma blacklist no Redis para g
 - ✅ Convenções consistentes de nomenclatura
 - ✅ Tipagem forte com TypeScript
 - ✅ Gerenciamento seguro de uploads de arquivos
+- ✅ Verificação automática de diretórios em tempo de execução
+- ✅ Nomenclatura aleatória para arquivos para evitar colisões
 
 ## 🤝 Contribuições
 
