@@ -15,10 +15,11 @@ API completa para um serviço de streaming de músicas com autenticação, geren
 
 - **Backend**: Node.js com Express e TypeScript
 - **Banco de Dados**: PostgreSQL com ORM Sequelize
-- **Cache e Tokens**: Redis
-- **Autenticação**: JWT com blacklist de tokens revogados
+- **Cache e Tokens**: Redis para armazenamento de tokens revogados
+- **Autenticação**: JWT com blacklist de tokens em Redis
 - **Segurança**: bcrypt para criptografia de senhas
 - **Upload de Arquivos**: Multer para gerenciamento de uploads de músicas e imagens
+- **Armazenamento**: Sistema de arquivos local para músicas e imagens
 
 ## 🏗️ Estrutura do Projeto
 
@@ -34,8 +35,12 @@ src/
  │   └── user/         # Controladores para usuários
  ├── interfaces/       # Definição de tipos e interfaces
  ├── middleware/       # Middleware (autenticação, validação)
+ │   └── auth/         # Autenticação e verificação de permissões
  ├── models/           # Modelos de dados e schemas
  ├── routes/           # Definição de rotas da API
+ │   ├── admin/        # Rotas administrativas
+ │   ├── music/        # Rotas para músicas
+ │   └── user/         # Rotas para usuários
  ├── utils/            # Funções utilitárias
  │   ├── auth/         # Utilidades de autenticação
  │   ├── uploads/      # Utilidades para gerenciamento de diretórios
@@ -46,24 +51,37 @@ src/
 ## 🚀 Funcionalidades
 
 ### Autenticação & Usuários
-- 🔐 Sistema completo de registro e login
-- 👤 Perfis de usuário com níveis de acesso
-- 🔄 Atualização de dados de perfil
-- 🗑️ Exclusão de conta
+- 🔐 Sistema completo de registro e login com validação robusta
+- 👤 Perfis de usuário com níveis de acesso (usuário comum e administrador)
+- 🔄 Atualização de dados de perfil com validação de unicidade
+- 🗑️ Exclusão de conta com revogação automática de token
+- 🔒 Armazenamento seguro de senhas com hash bcrypt
+- 🛡️ Controle de acesso baseado em tokens JWT
+- 📝 Validação detalhada de dados de usuário (formato de email, complexidade de senha)
 
 ### Gerenciamento de Músicas
 - 📋 Listagem de músicas disponíveis
 - 🔍 Busca por título, artista ou gênero
 - 📊 Detalhes completos de cada música
-- ⏱️ Exibição de duração formatada
+- ⏱️ Exibição de duração formatada automaticamente
 - 🏷️ Categorização por gêneros musicais
+- 🖼️ Suporte para imagens de capa
 
 ### Funções Administrativas
 - 👥 Gerenciamento completo de usuários
 - 🎵 Adicionar, editar e remover músicas
 - 🖼️ Upload de imagens de capa para músicas
 - 🔊 Upload de arquivos de áudio em formatos MP3, WAV e OGG
-- 🛡️ Controle de acesso por função
+- 🛡️ Controle de acesso por função administrativa
+- 🗑️ Operações em lote para exclusão de conteúdo
+
+### Segurança Avançada
+- 🔐 Sistema de invalidação de tokens após logout
+- 🛡️ Proteção contra reutilização de tokens revogados via Redis
+- 🔒 Validação rigorosa de tipos de arquivo para uploads
+- 🔍 Verificação de permissões em cada requisição
+- 🧩 Sanitização de dados de entrada
+- 🔐 Hashing único para nomes de arquivos
 
 ## ⚙️ Requisitos
 
@@ -167,10 +185,12 @@ Os arquivos são armazenados em diretórios específicos:
 
 ### Gerenciamento Seguro de Uploads
 
-- Validação rigorosa de tipos MIME
-- Geração de nomes de arquivo aleatórios usando hash criptográfico
-- Verificação e criação automática de diretórios de upload
+- Validação rigorosa de tipos MIME para segurança
+- Geração de nomes de arquivo aleatórios usando hash criptográfico para evitar colisões
+- Verificação e criação automática de diretórios de upload durante inicialização
 - Filtros de arquivo para garantir que o tipo correto seja enviado em cada campo
+- Tratamento robusto de erros durante o upload
+- Limites configuráveis de tamanho de arquivo por tipo
 
 Exemplo de requisição para inserir música (utilizando FormData):
 ```javascript
@@ -199,20 +219,39 @@ A API usa autenticação JWT. Os tokens devem ser enviados no header:
 Authorization: Bearer seu_token_aqui
 ```
 
-Os tokens invalidados (logout) são armazenados em uma blacklist no Redis para garantir que não possam ser reutilizados.
+### Sistema de Revogação de Tokens
+
+Os tokens invalidados (após logout) são armazenados em uma blacklist no Redis para garantir que não possam ser reutilizados, mesmo estando dentro do prazo de validade.
+
+- Tempo de expiração adaptativo baseado no tempo restante do token
+- Verificação eficiente usando Redis como armazenamento de chave-valor
+- Prevenção de ataques de replay mesmo com tokens anteriormente válidos
 
 ## 💡 Boas Práticas Implementadas
 
 - ✅ Arquitetura em camadas para melhor separação de responsabilidades
-- ✅ Validação rigorosa de dados de entrada
-- ✅ Tratamento centralizado de erros
-- ✅ Criptografia forte para senhas
-- ✅ Blacklist de tokens JWT para segurança aprimorada
-- ✅ Convenções consistentes de nomenclatura
-- ✅ Tipagem forte com TypeScript
-- ✅ Gerenciamento seguro de uploads de arquivos
+- ✅ Validação rigorosa de dados de entrada com feedback detalhado de erros
+- ✅ Tratamento centralizado de erros com mensagens contextuais
+- ✅ Criptografia forte para senhas usando bcrypt com salt
+- ✅ Blacklist de tokens JWT em Redis para segurança aprimorada
+- ✅ Convenções consistentes de nomenclatura e estrutura de código
+- ✅ Tipagem forte com TypeScript em toda a aplicação
+- ✅ Gerenciamento seguro de uploads de arquivos com verificação de MIME type
 - ✅ Verificação automática de diretórios em tempo de execução
-- ✅ Nomenclatura aleatória para arquivos para evitar colisões
+- ✅ Nomenclatura aleatória para arquivos usando hash criptográfico
+- ✅ Validação de unicidade para dados críticos como email e nome de usuário
+- ✅ Transformação de dados nos modelos para garantir consistência
+
+## 🛠️ Extensibilidade e Manutenção
+
+O projeto foi desenvolvido com foco em extensibilidade e facilidade de manutenção:
+
+- Interfaces bem definidas para todos os modelos de dados
+- Abstração de funções comuns em utilitários reutilizáveis
+- Centralização de configurações para fácil ajuste
+- Middlewares modulares para inclusão condicional
+- Modelos com métodos de formatação e validação integrados
+- Logs detalhados com cores para melhor depuração
 
 ## 🤝 Contribuições
 
