@@ -73,7 +73,6 @@ Music.init(
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isUrl: true,
         notEmpty: true,
       },
     },
@@ -88,9 +87,6 @@ Music.init(
     imageUrl: {
       type: DataTypes.STRING,
       allowNull: true,
-      validate: {
-        isUrl: true,
-      },
     },
     artist: {
       type: DataTypes.STRING,

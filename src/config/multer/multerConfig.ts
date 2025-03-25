@@ -80,14 +80,33 @@ const fileFilter = (
   }
 };
 
-const limits = {
-  fileSize: Math.max(fileSizeLimits.image, fileSizeLimits.music),
-};
-
-const upload = multer({
+const multiUpload = multer({
   storage,
   fileFilter,
-  limits,
+  limits: { fileSize: Math.max(fileSizeLimits.image, fileSizeLimits.music) },
 });
 
-export default upload;
+export const handleUploadErrors = (
+  err: Error,
+  req: Request,
+  res: any,
+  next: any
+) => {
+  if (err instanceof multer.MulterError) {
+    if (err.code === "LIMIT_FILE_SIZE") {
+      return res.status(413).json({
+        error:
+          "Arquivo muito grande. Limite para imagens: 20MB, para músicas: 400MB",
+      });
+    }
+    return res.status(400).json({ error: `Erro de upload: ${err.message}` });
+  }
+
+  if (err) {
+    return res.status(400).json({ error: err.message });
+  }
+
+  next();
+};
+
+export default multiUpload;

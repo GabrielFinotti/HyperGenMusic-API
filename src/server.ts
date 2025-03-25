@@ -5,6 +5,7 @@ import { musicRoutes, adminRoutes, userRoutes } from "./routes";
 import cors from "cors";
 import dotenv from "dotenv";
 import { folderUtils } from "./utils";
+import path from "path";
 export * from "colors";
 
 dotenv.config();
@@ -13,7 +14,11 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(json());
-app.use(cors({}));
+app.use(cors());
+
+const uploadDir = path.resolve(__dirname, '..', 'src', 'uploads');
+app.use('/uploads/images', express.static(path.join(uploadDir, 'images')));
+app.use('/uploads/music', express.static(path.join(uploadDir, 'music')));
 
 app.use("/api", musicRoutes, adminRoutes, userRoutes);
 

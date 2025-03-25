@@ -1,17 +1,26 @@
-import { userRegister, userLogin, userUpdate, userDelete, userData } from './user/index';
-import { getMusics, getMusicById } from './music/index';
+import {
+  userRegister,
+  userLogin,
+  userUpdate,
+  userDelete,
+  userData,
+} from "./user/index";
+import { getMusics, getMusicById } from "./music/index";
+import { insertMusic } from "./admin/index";
 
 export const userController = {
   userRegister,
   userLogin,
   userUpdate,
   userDelete,
-  userData
+  userData,
 };
 
 export const musicController = {
   getMusics,
-  getMusicById
+  getMusicById,
 };
 
-export const adminController = {};
+export const adminController = {
+  insertMusic,
+};
