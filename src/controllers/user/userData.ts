@@ -1,18 +1,14 @@
 import { Request, Response } from "express";
-import { userUtils } from "../../utils";
+import { userService } from "../../services";
 
 export const userData = async (req: Request, res: Response) => {
   try {
     const userId = parseInt(req.params.id);
+    const result = await userService.getUserById(userId);
 
-    const userData = await userUtils.getUserData(userId);
-
-    if (!userData) {
-      res.status(404).json({ message: "Usuário não encontrado!" });
-      return;
-    }
-
-    res.status(200).json(userData.toPublicJSON());
+    res
+      .status(result.statusCode)
+      .json(result.success ? result.user : { message: result.message });
   } catch (error) {
     console.error(`Erro ao obter dados do usuário: ${error}`.red.bgBlack);
 

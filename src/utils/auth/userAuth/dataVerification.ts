@@ -1,4 +1,4 @@
-import { UserInterface } from "../../../interfaces/userInterface";
+import { UserInterface } from "../../../types";
 import { regex } from "../../auth";
 
 export const userDataVerification = (userData: UserInterface) => {
