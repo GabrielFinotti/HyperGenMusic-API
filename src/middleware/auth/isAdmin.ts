@@ -1,11 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import User from "../../models/userModel";
 
-export const isAdmin = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const isAdmin = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const userId = parseInt(req.params.id);
 
@@ -38,3 +34,5 @@ export const isAdmin = async (
     return;
   }
 };
+
+export default isAdmin;

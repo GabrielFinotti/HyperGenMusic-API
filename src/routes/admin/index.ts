@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { authenticateToken, isAdmin } from "../../middleware";
-import { adminController } from "../../controllers";
-import multiUpload, {
+import {
+  authenticateToken,
+  isAdmin,
   handleUploadErrors,
-} from "../../config/multer/multerConfig";
+} from "../../middleware";
+import { adminController } from "../../controllers";
+import multiUpload from "../../config/multer/multerConfig";
 
 const router = Router();
 

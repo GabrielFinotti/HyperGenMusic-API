@@ -1,8 +1,8 @@
 import { jwt, regex, userAuth } from "./auth/index";
 import setupUploadDirectories, {
-  checkUploadDirectories,
   cleanUploadDirectories,
 } from "./uploads/folderSync";
+import getFileExtension, { mimeTypes } from "./uploads/getFileExtension";
 import { getUserData, userDataUpdate } from "./user/index";
 
 export const authUtils = {
@@ -19,5 +19,6 @@ export const userUtils = {
 export const folderUtils = {
   setupUploadDirectories,
   cleanUploadDirectories,
-  checkUploadDirectories,
+  getFileExtension,
+  mimeTypes,
 };

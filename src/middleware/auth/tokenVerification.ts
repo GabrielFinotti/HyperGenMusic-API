@@ -5,7 +5,7 @@ import redisClient from "../../config/redis/redisConfig";
 
 dotenv.config();
 
-export const authenticateToken = async (
+const authenticateToken = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -44,3 +44,5 @@ export const authenticateToken = async (
     return;
   }
 };
+
+export default authenticateToken;

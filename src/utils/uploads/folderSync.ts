@@ -69,27 +69,4 @@ export const cleanUploadDirectories = async () => {
   await clearDir(songsDir);
 };
 
-export const checkUploadDirectories = async () => {
-  const { uploadDir, imagesDir, songsDir } = await setupUploadDirectories();
-
-  try {
-    return {
-      uploadExists: existsSync(uploadDir),
-      imagesExists: existsSync(imagesDir),
-      songsExists: existsSync(songsDir),
-    };
-  } catch (error) {
-    console.error(
-      `Erro ao verificar diretórios: ${
-        error instanceof Error ? error.message : String(error)
-      }`
-    );
-    return {
-      uploadExists: false,
-      imagesExists: false,
-      songsExists: false,
-    };
-  }
-};
-
 export default setupUploadDirectories;
