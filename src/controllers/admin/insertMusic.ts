@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import Music from "../../models/musicModel";
+import { UploadedFiles } from "../../interfaces/uploadedFilesInterface";
 import path from "path";
-
-type UploadedFiles = {
-  music?: Express.Multer.File[];
-  image?: Express.Multer.File[];
-};
+import { folderUtils } from "../../utils";
 
 export const insertMusic = async (req: Request, res: Response) => {
+  let musicFilePath: string | null = null;
+  let imageFilePath: string | null = null;
+
   try {
     const { title, artist, genre, duration } = req.body;
     const files = req.files as UploadedFiles;
@@ -16,6 +16,10 @@ export const insertMusic = async (req: Request, res: Response) => {
       res.status(400).json({
         error: "Os campos título, duração e arquivo de música são obrigatórios",
       });
+
+      files.image &&
+        (await folderUtils.deleteFileIfExists(files.image[0].path));
+
       return;
     }
 
@@ -27,12 +31,13 @@ export const insertMusic = async (req: Request, res: Response) => {
     const musicFileName = path.basename(musicFile.path);
     const imageFileName = imageFile ? path.basename(imageFile.path) : null;
 
+    musicFilePath = musicFile.path;
+    imageFilePath = imageFile ? imageFile.path : null;
+
     const songUrl = `${baseUrl}/uploads/music/${musicFileName}`;
     const imageUrl = imageFileName
       ? `${baseUrl}/uploads/images/${imageFileName}`
       : undefined;
-
-    console.log(`Criando música com URL: ${songUrl}`);
 
     const newMusic = await Music.create({
       title: title.trim(),
@@ -47,6 +52,9 @@ export const insertMusic = async (req: Request, res: Response) => {
       message: "Música inserida com sucesso",
       music: newMusic.toApiFormat(),
     });
+
+    musicFilePath = null;
+    imageFilePath = null;
   } catch (error) {
     console.error(`Erro ao inserir música: ${error}`.red.bgBlack);
 
@@ -56,5 +64,8 @@ export const insertMusic = async (req: Request, res: Response) => {
       error: "Falha ao inserir a música no sistema.",
       details: errorMessage,
     });
+  } finally {
+    musicFilePath && (await folderUtils.deleteFileIfExists(musicFilePath));
+    imageFilePath && (await folderUtils.deleteFileIfExists(imageFilePath));
   }
 };

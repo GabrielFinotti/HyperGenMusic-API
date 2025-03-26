@@ -1,4 +1,5 @@
 import { jwt, regex, userAuth } from "./auth/index";
+import deleteFileIfExists from "./uploads/deleteFileIfExists";
 import setupUploadDirectories, {
   cleanUploadDirectories,
 } from "./uploads/folderSync";
@@ -20,5 +21,6 @@ export const folderUtils = {
   setupUploadDirectories,
   cleanUploadDirectories,
   getFileExtension,
+  deleteFileIfExists,
   mimeTypes,
 };
