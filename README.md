@@ -11,6 +11,17 @@
 
 API completa para um serviço de streaming de músicas com autenticação, gerenciamento de usuários e controle administrativo. Desenvolvida com Node.js, Express, TypeScript, PostgreSQL e Redis para uma experiência robusta e escalável.
 
+## 🚀 Novidades
+
+### 🔄 Versão atual: 1.1.0
+
+- ✨ **Nova arquitetura em camadas**: Refatoração completa com serviços, controladores e utilitários
+- 🧩 **Injeção de dependências**: Melhor modularização para testabilidade e manutenção
+- 🔐 **Gerenciamento avançado de tokens**: Sistema de blacklist em Redis
+- 📦 **Processamento otimizado de uploads**: Limpeza automática em caso de falhas
+- 🎵 **Metadados de música expandidos**: Novos campos para artista e gênero
+- 🧠 **Validação inteligente**: Feedback detalhado sobre erros de dados
+
 ## 🛠️ Tecnologias Principais
 
 - **Backend**: Node.js com Express e TypeScript
@@ -33,14 +44,22 @@ src/
  │   ├── admin/        # Controladores administrativos
  │   ├── music/        # Controladores para músicas
  │   └── user/         # Controladores para usuários
- ├── interfaces/       # Definição de tipos e interfaces
  ├── middleware/       # Middleware (autenticação, validação)
- │   └── auth/         # Autenticação e verificação de permissões
+ │   ├── auth/         # Autenticação e verificação de permissões
+ │   └── errors/       # Manipulação centralizada de erros
  ├── models/           # Modelos de dados e schemas
  ├── routes/           # Definição de rotas da API
  │   ├── admin/        # Rotas administrativas
  │   ├── music/        # Rotas para músicas
  │   └── user/         # Rotas para usuários
+ ├── services/         # Camada de serviços para lógica de negócios
+ │   ├── admin/        # Serviços administrativos
+ │   ├── music/        # Serviços para músicas
+ │   └── user/         # Serviços para usuários
+ ├── types/            # Definição de tipos e interfaces
+ │   ├── music/        # Tipos relacionados a músicas
+ │   ├── uploads/      # Tipos relacionados a uploads
+ │   └── user/         # Tipos relacionados a usuários
  ├── utils/            # Funções utilitárias
  │   ├── auth/         # Utilidades de autenticação
  │   ├── uploads/      # Utilidades para gerenciamento de diretórios
@@ -65,6 +84,7 @@ src/
 - 📊 Detalhes completos de cada música
 - ⏱️ Exibição de duração formatada automaticamente
 - 🏷️ Categorização por gêneros musicais
+- 🎧 Metadados avançados com informações de artista
 - 🖼️ Suporte para imagens de capa
 
 ### Funções Administrativas
@@ -74,6 +94,7 @@ src/
 - 🔊 Upload de arquivos de áudio em formatos MP3, WAV e OGG
 - 🛡️ Controle de acesso por função administrativa
 - 🗑️ Operações em lote para exclusão de conteúdo
+- 🧹 Limpeza automática de uploads em caso de falhas
 
 ### Segurança Avançada
 - 🔐 Sistema de invalidação de tokens após logout
@@ -191,6 +212,7 @@ Os arquivos são armazenados em diretórios específicos:
 - Filtros de arquivo para garantir que o tipo correto seja enviado em cada campo
 - Tratamento robusto de erros durante o upload
 - Limites configuráveis de tamanho de arquivo por tipo
+- **NOVO**: Limpeza automática de arquivos em caso de falha de processamento
 
 Exemplo de requisição para inserir música (utilizando FormData):
 ```javascript
@@ -227,6 +249,54 @@ Os tokens invalidados (após logout) são armazenados em uma blacklist no Redis 
 - Verificação eficiente usando Redis como armazenamento de chave-valor
 - Prevenção de ataques de replay mesmo com tokens anteriormente válidos
 
+## 📦 Novos Recursos e Melhorias
+
+### 🔄 Arquitetura em Camadas
+
+A arquitetura foi refatorada para seguir um padrão de camadas bem definido:
+
+- **Controllers**: Manipulam requisições HTTP e respostas
+- **Services**: Contêm a lógica de negócios principal
+- **Models**: Definem a estrutura dos dados e interação com o banco
+- **Utils**: Fornecem funções auxiliares reutilizáveis
+
+Esta separação melhora a manutenibilidade, testabilidade e escalabilidade do código.
+
+### 🧩 Injeção de Dependências
+
+Implementação de um sistema simples de injeção de dependências para:
+
+- Facilitar testes unitários através de mocks
+- Reduzir acoplamento entre componentes
+- Melhorar a modularidade do código
+
+### 📊 Metadados de Música Expandidos
+
+O modelo de música foi aprimorado com:
+
+- Suporte a informações de artista
+- Categorização por gênero musical
+- Formatação automática de duração
+- Detecção de músicas longas
+
+### 🔍 Validação Aprimorada
+
+Sistema de validação de dados com:
+
+- Feedback detalhado sobre erros de validação
+- Tratamento específico para cada tipo de campo
+- Verificações de complexidade para senhas
+- Validação de unicidade para emails e usernames
+
+### 🧹 Gestão de Recursos
+
+Melhores práticas para gerenciamento de recursos:
+
+- Limpeza automática de uploads temporários
+- Verificação de diretórios em tempo de execução
+- Manipulação segura de arquivos
+- Validação estrita de tipos MIME
+
 ## 💡 Boas Práticas Implementadas
 
 - ✅ Arquitetura em camadas para melhor separação de responsabilidades
@@ -241,6 +311,7 @@ Os tokens invalidados (após logout) são armazenados em uma blacklist no Redis 
 - ✅ Nomenclatura aleatória para arquivos usando hash criptográfico
 - ✅ Validação de unicidade para dados críticos como email e nome de usuário
 - ✅ Transformação de dados nos modelos para garantir consistência
+- ✅ Serviços especializados para diferentes domínios da aplicação
 
 ## 🛠️ Extensibilidade e Manutenção
 
@@ -262,6 +333,21 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar
 3. Commit suas alterações (`git commit -m 'Adiciona recurso incrível'`)
 4. Push para a branch (`git push origin feature/incrivel`)
 5. Abra um Pull Request
+
+## 📝 Changelog
+
+### 1.1.0 (Atual)
+- Refatoração para arquitetura em camadas
+- Adição de novos metadados para músicas
+- Sistema aprimorado de gestão de uploads
+- Validação expandida com feedback detalhado
+- Melhor tratamento de erros
+
+### 1.0.0 (Inicial)
+- Implementação básica de autenticação de usuários
+- Sistema de upload de arquivos
+- Gestão de músicas e playlists
+- Controle de acesso baseado em função
 
 ## 📜 Licença
 
