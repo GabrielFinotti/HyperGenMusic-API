@@ -175,18 +175,7 @@ class MusicAdminServiceImpl implements MusicAdminService {
         `Iniciando exclusão de ${musics.length} músicas...`.cyan.bgBlack
       );
 
-      for (const music of musics) {
-        const musicFileName = music.songUrl.split("/").pop() as string;
-        const imageFileName = music.imageUrl?.split("/").pop();
-
-        const musicFilePath = path.resolve(this.musicDir, musicFileName);
-        await folderUtils.deleteFileIfExists(musicFilePath);
-
-        if (imageFileName) {
-          const imageFilePath = path.resolve(this.imageDir, imageFileName);
-          await folderUtils.deleteFileIfExists(imageFilePath);
-        }
-      }
+      await folderUtils.cleanUploadDirectories();
 
       await Music.destroy({ where: {} });
       console.log(`Todas as músicas foram excluídas com sucesso`.green.bgBlack);
