@@ -11,7 +11,7 @@ import {
   editMusic,
   insertMusic,
 } from "./admin";
-import { getAllMusics, getMusicData } from "./music";
+import { getAllMusics, getMusicData, searchMusics } from "./music";
 
 export const userController = {
   userRegister,
@@ -24,6 +24,7 @@ export const userController = {
 export const musicController = {
   getAllMusics,
   getMusicData,
+  searchMusics,
 };
 
 export const adminController = {

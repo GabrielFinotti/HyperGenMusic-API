@@ -5,7 +5,7 @@ import { musicController } from "../../controllers";
 const router = Router();
 
 router.get("/musics", authenticateToken, musicController.getAllMusics);
-router.get("/music/search", authenticateToken);
+router.get("/music/search", authenticateToken, musicController.searchMusics);
 router.get(
   "/music/data/:musicId",
   authenticateToken,
