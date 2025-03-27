@@ -20,21 +20,26 @@ router.post(
   handleUploadErrors,
   adminController.insertMusic
 );
-router.put("/music/edit/:id", authenticateToken, isAdmin);
+router.put("/music/edit/:musicId", authenticateToken, isAdmin);
 router.delete(
-  "/music/delete/:id",
+  "/music/delete/musicId/:musicId",
   authenticateToken,
   isAdmin,
   adminController.deleteMusicById
 );
-router.delete("/music/delete/all", authenticateToken, isAdmin);
+router.delete(
+  "/music/delete/all",
+  authenticateToken,
+  isAdmin,
+  adminController.deleteAllMusics
+);
 
 router.get("/users", authenticateToken, isAdmin);
 router.get("/user/name", authenticateToken, isAdmin);
-router.get("/user/data/:id", authenticateToken, isAdmin);
+router.get("/user/data/:userId", authenticateToken, isAdmin);
 router.post("/user/create", authenticateToken, isAdmin);
-router.put("/user/edit/:id", authenticateToken, isAdmin);
-router.delete("/user/delete/:id", authenticateToken, isAdmin);
+router.put("/user/edit/:userid", authenticateToken, isAdmin);
+router.delete("/user/delete/userId/:userId", authenticateToken, isAdmin);
 router.delete("/user/delete/all", authenticateToken, isAdmin);
 
 export const adminRoutes = router;

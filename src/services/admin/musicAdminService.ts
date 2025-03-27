@@ -12,11 +12,37 @@ export interface MusicAdminService {
     genre?: string,
     baseUrl?: string
   ): Promise<InsertMusicResult>;
-  deleteMusic(id: string): Promise<void>;
-  deleteAllMusic(): Promise<void>;
+  deleteMusic(id: number): Promise<void>;
+  deleteAllMusics(): Promise<void>;
 }
 
 class MusicAdminServiceImpl implements MusicAdminService {
+  private imageDir!: string;
+  private musicDir!: string;
+
+  constructor() {
+    this.setupDirectories();
+  }
+
+  private async setupDirectories(): Promise<void> {
+    try {
+      const { imagesDir, songsDir } =
+        await folderUtils.setupUploadDirectories();
+
+      this.imageDir = imagesDir;
+      this.musicDir = songsDir;
+      console.log(
+        "Diretórios de música configurados com sucesso".green.bgBlack
+      );
+    } catch (error) {
+      console.error(
+        `Erro ao configurar diretórios: ${
+          error instanceof Error ? error.message : String(error)
+        }`.red.bgBlack
+      );
+    }
+  }
+
   async insertMusic(
     title: string,
     duration: string | number,
@@ -88,7 +114,7 @@ class MusicAdminServiceImpl implements MusicAdminService {
     }
   }
 
-  async deleteMusic(id: string): Promise<void> {
+  async deleteMusic(id: number): Promise<void> {
     try {
       const music = await Music.findByPk(id);
 
@@ -96,19 +122,84 @@ class MusicAdminServiceImpl implements MusicAdminService {
         throw new Error("Música não encontrada");
       }
 
-      const musicPath = music.songUrl.split("/uploads/music/")[1];
-      const imagePath = music.imageUrl?.split("/uploads/images/")[1];
+      if (!this.imageDir || !this.musicDir) {
+        await this.setupDirectories();
+      }
 
-      await folderUtils.deleteFileIfExists(musicPath);
-      imagePath && (await folderUtils.deleteFileIfExists(imagePath));
+      const musicFileName = music.songUrl.split("/").pop() as string;
+      const imageFileName = music.imageUrl?.split("/").pop();
+
+      const musicFilePath = path.resolve(this.musicDir, musicFileName);
+
+      await folderUtils.deleteFileIfExists(musicFilePath);
+      console.log(
+        `Arquivo de música excluído: ${musicFileName}`.yellow.bgBlack
+      );
+
+      if (imageFileName) {
+        const imageFilePath = path.resolve(this.imageDir, imageFileName);
+
+        await folderUtils.deleteFileIfExists(imageFilePath);
+        console.log(
+          `Arquivo de imagem excluído: ${imageFileName}`.yellow.bgBlack
+        );
+      }
 
       await music.destroy();
+      console.log(`Música ID: ${id} excluída do banco de dados`.green.bgBlack);
     } catch (error) {
+      console.error(
+        `Erro ao excluir música: ${
+          error instanceof Error ? error.message : String(error)
+        }`.red.bgBlack
+      );
+
       throw error;
     }
   }
 
-  async deleteAllMusic(): Promise<void> {}
+  async deleteAllMusics(): Promise<void> {
+    try {
+      const musics = await Music.findAll();
+
+      if (!this.imageDir || !this.musicDir) {
+        await this.setupDirectories();
+      }
+
+      if (musics.length === 0) {
+        console.log("Não há músicas para excluir".yellow.bgBlack);
+        return;
+      }
+
+      console.log(
+        `Iniciando exclusão de ${musics.length} músicas...`.cyan.bgBlack
+      );
+
+      for (const music of musics) {
+        const musicFileName = music.songUrl.split("/").pop() as string;
+        const imageFileName = music.imageUrl?.split("/").pop();
+
+        const musicFilePath = path.resolve(this.musicDir, musicFileName);
+        await folderUtils.deleteFileIfExists(musicFilePath);
+
+        if (imageFileName) {
+          const imageFilePath = path.resolve(this.imageDir, imageFileName);
+          await folderUtils.deleteFileIfExists(imageFilePath);
+        }
+      }
+
+      await Music.destroy({ where: {} });
+      console.log(`Todas as músicas foram excluídas com sucesso`.green.bgBlack);
+    } catch (error) {
+      console.error(
+        `Erro ao excluir todas as músicas: ${
+          error instanceof Error ? error.message : String(error)
+        }`.red.bgBlack
+      );
+
+      throw error;
+    }
+  }
 }
 
 export default new MusicAdminServiceImpl();

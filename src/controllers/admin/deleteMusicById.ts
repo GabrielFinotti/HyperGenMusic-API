@@ -3,7 +3,7 @@ import { musicAdminService } from "../../services";
 
 const deleteMusicById = async (req: Request, res: Response) => {
   try {
-    const musicId = req.params.id;
+    const musicId = parseInt(req.params.musicId);
 
     await musicAdminService.deleteMusic(musicId);
 
