@@ -13,7 +13,16 @@ API completa para um serviço de streaming de músicas com autenticação, geren
 
 ## 🚀 Novidades
 
-### 🔄 Versão atual: 1.1.0
+### 🔄 Versão atual: 1.2.0
+
+- 🗑️ **Gerenciamento avançado de músicas**: Sistema completo para excluir músicas individualmente e em lote
+- 🧠 **Tratamento de erros robusto**: Sistema aprimorado para manuseio de exceções
+- 📁 **Gestão inteligente de arquivos**: Limpeza automática de arquivos durante exclusão
+- 🧹 **Limpeza automática**: Remoção coordenada de arquivos e registros do banco de dados
+- 💼 **Melhoria da API administrativa**: Endpoints para controle total sobre o conteúdo
+- 🔄 **Melhor sincronização**: Atualização automática do sistema de arquivos e banco de dados
+
+#### Melhorias da versão 1.1.0
 
 - ✨ **Nova arquitetura em camadas**: Refatoração completa com serviços, controladores e utilitários
 - 🧩 **Injeção de dependências**: Melhor modularização para testabilidade e manutenção
@@ -94,7 +103,8 @@ src/
 - 🔊 Upload de arquivos de áudio em formatos MP3, WAV e OGG
 - 🛡️ Controle de acesso por função administrativa
 - 🗑️ Operações em lote para exclusão de conteúdo
-- 🧹 Limpeza automática de uploads em caso de falhas
+- 🧹 **NOVO**: Sistema avançado de exclusão de músicas com limpeza de arquivos
+- 🔄 **NOVO**: Sincronização automática entre o banco de dados e sistema de arquivos
 
 ### Segurança Avançada
 - 🔐 Sistema de invalidação de tokens após logout
@@ -179,19 +189,19 @@ src/
 
 ### 👑 Administração
 
-| Método | Rota                     | Descrição                    | Autenticação |
-|--------|--------------------------|------------------------------|--------------|
-| POST   | `/api/music/insert`      | Adicionar música com upload  | Admin        |
-| PUT    | `/api/music/edit/:id`    | Editar música                | Admin        |
-| DELETE | `/api/music/delete/:id`  | Remover música               | Admin        |
-| DELETE | `/api/music/delete/all`  | Remover todas as músicas     | Admin        |
-| GET    | `/api/users`             | Listar usuários              | Admin        |
-| GET    | `/api/user/name`         | Buscar usuário por nome      | Admin        |
-| GET    | `/api/user/data/:id`     | Detalhes do usuário          | Admin        |
-| POST   | `/api/user/create`       | Criar novo usuário           | Admin        |
-| PUT    | `/api/user/edit/:id`     | Editar usuário               | Admin        |
-| DELETE | `/api/user/delete/:id`   | Remover usuário              | Admin        |
-| DELETE | `/api/user/delete/all`   | Remover todos os usuários    | Admin        |
+| Método | Rota                             | Descrição                    | Autenticação |
+|--------|---------------------------------|------------------------------|--------------|
+| POST   | `/api/music/insert`              | Adicionar música com upload  | Admin        |
+| PUT    | `/api/music/edit/:musicId`       | Editar música                | Admin        |
+| DELETE | `/api/music/delete/musicId/:musicId`| Remover música específica  | Admin        |
+| DELETE | `/api/music/delete/all`          | Remover todas as músicas     | Admin        |
+| GET    | `/api/users`                     | Listar usuários              | Admin        |
+| GET    | `/api/user/name`                 | Buscar usuário por nome      | Admin        |
+| GET    | `/api/user/data/:userId`         | Detalhes do usuário          | Admin        |
+| POST   | `/api/user/create`               | Criar novo usuário           | Admin        |
+| PUT    | `/api/user/edit/:userid`         | Editar usuário               | Admin        |
+| DELETE | `/api/user/delete/userId/:userId`| Remover usuário              | Admin        |
+| DELETE | `/api/user/delete/all`           | Remover todos os usuários    | Admin        |
 
 ## 📤 Upload de Arquivos
 
@@ -212,7 +222,8 @@ Os arquivos são armazenados em diretórios específicos:
 - Filtros de arquivo para garantir que o tipo correto seja enviado em cada campo
 - Tratamento robusto de erros durante o upload
 - Limites configuráveis de tamanho de arquivo por tipo
-- **NOVO**: Limpeza automática de arquivos em caso de falha de processamento
+- Limpeza automática de arquivos em caso de falha de processamento
+- **NOVO**: Sistema integrado de exclusão de arquivos ao remover registros do banco
 
 Exemplo de requisição para inserir música (utilizando FormData):
 ```javascript
@@ -222,7 +233,7 @@ formData.append('image', imagemDeCapa);
 formData.append('title', 'Nome da Música');
 formData.append('artist', 'Nome do Artista');
 formData.append('genre', 'Gênero Musical');
-formData.append('duration', '180'); // Duração em segundos
+formData.append('duration', '180');
 
 fetch('/api/music/insert', {
   method: 'POST',
@@ -250,6 +261,15 @@ Os tokens invalidados (após logout) são armazenados em uma blacklist no Redis 
 - Prevenção de ataques de replay mesmo com tokens anteriormente válidos
 
 ## 📦 Novos Recursos e Melhorias
+
+### 🗑️ Gerenciamento Avançado de Músicas
+
+Sistema completo para gerenciar o ciclo de vida das músicas:
+
+- Exclusão individual de músicas com limpeza coordenada de arquivos
+- Remoção em lote de todo o catálogo musical
+- Sincronização entre banco de dados e sistema de arquivos
+- Tratamento de falhas durante o processo de exclusão
 
 ### 🔄 Arquitetura em Camadas
 
@@ -296,6 +316,7 @@ Melhores práticas para gerenciamento de recursos:
 - Verificação de diretórios em tempo de execução
 - Manipulação segura de arquivos
 - Validação estrita de tipos MIME
+- **NOVO**: Exclusão coordenada de arquivos e registros do banco de dados
 
 ## 💡 Boas Práticas Implementadas
 
@@ -336,7 +357,14 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar
 
 ## 📝 Changelog
 
-### 1.1.0 (Atual)
+### 1.2.0 (Atual)
+- Sistema avançado para exclusão de músicas individuais e em lote
+- Limpeza coordenada de arquivos e registros no banco de dados
+- Tratamento robusto de erros durante o processo de exclusão
+- Melhorias na API administrativa para gerenciamento completo do conteúdo
+- Sincronização aprimorada entre sistema de arquivos e banco de dados
+
+### 1.1.0
 - Refatoração para arquitetura em camadas
 - Adição de novos metadados para músicas
 - Sistema aprimorado de gestão de uploads
