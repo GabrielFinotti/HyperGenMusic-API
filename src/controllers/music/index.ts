@@ -1,4 +1,4 @@
-import { getMusics } from "./getMusics";
-import { getMusicById } from "./getMusicById";
+import getAllMusics from "./getAllMusics";
+import getMusicData from "./getMusicData";
 
-export { getMusics, getMusicById };
+export { getAllMusics, getMusicData };

@@ -1,31 +1,40 @@
 import Music from "../../models/musicModel";
+import { MusicDataResult } from "../../types/music/musicInterface";
 
 export interface MusicService {
   getAllMusic(): Promise<Music[]>;
-  getMusicById(id: number): Promise<Music | null>;
+  getMusicData(id: number): Promise<MusicDataResult>;
 }
 
 class MusicServiceImpl implements MusicService {
-  async getAllMusic(): Promise<Music[]> {
+  async getAllMusic() {
     try {
-      return await Music.findAll();
-    } catch (error) {
-      console.error(`Erro ao buscar músicas: ${error}`.red.bgBlack);
+      const musics = await Music.findAll({
+        limit: 10,
+        order: [["createdAt", "DESC"]],
+        attributes: ["id", "title", "artist", "imageUrl", "duration"],
+      });
 
-      throw new Error("Falha ao recuperar músicas");
+      return musics;
+    } catch (error) {
+      throw error;
     }
   }
 
-  async getMusicById(id: number): Promise<Music | null> {
+  async getMusicData(musicId: number): Promise<MusicDataResult> {
     try {
-      if (isNaN(id)) {
+      if (isNaN(musicId)) {
         throw new Error("ID de música inválido");
       }
 
-      return await Music.findByPk(id);
+      const music = await Music.findByPk(musicId);
+
+      if (!music) {
+        throw new Error("Música não encontrada");
+      }
+
+      return music.toApiFormat();
     } catch (error) {
-      console.error(`Erro ao buscar música por ID: ${error}`.red.bgBlack);
-      
       throw error;
     }
   }

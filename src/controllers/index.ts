@@ -4,14 +4,14 @@ import {
   userUpdate,
   userDelete,
   userData,
-} from "./user/index";
-import { getMusics, getMusicById } from "./music/index";
+} from "./user";
 import {
   deleteAllMusics,
   deleteMusicById,
   editMusic,
   insertMusic,
-} from "./admin/index";
+} from "./admin";
+import { getAllMusics, getMusicData } from "./music";
 
 export const userController = {
   userRegister,
@@ -22,8 +22,8 @@ export const userController = {
 };
 
 export const musicController = {
-  getMusics,
-  getMusicById,
+  getAllMusics,
+  getMusicData,
 };
 
 export const adminController = {
