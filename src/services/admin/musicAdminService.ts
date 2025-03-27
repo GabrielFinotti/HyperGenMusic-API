@@ -12,6 +12,8 @@ export interface MusicAdminService {
     genre?: string,
     baseUrl?: string
   ): Promise<InsertMusicResult>;
+  deleteMusic(id: string): Promise<void>;
+  deleteAllMusic(): Promise<void>;
 }
 
 class MusicAdminServiceImpl implements MusicAdminService {
@@ -28,7 +30,6 @@ class MusicAdminServiceImpl implements MusicAdminService {
 
     try {
       if (!title || !duration || !files.music || files.music.length === 0) {
-        // Limpar imagem se foi enviada
         files.image &&
           (await folderUtils.deleteFileIfExists(files.image[0].path));
 
@@ -86,6 +87,28 @@ class MusicAdminServiceImpl implements MusicAdminService {
       imageFilePath && (await folderUtils.deleteFileIfExists(imageFilePath));
     }
   }
+
+  async deleteMusic(id: string): Promise<void> {
+    try {
+      const music = await Music.findByPk(id);
+
+      if (!music) {
+        throw new Error("Música não encontrada");
+      }
+
+      const musicPath = music.songUrl.split("/uploads/music/")[1];
+      const imagePath = music.imageUrl?.split("/uploads/images/")[1];
+
+      await folderUtils.deleteFileIfExists(musicPath);
+      imagePath && (await folderUtils.deleteFileIfExists(imagePath));
+
+      await music.destroy();
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteAllMusic(): Promise<void> {}
 }
 
 export default new MusicAdminServiceImpl();

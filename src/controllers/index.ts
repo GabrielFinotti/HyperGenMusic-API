@@ -6,7 +6,7 @@ import {
   userData,
 } from "./user/index";
 import { getMusics, getMusicById } from "./music/index";
-import { insertMusic } from "./admin/index";
+import { deleteMusicById, insertMusic } from "./admin/index";
 
 export const userController = {
   userRegister,
@@ -23,4 +23,5 @@ export const musicController = {
 
 export const adminController = {
   insertMusic,
+  deleteMusicById,
 };

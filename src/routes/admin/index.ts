@@ -20,9 +20,13 @@ router.post(
   handleUploadErrors,
   adminController.insertMusic
 );
-
 router.put("/music/edit/:id", authenticateToken, isAdmin);
-router.delete("/music/delete/:id", authenticateToken, isAdmin);
+router.delete(
+  "/music/delete/:id",
+  authenticateToken,
+  isAdmin,
+  adminController.deleteMusicById
+);
 router.delete("/music/delete/all", authenticateToken, isAdmin);
 
 router.get("/users", authenticateToken, isAdmin);

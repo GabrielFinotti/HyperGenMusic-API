@@ -1,3 +1,4 @@
-import { insertMusic } from "./insertMusic";
+import insertMusic from "./insertMusic";
+import deleteMusicById from "./deleteMusicById";
 
-export { insertMusic };
+export { insertMusic, deleteMusicById };

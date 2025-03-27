@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { musicAdminService } from "../../services";
 import { UploadedFiles } from "../../types";
 
-export const insertMusic = async (req: Request, res: Response) => {
+const insertMusic = async (req: Request, res: Response) => {
   try {
     const { title, artist, genre, duration } = req.body;
     const files = req.files as UploadedFiles;
@@ -31,3 +31,5 @@ export const insertMusic = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Falha ao inserir música no sistema" });
   }
 };
+
+export default insertMusic;
