@@ -1,9 +1,12 @@
 import { jwt, regex, userAuth } from "./auth/index";
-import deleteFileIfExists from "./uploads/deleteFileIfExists";
-import setupUploadDirectories, {
+import {
+  setupUploadDirectories,
   cleanUploadDirectories,
-} from "./uploads/folderSync";
-import getFileExtension, { mimeTypes } from "./uploads/getFileExtension";
+  getFileExtension,
+  deleteFileIfExists,
+  replaceImage,
+  mimeTypes,
+} from "./uploads/index";
 import { getUserData, userDataUpdate } from "./user/index";
 
 export const authUtils = {
@@ -22,5 +25,6 @@ export const folderUtils = {
   cleanUploadDirectories,
   getFileExtension,
   deleteFileIfExists,
+  replaceImage,
   mimeTypes,
 };

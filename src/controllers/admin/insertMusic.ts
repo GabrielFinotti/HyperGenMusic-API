@@ -13,9 +13,9 @@ const insertMusic = async (req: Request, res: Response) => {
       title,
       duration,
       files,
+      baseUrl,
       artist,
-      genre,
-      baseUrl
+      genre
     );
 
     res

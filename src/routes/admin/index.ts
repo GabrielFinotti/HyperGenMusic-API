@@ -20,7 +20,14 @@ router.post(
   handleUploadErrors,
   adminController.insertMusic
 );
-router.put("/music/edit/:musicId", authenticateToken, isAdmin);
+router.put(
+  "/music/edit/:musicId",
+  authenticateToken,
+  isAdmin,
+  multiUpload.fields([{ name: "image", maxCount: 1 }]),
+  handleUploadErrors,
+  adminController.editMusic
+);
 router.delete(
   "/music/delete/musicId/:musicId",
   authenticateToken,
