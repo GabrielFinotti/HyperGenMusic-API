@@ -7,39 +7,60 @@
 ![Redis](https://img.shields.io/badge/Redis-Latest-DC382D?style=for-the-badge&logo=redis&logoColor=white)
 ![Sequelize](https://img.shields.io/badge/Sequelize-6.37%2B-52B0E7?style=for-the-badge&logo=sequelize&logoColor=white)
 
+## 📑 Índice
+
+- [Sobre](#-sobre)
+- [Novidades](#-novidades)
+- [Tecnologias](#️-tecnologias)
+- [Estrutura do Projeto](#️-estrutura-do-projeto)
+- [Funcionalidades](#-funcionalidades)
+- [Requisitos](#️-requisitos)
+- [Instalação](#-instalação)
+- [API Endpoints](#-api-endpoints)
+- [Autenticação](#-autenticação)
+- [Principais Recursos](#-principais-recursos)
+- [Boas Práticas](#-boas-práticas-implementadas)
+- [Extensibilidade](#️-extensibilidade-e-manutenção)
+- [Contribuições](#-contribuições)
+- [Changelog](#-changelog)
+- [Licença](#-licença)
+
 ## 📋 Sobre
 
-API completa para um serviço de streaming de músicas com autenticação, gerenciamento de usuários e controle administrativo. Desenvolvida com Node.js, Express, TypeScript, PostgreSQL e Redis para uma experiência robusta e escalável.
+ProjectSong API é uma solução completa de backend para serviços de streaming de música, oferecendo:
+
+- Sistema robusto de autenticação e gerenciamento de usuários
+- Controle administrativo com diferentes níveis de permissão
+- Gerenciamento eficiente de arquivos de música e metadados
+- Arquitetura escalável construída com TypeScript e Express
+- Persistência de dados com PostgreSQL e cache com Redis
+
+Desenvolvida com foco em desempenho, segurança e escalabilidade.
 
 ## 🚀 Novidades
 
-### 🔄 Versão atual: 1.2.0
+### Versão 1.3.0 (Atual)
 
-- 🗑️ **Gerenciamento avançado de músicas**: Sistema completo para excluir músicas individualmente e em lote
-- 🧠 **Tratamento de erros robusto**: Sistema aprimorado para manuseio de exceções
-- 📁 **Gestão inteligente de arquivos**: Limpeza automática de arquivos durante exclusão
-- 🧹 **Limpeza automática**: Remoção coordenada de arquivos e registros do banco de dados
-- 💼 **Melhoria da API administrativa**: Endpoints para controle total sobre o conteúdo
-- 🔄 **Melhor sincronização**: Atualização automática do sistema de arquivos e banco de dados
+- 📁 **Estrutura de controladores refatorada**: Organização em camadas com responsabilidades bem definidas
+- 🎮 **Design modular aprimorado**: Gerenciamento de recursos mais consistente e intuitivo
+- 🔄 **Injeção de dependências avançada**: Melhor separação de responsabilidades entre serviços
+- ⚙️ **Implementação de design patterns**: Padrões robustos em serviços e controllers
+- 📊 **Sistema de logs aprimorado**: Feedback detalhado e colorizado para debugging
+- 🌐 **Estruturação inteligente de rotas**: Organização mais intuitiva de endpoints
 
-#### Melhorias da versão 1.1.0
+[Ver histórico completo de versões](#-changelog)
 
-- ✨ **Nova arquitetura em camadas**: Refatoração completa com serviços, controladores e utilitários
-- 🧩 **Injeção de dependências**: Melhor modularização para testabilidade e manutenção
-- 🔐 **Gerenciamento avançado de tokens**: Sistema de blacklist em Redis
-- 📦 **Processamento otimizado de uploads**: Limpeza automática em caso de falhas
-- 🎵 **Metadados de música expandidos**: Novos campos para artista e gênero
-- 🧠 **Validação inteligente**: Feedback detalhado sobre erros de dados
+## 🛠️ Tecnologias
 
-## 🛠️ Tecnologias Principais
-
-- **Backend**: Node.js com Express e TypeScript
-- **Banco de Dados**: PostgreSQL com ORM Sequelize
-- **Cache e Tokens**: Redis para armazenamento de tokens revogados
-- **Autenticação**: JWT com blacklist de tokens em Redis
-- **Segurança**: bcrypt para criptografia de senhas
-- **Upload de Arquivos**: Multer para gerenciamento de uploads de músicas e imagens
-- **Armazenamento**: Sistema de arquivos local para músicas e imagens
+| Categoria | Tecnologias |
+|-----------|------------|
+| **Backend Base** | Node.js, Express, TypeScript |
+| **Banco de Dados** | PostgreSQL, Sequelize ORM |
+| **Cache & Tokens** | Redis |
+| **Autenticação** | JWT com blacklist em Redis |
+| **Segurança** | bcrypt para senhas |
+| **Upload de Arquivos** | Multer |
+| **Armazenamento** | Sistema de arquivos local |
 
 ## 🏗️ Estrutura do Projeto
 
@@ -120,7 +141,7 @@ src/
 - **PostgreSQL** 13 ou superior
 - **Redis** 6 ou superior
 
-## 🚦 Começando
+## 🚦 Instalação
 
 ### Configuração do Ambiente
 
@@ -167,7 +188,7 @@ src/
 - `npm run lint`: Verifica tipos e sintaxe
 - `npm run clean`: Remove a pasta de distribuição
 
-## 📡 Endpoints da API
+## 📡 API Endpoints
 
 ### 👤 Usuários
 
@@ -203,47 +224,6 @@ src/
 | DELETE | `/api/user/delete/userId/:userId`| Remover usuário              | Admin        |
 | DELETE | `/api/user/delete/all`           | Remover todos os usuários    | Admin        |
 
-## 📤 Upload de Arquivos
-
-A API suporta upload de arquivos para:
-
-- **Imagens**: Formatos PNG e JPEG, limite de 20MB
-- **Músicas**: Formatos MP3, WAV e OGG, limite de 400MB
-
-Os arquivos são armazenados em diretórios específicos:
-- `/uploads/images` para imagens
-- `/uploads/music` para arquivos de áudio
-
-### Gerenciamento Seguro de Uploads
-
-- Validação rigorosa de tipos MIME para segurança
-- Geração de nomes de arquivo aleatórios usando hash criptográfico para evitar colisões
-- Verificação e criação automática de diretórios de upload durante inicialização
-- Filtros de arquivo para garantir que o tipo correto seja enviado em cada campo
-- Tratamento robusto de erros durante o upload
-- Limites configuráveis de tamanho de arquivo por tipo
-- Limpeza automática de arquivos em caso de falha de processamento
-- **NOVO**: Sistema integrado de exclusão de arquivos ao remover registros do banco
-
-Exemplo de requisição para inserir música (utilizando FormData):
-```javascript
-const formData = new FormData();
-formData.append('music', arquivoDeAudio);
-formData.append('image', imagemDeCapa);
-formData.append('title', 'Nome da Música');
-formData.append('artist', 'Nome do Artista');
-formData.append('genre', 'Gênero Musical');
-formData.append('duration', '180');
-
-fetch('/api/music/insert', {
-  method: 'POST',
-  headers: {
-    'Authorization': 'Bearer seu_token_aqui'
-  },
-  body: formData
-});
-```
-
 ## 🔒 Autenticação
 
 A API usa autenticação JWT. Os tokens devem ser enviados no header:
@@ -260,7 +240,7 @@ Os tokens invalidados (após logout) são armazenados em uma blacklist no Redis 
 - Verificação eficiente usando Redis como armazenamento de chave-valor
 - Prevenção de ataques de replay mesmo com tokens anteriormente válidos
 
-## 📦 Novos Recursos e Melhorias
+## 📦 Principais Recursos
 
 ### 🗑️ Gerenciamento Avançado de Músicas
 
@@ -357,7 +337,15 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar
 
 ## 📝 Changelog
 
-### 1.2.0 (Atual)
+### 1.3.0 (Atual)
+- Estrutura de controladores refatorada para melhor organização
+- Design modular aprimorado para gerenciamento de recursos
+- Injeção de dependências aprimorada para separação de responsabilidades
+- Implementação robusta de padrões de projeto em serviços e controllers
+- Sistema de logging detalhado com feedback colorizado
+- Melhor integração e estruturação de rotas
+
+### 1.2.0
 - Sistema avançado para exclusão de músicas individuais e em lote
 - Limpeza coordenada de arquivos e registros no banco de dados
 - Tratamento robusto de erros durante o processo de exclusão
