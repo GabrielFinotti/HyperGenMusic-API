@@ -41,7 +41,7 @@ router.delete(
   adminController.deleteAllMusics
 );
 
-router.get("/users", authenticateToken, isAdmin);
+router.get("/users", authenticateToken, isAdmin, adminController.getAllUsers);
 router.get("/user/name", authenticateToken, isAdmin);
 router.get("/user/data/:userId", authenticateToken, isAdmin);
 router.post("/user/create", authenticateToken, isAdmin);

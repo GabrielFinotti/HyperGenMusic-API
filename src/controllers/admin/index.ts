@@ -5,4 +5,12 @@ import {
   insertMusic,
 } from "./music";
 
-export { insertMusic, deleteMusicById, deleteAllMusics, editMusic };
+import { getAllUsers } from "./user";
+
+export {
+  insertMusic,
+  deleteMusicById,
+  deleteAllMusics,
+  editMusic,
+  getAllUsers,
+};

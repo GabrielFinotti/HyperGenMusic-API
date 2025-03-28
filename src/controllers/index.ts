@@ -9,6 +9,7 @@ import {
   deleteAllMusics,
   deleteMusicById,
   editMusic,
+  getAllUsers,
   insertMusic,
 } from "./admin";
 import { getAllMusics, getMusicData, searchMusics } from "./music";
@@ -32,4 +33,5 @@ export const adminController = {
   deleteMusicById,
   deleteAllMusics,
   editMusic,
+  getAllUsers,
 };

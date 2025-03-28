@@ -8,7 +8,7 @@ import {
 } from "../../types";
 import path from "path";
 
-export interface MusicAdminService {
+interface MusicAdminService {
   insertMusic(
     title: string,
     duration: string | number,
