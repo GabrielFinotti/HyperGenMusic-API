@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { UploadedFiles } from "../../types";
-import { musicAdminService } from "../../services";
+import { UploadedFiles } from "../../../types";
+import { musicAdminService } from "../../../services";
 
 const editMusic = async (req: Request, res: Response) => {
   try {

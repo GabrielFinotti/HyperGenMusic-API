@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { musicAdminService } from "../../services";
+import { musicAdminService } from "../../../services";
 
 const deleteMusicById = async (req: Request, res: Response) => {
   try {
