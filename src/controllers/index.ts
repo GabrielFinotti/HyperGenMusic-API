@@ -11,6 +11,7 @@ import {
   editMusic,
   getAllUsers,
   insertMusic,
+  searchUser,
 } from "./admin";
 import { getAllMusics, getMusicData, searchMusics } from "./music";
 
@@ -34,4 +35,5 @@ export const adminController = {
   deleteAllMusics,
   editMusic,
   getAllUsers,
+  searchUser,
 };

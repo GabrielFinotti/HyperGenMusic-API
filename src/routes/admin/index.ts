@@ -4,7 +4,7 @@ import {
   isAdmin,
   handleUploadErrors,
 } from "../../middleware";
-import { adminController } from "../../controllers";
+import { adminController, userController } from "../../controllers";
 import multiUpload from "../../config/multer/multerConfig";
 
 const router = Router();
@@ -42,9 +42,19 @@ router.delete(
 );
 
 router.get("/users", authenticateToken, isAdmin, adminController.getAllUsers);
-router.get("/user/name", authenticateToken, isAdmin);
+router.get(
+  "/user/search",
+  authenticateToken,
+  isAdmin,
+  adminController.searchUser
+);
 router.get("/user/data/:userId", authenticateToken, isAdmin);
-router.post("/user/create", authenticateToken, isAdmin);
+router.post(
+  "/user/create",
+  authenticateToken,
+  isAdmin,
+  userController.userRegister
+);
 router.put("/user/edit/:userid", authenticateToken, isAdmin);
 router.delete("/user/delete/userId/:userId", authenticateToken, isAdmin);
 router.delete("/user/delete/all", authenticateToken, isAdmin);

@@ -5,7 +5,7 @@ import {
   insertMusic,
 } from "./music";
 
-import { getAllUsers } from "./user";
+import { getAllUsers, searchUser } from "./user";
 
 export {
   insertMusic,
@@ -13,4 +13,5 @@ export {
   deleteAllMusics,
   editMusic,
   getAllUsers,
+  searchUser,
 };

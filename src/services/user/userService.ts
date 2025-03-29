@@ -37,6 +37,10 @@ class UserServiceImpl implements UserService {
         };
       }
 
+      if (!userData.role) {
+        userData.role = "user";
+      }
+
       await User.create(userData);
 
       return {
@@ -239,7 +243,7 @@ class UserServiceImpl implements UserService {
       };
     } catch (error) {
       console.error(`Erro ao excluir usuário: ${error}`.red.bgBlack);
-      
+
       return {
         success: false,
         message: "Erro interno do servidor!",
