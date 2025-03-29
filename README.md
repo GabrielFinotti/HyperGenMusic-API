@@ -1,147 +1,94 @@
-# 🎵 ProjectSong API
+# ProjectSong API
 
-![Node.js](https://img.shields.io/badge/Node.js-16%2B-43853D?style=for-the-badge&logo=node.js&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.7%2B-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Express](https://img.shields.io/badge/Express-4.21%2B-000000?style=for-the-badge&logo=express&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
-![Redis](https://img.shields.io/badge/Redis-Latest-DC382D?style=for-the-badge&logo=redis&logoColor=white)
-![Sequelize](https://img.shields.io/badge/Sequelize-6.37%2B-52B0E7?style=for-the-badge&logo=sequelize&logoColor=white)
+<div align="center">
 
-## 📑 Índice
+![Logo do ProjectSong API](https://via.placeholder.com/150x150.png?text=ProjectSong)
 
-- [Sobre](#-sobre)
-- [Novidades](#-novidades)
-- [Tecnologias](#️-tecnologias)
-- [Estrutura do Projeto](#️-estrutura-do-projeto)
-- [Funcionalidades](#-funcionalidades)
-- [Requisitos](#️-requisitos)
-- [Instalação](#-instalação)
-- [API Endpoints](#-api-endpoints)
-- [Autenticação](#-autenticação)
-- [Principais Recursos](#-principais-recursos)
-- [Boas Práticas](#-boas-práticas-implementadas)
-- [Extensibilidade](#️-extensibilidade-e-manutenção)
-- [Contribuições](#-contribuições)
-- [Changelog](#-changelog)
-- [Licença](#-licença)
+[![Node.js](https://img.shields.io/badge/Node.js-16%2B-43853D?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7%2B-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Express](https://img.shields.io/badge/Express-4.21%2B-000000?style=flat-square&logo=express&logoColor=white)](https://expressjs.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-4169E1?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Redis](https://img.shields.io/badge/Redis-Latest-DC382D?style=flat-square&logo=redis&logoColor=white)](https://redis.io/)
+[![Sequelize](https://img.shields.io/badge/Sequelize-6.37%2B-52B0E7?style=flat-square&logo=sequelize&logoColor=white)](https://sequelize.org/)
+[![Licença](https://img.shields.io/badge/Licença-Proprietária-red?style=flat-square)](LICENSE)
 
-## 📋 Sobre
+**API de streaming de música robusta, escalável e de alta performance**
 
-ProjectSong API é uma solução completa de backend para serviços de streaming de música, oferecendo:
+[Visão Geral](#visão-geral) • 
+[Recursos](#principais-recursos) • 
+[Instalação](#instalação) • 
+[Documentação](#documentação-da-api) • 
+[Tecnologias](#tecnologias) • 
+[Licença](#licença)
 
-- Sistema robusto de autenticação e gerenciamento de usuários
-- Controle administrativo com diferentes níveis de permissão
-- Gerenciamento eficiente de arquivos de música e metadados
-- Arquitetura escalável construída com TypeScript e Express
-- Persistência de dados com PostgreSQL e cache com Redis
+</div>
 
-Desenvolvida com foco em desempenho, segurança e escalabilidade.
+## Visão Geral
 
-## 🚀 Novidades
+O ProjectSong API é uma infraestrutura backend completa para serviços de streaming de música, projetada com foco em desempenho, segurança e escalabilidade. Construída com TypeScript e Express, esta API oferece um conjunto abrangente de funcionalidades para gerenciamento de usuários, controle de conteúdo musical e administração de sistema.
 
-### Versão 1.3.0 (Atual)
+### Versão Atual: 1.3.0
 
-- 📁 **Estrutura de controladores refatorada**: Organização em camadas com responsabilidades bem definidas
-- 🎮 **Design modular aprimorado**: Gerenciamento de recursos mais consistente e intuitivo
-- 🔄 **Injeção de dependências avançada**: Melhor separação de responsabilidades entre serviços
-- ⚙️ **Implementação de design patterns**: Padrões robustos em serviços e controllers
-- 📊 **Sistema de logs aprimorado**: Feedback detalhado e colorizado para debugging
-- 🌐 **Estruturação inteligente de rotas**: Organização mais intuitiva de endpoints
+**Destaques da versão:**
+- Arquitetura em camadas com responsabilidades bem definidas
+- Design modular aprimorado para melhor organização de código
+- Injeção de dependências avançada
+- Implementação de padrões de projeto modernos
+- Sistema de logging detalhado e colorizado
 
-[Ver histórico completo de versões](#-changelog)
+## Principais Recursos
 
-## 🛠️ Tecnologias
+<details>
+<summary><b>🔐 Autenticação & Gerenciamento de Usuários</b></summary>
 
-| Categoria | Tecnologias |
-|-----------|------------|
-| **Backend Base** | Node.js, Express, TypeScript |
-| **Banco de Dados** | PostgreSQL, Sequelize ORM |
-| **Cache & Tokens** | Redis |
-| **Autenticação** | JWT com blacklist em Redis |
-| **Segurança** | bcrypt para senhas |
-| **Upload de Arquivos** | Multer |
-| **Armazenamento** | Sistema de arquivos local |
+- Sistema completo de registro e login com validação robusta
+- Perfis com diferentes níveis de acesso (usuário e administrador)
+- Atualização e exclusão de conta com validação de dados
+- Armazenamento seguro de senhas com bcrypt
+- Sistema de tokens JWT com blacklist em Redis
+- Validação detalhada de dados (formato de email, complexidade de senha)
+</details>
 
-## 🏗️ Estrutura do Projeto
+<details>
+<summary><b>🎵 Gerenciamento de Músicas</b></summary>
 
-```
-src/
- ├── config/           # Configurações (banco de dados, Redis, upload)
- │   ├── database/     # Configuração do PostgreSQL
- │   ├── multer/       # Configuração de upload de arquivos
- │   └── redis/        # Configuração do Redis
- ├── controllers/      # Controladores para lógica de negócios
- │   ├── admin/        # Controladores administrativos
- │   ├── music/        # Controladores para músicas
- │   └── user/         # Controladores para usuários
- ├── middleware/       # Middleware (autenticação, validação)
- │   ├── auth/         # Autenticação e verificação de permissões
- │   └── errors/       # Manipulação centralizada de erros
- ├── models/           # Modelos de dados e schemas
- ├── routes/           # Definição de rotas da API
- │   ├── admin/        # Rotas administrativas
- │   ├── music/        # Rotas para músicas
- │   └── user/         # Rotas para usuários
- ├── services/         # Camada de serviços para lógica de negócios
- │   ├── admin/        # Serviços administrativos
- │   ├── music/        # Serviços para músicas
- │   └── user/         # Serviços para usuários
- ├── types/            # Definição de tipos e interfaces
- │   ├── music/        # Tipos relacionados a músicas
- │   ├── uploads/      # Tipos relacionados a uploads
- │   └── user/         # Tipos relacionados a usuários
- ├── utils/            # Funções utilitárias
- │   ├── auth/         # Utilidades de autenticação
- │   ├── uploads/      # Utilidades para gerenciamento de diretórios
- │   └── user/         # Utilidades para usuários
- └── server.ts         # Ponto de entrada da aplicação
-```
+- Catálogo de músicas com metadados completos
+- Busca avançada por título, artista ou gênero
+- Categorização por gêneros musicais
+- Suporte para imagens de capa
+- Formatação automática de duração 
+- Classificação inteligente de conteúdo
+</details>
 
-## 🚀 Funcionalidades
+<details>
+<summary><b>👑 Painel Administrativo</b></summary>
 
-### Autenticação & Usuários
-- 🔐 Sistema completo de registro e login com validação robusta
-- 👤 Perfis de usuário com níveis de acesso (usuário comum e administrador)
-- 🔄 Atualização de dados de perfil com validação de unicidade
-- 🗑️ Exclusão de conta com revogação automática de token
-- 🔒 Armazenamento seguro de senhas com hash bcrypt
-- 🛡️ Controle de acesso baseado em tokens JWT
-- 📝 Validação detalhada de dados de usuário (formato de email, complexidade de senha)
+- Gerenciamento completo de usuários
+- Operações CRUD para músicas
+- Upload de imagens de capa e arquivos de áudio
+- Controle granular de permissões
+- Operações em lote para exclusão de conteúdo
+- Sincronização automática entre banco de dados e sistema de arquivos
+</details>
 
-### Gerenciamento de Músicas
-- 📋 Listagem de músicas disponíveis
-- 🔍 Busca por título, artista ou gênero
-- 📊 Detalhes completos de cada música
-- ⏱️ Exibição de duração formatada automaticamente
-- 🏷️ Categorização por gêneros musicais
-- 🎧 Metadados avançados com informações de artista
-- 🖼️ Suporte para imagens de capa
+<details>
+<summary><b>🛡️ Segurança Avançada</b></summary>
 
-### Funções Administrativas
-- 👥 Gerenciamento completo de usuários
-- 🎵 Adicionar, editar e remover músicas
-- 🖼️ Upload de imagens de capa para músicas
-- 🔊 Upload de arquivos de áudio em formatos MP3, WAV e OGG
-- 🛡️ Controle de acesso por função administrativa
-- 🗑️ Operações em lote para exclusão de conteúdo
-- 🧹 **NOVO**: Sistema avançado de exclusão de músicas com limpeza de arquivos
-- 🔄 **NOVO**: Sincronização automática entre o banco de dados e sistema de arquivos
+- Invalidação de tokens após logout
+- Proteção contra reutilização de tokens via Redis
+- Validação rigorosa de tipos de arquivo para uploads
+- Verificação de permissões em cada requisição
+- Sanitização de dados de entrada
+- Hashing único para nomes de arquivos
+</details>
 
-### Segurança Avançada
-- 🔐 Sistema de invalidação de tokens após logout
-- 🛡️ Proteção contra reutilização de tokens revogados via Redis
-- 🔒 Validação rigorosa de tipos de arquivo para uploads
-- 🔍 Verificação de permissões em cada requisição
-- 🧩 Sanitização de dados de entrada
-- 🔐 Hashing único para nomes de arquivos
+## Requisitos
 
-## ⚙️ Requisitos
+- **Node.js**: 16.x ou superior
+- **PostgreSQL**: 13.x ou superior
+- **Redis**: 6.x ou superior
 
-- **Node.js** 16 ou superior
-- **PostgreSQL** 13 ou superior
-- **Redis** 6 ou superior
-
-## 🚦 Instalação
+## Instalação
 
 ### Configuração do Ambiente
 
@@ -156,7 +103,10 @@ src/
    npm install
    ```
 
-3. **Configure o arquivo .env**
+3. **Configure as variáveis de ambiente**
+   
+   Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+
    ```env
    # Servidor
    PORT=3000
@@ -175,196 +125,151 @@ src/
    SECRET_KEY=sua_chave_secreta
    ```
 
-4. **Inicie o servidor de desenvolvimento**
+4. **Inicie o servidor**
    ```bash
+   # Desenvolvimento
    npm run dev
+   
+   # Produção
+   npm run build
+   npm start
    ```
+
+## Documentação da API
+
+### Endpoints
+
+#### Autenticação e Usuários
+
+| Método | Endpoint | Descrição | Autenticação |
+|--------|----------|-----------|--------------|
+| `POST` | `/api/user/register` | Registrar novo usuário | Não |
+| `POST` | `/api/user/login` | Efetuar login | Não |
+| `GET` | `/api/profile` | Obter perfil do usuário | Sim |
+| `PUT` | `/api/edit/profile` | Atualizar perfil | Sim |
+| `DELETE` | `/api/delete/profile` | Excluir conta | Sim |
+
+#### Músicas
+
+| Método | Endpoint | Descrição | Autenticação |
+|--------|----------|-----------|--------------|
+| `GET` | `/api/musics` | Listar músicas | Sim |
+| `GET` | `/api/music/search?q=termo` | Buscar músicas | Sim |
+| `GET` | `/api/music/data/:id` | Detalhes da música | Sim |
+
+#### Administração
+
+| Método | Endpoint | Descrição | Autenticação |
+|--------|----------|-----------|--------------|
+| `POST` | `/api/music/insert` | Adicionar música | Admin |
+| `PUT` | `/api/music/edit/:musicId` | Editar música | Admin |
+| `DELETE` | `/api/music/delete/musicId/:musicId` | Excluir música | Admin |
+| `DELETE` | `/api/music/delete/all` | Excluir todas as músicas | Admin |
+| `GET` | `/api/users` | Listar usuários | Admin |
+| `GET` | `/api/user/search?q=termo` | Buscar usuário | Admin |
+| `POST` | `/api/user/create` | Criar usuário | Admin |
+| `PUT` | `/api/user/edit/:userid` | Editar usuário | Admin |
+| `DELETE` | `/api/user/delete/userId/:userId` | Excluir usuário | Admin |
+
+### Autenticação
+
+A API utiliza autenticação baseada em JWT. Os tokens devem ser enviados no cabeçalho HTTP:
+
+```http
+Authorization: Bearer seu_token_jwt
+```
+
+## Arquitetura
+
+O ProjectSong API segue uma arquitetura em camadas bem definida:
+
+```
+src/
+ ├── config/          # Configurações do sistema
+ ├── controllers/     # Controladores de requisições HTTP
+ ├── middleware/      # Middlewares de autenticação e validação
+ ├── models/          # Modelos de dados (Sequelize)
+ ├── routes/          # Definição de rotas
+ ├── services/        # Lógica de negócios
+ ├── types/           # Definições de tipos TypeScript
+ ├── utils/           # Funções utilitárias
+ └── server.ts        # Ponto de entrada da aplicação
+```
+
+## Tecnologias
+
+- **Backend**: Node.js, Express, TypeScript
+- **Banco de Dados**: PostgreSQL com Sequelize ORM
+- **Cache**: Redis para blacklist de tokens e cache
+- **Autenticação**: JWT (JSON Web Tokens)
+- **Upload de Arquivos**: Multer
+- **Segurança**: bcrypt para hash de senhas
+
+## Desenvolvimento
 
 ### Scripts Disponíveis
 
-- `npm run dev`: Inicia o servidor com recarga automática
+- `npm run dev`: Inicia o servidor com hot-reload
 - `npm run build`: Compila o código TypeScript
 - `npm start`: Executa a versão compilada
 - `npm run lint`: Verifica tipos e sintaxe
-- `npm run clean`: Remove a pasta de distribuição
+- `npm run clean`: Remove o diretório de distribuição
 
-## 📡 API Endpoints
+## Boas Práticas
 
-### 👤 Usuários
+- ✅ Arquitetura em camadas com separação clara de responsabilidades
+- ✅ Validação rigorosa de dados com feedback detalhado
+- ✅ Tratamento centralizado de erros
+- ✅ Padrões de projeto modernos
+- ✅ Injeção de dependências
+- ✅ Logging detalhado para depuração
+- ✅ Tipagem forte com TypeScript
+- ✅ Gestão segura de uploads
 
-| Método | Rota                  | Descrição             | Autenticação |
-|--------|----------------------|------------------------|--------------|
-| POST   | `/api/user/register` | Registro de usuário    | Não          |
-| POST   | `/api/user/login`    | Login                  | Não          |
-| GET    | `/api/profile`       | Dados do perfil        | Sim          |
-| PUT    | `/api/edit/profile`  | Atualizar perfil       | Sim          |
-| DELETE | `/api/delete/profile`| Excluir conta          | Sim          |
-
-### 🎵 Músicas
-
-| Método | Rota                  | Descrição             | Autenticação |
-|--------|----------------------|------------------------|--------------|
-| GET    | `/api/musics`        | Listar músicas         | Sim          |
-| GET    | `/api/music/search`  | Buscar músicas         | Sim          |
-| GET    | `/api/music/data/:id`| Detalhes da música     | Sim          |
-
-### 👑 Administração
-
-| Método | Rota                             | Descrição                    | Autenticação |
-|--------|---------------------------------|------------------------------|--------------|
-| POST   | `/api/music/insert`              | Adicionar música com upload  | Admin        |
-| PUT    | `/api/music/edit/:musicId`       | Editar música                | Admin        |
-| DELETE | `/api/music/delete/musicId/:musicId`| Remover música específica  | Admin        |
-| DELETE | `/api/music/delete/all`          | Remover todas as músicas     | Admin        |
-| GET    | `/api/users`                     | Listar usuários              | Admin        |
-| GET    | `/api/user/name`                 | Buscar usuário por nome      | Admin        |
-| GET    | `/api/user/data/:userId`         | Detalhes do usuário          | Admin        |
-| POST   | `/api/user/create`               | Criar novo usuário           | Admin        |
-| PUT    | `/api/user/edit/:userid`         | Editar usuário               | Admin        |
-| DELETE | `/api/user/delete/userId/:userId`| Remover usuário              | Admin        |
-| DELETE | `/api/user/delete/all`           | Remover todos os usuários    | Admin        |
-
-## 🔒 Autenticação
-
-A API usa autenticação JWT. Os tokens devem ser enviados no header:
-
-```
-Authorization: Bearer seu_token_aqui
-```
-
-### Sistema de Revogação de Tokens
-
-Os tokens invalidados (após logout) são armazenados em uma blacklist no Redis para garantir que não possam ser reutilizados, mesmo estando dentro do prazo de validade.
-
-- Tempo de expiração adaptativo baseado no tempo restante do token
-- Verificação eficiente usando Redis como armazenamento de chave-valor
-- Prevenção de ataques de replay mesmo com tokens anteriormente válidos
-
-## 📦 Principais Recursos
-
-### 🗑️ Gerenciamento Avançado de Músicas
-
-Sistema completo para gerenciar o ciclo de vida das músicas:
-
-- Exclusão individual de músicas com limpeza coordenada de arquivos
-- Remoção em lote de todo o catálogo musical
-- Sincronização entre banco de dados e sistema de arquivos
-- Tratamento de falhas durante o processo de exclusão
-
-### 🔄 Arquitetura em Camadas
-
-A arquitetura foi refatorada para seguir um padrão de camadas bem definido:
-
-- **Controllers**: Manipulam requisições HTTP e respostas
-- **Services**: Contêm a lógica de negócios principal
-- **Models**: Definem a estrutura dos dados e interação com o banco
-- **Utils**: Fornecem funções auxiliares reutilizáveis
-
-Esta separação melhora a manutenibilidade, testabilidade e escalabilidade do código.
-
-### 🧩 Injeção de Dependências
-
-Implementação de um sistema simples de injeção de dependências para:
-
-- Facilitar testes unitários através de mocks
-- Reduzir acoplamento entre componentes
-- Melhorar a modularidade do código
-
-### 📊 Metadados de Música Expandidos
-
-O modelo de música foi aprimorado com:
-
-- Suporte a informações de artista
-- Categorização por gênero musical
-- Formatação automática de duração
-- Detecção de músicas longas
-
-### 🔍 Validação Aprimorada
-
-Sistema de validação de dados com:
-
-- Feedback detalhado sobre erros de validação
-- Tratamento específico para cada tipo de campo
-- Verificações de complexidade para senhas
-- Validação de unicidade para emails e usernames
-
-### 🧹 Gestão de Recursos
-
-Melhores práticas para gerenciamento de recursos:
-
-- Limpeza automática de uploads temporários
-- Verificação de diretórios em tempo de execução
-- Manipulação segura de arquivos
-- Validação estrita de tipos MIME
-- **NOVO**: Exclusão coordenada de arquivos e registros do banco de dados
-
-## 💡 Boas Práticas Implementadas
-
-- ✅ Arquitetura em camadas para melhor separação de responsabilidades
-- ✅ Validação rigorosa de dados de entrada com feedback detalhado de erros
-- ✅ Tratamento centralizado de erros com mensagens contextuais
-- ✅ Criptografia forte para senhas usando bcrypt com salt
-- ✅ Blacklist de tokens JWT em Redis para segurança aprimorada
-- ✅ Convenções consistentes de nomenclatura e estrutura de código
-- ✅ Tipagem forte com TypeScript em toda a aplicação
-- ✅ Gerenciamento seguro de uploads de arquivos com verificação de MIME type
-- ✅ Verificação automática de diretórios em tempo de execução
-- ✅ Nomenclatura aleatória para arquivos usando hash criptográfico
-- ✅ Validação de unicidade para dados críticos como email e nome de usuário
-- ✅ Transformação de dados nos modelos para garantir consistência
-- ✅ Serviços especializados para diferentes domínios da aplicação
-
-## 🛠️ Extensibilidade e Manutenção
-
-O projeto foi desenvolvido com foco em extensibilidade e facilidade de manutenção:
-
-- Interfaces bem definidas para todos os modelos de dados
-- Abstração de funções comuns em utilitários reutilizáveis
-- Centralização de configurações para fácil ajuste
-- Middlewares modulares para inclusão condicional
-- Modelos com métodos de formatação e validação integrados
-- Logs detalhados com cores para melhor depuração
-
-## 🤝 Contribuições
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
-
-1. Faça um fork do projeto
-2. Crie sua branch de feature (`git checkout -b feature/incrivel`)
-3. Commit suas alterações (`git commit -m 'Adiciona recurso incrível'`)
-4. Push para a branch (`git push origin feature/incrivel`)
-5. Abra um Pull Request
-
-## 📝 Changelog
+## Changelog
 
 ### 1.3.0 (Atual)
-- Estrutura de controladores refatorada para melhor organização
-- Design modular aprimorado para gerenciamento de recursos
-- Injeção de dependências aprimorada para separação de responsabilidades
-- Implementação robusta de padrões de projeto em serviços e controllers
-- Sistema de logging detalhado com feedback colorizado
-- Melhor integração e estruturação de rotas
+- Refatoração da estrutura de controladores
+- Design modular aprimorado
+- Injeção de dependências avançada
+- Implementação de padrões de projeto
+- Sistema de logging colorizado
+- Melhor estruturação de rotas
 
 ### 1.2.0
-- Sistema avançado para exclusão de músicas individuais e em lote
-- Limpeza coordenada de arquivos e registros no banco de dados
-- Tratamento robusto de erros durante o processo de exclusão
-- Melhorias na API administrativa para gerenciamento completo do conteúdo
-- Sincronização aprimorada entre sistema de arquivos e banco de dados
+- Sistema avançado para exclusão de músicas
+- Limpeza coordenada de arquivos e registros
+- Melhorias na API administrativa
+- Sincronização entre sistema de arquivos e banco de dados
 
 ### 1.1.0
-- Refatoração para arquitetura em camadas
-- Adição de novos metadados para músicas
-- Sistema aprimorado de gestão de uploads
-- Validação expandida com feedback detalhado
-- Melhor tratamento de erros
+- Arquitetura em camadas
+- Novos metadados para músicas
+- Gestão aprimorada de uploads
+- Validação expandida
 
-### 1.0.0 (Inicial)
-- Implementação básica de autenticação de usuários
+### 1.0.0
+- Implementação básica de autenticação
 - Sistema de upload de arquivos
-- Gestão de músicas e playlists
+- Gestão de músicas
 - Controle de acesso baseado em função
 
-## 📜 Licença
+## Contribuições
+
+Para contribuir com o projeto:
+
+1. Faça um fork do repositório
+2. Crie uma branch para sua feature (`git checkout -b feature/nome-da-feature`)
+3. Faça commit de suas alterações (`git commit -m 'Adiciona nova feature'`)
+4. Faça push para a branch (`git push origin feature/nome-da-feature`)
+5. Abra um Pull Request
+
+## Licença
 
 Proprietária © Gabriel Henrique Finotti. Todos os direitos reservados.
+
+---
+
+<div align="center">
+<sub>Desenvolvido com ❤️ por Gabriel Henrique Finotti</sub>
+</div>
