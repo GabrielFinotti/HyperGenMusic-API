@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { userService } from "../../services";
 
-export const userData = async (req: Request, res: Response) => {
+const userData = async (req: Request, res: Response) => {
   try {
     const userId = parseInt(req.params.id);
     const result = await userService.getUserById(userId);
@@ -15,3 +15,5 @@ export const userData = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Erro interno do servidor!" });
   }
 };
+
+export default userData;

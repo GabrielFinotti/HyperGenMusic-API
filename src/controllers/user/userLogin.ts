@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { userService } from "../../services";
 
-export const userLogin = async (req: Request, res: Response) => {
+const userLogin = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
     const result = await userService.login(email, password);
@@ -19,3 +19,5 @@ export const userLogin = async (req: Request, res: Response) => {
     res.sendStatus(500);
   }
 };
+
+export default userLogin;

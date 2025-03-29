@@ -53,7 +53,7 @@ router.post(
   "/user/create",
   authenticateToken,
   isAdmin,
-  userController.userRegister
+  adminController.createUser
 );
 router.put("/user/edit/:userid", authenticateToken, isAdmin);
 router.delete("/user/delete/userId/:userId", authenticateToken, isAdmin);

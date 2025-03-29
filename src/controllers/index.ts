@@ -6,6 +6,7 @@ import {
   userData,
 } from "./user";
 import {
+  createUser,
   deleteAllMusics,
   deleteMusicById,
   editMusic,
@@ -36,4 +37,5 @@ export const adminController = {
   editMusic,
   getAllUsers,
   searchUser,
+  createUser,
 };

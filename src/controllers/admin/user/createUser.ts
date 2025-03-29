@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { UserInterface } from "../../types";
-import { userService } from "../../services";
+import { userAdminService } from "../../../services";
+import { UserInterface } from "../../../types";
 
-const userRegister = async (req: Request, res: Response) => {
+const createUser = async (req: Request, res: Response) => {
   try {
     const userData = req.body as UserInterface;
-    const result = await userService.register(userData);
+    const result = await userAdminService.createUser(userData);
 
     res
       .status(result.statusCode)
@@ -18,9 +18,9 @@ const userRegister = async (req: Request, res: Response) => {
       );
   } catch (error) {
     console.error(`Erro ao registrar usuário, ${error}!`.red.bgBlack);
-    
-    res.sendStatus(500);
+
+    res.status(500).send("Erro interno do servidor!");
   }
 };
 
-export default userRegister;
+export default createUser;
