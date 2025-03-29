@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Logo do ProjectSong API](https://via.placeholder.com/150x150.png?text=ProjectSong)
-
 [![Node.js](https://img.shields.io/badge/Node.js-16%2B-43853D?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7%2B-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Express](https://img.shields.io/badge/Express-4.21%2B-000000?style=flat-square&logo=express&logoColor=white)](https://expressjs.com/)
