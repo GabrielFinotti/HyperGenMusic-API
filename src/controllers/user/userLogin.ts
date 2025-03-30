@@ -8,15 +8,18 @@ const userLogin = async (req: Request, res: Response) => {
 
     res
       .status(result.statusCode)
-      .json(
-        result.success
-          ? { message: result.message, token: result.token }
-          : { error: result.message }
-      );
+      .json(Object.assign(result, { statusCode: undefined }));
   } catch (error) {
-    console.error("Erro durante o login:", error);
+    console.error(
+      `Erro durante o processo de login: ${
+        error instanceof Error ? error.message : String(error)
+      }!`
+    );
 
-    res.sendStatus(500);
+    res.status(500).json({
+      isSuccess: false,
+      message: "Erro durante o processo de login",
+    });
   }
 };
 

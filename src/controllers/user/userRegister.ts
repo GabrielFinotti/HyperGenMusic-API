@@ -9,17 +9,18 @@ const userRegister = async (req: Request, res: Response) => {
 
     res
       .status(result.statusCode)
-      .json(
-        result.success
-          ? { message: result.message }
-          : result.errors
-          ? { errors: result.errors }
-          : { errors: result.message }
-      );
+      .json(Object.assign(result, { statusCode: undefined }));
   } catch (error) {
-    console.error(`Erro ao registrar usuário, ${error}!`.red.bgBlack);
-    
-    res.sendStatus(500);
+    console.error(
+      `Erro ao registrar usuário, ${
+        error instanceof Error ? error.message : String(error)
+      }!`.red.bgBlack
+    );
+
+    res.sendStatus(500).json({
+      isSuccess: false,
+      message: "Erro durante o processo de registro!",
+    });
   }
 };
 

@@ -8,11 +8,18 @@ const userData = async (req: Request, res: Response) => {
 
     res
       .status(result.statusCode)
-      .json(result.success ? result.user : { message: result.message });
+      .json(Object.assign(result, { statusCode: undefined }));
   } catch (error) {
-    console.error(`Erro ao obter dados do usuário: ${error}`.red.bgBlack);
+    console.error(
+      `Erro ao obter dados do usuário: ${
+        error instanceof Error ? error.message : String(error)
+      }!`.red.bgBlack
+    );
 
-    res.status(500).json({ message: "Erro interno do servidor!" });
+    res.status(500).json({
+      isSuccess: false,
+      message: "Erro durante o processo de recuperação dos dados!",
+    });
   }
 };
 

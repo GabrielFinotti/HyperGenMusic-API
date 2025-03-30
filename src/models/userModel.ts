@@ -32,6 +32,7 @@ class User
     const { password, ...publicData } = this.get({
       plain: true,
     }) as UserAttributes;
+
     return publicData;
   }
 }

@@ -1,4 +1,5 @@
 import { jwt, regex, userAuth } from "./auth/index";
+import { responseHandling } from "./handlings";
 import {
   setupUploadDirectories,
   cleanUploadDirectories,
@@ -27,4 +28,8 @@ export const folderUtils = {
   deleteFileIfExists,
   replaceImage,
   mimeTypes,
+};
+
+export const handlingUtils = {
+  responseHandling,
 };

@@ -16,9 +16,9 @@ const PORT = process.env.PORT || 3000;
 app.use(json());
 app.use(cors());
 
-const uploadDir = path.resolve(__dirname, '..', 'src', 'uploads');
-app.use('/uploads/images', express.static(path.join(uploadDir, 'images')));
-app.use('/uploads/music', express.static(path.join(uploadDir, 'music')));
+const uploadDir = path.resolve(__dirname, "..", "src", "uploads");
+app.use("/uploads/images", express.static(path.join(uploadDir, "images")));
+app.use("/uploads/music", express.static(path.join(uploadDir, "music")));
 
 app.use("/api", musicRoutes, adminRoutes, userRoutes);
 

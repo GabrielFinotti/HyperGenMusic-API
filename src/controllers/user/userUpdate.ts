@@ -11,17 +11,18 @@ const userUpdate = async (req: Request, res: Response) => {
 
     res
       .status(result.statusCode)
-      .json(
-        result.success
-          ? { message: result.message }
-          : result.errors
-          ? { errors: result.errors }
-          : { error: result.message }
-      );
+      .json(Object.assign(result, { statusCode: undefined }));
   } catch (error) {
-    console.error("Erro ao atualizar usuário:", error);
+    console.error(
+      `Erro ao atualizar usuário: ${
+        error instanceof Error ? error.message : String(error)
+      }!`.red.bgBlack
+    );
 
-    res.status(500).json({ error: "Erro interno do servidor" });
+    res.status(500).json({
+      isSuccess: false,
+      message: "Erro durante o processo de atualização!",
+    });
   }
 };
 
