@@ -1,6 +1,6 @@
 <div align="center">
-  <img src="https://via.placeholder.com/200x200.png?text=ProjectSong+API" alt="ProjectSong API Logo" width="200" height="200">
-  <h1>ProjectSong API</h1>
+  <img src="https://via.placeholder.com/200x200.png?text=HyperGenMusic+API" alt="HyperGenMusic API Logo" width="200" height="200">
+  <h1>HyperGenMusic API</h1>
   <p><strong>Uma API robusta de streaming de música construída com Node.js, TypeScript e Express</strong></p>
   
   [![Node.js](https://img.shields.io/badge/Node.js-16%2B-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
@@ -9,7 +9,7 @@
   [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
   [![Redis](https://img.shields.io/badge/Redis-Latest-DC382D?style=for-the-badge&logo=redis&logoColor=white)](https://redis.io/)
   
-  [![Versão](https://img.shields.io/badge/Versão-1.3.0-blue?style=for-the-badge)](https://github.com/GabrielFinotti/ProjectSong-API)
+  [![Versão](https://img.shields.io/badge/Versão-1.3.0-blue?style=for-the-badge)](https://github.com/GabrielFinotti/HyperGenMusic-API)
   [![Licença](https://img.shields.io/badge/Licença-Proprietária-red?style=for-the-badge)](LICENSE)
 </div>
 
@@ -27,7 +27,7 @@
 
 ## 🚀 Visão Geral
 
-O ProjectSong API é uma infraestrutura backend completa para serviços de streaming de música, projetada com foco em desempenho, segurança e escalabilidade. Construída com TypeScript e Express, esta API implementa os padrões modernos de desenvolvimento, incluindo arquitetura em camadas, injeção de dependências e operações assíncronas eficientes.
+O HyperGenMusic API é uma infraestrutura backend completa para serviços de streaming de música, projetada com foco em desempenho, segurança e escalabilidade. Construída com TypeScript e Express, esta API implementa os padrões modernos de desenvolvimento, incluindo arquitetura em camadas, injeção de dependências e operações assíncronas eficientes.
 
 ### ✨ Destaques da Versão 1.3.0:
 
@@ -80,7 +80,7 @@ O ProjectSong API é uma infraestrutura backend completa para serviços de strea
 
 ## 🏗️ Arquitetura
 
-O ProjectSong API segue uma arquitetura em camadas bem definida, garantindo separação de responsabilidades e facilitando a manutenção:
+O HyperGenMusic API segue uma arquitetura em camadas bem definida, garantindo separação de responsabilidades e facilitando a manutenção:
 
 ```
 src/
@@ -118,43 +118,46 @@ src/
 ### Configuração do Ambiente
 
 1. **Clone o repositório**
+
    ```bash
-   git clone https://github.com/GabrielFinotti/ProjectSong-API.git
-   cd ProjectSong-API
+   git clone https://github.com/GabrielFinotti/HyperGenMusic-API.git
+   cd HyperGenMusic-API
    ```
 
 2. **Instale as dependências**
+
    ```bash
    npm install
    ```
 
 3. **Configure as variáveis de ambiente**
-   
+
    Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 
    ```env
    # Servidor
    PORT=3000
-   
+
    # Banco de Dados
    DB_NAME=project_song
    DB_USER=seu_usuario
    DB_PASSWORD=sua_senha
    DB_HOST=localhost
    DB_PORT=5432
-   
+
    # Redis
    REDIS_URL=redis://localhost:6379
-   
+
    # JWT
    SECRET_KEY=sua_chave_secreta
    ```
 
 4. **Inicie o servidor**
+
    ```bash
    # Desenvolvimento
    npm run dev
-   
+
    # Produção
    npm run build
    npm start
@@ -220,19 +223,21 @@ Authorization: Bearer seu_token_jwt
   POST /api/user/login
   Content-Type: application/json
 
-  {
-    "email": "usuario@exemplo.com",
-    "password": "Senha123!"
-  }
-  ```
+{
+"email": "usuario@exemplo.com",
+"password": "Senha123!"
+}
 
-  Resposta:
-  ```json
-  {
-    "message": "Usuário logado com sucesso!",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-  }
-  ```
+````
+
+Resposta:
+```json
+{
+  "message": "Usuário logado com sucesso!",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+````
+
 </details>
 
 <details>
@@ -243,48 +248,47 @@ Authorization: Bearer seu_token_jwt
   Authorization: Bearer seu_token_jwt
   ```
 
-  Resposta:
-  ```json
-  {
-    "message": "Músicas recuperadas com sucesso",
-    "musics": [
-      {
-        "id": 1,
-        "title": "Nome da Música",
-        "artist": "Nome do Artista",
-        "imageUrl": "http://localhost:3000/uploads/images/abcdef123456.jpg",
-        "duration": 180
-      },
-      // ...mais músicas
-    ]
-  }
-  ```
+Resposta:
+
+```json
+{
+  "message": "Músicas recuperadas com sucesso",
+  "musics": [
+    {
+      "id": 1,
+      "title": "Nome da Música",
+      "artist": "Nome do Artista",
+      "imageUrl": "http://localhost:3000/uploads/images/abcdef123456.jpg",
+      "duration": 180
+    }
+    // ...mais músicas
+  ]
+}
+```
+
 </details>
 
 ## 🔧 Tecnologias
 
-- **Backend**: 
+- **Backend**:
   - Node.js - Ambiente de execução JavaScript
   - Express - Framework web
   - TypeScript - Superset tipado de JavaScript
-  
-- **Banco de Dados**: 
+- **Banco de Dados**:
   - PostgreSQL - Banco de dados relacional
   - Sequelize - ORM para interação com o banco
-  
-- **Cache**: 
+- **Cache**:
   - Redis - Armazenamento em memória para blacklist de tokens e cache
-  
-- **Segurança**: 
+- **Segurança**:
   - JWT (JSON Web Tokens) - Para autenticação
   - bcrypt - Para hash de senhas
-  
-- **Upload de Arquivos**: 
+- **Upload de Arquivos**:
   - Multer - Middleware para manipulação de arquivos
 
 ## 📈 Changelog
 
 ### 1.3.0 (Atual)
+
 - Refatoração da estrutura de controladores
 - Design modular aprimorado
 - Injeção de dependências avançada
@@ -293,18 +297,21 @@ Authorization: Bearer seu_token_jwt
 - Melhor estruturação de rotas
 
 ### 1.2.0
+
 - Sistema avançado para exclusão de músicas
 - Limpeza coordenada de arquivos e registros
 - Melhorias na API administrativa
 - Sincronização entre sistema de arquivos e banco de dados
 
 ### 1.1.0
+
 - Arquitetura em camadas
 - Novos metadados para músicas
 - Gestão aprimorada de uploads
 - Validação expandida
 
 ### 1.0.0
+
 - Implementação básica de autenticação
 - Sistema de upload de arquivos
 - Gestão de músicas
@@ -315,7 +322,7 @@ Authorization: Bearer seu_token_jwt
 Proprietária © Gabriel Henrique Finotti. Todos os direitos reservados.
 
 Este software e seus arquivos associados são propriedade exclusiva de Gabriel Henrique Finotti.
-Você não tem permissão para usar, copiar, modificar, mesclar, publicar, distribuir, sublicenciar 
+Você não tem permissão para usar, copiar, modificar, mesclar, publicar, distribuir, sublicenciar
 e/ou vender cópias do Software sem permissão expressa por escrito do proprietário.
 
 ---

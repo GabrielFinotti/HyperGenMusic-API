@@ -1,10 +1,54 @@
+LICENÇA DE SOFTWARE PROPRIETÁRIO
+
+Versão 1.0, 29/03/2025
 Copyright (c) 2024 Gabriel Henrique Finotti. Todos os direitos reservados.
 
-Este software e seus arquivos associados (o "Software") são propriedade exclusiva de Gabriel Henrique Finotti.
-Você não tem permissão para usar, copiar, modificar, mesclar, publicar, distribuir, sublicenciar 
-e/ou vender cópias do Software sem permissão expressa por escrito do proprietário.
+1. DEFINIÇÕES
+   "Licenciante" refere-se a Gabriel Henrique Finotti, o criador e proprietário do Software.
+   "Software" refere-se ao programa de computador HyperGenMusic-API, incluindo código-fonte, documentação, 
+   interfaces, design, estrutura, arquitetura, algoritmos e quaisquer arquivos ou recursos associados.
+   "Usuário" refere-se a qualquer indivíduo ou entidade que tenha acesso ao Software.
 
-O software é fornecido "COMO ESTÁ", sem garantia de qualquer tipo, expressa ou implícita.
-Em nenhuma circunstância o autor ou detentores de direitos autorais serão responsáveis por qualquer 
-reclamação, danos ou outra responsabilidade, seja em ação de contrato, delito ou de outra forma,
-decorrente de, ou em conexão com o software ou o uso ou outras negociações no software.
+2. PROPRIEDADE E DIREITOS AUTORAIS
+   Este Software e todos os seus componentes são propriedade exclusiva do Licenciante. O Software 
+   é protegido por leis de direitos autorais e tratados internacionais. Todos os direitos não 
+   expressamente concedidos neste documento são reservados ao Licenciante.
+
+3. RESTRIÇÕES DE USO
+   É estritamente proibido, sem autorização prévia por escrito do Licenciante:
+   a) Copiar, reproduzir, distribuir ou transmitir o Software ou qualquer parte dele;
+   b) Modificar, adaptar, traduzir ou criar trabalhos derivados baseados no Software;
+   c) Realizar engenharia reversa, descompilar, desmontar ou tentar derivar o código-fonte;
+   d) Remover, alterar ou ocultar quaisquer avisos de direitos autorais ou propriedade;
+   e) Utilizar o Software para qualquer finalidade comercial;
+   f) Sublicenciar, alugar, emprestar, vender ou transferir o Software a terceiros.
+
+4. CONFIDENCIALIDADE
+   O Usuário reconhece que o Software contém informações confidenciais e segredos comerciais 
+   do Licenciante. O Usuário concorda em manter essas informações em sigilo e não divulgá-las 
+   a terceiros sem a autorização prévia por escrito do Licenciante.
+
+5. GARANTIAS E RESPONSABILIDADES
+   O Software é fornecido "COMO ESTÁ", sem garantias de qualquer tipo, expressas ou implícitas. 
+   O Licenciante não garante que o Software atenderá aos requisitos do Usuário ou que operará 
+   sem interrupções ou livre de erros. Em nenhuma circunstância o Licenciante será responsável 
+   por quaisquer danos diretos, indiretos, incidentais, especiais, exemplares ou consequenciais.
+
+6. VIOLAÇÕES E PENALIDADES
+   Qualquer uso não autorizado do Software constitui uma violação desta licença e uma infração 
+   às leis de propriedade intelectual. O Licenciante reserva-se o direito de buscar todos os 
+   recursos legais disponíveis em caso de violação, incluindo, mas não se limitando a, medidas 
+   cautelares, danos monetários e honorários advocatícios.
+
+7. VIGÊNCIA E RESCISÃO
+   Esta licença é válida até ser rescindida. O Licenciante pode rescindir esta licença a qualquer 
+   momento se o Usuário não cumprir com qualquer de seus termos e condições. Em caso de rescisão, 
+   o Usuário deve destruir todas as cópias do Software e seus componentes.
+
+8. LEI APLICÁVEL
+   Esta licença será regida e interpretada de acordo com as leis do Brasil, sem considerar 
+   conflitos de princípios legais.
+
+Para obter informações sobre licenciamento comercial ou permissões adicionais, entre em contato com:
+Gabriel Henrique Finotti
+E-mail: finotti.dev@gmail.com
