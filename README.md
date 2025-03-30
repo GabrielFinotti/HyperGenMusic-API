@@ -1,43 +1,47 @@
-# ProjectSong API
-
 <div align="center">
-
-[![Node.js](https://img.shields.io/badge/Node.js-16%2B-43853D?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.7%2B-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Express](https://img.shields.io/badge/Express-4.21%2B-000000?style=flat-square&logo=express&logoColor=white)](https://expressjs.com/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-4169E1?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![Redis](https://img.shields.io/badge/Redis-Latest-DC382D?style=flat-square&logo=redis&logoColor=white)](https://redis.io/)
-[![Sequelize](https://img.shields.io/badge/Sequelize-6.37%2B-52B0E7?style=flat-square&logo=sequelize&logoColor=white)](https://sequelize.org/)
-[![Licença](https://img.shields.io/badge/Licença-Proprietária-red?style=flat-square)](LICENSE)
-
-**API de streaming de música robusta, escalável e de alta performance**
-
-[Visão Geral](#visão-geral) • 
-[Recursos](#principais-recursos) • 
-[Instalação](#instalação) • 
-[Documentação](#documentação-da-api) • 
-[Tecnologias](#tecnologias) • 
-[Licença](#licença)
-
+  <img src="https://via.placeholder.com/200x200.png?text=ProjectSong+API" alt="ProjectSong API Logo" width="200" height="200">
+  <h1>ProjectSong API</h1>
+  <p><strong>Uma API robusta de streaming de música construída com Node.js, TypeScript e Express</strong></p>
+  
+  [![Node.js](https://img.shields.io/badge/Node.js-16%2B-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-5.7%2B-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+  [![Express](https://img.shields.io/badge/Express-4.21%2B-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+  [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+  [![Redis](https://img.shields.io/badge/Redis-Latest-DC382D?style=for-the-badge&logo=redis&logoColor=white)](https://redis.io/)
+  
+  [![Versão](https://img.shields.io/badge/Versão-1.3.0-blue?style=for-the-badge)](https://github.com/GabrielFinotti/ProjectSong-API)
+  [![Licença](https://img.shields.io/badge/Licença-Proprietária-red?style=for-the-badge)](LICENSE)
 </div>
 
-## Visão Geral
+## 📋 Índice
 
-O ProjectSong API é uma infraestrutura backend completa para serviços de streaming de música, projetada com foco em desempenho, segurança e escalabilidade. Construída com TypeScript e Express, esta API oferece um conjunto abrangente de funcionalidades para gerenciamento de usuários, controle de conteúdo musical e administração de sistema.
+- [Visão Geral](#-visão-geral)
+- [Recursos](#-recursos)
+- [Arquitetura](#-arquitetura)
+- [Requisitos](#-requisitos)
+- [Instalação](#-instalação)
+- [Documentação da API](#-documentação-da-api)
+- [Tecnologias](#-tecnologias)
+- [Changelog](#-changelog)
+- [Licença](#-licença)
 
-### Versão Atual: 1.3.0
+## 🚀 Visão Geral
 
-**Destaques da versão:**
+O ProjectSong API é uma infraestrutura backend completa para serviços de streaming de música, projetada com foco em desempenho, segurança e escalabilidade. Construída com TypeScript e Express, esta API implementa os padrões modernos de desenvolvimento, incluindo arquitetura em camadas, injeção de dependências e operações assíncronas eficientes.
+
+### ✨ Destaques da Versão 1.3.0:
+
 - Arquitetura em camadas com responsabilidades bem definidas
 - Design modular aprimorado para melhor organização de código
 - Injeção de dependências avançada
 - Implementação de padrões de projeto modernos
 - Sistema de logging detalhado e colorizado
+- Autenticação segura e gestão de tokens via JWT e Redis
+- Operações completas para gerenciamento de conteúdo musical
 
-## Principais Recursos
+## 🔥 Recursos
 
-<details>
-<summary><b>🔐 Autenticação & Gerenciamento de Usuários</b></summary>
+### Autenticação & Gerenciamento de Usuários
 
 - Sistema completo de registro e login com validação robusta
 - Perfis com diferentes níveis de acesso (usuário e administrador)
@@ -45,21 +49,18 @@ O ProjectSong API é uma infraestrutura backend completa para serviços de strea
 - Armazenamento seguro de senhas com bcrypt
 - Sistema de tokens JWT com blacklist em Redis
 - Validação detalhada de dados (formato de email, complexidade de senha)
-</details>
 
-<details>
-<summary><b>🎵 Gerenciamento de Músicas</b></summary>
+### Gerenciamento de Músicas
 
 - Catálogo de músicas com metadados completos
+- Upload de arquivos de música com validação de formato
 - Busca avançada por título, artista ou gênero
 - Categorização por gêneros musicais
 - Suporte para imagens de capa
-- Formatação automática de duração 
+- Formatação automática de duração
 - Classificação inteligente de conteúdo
-</details>
 
-<details>
-<summary><b>👑 Painel Administrativo</b></summary>
+### Painel Administrativo
 
 - Gerenciamento completo de usuários
 - Operações CRUD para músicas
@@ -67,10 +68,8 @@ O ProjectSong API é uma infraestrutura backend completa para serviços de strea
 - Controle granular de permissões
 - Operações em lote para exclusão de conteúdo
 - Sincronização automática entre banco de dados e sistema de arquivos
-</details>
 
-<details>
-<summary><b>🛡️ Segurança Avançada</b></summary>
+### Segurança Avançada
 
 - Invalidação de tokens após logout
 - Proteção contra reutilização de tokens via Redis
@@ -78,15 +77,43 @@ O ProjectSong API é uma infraestrutura backend completa para serviços de strea
 - Verificação de permissões em cada requisição
 - Sanitização de dados de entrada
 - Hashing único para nomes de arquivos
-</details>
 
-## Requisitos
+## 🏗️ Arquitetura
+
+O ProjectSong API segue uma arquitetura em camadas bem definida, garantindo separação de responsabilidades e facilitando a manutenção:
+
+```
+src/
+ ├── config/          # Configurações do sistema (banco de dados, Redis, Multer)
+ ├── controllers/     # Controladores de requisições HTTP
+ │   ├── admin/       # Controladores administrativos
+ │   ├── music/       # Controladores de música
+ │   └── user/        # Controladores de usuário
+ ├── middleware/      # Middlewares de autenticação e validação
+ ├── models/          # Modelos de dados (Sequelize)
+ ├── routes/          # Definição de rotas
+ ├── services/        # Lógica de negócios
+ ├── types/           # Definições de tipos TypeScript
+ ├── utils/           # Funções utilitárias
+ └── server.ts        # Ponto de entrada da aplicação
+```
+
+### Princípios de Design
+
+- **Separação de Responsabilidades**: Cada camada tem uma função específica
+- **Injeção de Dependências**: Reduzindo acoplamento entre componentes
+- **Design Modular**: Facilitando manutenção e extensibilidade
+- **Tratamento de Erros Centralizado**: Manipulação consistente de erros em toda a aplicação
+- **Validação Robusta**: Garantindo integridade dos dados em todos os níveis
+
+## 📋 Requisitos
 
 - **Node.js**: 16.x ou superior
 - **PostgreSQL**: 13.x ou superior
 - **Redis**: 6.x ou superior
+- **Espaço em Disco**: Mínimo de 1GB disponível para armazenamento de músicas e imagens
 
-## Instalação
+## ⚙️ Instalação
 
 ### Configuração do Ambiente
 
@@ -133,41 +160,48 @@ O ProjectSong API é uma infraestrutura backend completa para serviços de strea
    npm start
    ```
 
-## Documentação da API
+## 📚 Documentação da API
 
 ### Endpoints
 
-#### Autenticação e Usuários
+<details>
+  <summary><b>🔐 Autenticação e Usuários</b></summary>
+  
+  | Método | Endpoint | Descrição | Autenticação |
+  |--------|----------|-----------|--------------|
+  | `POST` | `/api/user/register` | Registrar novo usuário | Não |
+  | `POST` | `/api/user/login` | Efetuar login | Não |
+  | `GET` | `/api/profile` | Obter perfil do usuário | Sim |
+  | `PUT` | `/api/edit/profile` | Atualizar perfil | Sim |
+  | `DELETE` | `/api/delete/profile` | Excluir conta | Sim |
+</details>
 
-| Método | Endpoint | Descrição | Autenticação |
-|--------|----------|-----------|--------------|
-| `POST` | `/api/user/register` | Registrar novo usuário | Não |
-| `POST` | `/api/user/login` | Efetuar login | Não |
-| `GET` | `/api/profile` | Obter perfil do usuário | Sim |
-| `PUT` | `/api/edit/profile` | Atualizar perfil | Sim |
-| `DELETE` | `/api/delete/profile` | Excluir conta | Sim |
+<details>
+  <summary><b>🎵 Músicas</b></summary>
+  
+  | Método | Endpoint | Descrição | Autenticação |
+  |--------|----------|-----------|--------------|
+  | `GET` | `/api/musics` | Listar músicas | Sim |
+  | `GET` | `/api/music/search?q=termo` | Buscar músicas | Sim |
+  | `GET` | `/api/music/data/:id` | Detalhes da música | Sim |
+</details>
 
-#### Músicas
-
-| Método | Endpoint | Descrição | Autenticação |
-|--------|----------|-----------|--------------|
-| `GET` | `/api/musics` | Listar músicas | Sim |
-| `GET` | `/api/music/search?q=termo` | Buscar músicas | Sim |
-| `GET` | `/api/music/data/:id` | Detalhes da música | Sim |
-
-#### Administração
-
-| Método | Endpoint | Descrição | Autenticação |
-|--------|----------|-----------|--------------|
-| `POST` | `/api/music/insert` | Adicionar música | Admin |
-| `PUT` | `/api/music/edit/:musicId` | Editar música | Admin |
-| `DELETE` | `/api/music/delete/musicId/:musicId` | Excluir música | Admin |
-| `DELETE` | `/api/music/delete/all` | Excluir todas as músicas | Admin |
-| `GET` | `/api/users` | Listar usuários | Admin |
-| `GET` | `/api/user/search?q=termo` | Buscar usuário | Admin |
-| `POST` | `/api/user/create` | Criar usuário | Admin |
-| `PUT` | `/api/user/edit/:userid` | Editar usuário | Admin |
-| `DELETE` | `/api/user/delete/userId/:userId` | Excluir usuário | Admin |
+<details>
+  <summary><b>👑 Administração</b></summary>
+  
+  | Método | Endpoint | Descrição | Autenticação |
+  |--------|----------|-----------|--------------|
+  | `POST` | `/api/music/insert` | Adicionar música | Admin |
+  | `PUT` | `/api/music/edit/:musicId` | Editar música | Admin |
+  | `DELETE` | `/api/music/delete/musicId/:musicId` | Excluir música | Admin |
+  | `DELETE` | `/api/music/delete/all` | Excluir todas as músicas | Admin |
+  | `GET` | `/api/users` | Listar usuários | Admin |
+  | `GET` | `/api/user/search?q=termo` | Buscar usuário | Admin |
+  | `POST` | `/api/user/create` | Criar usuário | Admin |
+  | `PUT` | `/api/user/edit/:userid` | Editar usuário | Admin |
+  | `DELETE` | `/api/user/delete/userId/:userId` | Excluir usuário | Admin |
+  | `DELETE` | `/api/user/delete/all` | Excluir todos usuários | Admin |
+</details>
 
 ### Autenticação
 
@@ -177,54 +211,78 @@ A API utiliza autenticação baseada em JWT. Os tokens devem ser enviados no cab
 Authorization: Bearer seu_token_jwt
 ```
 
-## Arquitetura
+### Exemplos de Requisições
 
-O ProjectSong API segue uma arquitetura em camadas bem definida:
+<details>
+  <summary><b>Login</b></summary>
+  
+  ```http
+  POST /api/user/login
+  Content-Type: application/json
 
-```
-src/
- ├── config/          # Configurações do sistema
- ├── controllers/     # Controladores de requisições HTTP
- ├── middleware/      # Middlewares de autenticação e validação
- ├── models/          # Modelos de dados (Sequelize)
- ├── routes/          # Definição de rotas
- ├── services/        # Lógica de negócios
- ├── types/           # Definições de tipos TypeScript
- ├── utils/           # Funções utilitárias
- └── server.ts        # Ponto de entrada da aplicação
-```
+  {
+    "email": "usuario@exemplo.com",
+    "password": "Senha123!"
+  }
+  ```
 
-## Tecnologias
+  Resposta:
+  ```json
+  {
+    "message": "Usuário logado com sucesso!",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  }
+  ```
+</details>
 
-- **Backend**: Node.js, Express, TypeScript
-- **Banco de Dados**: PostgreSQL com Sequelize ORM
-- **Cache**: Redis para blacklist de tokens e cache
-- **Autenticação**: JWT (JSON Web Tokens)
-- **Upload de Arquivos**: Multer
-- **Segurança**: bcrypt para hash de senhas
+<details>
+  <summary><b>Listar Músicas</b></summary>
+  
+  ```http
+  GET /api/musics
+  Authorization: Bearer seu_token_jwt
+  ```
 
-## Desenvolvimento
+  Resposta:
+  ```json
+  {
+    "message": "Músicas recuperadas com sucesso",
+    "musics": [
+      {
+        "id": 1,
+        "title": "Nome da Música",
+        "artist": "Nome do Artista",
+        "imageUrl": "http://localhost:3000/uploads/images/abcdef123456.jpg",
+        "duration": 180
+      },
+      // ...mais músicas
+    ]
+  }
+  ```
+</details>
 
-### Scripts Disponíveis
+## 🔧 Tecnologias
 
-- `npm run dev`: Inicia o servidor com hot-reload
-- `npm run build`: Compila o código TypeScript
-- `npm start`: Executa a versão compilada
-- `npm run lint`: Verifica tipos e sintaxe
-- `npm run clean`: Remove o diretório de distribuição
+- **Backend**: 
+  - Node.js - Ambiente de execução JavaScript
+  - Express - Framework web
+  - TypeScript - Superset tipado de JavaScript
+  
+- **Banco de Dados**: 
+  - PostgreSQL - Banco de dados relacional
+  - Sequelize - ORM para interação com o banco
+  
+- **Cache**: 
+  - Redis - Armazenamento em memória para blacklist de tokens e cache
+  
+- **Segurança**: 
+  - JWT (JSON Web Tokens) - Para autenticação
+  - bcrypt - Para hash de senhas
+  
+- **Upload de Arquivos**: 
+  - Multer - Middleware para manipulação de arquivos
 
-## Boas Práticas
-
-- ✅ Arquitetura em camadas com separação clara de responsabilidades
-- ✅ Validação rigorosa de dados com feedback detalhado
-- ✅ Tratamento centralizado de erros
-- ✅ Padrões de projeto modernos
-- ✅ Injeção de dependências
-- ✅ Logging detalhado para depuração
-- ✅ Tipagem forte com TypeScript
-- ✅ Gestão segura de uploads
-
-## Changelog
+## 📈 Changelog
 
 ### 1.3.0 (Atual)
 - Refatoração da estrutura de controladores
@@ -252,22 +310,18 @@ src/
 - Gestão de músicas
 - Controle de acesso baseado em função
 
-## Contribuições
-
-Para contribuir com o projeto:
-
-1. Faça um fork do repositório
-2. Crie uma branch para sua feature (`git checkout -b feature/nome-da-feature`)
-3. Faça commit de suas alterações (`git commit -m 'Adiciona nova feature'`)
-4. Faça push para a branch (`git push origin feature/nome-da-feature`)
-5. Abra um Pull Request
-
-## Licença
+## 📝 Licença
 
 Proprietária © Gabriel Henrique Finotti. Todos os direitos reservados.
+
+Este software e seus arquivos associados são propriedade exclusiva de Gabriel Henrique Finotti.
+Você não tem permissão para usar, copiar, modificar, mesclar, publicar, distribuir, sublicenciar 
+e/ou vender cópias do Software sem permissão expressa por escrito do proprietário.
 
 ---
 
 <div align="center">
-<sub>Desenvolvido com ❤️ por Gabriel Henrique Finotti</sub>
+  <sub>Desenvolvido com ❤️ por Gabriel Henrique Finotti</sub>
+  <br>
+  <sub>© 2024 • Todos os direitos reservados</sub>
 </div>
