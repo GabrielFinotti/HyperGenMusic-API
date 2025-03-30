@@ -17,7 +17,7 @@ const userRegister = async (req: Request, res: Response) => {
       }!`.red.bgBlack
     );
 
-    res.sendStatus(500).json({
+    res.status(500).json({
       isSuccess: false,
       message: "Erro durante o processo de registro!",
     });
