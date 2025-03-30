@@ -1,6 +1,5 @@
 import User from "../../models/userModel";
-import { UserInterface } from "../../types";
-import { DefaultResponseResult } from "../../types/handling/defaultReponse";
+import { UserInterface, DefaultResponseResult } from "../../types";
 import { authUtils, handlingUtils, userUtils } from "../../utils";
 
 export interface UserService {

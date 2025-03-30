@@ -3,14 +3,21 @@ import { musicAdminService } from "../../../services";
 
 const deleteAllMusics = async (req: Request, res: Response) => {
   try {
-    await musicAdminService.deleteAllMusics();
+    const result = await musicAdminService.deleteAllMusics();
 
-    res.status(200).json({ message: "Músicas deletadas com sucesso" });
+    res
+      .status(result.statusCode)
+      .json(Object.assign(result, { statusCode: undefined }));
   } catch (error) {
-    console.error(`Erro ao deletar músicas: ${error}`.red.bgBlack);
+    console.error(
+      `Erro ao excluir todas as músicas: ${
+        error instanceof Error ? error.message : String(error)
+      }`.red.bgBlack
+    );
 
     res.status(500).json({
-      message: "Falha ao deletar as músicas",
+      isSuccess: false,
+      message: "Erro interno do servidor ao excluir todas as músicas",
     });
   }
 };

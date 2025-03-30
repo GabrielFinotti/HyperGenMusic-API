@@ -1,7 +1,4 @@
-import {
-  DefaultResponseFunction,
-  DefaultResponseResult,
-} from "../../../types/handling/defaultReponse";
+import { DefaultResponseFunction, DefaultResponseResult } from "../../../types";
 
 const defaultResponseImpl: DefaultResponseFunction = (
   isSuccess: boolean,

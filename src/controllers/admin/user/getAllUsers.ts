@@ -5,21 +5,19 @@ const getAllUsers = async (req: Request, res: Response) => {
   try {
     const result = await userAdminService.getAllUsers();
 
-    if (!result) {
-      res.status(404).json({ message: "Nenhum usuário encontrado" });
-      return;
-    }
-
     res
-      .status(200)
-      .json({ message: `${result.length} usuários encontrados`, result });
+      .status(result.statusCode)
+      .json(Object.assign(result, { statusCode: undefined }));
   } catch (error) {
-    console.error("Erro ao buscar usuários:", error);
+    console.error(
+      `Erro ao buscar usuários: ${
+        error instanceof Error ? error.message : String(error)
+      }`.red.bgBlack
+    );
 
     res.status(500).json({
-      message: `Error ao buscar usuários: ${
-        error instanceof Error ? error.message : String(error)
-      }`,
+      isSuccess: false,
+      message: "Erro interno do servidor ao buscar usuários",
     });
   }
 };

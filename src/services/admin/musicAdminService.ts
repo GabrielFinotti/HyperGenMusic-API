@@ -1,11 +1,7 @@
 import sequelize from "../../config/database/databaseConfig";
 import Music from "../../models/musicModel";
-import { folderUtils } from "../../utils";
-import {
-  UploadedFiles,
-  InsertMusicResult,
-  UpdateMusicResult,
-} from "../../types";
+import { folderUtils, handlingUtils } from "../../utils";
+import { UploadedFiles, DefaultResponseResult } from "../../types";
 import path from "path";
 
 interface MusicAdminService {
@@ -16,9 +12,9 @@ interface MusicAdminService {
     baseUrl: string,
     artist?: string,
     genre?: string
-  ): Promise<InsertMusicResult>;
-  deleteMusic(id: number): Promise<void>;
-  deleteAllMusics(): Promise<void>;
+  ): Promise<DefaultResponseResult>;
+  deleteMusic(id: number): Promise<DefaultResponseResult>;
+  deleteAllMusics(): Promise<DefaultResponseResult>;
   editMusic(
     musicId: number,
     baseUrl: string,
@@ -26,7 +22,7 @@ interface MusicAdminService {
     artist?: string,
     genre?: string,
     files?: UploadedFiles
-  ): Promise<UpdateMusicResult>;
+  ): Promise<DefaultResponseResult>;
 }
 
 class MusicAdminServiceImpl implements MusicAdminService {
@@ -37,7 +33,7 @@ class MusicAdminServiceImpl implements MusicAdminService {
     this.setupDirectories();
   }
 
-  private async setupDirectories(): Promise<void> {
+  private async setupDirectories() {
     try {
       const { imagesDir, songsDir } =
         await folderUtils.setupUploadDirectories();
@@ -63,7 +59,7 @@ class MusicAdminServiceImpl implements MusicAdminService {
     baseUrl: string,
     artist?: string,
     genre?: string
-  ): Promise<InsertMusicResult> {
+  ) {
     let musicFilePath: string | null = null;
     let imageFilePath: string | null = null;
 
@@ -72,12 +68,11 @@ class MusicAdminServiceImpl implements MusicAdminService {
         files.image &&
           (await folderUtils.deleteFileIfExists(files.image[0].path));
 
-        return {
-          success: false,
-          error:
-            "Os campos título, duração e arquivo de música são obrigatórios",
-          statusCode: 400,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          "Os campos título, duração e arquivo de música são obrigatórios!"
+        );
       }
 
       const musicFile = files.music[0];
@@ -106,21 +101,24 @@ class MusicAdminServiceImpl implements MusicAdminService {
       musicFilePath = null;
       imageFilePath = null;
 
-      return {
-        success: true,
-        music: newMusic.toApiFormat(),
-        statusCode: 201,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        true,
+        201,
+        "Música inserida com sucesso!",
+        newMusic.toApiFormat()
+      );
     } catch (error) {
-      console.error(`Erro ao inserir música: ${error}`.red.bgBlack);
-
-      return {
-        success: false,
-        error: `Falha ao inserir a música no sistema: ${
+      console.error(
+        `Erro ao inserir música: ${
           error instanceof Error ? error.message : String(error)
-        }`,
-        statusCode: 500,
-      };
+        }`.red.bgBlack
+      );
+
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        false,
+        500,
+        "O servidor encontrou um erro inesperado ao tentar inserir a música. Por favor, tente novamente mais tarde!"
+      );
     } finally {
       musicFilePath && (await folderUtils.deleteFileIfExists(musicFilePath));
       imageFilePath && (await folderUtils.deleteFileIfExists(imageFilePath));
@@ -134,7 +132,7 @@ class MusicAdminServiceImpl implements MusicAdminService {
     artist?: string,
     genre?: string,
     files?: UploadedFiles
-  ): Promise<UpdateMusicResult> {
+  ) {
     let imageFilePath: string | null = null;
     let imageUrl: string | undefined;
 
@@ -144,15 +142,19 @@ class MusicAdminServiceImpl implements MusicAdminService {
       const music = await Music.findByPk(musicId);
 
       if (!music) {
-        throw new Error("Música não encontrada");
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          404,
+          "Música não encontrada!"
+        );
       }
 
       if (!title && !artist && !genre && !files?.image?.[0]) {
-        return {
-          success: false,
-          error: "Nenhum dado foi fornecido para atualização",
-          statusCode: 400,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          "Nenhum dado foi fornecido para atualização!"
+        );
       }
 
       const imageFile = files?.image?.[0];
@@ -180,33 +182,41 @@ class MusicAdminServiceImpl implements MusicAdminService {
 
       await transaction.commit();
 
-      return {
-        success: true,
-        music: music.toApiFormat(),
-        statusCode: 200,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        true,
+        200,
+        "Música atualizada com sucesso!",
+        music.toApiFormat()
+      );
     } catch (error) {
       await transaction.rollback();
-      console.error(`Erro ao editar música: ${error}`.red.bgBlack);
 
-      return {
-        success: false,
-        error: `Falha ao editar a música no sistema: ${
+      console.error(
+        `Erro ao editar música: ${
           error instanceof Error ? error.message : String(error)
-        }`,
-        statusCode: 500,
-      };
+        }`.red.bgBlack
+      );
+
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        false,
+        500,
+        "O servidor encontrou um erro inesperado ao tentar editar a música. Por favor, tente novamente mais tarde!"
+      );
     } finally {
       imageFilePath && (await folderUtils.deleteFileIfExists(imageFilePath));
     }
   }
 
-  async deleteMusic(musicId: number): Promise<void> {
+  async deleteMusic(musicId: number) {
     try {
       const music = await Music.findByPk(musicId);
 
       if (!music) {
-        throw new Error("Música não encontrada");
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          404,
+          "Música não encontrada!"
+        );
       }
 
       if (!this.imageDir || !this.musicDir) {
@@ -236,6 +246,13 @@ class MusicAdminServiceImpl implements MusicAdminService {
       console.log(
         `Música ID: ${musicId} excluída do banco de dados`.green.bgBlack
       );
+
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        true,
+        200,
+        "Música excluída com sucesso!",
+        music.toApiFormat()
+      );
     } catch (error) {
       console.error(
         `Erro ao excluir música: ${
@@ -243,11 +260,15 @@ class MusicAdminServiceImpl implements MusicAdminService {
         }`.red.bgBlack
       );
 
-      throw error;
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        false,
+        500,
+        "O servidor encontrou um erro inesperado ao tentar excluir a música. Por favor, tente novamente mais tarde!"
+      );
     }
   }
 
-  async deleteAllMusics(): Promise<void> {
+  async deleteAllMusics() {
     try {
       const musics = await Music.findAll();
 
@@ -256,8 +277,11 @@ class MusicAdminServiceImpl implements MusicAdminService {
       }
 
       if (musics.length === 0) {
-        console.log("Não há músicas para excluir".yellow.bgBlack);
-        return;
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          404,
+          "Não há músicas para excluir!"
+        );
       }
 
       console.log(
@@ -268,6 +292,12 @@ class MusicAdminServiceImpl implements MusicAdminService {
 
       await Music.destroy({ where: {} });
       console.log(`Todas as músicas foram excluídas com sucesso`.green.bgBlack);
+
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        true,
+        200,
+        `${musics.length} músicas foram excluídas com sucesso!`
+      );
     } catch (error) {
       console.error(
         `Erro ao excluir todas as músicas: ${
@@ -275,7 +305,11 @@ class MusicAdminServiceImpl implements MusicAdminService {
         }`.red.bgBlack
       );
 
-      throw error;
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        false,
+        500,
+        "O servidor encontrou um erro inesperado ao tentar excluir todas as músicas. Por favor, tente novamente mais tarde!"
+      );
     }
   }
 }

@@ -7,17 +7,18 @@ const deleteAllUser = async (req: Request, res: Response) => {
 
     res
       .status(result.statusCode)
-      .json(
-        result.success
-          ? { message: result.message, users: result.user }
-          : result.errors
-          ? { errors: result.errors }
-          : { errors: result.message }
-      );
+      .json(Object.assign(result, { statusCode: undefined }));
   } catch (error) {
-    console.error(`Erro ao deletar usuários, ${error}!`.red.bgBlack);
+    console.error(
+      `Erro ao excluir todos os usuários: ${
+        error instanceof Error ? error.message : String(error)
+      }`.red.bgBlack
+    );
 
-    res.status(500).send("Erro interno do servidor!");
+    res.status(500).json({
+      isSuccess: false,
+      message: "Erro interno do servidor ao excluir todos os usuários",
+    });
   }
 };
 

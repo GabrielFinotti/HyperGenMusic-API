@@ -4,14 +4,23 @@ import { musicAdminService } from "../../../services";
 const deleteMusicById = async (req: Request, res: Response) => {
   try {
     const musicId = parseInt(req.params.musicId);
+    
+    const result = await musicAdminService.deleteMusic(musicId);
 
-    await musicAdminService.deleteMusic(musicId);
-
-    res.status(200).json({ message: "Música deletada com sucesso" });
+    res
+      .status(result.statusCode)
+      .json(Object.assign(result, { statusCode: undefined }));
   } catch (error) {
-    console.error(`Erro inesperado ao deletar música: ${error}`.red.bgBlack);
+    console.error(
+      `Erro inesperado ao excluir música: ${
+        error instanceof Error ? error.message : String(error)
+      }`.red.bgBlack
+    );
 
-    res.status(500).json({ error: "Falha ao deletar música no sistema" });
+    res.status(500).json({
+      isSuccess: false,
+      message: "Erro interno do servidor ao excluir música",
+    });
   }
 };
 

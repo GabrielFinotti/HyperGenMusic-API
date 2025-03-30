@@ -1,6 +1,6 @@
 import { Op } from "sequelize";
 import Music from "../../models/musicModel";
-import { DefaultResponseResult } from "../../types/handling/defaultReponse";
+import { DefaultResponseResult } from "../../types";
 import { handlingUtils } from "../../utils";
 
 export interface MusicService {

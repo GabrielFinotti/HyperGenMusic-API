@@ -1,23 +1,23 @@
 import User from "../../models/userModel";
 import { Op } from "sequelize";
-import { UserInterface, UserResult } from "../../types";
-import { authUtils, userUtils } from "../../utils";
+import { UserInterface, DefaultResponseResult } from "../../types";
+import { authUtils, handlingUtils, userUtils } from "../../utils";
 
 interface UserAdminService {
-  getAllUsers(): Promise<UserResult>;
-  getUserData(userId: number): Promise<UserResult>;
-  searchUser(query: string, limit?: number): Promise<User[]>;
-  createUser(userData: UserInterface): Promise<UserResult>;
+  getAllUsers(): Promise<DefaultResponseResult>;
+  getUserData(userId: number): Promise<DefaultResponseResult>;
+  searchUser(query: string, limit?: number): Promise<DefaultResponseResult>;
+  createUser(userData: UserInterface): Promise<DefaultResponseResult>;
   editUser(
     userId: number,
     userData: Partial<UserInterface>
-  ): Promise<UserResult>;
-  deleteUser(userId: number): Promise<UserResult>;
-  deleteAllUsers(): Promise<UserResult>;
+  ): Promise<DefaultResponseResult>;
+  deleteUser(userId: number): Promise<DefaultResponseResult>;
+  deleteAllUsers(): Promise<DefaultResponseResult>;
 }
 
 class UserAdminServiceImpl implements UserAdminService {
-  async getAllUsers(): Promise<UserResult> {
+  async getAllUsers() {
     try {
       const users = await User.findAll({
         attributes: ["id", "username", "email", "role"],
@@ -26,32 +26,50 @@ class UserAdminServiceImpl implements UserAdminService {
       });
 
       if (!users) {
-        return {
-          success: true,
-          user: [],
-          statusCode: 200,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          404,
+          "Nenhum usuário encontrado!"
+        );
       }
 
-      return {
-        success: true,
-        user: users,
-        statusCode: 200,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        true,
+        200,
+        `${users.length} usuários encontrados!`,
+        users
+      );
     } catch (error) {
-      console.error(`Erro ao buscar usuários: ${error}`.red.bgBlack);
-      return {
-        success: false,
-        message: "Erro interno do servidor",
-        statusCode: 500,
-      };
+      console.error(
+        `Erro ao buscar usuários: ${
+          error instanceof Error ? error.message : String(error)
+        }`.red.bgBlack
+      );
+
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        false,
+        500,
+        "O servidor encontrou um erro inesperado ao tentar buscar usuários. Por favor, tente novamente mais tarde!"
+      );
     }
   }
 
-  async searchUser(query: string, limit?: number): Promise<User[]> {
+  async searchUser(query: string, limit?: number) {
     try {
       if (!query || query.trim() === "") {
-        throw new Error("Query inválida");
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          "Nenhum termo de pesquisa válido encontrado!"
+        );
+      }
+
+      if (limit && (isNaN(limit) || limit <= 0)) {
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          "Limite deve ser um número maior que 0!"
+        );
       }
 
       const searchTerms = query
@@ -60,7 +78,11 @@ class UserAdminServiceImpl implements UserAdminService {
         .filter((term) => term.length > 0);
 
       if (searchTerms.length === 0) {
-        throw new Error("Nenhum termo de pesquisa válido encontrado");
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          "Nenhum termo de pesquisa válido encontrado!"
+        );
       }
 
       const whereCondition = {
@@ -85,30 +107,53 @@ class UserAdminServiceImpl implements UserAdminService {
       });
 
       if (!users) {
-        return [];
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          404,
+          "Nenhum usuário encontrado!"
+        );
       }
 
-      return users;
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        true,
+        200,
+        `${users.length} usuários encontrados!`,
+        users
+      );
     } catch (error) {
-      throw error;
+      console.error(
+        `Erro ao buscar usuários: ${
+          error instanceof Error ? error.message : String(error)
+        }`.red.bgBlack
+      );
+
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        false,
+        500,
+        "O servidor encontrou um erro inesperado ao tentar buscar usuários. Por favor, tente novamente mais tarde!"
+      );
     }
   }
 
-  async createUser(userData: UserInterface): Promise<UserResult> {
+  async createUser(userData: UserInterface) {
     try {
       if (!userData) {
-        throw new Error("Dados do usuário inválidos");
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          "Dados do usuário inválidos!"
+        );
       }
 
       const dataVerification =
         authUtils.userAuth.userDataVerification(userData);
 
       if (dataVerification instanceof Array) {
-        return {
-          success: false,
-          errors: dataVerification,
-          statusCode: 400,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          dataVerification
+        );
       }
 
       const existingUser = await userUtils.getUserData(
@@ -118,86 +163,97 @@ class UserAdminServiceImpl implements UserAdminService {
       );
 
       if (existingUser) {
-        return {
-          success: false,
-          message: "Nome de usuário ou e-mail já está em uso!",
-          statusCode: 409,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          409,
+          "Nome de usuário ou e-mail já está em uso!"
+        );
       }
 
       if (!userData.role) {
-        return {
-          success: false,
-          message: "Cargo do usuário não definido",
-          statusCode: 400,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          "Cargo do usuário não definido!"
+        );
       }
 
-      await User.create(userData);
+      const newUser = await User.create(userData);
 
-      return {
-        success: true,
-        message: "Usuário registrado com sucesso!",
-        statusCode: 201,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        true,
+        201,
+        "Usuário registrado com sucesso!",
+        newUser.toPublicJSON()
+      );
     } catch (error) {
-      console.error(`Erro ao registrar usuário, ${error}!`.red.bgBlack);
+      console.error(
+        `Erro ao registrar usuário, ${
+          error instanceof Error ? error.message : String(error)
+        }!`.red.bgBlack
+      );
 
-      return {
-        success: false,
-        message: "Erro interno do servidor",
-        statusCode: 500,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        false,
+        500,
+        `O servidor encontrou um erro inesperado ao tentar registrar o usuário. Por favor, tente novamente mais tarde!`
+      );
     }
   }
 
-  async getUserData(userId: number): Promise<UserResult> {
+  async getUserData(userId: number) {
     try {
       if (!userId) {
-        throw new Error("ID do usuário inválido");
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          "ID do usuário inválido!"
+        );
       }
 
       const user = await userUtils.getUserData(userId);
 
       if (!user) {
-        return {
-          success: false,
-          message: "Usuário não encontrado",
-          statusCode: 404,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          404,
+          "Usuário não encontrado!"
+        );
       }
 
-      return {
-        success: true,
-        message: "Usuário encontrado",
-        user: user.toPublicJSON(),
-        statusCode: 200,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        true,
+        200,
+        "Usuário encontrado!",
+        user.toPublicJSON()
+      );
     } catch (error) {
-      console.error(`Erro ao buscar usuário, ${error}!`.red.bgBlack);
+      console.error(
+        `Erro ao buscar usuário, ${
+          error instanceof Error ? error.message : String(error)
+        }!`.red.bgBlack
+      );
 
-      return {
-        success: false,
-        message: "Error interno do Servidor",
-        statusCode: 500,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        false,
+        500,
+        "O servidor encontrou um erro inesperado ao tentar buscar o usuário. Por favor, tente novamente mais tarde!"
+      );
     }
   }
 
-  async editUser(
-    userId: number,
-    userData: Partial<UserInterface>
-  ): Promise<UserResult> {
+  async editUser(userId: number, userData: Partial<UserInterface>) {
     try {
       const validatedUserData =
         authUtils.userAuth.updateDataVerification(userData);
 
       if (validatedUserData instanceof Array) {
-        return {
-          success: false,
-          errors: validatedUserData,
-          statusCode: 400,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          "Dados inválidos",
+          validatedUserData
+        );
       }
 
       const user = await User.findOne({
@@ -208,102 +264,117 @@ class UserAdminServiceImpl implements UserAdminService {
       });
 
       if (!user) {
-        return {
-          success: false,
-          message: "Usuário não encontrado!",
-          statusCode: 404,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          404,
+          "Usuário não encontrado!"
+        );
       }
 
       const result = await userUtils.userDataUpdate(validatedUserData, user);
 
-      if ("error" in result) {
-        return {
-          success: false,
-          message: result.error,
-          statusCode: 400,
-        };
+      if (result.error) {
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          result.error
+        );
       }
 
-      return {
-        success: true,
-        message: result.message,
-        statusCode: 200,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        true,
+        200,
+        result.message
+      );
     } catch (error) {
-      console.error("Erro ao atualizar usuário:", error);
+      console.error(
+        `Erro ao atualizar usuário: ${
+          error instanceof Error ? error.message : String(error)
+        }`.red.bgBlack
+      );
 
-      return {
-        success: false,
-        message: "Erro interno do servidor",
-        statusCode: 500,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        false,
+        500,
+        "O servidor encontrou um erro inesperado ao tentar atualizar o usuário. Por favor, tente novamente mais tarde!"
+      );
     }
   }
 
-  async deleteUser(userId: number): Promise<UserResult> {
+  async deleteUser(userId: number) {
     try {
       if (!userId) {
-        throw new Error("ID do usuário inválido");
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          "ID do usuário inválido"
+        );
       }
 
       const user = await User.findByPk(userId);
 
       if (!user) {
-        return {
-          success: false,
-          message: "Usuário não encontrado",
-          statusCode: 404,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          404,
+          "Usuário não encontrado"
+        );
       }
 
       await user.destroy();
 
-      return {
-        success: true,
-        message: "Usuário excluído com sucesso!",
-        user: user.toPublicJSON(),
-        statusCode: 200,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        true,
+        200,
+        "Usuário excluído com sucesso!",
+        user.toPublicJSON()
+      );
     } catch (error) {
-      console.error(`Erro ao excluir usuário, ${error}!`.red.bgBlack);
+      console.error(
+        `Erro ao excluir usuário: ${
+          error instanceof Error ? error.message : String(error)
+        }`.red.bgBlack
+      );
 
-      return {
-        success: false,
-        message: "Erro interno do servidor",
-        statusCode: 500,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        false,
+        500,
+        "O servidor encontrou um erro inesperado ao tentar excluir o usuário. Por favor, tente novamente mais tarde!"
+      );
     }
   }
 
-  async deleteAllUsers(): Promise<UserResult> {
+  async deleteAllUsers() {
     try {
       const users = await User.findAll();
 
       if (!users || users.length === 0) {
-        return {
-          success: false,
-          message: "Nenhum usuário encontrado",
-          statusCode: 404,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          404,
+          "Nenhum usuário encontrado"
+        );
       }
 
       await Promise.all(users.map((user) => user.destroy()));
 
-      return {
-        success: true,
-        message: `${users.length} usuários foram excluídos com sucesso!`,
-        user: users.map((user) => user.toPublicJSON()),
-        statusCode: 200,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        true,
+        200,
+        `${users.length} usuários foram excluídos com sucesso!`
+      );
     } catch (error) {
-      console.error(`Erro ao excluir todos os usuários, ${error}!`.red.bgBlack);
+      console.error(
+        `Erro ao excluir todos os usuários: ${
+          error instanceof Error ? error.message : String(error)
+        }`.red.bgBlack
+      );
 
-      return {
-        success: false,
-        message: "Erro interno do servidor",
-        statusCode: 500,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        false,
+        500,
+        "O servidor encontrou um erro inesperado ao tentar excluir todos os usuários. Por favor, tente novamente mais tarde!"
+      );
     }
   }
 }
