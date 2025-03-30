@@ -1,8 +1,12 @@
-import { UserInterface } from './user/userInterface';
-import { UserResult } from './user/userResult';
-import { MusicInterface } from './music/musicInterface';
-import { UploadedFiles } from './uploads/uploadedFilesInterface';
-import { InsertMusicResult, UpdateMusicResult } from './music/musicAdminResult';
+import { UserInterface } from "./user/userInterface";
+import { UserResult } from "./user/userResult";
+import { MusicInterface } from "./music/musicInterface";
+import { UploadedFiles } from "./uploads/uploadedFilesInterface";
+import { InsertMusicResult, UpdateMusicResult } from "./music/musicAdminResult";
+import {
+  DefaultResponseFunction,
+  DefaultResponseResult,
+} from "./handling/defaultReponse";
 
 export {
   UserInterface,
@@ -10,5 +14,7 @@ export {
   MusicInterface,
   UploadedFiles,
   InsertMusicResult,
-  UpdateMusicResult
+  UpdateMusicResult,
+  DefaultResponseFunction,
+  DefaultResponseResult,
 };

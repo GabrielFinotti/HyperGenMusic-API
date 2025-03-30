@@ -1,26 +1,29 @@
 import User from "../../models/userModel";
-import { UserInterface, UserResult } from "../../types";
-import { authUtils, userUtils } from "../../utils";
+import { UserInterface, DefaultResponseResult } from "../../types";
+import { authUtils, handlingUtils, userUtils } from "../../utils";
 
 export interface UserService {
-  register(userData: UserInterface): Promise<UserResult>;
-  login(email: string, password: string): Promise<UserResult>;
-  getUserById(id: number): Promise<UserResult>;
-  updateUser(id: number, userData: Partial<UserInterface>): Promise<UserResult>;
-  deleteUser(id: number, authHeader: string): Promise<UserResult>;
+  register(userData: UserInterface): Promise<DefaultResponseResult>;
+  login(email: string, password: string): Promise<DefaultResponseResult>;
+  getUserById(id: number): Promise<DefaultResponseResult>;
+  updateUser(
+    id: number,
+    userData: Partial<UserInterface>
+  ): Promise<DefaultResponseResult>;
+  deleteUser(id: number, authHeader: string): Promise<DefaultResponseResult>;
 }
 
 class UserServiceImpl implements UserService {
-  async register(userData: UserInterface): Promise<UserResult> {
+  async register(userData: UserInterface) {
     try {
       const confirmUserData = authUtils.userAuth.userDataVerification(userData);
 
       if (confirmUserData instanceof Array) {
-        return {
-          success: false,
-          errors: confirmUserData,
-          statusCode: 400,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          confirmUserData
+        );
       }
 
       const existingUser = await userUtils.getUserData(
@@ -30,43 +33,48 @@ class UserServiceImpl implements UserService {
       );
 
       if (existingUser) {
-        return {
-          success: false,
-          message: "Nome de usuário ou e-mail já esta em uso!",
-          statusCode: 409,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          409,
+          "Nome de usuário ou e-mail já esta em uso!"
+        );
       }
 
       if (!userData.role) {
         userData.role = "user";
       }
 
-      await User.create(userData);
+      const newUser = await User.create(userData);
 
-      return {
-        success: true,
-        message: "Usuário registrado com sucesso!",
-        statusCode: 201,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        true,
+        201,
+        "Usuário registrado com sucesso!",
+        newUser.toPublicJSON()
+      );
     } catch (error) {
-      console.error(`Erro ao registrar usuário, ${error}!`.red.bgBlack);
+      console.error(
+        `Erro ao registrar usuário, ${
+          error instanceof Error ? error.message : String(error)
+        }!`.red.bgBlack
+      );
 
-      return {
-        success: false,
-        message: "Erro interno do servidor",
-        statusCode: 500,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        false,
+        500,
+        "O servidor encontrou um erro inesperado ao registrar o usuário. Por favor, tente novamente mais tarde!"
+      );
     }
   }
 
-  async login(email: string, password: string): Promise<UserResult> {
+  async login(email: string, password: string) {
     try {
       if (!email || !password) {
-        return {
-          success: false,
-          message: "Email e senha são obrigatórios!",
-          statusCode: 400,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          "Email e senha são obrigatórios!"
+        );
       }
 
       const getProfile = await User.findOne({
@@ -75,92 +83,98 @@ class UserServiceImpl implements UserService {
       });
 
       if (!getProfile) {
-        return {
-          success: false,
-          message: "Usuário não encontrado!",
-          statusCode: 404,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          404,
+          "Usuário não encontrado!"
+        );
       }
 
       const isValidPassword = await getProfile.comparePassword(password);
 
       if (!isValidPassword) {
-        return {
-          success: false,
-          message: "Senha inválida!",
-          statusCode: 401,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          401,
+          "Senha Incorreta!"
+        );
       }
 
       const token = await authUtils.jwt.generateToken(getProfile.id);
 
       if (typeof token !== "string") {
-        return {
-          success: false,
-          message: token.error,
-          statusCode: 500,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          500,
+          token.error
+        );
       }
 
-      return {
-        success: true,
-        message: "Usuário logado com sucesso!",
-        token,
-        statusCode: 200,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        true,
+        200,
+        "Login efetuado com sucesso!",
+        token
+      );
     } catch (error) {
-      console.error("Erro durante o login:", error);
+      console.error(
+        `Erro durante o processo de login: ${
+          error instanceof Error ? error.message : String(error)
+        }!`.red.bgBlack
+      );
 
-      return {
-        success: false,
-        message: "Erro interno do servidor",
-        statusCode: 500,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        false,
+        500,
+        "O servidor encontrou um erro inesperado ao fazer login. Por favor, tente novamente mais tarde!"
+      );
     }
   }
 
-  async getUserById(id: number): Promise<UserResult> {
+  async getUserById(id: number) {
     try {
       const userData = await userUtils.getUserData(id);
 
       if (!userData) {
-        return {
-          success: false,
-          message: "Usuário não encontrado!",
-          statusCode: 404,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          404,
+          "Usuário não encontrado!"
+        );
       }
 
-      return {
-        success: true,
-        user: userData.toPublicJSON(),
-        statusCode: 200,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        true,
+        200,
+        "Seus dados foram encontrados!",
+        userData.toPublicJSON()
+      );
     } catch (error) {
-      console.error(`Erro ao obter dados do usuário: ${error}`.red.bgBlack);
+      console.error(
+        `Erro ao obter dados do usuário: ${
+          error instanceof Error ? error.message : String(error)
+        }`.red.bgBlack
+      );
 
-      return {
-        success: false,
-        message: "Erro interno do servidor!",
-        statusCode: 500,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        false,
+        500,
+        "O servidor encontrou um erro inesperado ao recuperar seus dados. Por favor, tente novamente mais tarde!"
+      );
     }
   }
 
-  async updateUser(
-    id: number,
-    userData: Partial<UserInterface>
-  ): Promise<UserResult> {
+  async updateUser(id: number, userData: Partial<UserInterface>) {
     try {
       const validatedUserData =
         authUtils.userAuth.updateDataVerification(userData);
 
-      if (Array.isArray(validatedUserData)) {
-        return {
-          success: false,
-          errors: validatedUserData,
-          statusCode: 400,
-        };
+      if (validatedUserData instanceof Array) {
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          validatedUserData
+        );
       }
 
       const user = await User.findOne({
@@ -171,84 +185,92 @@ class UserServiceImpl implements UserService {
       });
 
       if (!user) {
-        return {
-          success: false,
-          message: "Usuário não encontrado!",
-          statusCode: 404,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          404,
+          "Usuário não encontrado!"
+        );
       }
 
       const result = await userUtils.userDataUpdate(validatedUserData, user);
 
-      if ("error" in result) {
-        return {
-          success: false,
-          message: result.error,
-          statusCode: 400,
-        };
+      if (result.error) {
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          result.error
+        );
       }
 
-      return {
-        success: true,
-        message: result.message,
-        statusCode: 200,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        true,
+        200,
+        result.message
+      );
     } catch (error) {
-      console.error("Erro ao atualizar usuário:", error);
+      console.error(
+        `Erro ao atualizar usuário: ${
+          error instanceof Error ? error.message : String(error)
+        }`.red.bgBlack
+      );
 
-      return {
-        success: false,
-        message: "Erro interno do servidor",
-        statusCode: 500,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        false,
+        500,
+        "O servidor encontrou um erro inesperado ao atualizar os seus dados. Por favor, tente novamente mais tarde!"
+      );
     }
   }
 
-  async deleteUser(id: number, authHeader: string): Promise<UserResult> {
+  async deleteUser(id: number, authHeader: string) {
     try {
       const userData = await userUtils.getUserData(id);
 
       if (!userData) {
-        return {
-          success: false,
-          message: "Usuário não encontrado!",
-          statusCode: 404,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          404,
+          "Usuário não encontrado!"
+        );
       }
 
       if (!authHeader) {
-        return {
-          success: false,
-          message: "Não autorizado!",
-          statusCode: 401,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          401,
+          "Você não está autorizado a realizar essa ação!"
+        );
       }
 
       const revogeToken = await authUtils.jwt.deleteToken(authHeader);
 
       if (revogeToken.error) {
-        return {
-          success: false,
-          message: `Erro ao excluir usuário: ${revogeToken.error}`,
-          statusCode: 400,
-        };
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          `Ocorreu um erro ao excluir seu perfil: ${revogeToken.error}!`
+        );
       }
 
       await userData.destroy();
 
-      return {
-        success: true,
-        message: `Usuário excluído com sucesso, ${revogeToken.message}!`,
-        statusCode: 200,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        true,
+        200,
+        `Seu perfil foi excluído com sucesso, ${revogeToken.message}!`
+      );
     } catch (error) {
-      console.error(`Erro ao excluir usuário: ${error}`.red.bgBlack);
+      console.error(
+        `Erro ao excluir usuário: ${
+          error instanceof Error ? error.message : String(error)
+        }`.red.bgBlack
+      );
 
-      return {
-        success: false,
-        message: "Erro interno do servidor!",
-        statusCode: 500,
-      };
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        false,
+        500,
+        "O servidor encontrou um erro inesperado ao excluir seu perfil. Por favor, tente novamente mais tarde!"
+      );
     }
   }
 }

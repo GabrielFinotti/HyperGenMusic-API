@@ -10,22 +10,19 @@ const searchUser = async (req: Request, res: Response) => {
 
     const result = await userAdminService.searchUser(query, limit);
 
-    if (result.length === 0) {
-      res.status(404).json({ message: "Nenhum usuário encontrado" });
-      return;
-    }
-
-    res.status(200).json({
-      message: `${result.length} usuários encontrados`,
-      users: result,
-    });
+    res
+      .status(result.statusCode)
+      .json(Object.assign(result, { statusCode: undefined }));
   } catch (error) {
-    console.error("Erro ao buscar usuários:", error);
+    console.error(
+      `Erro ao buscar usuários: ${
+        error instanceof Error ? error.message : String(error)
+      }`.red.bgBlack
+    );
 
     res.status(500).json({
-      message: `Erro ao buscar usuários: ${
-        error instanceof Error ? error.message : String(error)
-      }`,
+      isSuccess: false,
+      message: "Erro interno do servidor ao buscar usuários",
     });
   }
 };

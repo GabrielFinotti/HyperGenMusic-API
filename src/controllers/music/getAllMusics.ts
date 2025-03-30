@@ -3,20 +3,22 @@ import { musicService } from "../../services";
 
 const getAllMusics = async (req: Request, res: Response) => {
   try {
-    const musics = await musicService.getAllMusic();
-
-    if (musics.length === 0) {
-      res.status(404).json({ message: "Nenhuma música encontrada" });
-      return;
-    }
+    const result = await musicService.getAllMusic();
 
     res
-      .status(200)
-      .json({ message: "Músicas recuperadas com sucesso", musics });
+      .status(result.statusCode)
+      .json(Object.assign(result, { statusCode: undefined }));
   } catch (error) {
-    console.error(`Erro ao buscar músicas: ${error}`.red.bgBlack);
+    console.error(
+      `Erro interno ao recuperar músicas: ${
+        error instanceof Error ? error.message : String(error)
+      }`.red.bgBlack
+    );
 
-    res.status(500).json({ message: "Erro ao buscar músicas" });
+    res.status(500).json({
+      isSuccess: false,
+      message: "Erro interno do servidor ao recuperar músicas!",
+    });
   }
 };
 

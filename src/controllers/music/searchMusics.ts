@@ -8,23 +8,21 @@ const searchMusics = async (req: Request, res: Response) => {
       ? parseInt(req.query.limit as string)
       : undefined;
 
-    const musics = await musicService.searchMusics(query, limit);
-
-    if (musics.length === 0) {
-      res.status(404).json({ message: "Nenhuma música encontrada" });
-      return;
-    }
+    const result = await musicService.searchMusics(query, limit);
 
     res
-      .status(200)
-      .json({ message: `${musics.length} músicas encontradas`, musics });
+      .status(result.statusCode)
+      .json(Object.assign(result, { statusCode: undefined }));
   } catch (error) {
-    console.error(`Erro ao buscar músicas: ${error}`);
+    console.error(
+      `Erro interno ao buscar músicas: ${
+        error instanceof Error ? error.message : String(error)
+      }`
+    );
 
     res.status(500).json({
-      message: `Erro ao buscar músicas: ${
-        error instanceof Error ? error.message : String(error)
-      }`,
+      isSuccess: false,
+      message: "Erro interno do servidor ao buscar músicas",
     });
   }
 };
