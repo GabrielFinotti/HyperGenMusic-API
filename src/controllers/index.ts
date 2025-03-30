@@ -8,9 +8,13 @@ import {
 import {
   createUser,
   deleteAllMusics,
+  deleteAllUser,
   deleteMusicById,
+  deleteUser,
   editMusic,
+  editUser,
   getAllUsers,
+  getUserData,
   insertMusic,
   searchUser,
 } from "./admin";
@@ -36,6 +40,10 @@ export const adminController = {
   deleteAllMusics,
   editMusic,
   getAllUsers,
+  getUserData,
   searchUser,
   createUser,
+  editUser,
+  deleteAllUser,
+  deleteUser,
 };

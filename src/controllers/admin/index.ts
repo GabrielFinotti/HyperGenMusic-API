@@ -5,7 +5,15 @@ import {
   insertMusic,
 } from "./music";
 
-import { getAllUsers, searchUser, createUser } from "./user";
+import {
+  getAllUsers,
+  searchUser,
+  createUser,
+  deleteAllUser,
+  deleteUser,
+  editUser,
+  getUserData,
+} from "./user";
 
 export {
   insertMusic,
@@ -13,6 +21,10 @@ export {
   deleteAllMusics,
   editMusic,
   getAllUsers,
+  getUserData,
   searchUser,
   createUser,
+  editUser,
+  deleteAllUser,
+  deleteUser,
 };
