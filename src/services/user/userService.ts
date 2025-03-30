@@ -1,5 +1,5 @@
 import User from "../../models/userModel";
-import { UserInterface, UserResult } from "../../types";
+import { UserInterface } from "../../types";
 import { DefaultResponseResult } from "../../types/handling/defaultReponse";
 import { authUtils, handlingUtils, userUtils } from "../../utils";
 
@@ -15,7 +15,7 @@ export interface UserService {
 }
 
 class UserServiceImpl implements UserService {
-  async register(userData: UserInterface): Promise<DefaultResponseResult> {
+  async register(userData: UserInterface) {
     try {
       const confirmUserData = authUtils.userAuth.userDataVerification(userData);
 
@@ -68,7 +68,7 @@ class UserServiceImpl implements UserService {
     }
   }
 
-  async login(email: string, password: string): Promise<DefaultResponseResult> {
+  async login(email: string, password: string) {
     try {
       if (!email || !password) {
         return handlingUtils.responseHandling.defaultResponseImpl(
@@ -132,7 +132,7 @@ class UserServiceImpl implements UserService {
     }
   }
 
-  async getUserById(id: number): Promise<DefaultResponseResult> {
+  async getUserById(id: number) {
     try {
       const userData = await userUtils.getUserData(id);
 
@@ -165,10 +165,7 @@ class UserServiceImpl implements UserService {
     }
   }
 
-  async updateUser(
-    id: number,
-    userData: Partial<UserInterface>
-  ): Promise<DefaultResponseResult> {
+  async updateUser(id: number, userData: Partial<UserInterface>) {
     try {
       const validatedUserData =
         authUtils.userAuth.updateDataVerification(userData);
@@ -226,10 +223,7 @@ class UserServiceImpl implements UserService {
     }
   }
 
-  async deleteUser(
-    id: number,
-    authHeader: string
-  ): Promise<DefaultResponseResult> {
+  async deleteUser(id: number, authHeader: string) {
     try {
       const userData = await userUtils.getUserData(id);
 

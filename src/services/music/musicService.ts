@@ -1,11 +1,12 @@
 import { Op } from "sequelize";
 import Music from "../../models/musicModel";
-import { MusicDataResult } from "../../types/music/musicInterface";
+import { DefaultResponseResult } from "../../types/handling/defaultReponse";
+import { handlingUtils } from "../../utils";
 
 export interface MusicService {
-  getAllMusic(): Promise<Music[]>;
-  getMusicData(id: number): Promise<MusicDataResult>;
-  searchMusics(query: string): Promise<Music[]>;
+  getAllMusic(): Promise<DefaultResponseResult>;
+  getMusicData(id: number): Promise<DefaultResponseResult>;
+  searchMusics(query: string): Promise<DefaultResponseResult>;
 }
 
 class MusicServiceImpl implements MusicService {
@@ -17,34 +18,92 @@ class MusicServiceImpl implements MusicService {
         attributes: ["id", "title", "artist", "imageUrl", "duration"],
       });
 
-      return musics;
+      if (!musics) {
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          404,
+          "Nenhuma música encontrada!"
+        );
+      }
+
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        true,
+        200,
+        "Musicas recuperadas com sucesso",
+        musics
+      );
     } catch (error) {
-      throw error;
+      console.error(
+        `Erro ao recuperar músicas: ${
+          error instanceof Error ? error.message : String(error)
+        }!`
+      );
+
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        false,
+        500,
+        "O servidor encontrou um erro ao tentar recuperar as músicas. Por favor, tente novamente mais tarde!"
+      );
     }
   }
 
-  async getMusicData(musicId: number): Promise<MusicDataResult> {
+  async getMusicData(musicId: number) {
     try {
       if (isNaN(musicId)) {
-        throw new Error("ID de música inválido");
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          "ID de música inválido!"
+        );
       }
 
       const music = await Music.findByPk(musicId);
 
       if (!music) {
-        throw new Error("Música não encontrada");
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          404,
+          "Música não encontrada!"
+        );
       }
 
-      return music.toApiFormat();
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        true,
+        200,
+        "Dados da música recuperados com sucesso!",
+        music.toApiFormat()
+      );
     } catch (error) {
-      throw error;
+      console.error(
+        `Erro ao recuperar dados da música: ${
+          error instanceof Error ? error.message : String(error)
+        }!`
+      );
+
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        false,
+        500,
+        "O servidor encontrou um erro ao tentar recuperar os dados da música. Por favor, tente novamente mais tarde!"
+      );
     }
   }
 
-  async searchMusics(query: string, limit?: number): Promise<Music[]> {
+  async searchMusics(query: string, limit?: number) {
     try {
       if (!query || query.trim() === "") {
-        throw new Error("Query inválida");
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          "Nenhum termo de pesquisa foi fornecido!"
+        );
+      }
+
+      if (limit && (isNaN(limit) || limit <= 0)) {
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          "O limite deve ser um número maior que 0!"
+        );
       }
 
       const searchTerms = query
@@ -53,7 +112,11 @@ class MusicServiceImpl implements MusicService {
         .filter((term) => term.length > 0);
 
       if (searchTerms.length === 0) {
-        throw new Error("Nenhum termo de pesquisa válido encontrado");
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          "Nenhum termo de pesquisa válido foi encontrado!"
+        );
       }
 
       const whereClause = {
@@ -74,13 +137,32 @@ class MusicServiceImpl implements MusicService {
         where: whereClause,
         limit: limit ?? 5,
         order: [["title", "ASC"]],
-        attributes: ["id", "title", "artist", "imageUrl", "duration"],
+        attributes: ["id", "title", "artist", "imageUrl"],
       });
 
-      return musics;
+      if (!musics) {
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          404,
+          "Nenhuma música encontrada!"
+        );
+      }
+
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        true,
+        200,
+        `${musics.length} músicas encontradas!`,
+        musics
+      );
     } catch (error) {
-      throw error;
+      console.error(`Erro ao buscar músicas: ${error}`.red.bgBlack);
     }
+
+    return handlingUtils.responseHandling.defaultResponseImpl(
+      false,
+      500,
+      "O servidor encontrou um erro inesperado ao buscar as músicas. Por favor, tente novamente mais tarde!"
+    );
   }
 }
 

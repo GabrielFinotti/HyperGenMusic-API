@@ -3,21 +3,22 @@ import { musicService } from "../../services";
 
 const getMusicData = async (req: Request, res: Response) => {
   try {
-    const result = await musicService.getMusicData(
-      parseInt(req.params.musicId)
+    const musicId = parseInt(req.params.musicId);
+    const result = await musicService.getMusicData(musicId);
+
+    res
+      .status(result.statusCode)
+      .json(Object.assign(result, { statusCode: undefined }));
+  } catch (error) {
+    console.error(
+      `Erro interno ao buscar dados da música: ${
+        error instanceof Error ? error.message : String(error)
+      }`
     );
 
-    res.status(200).json({
-      message: "Música recuperada com sucesso",
-      result,
-    });
-  } catch (error) {
-    console.error(`Erro ao buscar música: ${error}`.red.bgBlack);
-
     res.status(500).json({
-      message: `Erro ao buscar música: ${
-        error instanceof Error ? error.message : String(error)
-      }`,
+      isSuccess: false,
+      message: "Erro interno do servidor ao buscar dados da música",
     });
   }
 };
