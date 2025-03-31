@@ -1,16 +1,7 @@
-/**
- * Utilitário para validação de atualizações de dados do usuário
- */
 import { UserInterface } from "../../../types";
-import { validationPatterns } from "../regex/validationPatterns";
-import { PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH, USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH } from "../../../constants/validation";
+import { regex } from "../../auth";
 
-/**
- * Valida os dados de atualização de um usuário
- * @param userData - Dados parciais do usuário para atualização
- * @returns Dados validados ou array de erros
- */
-export const validateUpdateData = (userData: Partial<UserInterface>): Partial<UserInterface> | string[] => {
+export const updateDataVerification = (userData: Partial<UserInterface>) => {
   const errors: string[] = [];
 
   validateUsername(userData.username, errors);
@@ -20,9 +11,6 @@ export const validateUpdateData = (userData: Partial<UserInterface>): Partial<Us
   return errors.length > 0 ? errors : userData;
 };
 
-/**
- * Valida o nome de usuário
- */
 function validateUsername(username?: string, errors: string[] = []): void {
   if (!username) return;
 
@@ -30,14 +18,11 @@ function validateUsername(username?: string, errors: string[] = []): void {
     errors.push("Nome de usuário não pode começar ou terminar com espaço em branco!");
   }
 
-  if (username.length < USERNAME_MIN_LENGTH || username.length > USERNAME_MAX_LENGTH) {
-    errors.push(`Nome de usuário deve ter entre ${USERNAME_MIN_LENGTH} e ${USERNAME_MAX_LENGTH} caracteres!`);
+  if (username.length < 6 || username.length > 12) {
+    errors.push("Nome de usuário deve ter entre 6 e 12 caracteres!");
   }
 }
 
-/**
- * Valida a senha
- */
 function validatePassword(password?: string, errors: string[] = []): void {
   if (!password) return;
 
@@ -45,19 +30,19 @@ function validatePassword(password?: string, errors: string[] = []): void {
     errors.push("Senha não pode começar ou terminar com espaço em branco!");
   }
 
-  if (password.length < PASSWORD_MIN_LENGTH || password.length > PASSWORD_MAX_LENGTH) {
-    errors.push(`Senha deve ter entre ${PASSWORD_MIN_LENGTH} e ${PASSWORD_MAX_LENGTH} caracteres!`);
+  if (password.length < 8 || password.length > 20) {
+    errors.push("Senha deve ter entre 8 e 20 caracteres!");
   }
 
   const missingConditions: string[] = [];
 
-  if (!validationPatterns.uppercase.test(password)) {
+  if (!regex.regexGroup.uppercase.test(password)) {
     missingConditions.push("uma letra maiúscula");
   }
-  if (!validationPatterns.number.test(password)) {
+  if (!regex.regexGroup.number.test(password)) {
     missingConditions.push("um número");
   }
-  if (!validationPatterns.specialChar.test(password)) {
+  if (!regex.regexGroup.specialChar.test(password)) {
     missingConditions.push("um caractere especial");
   }
 
@@ -68,9 +53,6 @@ function validatePassword(password?: string, errors: string[] = []): void {
   }
 }
 
-/**
- * Valida o email
- */
 function validateEmail(email?: string, errors: string[] = []): void {
   if (!email) return;
 
@@ -78,7 +60,7 @@ function validateEmail(email?: string, errors: string[] = []): void {
     errors.push("Email não pode começar ou terminar com espaço em branco!");
   }
 
-  if (!validationPatterns.email.test(email)) {
+  if (!regex.regexGroup.email.test(email)) {
     errors.push("Formato de e-mail inválido!");
   }
 }

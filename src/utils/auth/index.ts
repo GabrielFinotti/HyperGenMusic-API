@@ -1,12 +1,17 @@
-/**
- * Serviços de autenticação e autorização
- */
-import { tokenService } from "./jwt";
-import { validationPatterns } from "./regex";
-import { userValidator } from "./userAuth";
+import { generateToken, deleteToken } from "./jwt/index";
+import { regexGroup } from "./regex/index";
+import { userDataVerification, updateDataVerification } from "./userAuth/index";
 
-export const authService = {
-  jwt: tokenService,
-  regex: validationPatterns,
-  userAuth: userValidator,
+export const jwt = {
+  generateToken,
+  deleteToken,
+};
+
+export const regex = {
+  regexGroup,
+};
+
+export const userAuth = {
+  userDataVerification,
+  updateDataVerification,
 };
