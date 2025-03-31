@@ -3,7 +3,6 @@
  */
 import fs from "fs/promises";
 import { existsSync } from "fs";
-import { logger } from "../logger";
 
 /**
  * Exclui um arquivo se ele existir
@@ -14,17 +13,13 @@ export const deleteFile = async (filePath: string): Promise<void> => {
   try {
     if (existsSync(filePath)) {
       await fs.unlink(filePath);
-      logger.info(`Arquivo ${filePath} removido com sucesso`);
-    } else {
-      logger.debug(`Arquivo ${filePath} não encontrado para remoção`);
+      console.log(`Arquivo ${filePath} removido com sucesso`.green.bgBlack);
     }
   } catch (error) {
-    logger.error(
-      `Erro ao remover arquivo ${filePath}`,
-      error instanceof Error ? error : new Error(String(error))
+    console.error(
+      `Erro ao remover arquivo ${filePath}: ${
+        error instanceof Error ? error.message : String(error)
+      }`.red.bgBlack
     );
-    
-    // Não propagamos o erro para permitir que o programa continue
-    // mesmo se a exclusão do arquivo falhar
   }
 };
