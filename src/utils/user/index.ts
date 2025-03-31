@@ -1,4 +1,10 @@
-import { getUserData } from "./getUserData";
-import { userDataUpdate } from "./userDataUpdate";
+/**
+ * Utilitários para manipulação de dados de usuário
+ */
+import { fetchUserData } from "./getUserData";
+import { updateUserData } from "./userDataUpdate";
 
-export { getUserData, userDataUpdate };
+export const userService = {
+  getUserData: fetchUserData,
+  userDataUpdate: updateUserData,
+};

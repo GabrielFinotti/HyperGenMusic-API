@@ -1,3 +1,6 @@
-import regexGroup from "./regexGroup";
+/**
+ * Padrões de validação regex para a aplicação
+ */
+import { validationPatterns } from "./validationPatterns";
 
-export { regexGroup };
+export { validationPatterns };

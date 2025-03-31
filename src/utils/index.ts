@@ -1,35 +1,15 @@
-import { jwt, regex, userAuth } from "./auth/index";
-import { responseHandling } from "./handlings";
-import {
-  setupUploadDirectories,
-  cleanUploadDirectories,
-  getFileExtension,
-  deleteFileIfExists,
-  replaceImage,
-  mimeTypes,
-} from "./uploads/index";
-import { getUserData, userDataUpdate } from "./user/index";
+/**
+ * Utils centralizados da aplicação
+ * 
+ * Este módulo exporta utilitários organizados por domínio
+ * para facilitar a importação e uso em toda aplicação
+ */
+import { authService } from "./auth";
+import { responseHandler } from "./handlers";
+import { fileService } from "./files";
+import { userService } from "./user";
 
-export const authUtils = {
-  jwt,
-  regex,
-  userAuth,
-};
-
-export const userUtils = {
-  getUserData,
-  userDataUpdate,
-};
-
-export const folderUtils = {
-  setupUploadDirectories,
-  cleanUploadDirectories,
-  getFileExtension,
-  deleteFileIfExists,
-  replaceImage,
-  mimeTypes,
-};
-
-export const handlingUtils = {
-  responseHandling,
-};
+export const authUtils = authService;
+export const handlingUtils = responseHandler;
+export const folderUtils = fileService;
+export const userUtils = userService;

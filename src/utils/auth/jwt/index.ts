@@ -1,4 +1,10 @@
+/**
+ * Serviços relacionados a tokens JWT
+ */
 import { generateToken } from "./createToken";
 import { deleteToken } from "./deleteToken";
 
-export { generateToken, deleteToken };
+export const tokenService = {
+  generateToken,
+  deleteToken,
+};

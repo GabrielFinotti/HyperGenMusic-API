@@ -1,4 +1,10 @@
-import { userDataVerification } from "./dataVerification";
-import { updateDataVerification } from "./updateDataVerification";
+/**
+ * Validadores de dados de usuário
+ */
+import { validateUserData } from "./dataVerification";
+import { validateUpdateData } from "./updateDataVerification";
 
-export { userDataVerification, updateDataVerification };
+export const userValidator = {
+  userDataVerification: validateUserData,
+  updateDataVerification: validateUpdateData, 
+};
