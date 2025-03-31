@@ -1,8 +1,10 @@
 /**
  * Manipuladores de respostas da API
  */
-import { defaultResponseImpl } from "./defaultResponse";
+import { defaultResponseImpl, successResponse, errorResponse } from "./defaultResponse";
 
 export const responseHandling = {
   defaultResponseImpl,
+  successResponse,
+  errorResponse,
 };

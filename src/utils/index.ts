@@ -8,8 +8,10 @@ import { authService } from "./auth";
 import { responseHandler } from "./handlers";
 import { fileService } from "./files";
 import { userService } from "./user";
+import { logger } from "./logger";
 
 export const authUtils = authService;
 export const handlingUtils = responseHandler;
 export const folderUtils = fileService;
 export const userUtils = userService;
+export { logger };

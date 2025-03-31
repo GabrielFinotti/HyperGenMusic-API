@@ -2,6 +2,10 @@
  * Manipuladores de erros da aplicação
  */
 
+import { AppError } from './AppError';
+import { errorHandler } from './errorHandler';
+
 export const errorHandling = {
-  // Implementar funções de tratamento de erro específicas aqui
+  ...errorHandler,
+  AppError,
 };
