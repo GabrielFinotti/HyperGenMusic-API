@@ -12,12 +12,8 @@
   },
   "scripts": {
     "build": "tsup src",
-    "clean": "rm -rf dist",
     "dev": "tsx watch src/server.ts",
-    "lint": "tsc --noEmit",
-    "prebuild": "npm run clean",
-    "start": "node dist/server.js",
-    "test": "echo \"No tests specified\" && exit 0"
+    "start": "node dist/server.js"
   },
   "repository": {
     "type": "git",
