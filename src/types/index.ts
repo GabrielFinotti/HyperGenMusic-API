@@ -7,6 +7,7 @@ import {
   DefaultResponseFunction,
   DefaultResponseResult,
 } from "./handling/defaultReponse";
+import { IMusicRepository, IUserRepository } from "./repositories";
 
 export {
   UserInterface,
@@ -17,4 +18,6 @@ export {
   UpdateMusicResult,
   DefaultResponseFunction,
   DefaultResponseResult,
+  IMusicRepository,
+  IUserRepository,
 };
