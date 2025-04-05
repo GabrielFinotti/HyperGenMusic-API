@@ -11,6 +11,6 @@ export interface IMusicRepository {
   findAll: (limit?: number, offset?: number) => Promise<Music[]>;
   create: (musicData: MusicInterface) => Promise<Music>;
   update: (music: Music, musicData: Partial<MusicInterface>) => Promise<Music>;
-  delete: (musicId: number) => Promise<boolean>;
+  delete: (music: Music) => Promise<boolean>;
   deleteAll: () => Promise<number>;
 }
