@@ -1,6 +1,7 @@
 import { Op } from "sequelize";
 import Music from "../models/musicModel";
 import { IMusicRepository, MusicInterface } from "../types";
+import sequelize from "../config/database/databaseConfig";
 
 class MusicRepository implements IMusicRepository {
   constructor(private musicModel = Music) {}
@@ -14,6 +15,7 @@ class MusicRepository implements IMusicRepository {
           error instanceof Error ? error.message : String(error)
         }`
       );
+
       throw new Error("Erro ao buscar música por ID.");
     }
   }
@@ -52,6 +54,7 @@ class MusicRepository implements IMusicRepository {
           error instanceof Error ? error.message : String(error)
         }`
       );
+
       throw new Error("Erro ao buscar música por termos.");
     }
   }
@@ -69,6 +72,7 @@ class MusicRepository implements IMusicRepository {
           error instanceof Error ? error.message : String(error)
         }`
       );
+
       throw new Error("Erro ao buscar todas as músicas.");
     }
   }
@@ -82,7 +86,80 @@ class MusicRepository implements IMusicRepository {
           error instanceof Error ? error.message : String(error)
         }`
       );
+
       throw new Error("Erro ao criar música.");
+    }
+  }
+
+  async update(music: Music, musicData: Partial<MusicInterface>) {
+    const transaction = await sequelize.transaction();
+
+    try {
+      await music.update(
+        {
+          title: musicData.title?.trim() ?? music.title,
+          artist: musicData.artist?.trim() ?? music.artist,
+          genre: musicData.genre?.trim() ?? music.genre,
+          imageUrl: musicData.imageUrl ?? music.imageUrl,
+        },
+        { transaction }
+      );
+
+      await transaction.commit();
+
+      return music;
+    } catch (error) {
+      console.error(
+        `Erro ao atualizar música: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
+
+      await transaction.rollback();
+
+      throw new Error("Erro ao atualizar música.");
+    }
+  }
+
+  async delete(music: Music) {
+    try {
+      await music.destroy();
+
+      return true;
+    } catch (error) {
+      console.error(
+        `Erro ao deletar música: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
+
+      throw new Error("Erro ao deletar música.");
+    }
+  }
+
+  async deleteAll() {
+    const transaction = await sequelize.transaction();
+
+    try {
+      const result = await this.musicModel.destroy({
+        where: {},
+        truncate: true,
+        transaction,
+      });
+
+      await transaction.commit();
+
+      return result;
+    } catch (error) {
+      console.error(
+        `Erro ao deletar todas as músicas: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
+
+      await transaction.rollback();
+
+      throw new Error("Erro ao deletar todas as músicas.");
     }
   }
 }

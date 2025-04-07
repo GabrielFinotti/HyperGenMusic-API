@@ -1,6 +1,7 @@
 import { Op } from "sequelize";
 import User from "../models/userModel";
 import { IUserRepository, UserInterface } from "../types";
+import sequelize from "../config/database/databaseConfig";
 
 class UserRepository implements IUserRepository {
   constructor(private userModel = User) {}
@@ -14,6 +15,7 @@ class UserRepository implements IUserRepository {
           error instanceof Error ? error.message : String(error)
         }`
       );
+
       throw new Error("Erro ao encontrar usuário por ID.");
     }
   }
@@ -29,6 +31,7 @@ class UserRepository implements IUserRepository {
           error instanceof Error ? error.message : String(error)
         }`
       );
+
       throw new Error("Erro ao encontrar usuário por email.");
     }
   }
@@ -44,6 +47,7 @@ class UserRepository implements IUserRepository {
           error instanceof Error ? error.message : String(error)
         }`
       );
+
       throw new Error("Erro ao encontrar usuário por username.");
     }
   }
@@ -61,6 +65,7 @@ class UserRepository implements IUserRepository {
           error instanceof Error ? error.message : String(error)
         }`
       );
+
       throw new Error("Erro ao encontrar usuário por username ou email.");
     }
   }
@@ -94,6 +99,7 @@ class UserRepository implements IUserRepository {
           error instanceof Error ? error.message : String(error)
         }`
       );
+
       throw new Error("Erro ao encontrar usuários por termos.");
     }
   }
@@ -111,6 +117,7 @@ class UserRepository implements IUserRepository {
           error instanceof Error ? error.message : String(error)
         }`
       );
+
       throw new Error("Erro ao encontrar todos os usuários.");
     }
   }
@@ -124,11 +131,14 @@ class UserRepository implements IUserRepository {
           error instanceof Error ? error.message : String(error)
         }`
       );
+
       throw new Error("Erro ao criar usuário.");
     }
   }
 
   async update(user: User, userData: Partial<UserInterface>) {
+    const transaction = await sequelize.transaction();
+
     try {
       let hasChanges = false;
 
@@ -143,10 +153,13 @@ class UserRepository implements IUserRepository {
       });
 
       if (!hasChanges) {
+        await transaction.rollback();
         return "Tudo está como antes, nada para atualizar";
       }
 
-      await user.save();
+      await user.save({ transaction });
+
+      await transaction.commit();
 
       return user;
     } catch (error) {
@@ -155,6 +168,9 @@ class UserRepository implements IUserRepository {
           error instanceof Error ? error.message : String(error)
         }`
       );
+
+      await transaction.rollback();
+
       throw new Error("Erro ao atualizar usuário.");
     }
   }
@@ -170,16 +186,22 @@ class UserRepository implements IUserRepository {
           error instanceof Error ? error.message : String(error)
         }`
       );
+
       throw new Error("Erro ao deletar usuário.");
     }
   }
 
   async deleteAll() {
+    const transaction = await sequelize.transaction();
+
     try {
       const result = await this.userModel.destroy({
         where: {},
         truncate: true,
+        transaction,
       });
+
+      await transaction.commit();
 
       return result;
     } catch (error) {
@@ -188,6 +210,9 @@ class UserRepository implements IUserRepository {
           error instanceof Error ? error.message : String(error)
         }`
       );
+
+      await transaction.rollback();
+
       throw new Error("Erro ao deletar todos os usuários.");
     }
   }
