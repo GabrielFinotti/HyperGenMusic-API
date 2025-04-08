@@ -10,7 +10,10 @@ export interface IMusicRepository {
   ) => Promise<Music[]>;
   findAll: (limit?: number, offset?: number) => Promise<Music[]>;
   create: (musicData: MusicInterface) => Promise<Music>;
-  update: (music: Music, musicData: Partial<MusicInterface>) => Promise<Music>;
+  update: (
+    music: Music,
+    musicData: Partial<MusicInterface>
+  ) => Promise<Music | string>;
   delete: (music: Music) => Promise<boolean>;
   deleteAll: () => Promise<number>;
 }

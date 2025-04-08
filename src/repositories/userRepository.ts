@@ -6,66 +6,51 @@ import sequelize from "../config/database/databaseConfig";
 class UserRepository implements IUserRepository {
   constructor(private userModel = User) {}
 
-  async findById(userId: number) {
+  async findById(userId: number, includePassword = false) {
     try {
-      return await this.userModel.findByPk(userId);
+      return await this.userModel.findByPk(userId, {
+        attributes: includePassword ? undefined : { include: ["password"] },
+      });
     } catch (error) {
-      console.error(
-        `Erro ao encontrar usuário por ID: ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
-
       throw new Error("Erro ao encontrar usuário por ID.");
     }
   }
 
-  async findByEmail(email: string) {
+  async findByEmail(email: string, includePassword = false) {
     try {
       return await this.userModel.findOne({
         where: { email },
+        attributes: includePassword ? undefined : { include: ["password"] },
       });
     } catch (error) {
-      console.error(
-        `Erro ao encontrar usuário por email: ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
-
       throw new Error("Erro ao encontrar usuário por email.");
     }
   }
 
-  async findByUsername(username: string) {
+  async findByUsername(username: string, includePassword = false) {
     try {
       return await this.userModel.findOne({
         where: { username },
+        attributes: includePassword ? undefined : { include: ["password"] },
       });
     } catch (error) {
-      console.error(
-        `Erro ao encontrar usuário por username: ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
-
       throw new Error("Erro ao encontrar usuário por username.");
     }
   }
 
-  async findByUsernameOrEmail(username: string, email: string) {
+  async findByUsernameOrEmail(
+    username: string,
+    email: string,
+    includePassword = false
+  ) {
     try {
       return await this.userModel.findOne({
         where: {
           [Op.or]: [{ username }, { email }],
         },
+        attributes: includePassword ? undefined : { include: ["password"] },
       });
     } catch (error) {
-      console.error(
-        `Erro ao encontrar usuário por username ou email: ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
-
       throw new Error("Erro ao encontrar usuário por username ou email.");
     }
   }
@@ -94,12 +79,6 @@ class UserRepository implements IUserRepository {
         order: [["createdAt", "DESC"]],
       });
     } catch (error) {
-      console.error(
-        `Erro ao encontrar usuários por termos: ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
-
       throw new Error("Erro ao encontrar usuários por termos.");
     }
   }
@@ -112,12 +91,6 @@ class UserRepository implements IUserRepository {
         order: [["createdAt", "DESC"]],
       });
     } catch (error) {
-      console.error(
-        `Erro ao encontrar todos os usuários: ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
-
       throw new Error("Erro ao encontrar todos os usuários.");
     }
   }
@@ -126,12 +99,6 @@ class UserRepository implements IUserRepository {
     try {
       return await this.userModel.create(userData);
     } catch (error) {
-      console.error(
-        `Erro ao criar usuário: ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
-
       throw new Error("Erro ao criar usuário.");
     }
   }
@@ -148,12 +115,14 @@ class UserRepository implements IUserRepository {
 
         if (newValue !== undefined && newValue !== currentValue) {
           user.set(key, newValue);
+
           hasChanges = true;
         }
       });
 
       if (!hasChanges) {
         await transaction.rollback();
+
         return "Tudo está como antes, nada para atualizar";
       }
 
@@ -163,12 +132,6 @@ class UserRepository implements IUserRepository {
 
       return user;
     } catch (error) {
-      console.error(
-        `Erro ao atualizar usuário: ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
-
       await transaction.rollback();
 
       throw new Error("Erro ao atualizar usuário.");
@@ -181,12 +144,6 @@ class UserRepository implements IUserRepository {
 
       return true;
     } catch (error) {
-      console.error(
-        `Erro ao deletar usuário: ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
-
       throw new Error("Erro ao deletar usuário.");
     }
   }
@@ -205,12 +162,6 @@ class UserRepository implements IUserRepository {
 
       return result;
     } catch (error) {
-      console.error(
-        `Erro ao deletar todos os usuários: ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
-
       await transaction.rollback();
 
       throw new Error("Erro ao deletar todos os usuários.");

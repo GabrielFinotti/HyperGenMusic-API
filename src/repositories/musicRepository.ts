@@ -10,12 +10,6 @@ class MusicRepository implements IMusicRepository {
     try {
       return await this.musicModel.findByPk(musicId);
     } catch (error) {
-      console.error(
-        `Erro ao buscar música por ID: ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
-
       throw new Error("Erro ao buscar música por ID.");
     }
   }
@@ -49,12 +43,6 @@ class MusicRepository implements IMusicRepository {
         order: [["createdAt", "DESC"]],
       });
     } catch (error) {
-      console.error(
-        `Erro ao buscar música por termos: ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
-
       throw new Error("Erro ao buscar música por termos.");
     }
   }
@@ -67,12 +55,6 @@ class MusicRepository implements IMusicRepository {
         order: [["createdAt", "DESC"]],
       });
     } catch (error) {
-      console.error(
-        `Erro ao buscar todas as músicas: ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
-
       throw new Error("Erro ao buscar todas as músicas.");
     }
   }
@@ -81,12 +63,6 @@ class MusicRepository implements IMusicRepository {
     try {
       return await this.musicModel.create(musicData);
     } catch (error) {
-      console.error(
-        `Erro ao criar música: ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
-
       throw new Error("Erro ao criar música.");
     }
   }
@@ -95,26 +71,31 @@ class MusicRepository implements IMusicRepository {
     const transaction = await sequelize.transaction();
 
     try {
-      await music.update(
-        {
-          title: musicData.title?.trim() ?? music.title,
-          artist: musicData.artist?.trim() ?? music.artist,
-          genre: musicData.genre?.trim() ?? music.genre,
-          imageUrl: musicData.imageUrl ?? music.imageUrl,
-        },
-        { transaction }
-      );
+      let hasChanges = false;
+
+      (Object.keys(musicData) as Array<keyof MusicInterface>).forEach((key) => {
+        const newValue = musicData[key];
+        const currentValue = music.get(key);
+
+        if (newValue !== undefined && newValue !== currentValue) {
+          music.set(key, newValue);
+
+          hasChanges = true;
+        }
+      });
+
+      if (!hasChanges) {
+        await transaction.rollback();
+
+        return "Tudo está como antes, nada para atualizar";
+      }
+
+      await music.save({ transaction });
 
       await transaction.commit();
 
       return music;
     } catch (error) {
-      console.error(
-        `Erro ao atualizar música: ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
-
       await transaction.rollback();
 
       throw new Error("Erro ao atualizar música.");
@@ -127,12 +108,6 @@ class MusicRepository implements IMusicRepository {
 
       return true;
     } catch (error) {
-      console.error(
-        `Erro ao deletar música: ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
-
       throw new Error("Erro ao deletar música.");
     }
   }
@@ -151,12 +126,6 @@ class MusicRepository implements IMusicRepository {
 
       return result;
     } catch (error) {
-      console.error(
-        `Erro ao deletar todas as músicas: ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
-
       await transaction.rollback();
 
       throw new Error("Erro ao deletar todas as músicas.");
