@@ -1,12 +1,19 @@
-import User from "../../models/userModel";
-import { Op } from "sequelize";
-import { UserInterface, DefaultResponseResult } from "../../types";
-import { authUtils, handlingUtils, userUtils } from "../../utils";
+import {
+  UserInterface,
+  DefaultResponseResult,
+  IUserRepository,
+} from "../../types";
+import { authUtils, handlingUtils } from "../../utils";
+import { userRepository } from "../../repositories";
 
 interface UserAdminService {
-  getAllUsers(): Promise<DefaultResponseResult>;
+  getAllUsers(limit?: number, offset?: number): Promise<DefaultResponseResult>;
   getUserData(userId: number): Promise<DefaultResponseResult>;
-  searchUser(query: string, limit?: number): Promise<DefaultResponseResult>;
+  searchUser(
+    query: string,
+    limit?: number,
+    offset?: number
+  ): Promise<DefaultResponseResult>;
   createUser(userData: UserInterface): Promise<DefaultResponseResult>;
   editUser(
     userId: number,
@@ -17,15 +24,13 @@ interface UserAdminService {
 }
 
 class UserAdminServiceImpl implements UserAdminService {
-  async getAllUsers() {
-    try {
-      const users = await User.findAll({
-        attributes: ["id", "username", "email", "role"],
-        order: [["createdAt", "DESC"]],
-        limit: 20,
-      });
+  constructor(private repository: IUserRepository = userRepository) {}
 
-      if (!users) {
+  async getAllUsers(limit = 20, offset = 0) {
+    try {
+      const users = await this.repository.findAll(limit, offset);
+
+      if (!users || users.length === 0) {
         return handlingUtils.responseHandling.defaultResponseImpl(
           false,
           404,
@@ -37,7 +42,7 @@ class UserAdminServiceImpl implements UserAdminService {
         true,
         200,
         `${users.length} usuários encontrados!`,
-        users
+        users.map((user) => user.toPublicJSON())
       );
     } catch (error) {
       console.error(
@@ -54,7 +59,48 @@ class UserAdminServiceImpl implements UserAdminService {
     }
   }
 
-  async searchUser(query: string, limit?: number) {
+  async getUserData(userId: number) {
+    try {
+      if (!userId || isNaN(userId)) {
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          "ID do usuário inválido!"
+        );
+      }
+
+      const user = await this.repository.findById(userId);
+
+      if (!user) {
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          404,
+          "Usuário não encontrado!"
+        );
+      }
+
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        true,
+        200,
+        "Usuário encontrado!",
+        user.toPublicJSON()
+      );
+    } catch (error) {
+      console.error(
+        `Erro ao buscar usuário: ${
+          error instanceof Error ? error.message : String(error)
+        }`.red.bgBlack
+      );
+
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        false,
+        500,
+        "O servidor encontrou um erro inesperado ao tentar buscar o usuário. Por favor, tente novamente mais tarde!"
+      );
+    }
+  }
+
+  async searchUser(query: string, limit = 10, offset = 0) {
     try {
       if (!query || query.trim() === "") {
         return handlingUtils.responseHandling.defaultResponseImpl(
@@ -85,28 +131,13 @@ class UserAdminServiceImpl implements UserAdminService {
         );
       }
 
-      const whereCondition = {
-        [Op.or]: [
-          {
-            username: {
-              [Op.or]: searchTerms.map((term) => ({ [Op.like]: `%${term}%` })),
-            },
-          },
-          {
-            email: {
-              [Op.or]: searchTerms.map((term) => ({ [Op.like]: `%${term}%` })),
-            },
-          },
-        ],
-      };
+      const users = await this.repository.findByTerms(
+        searchTerms,
+        limit,
+        offset
+      );
 
-      const users = await User.findAll({
-        where: whereCondition,
-        limit: limit ?? 10,
-        attributes: ["id", "username", "email", "role"],
-      });
-
-      if (!users) {
+      if (!users || users.length === 0) {
         return handlingUtils.responseHandling.defaultResponseImpl(
           false,
           404,
@@ -118,7 +149,7 @@ class UserAdminServiceImpl implements UserAdminService {
         true,
         200,
         `${users.length} usuários encontrados!`,
-        users
+        users.map((user) => user.toPublicJSON())
       );
     } catch (error) {
       console.error(
@@ -156,10 +187,9 @@ class UserAdminServiceImpl implements UserAdminService {
         );
       }
 
-      const existingUser = await userUtils.getUserData(
-        undefined,
-        userData.email,
-        userData.username
+      const existingUser = await this.repository.findByUsernameOrEmail(
+        userData.username,
+        userData.email
       );
 
       if (existingUser) {
@@ -171,14 +201,10 @@ class UserAdminServiceImpl implements UserAdminService {
       }
 
       if (!userData.role) {
-        return handlingUtils.responseHandling.defaultResponseImpl(
-          false,
-          400,
-          "Cargo do usuário não definido!"
-        );
+        userData.role = "user";
       }
 
-      const newUser = await User.create(userData);
+      const newUser = await this.repository.create(userData);
 
       return handlingUtils.responseHandling.defaultResponseImpl(
         true,
@@ -188,64 +214,30 @@ class UserAdminServiceImpl implements UserAdminService {
       );
     } catch (error) {
       console.error(
-        `Erro ao registrar usuário, ${
+        `Erro ao registrar usuário: ${
           error instanceof Error ? error.message : String(error)
-        }!`.red.bgBlack
+        }`.red.bgBlack
       );
 
       return handlingUtils.responseHandling.defaultResponseImpl(
         false,
         500,
-        `O servidor encontrou um erro inesperado ao tentar registrar o usuário. Por favor, tente novamente mais tarde!`
-      );
-    }
-  }
-
-  async getUserData(userId: number) {
-    try {
-      if (!userId) {
-        return handlingUtils.responseHandling.defaultResponseImpl(
-          false,
-          400,
-          "ID do usuário inválido!"
-        );
-      }
-
-      const user = await userUtils.getUserData(userId);
-
-      if (!user) {
-        return handlingUtils.responseHandling.defaultResponseImpl(
-          false,
-          404,
-          "Usuário não encontrado!"
-        );
-      }
-
-      return handlingUtils.responseHandling.defaultResponseImpl(
-        true,
-        200,
-        "Usuário encontrado!",
-        user.toPublicJSON()
-      );
-    } catch (error) {
-      console.error(
-        `Erro ao buscar usuário, ${
-          error instanceof Error ? error.message : String(error)
-        }!`.red.bgBlack
-      );
-
-      return handlingUtils.responseHandling.defaultResponseImpl(
-        false,
-        500,
-        "O servidor encontrou um erro inesperado ao tentar buscar o usuário. Por favor, tente novamente mais tarde!"
+        "O servidor encontrou um erro inesperado ao tentar registrar o usuário. Por favor, tente novamente mais tarde!"
       );
     }
   }
 
   async editUser(userId: number, userData: Partial<UserInterface>) {
     try {
-      const validatedUserData =
-        authUtils.userAuth.updateDataVerification(userData);
+      if (!userId || isNaN(userId)) {
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          "ID de usuário inválido!"
+        );
+      }
+      
+      const validatedUserData = authUtils.userAuth.updateDataVerification(userData);
 
       if (validatedUserData instanceof Array) {
         return handlingUtils.responseHandling.defaultResponseImpl(
@@ -256,12 +248,10 @@ class UserAdminServiceImpl implements UserAdminService {
         );
       }
 
-      const user = await User.findOne({
-        where: { id: userId },
-        attributes: {
-          include: validatedUserData.password ? ["password"] : [],
-        },
-      });
+      const user = await this.repository.findById(
+        userId,
+        validatedUserData.password ? true : false
+      );
 
       if (!user) {
         return handlingUtils.responseHandling.defaultResponseImpl(
@@ -271,20 +261,28 @@ class UserAdminServiceImpl implements UserAdminService {
         );
       }
 
-      const result = await userUtils.userDataUpdate(validatedUserData, user);
+      // Remove campos indefinidos
+      Object.keys(validatedUserData).forEach(key => {
+        if (validatedUserData[key as keyof UserInterface] === undefined) {
+          delete validatedUserData[key as keyof UserInterface];
+        }
+      });
 
-      if (result.error) {
+      const updatedUser = await this.repository.update(user, validatedUserData);
+
+      if (typeof updatedUser === "string") {
         return handlingUtils.responseHandling.defaultResponseImpl(
           false,
           400,
-          result.error
+          updatedUser
         );
       }
 
       return handlingUtils.responseHandling.defaultResponseImpl(
         true,
         200,
-        result.message
+        "Usuário atualizado com sucesso!",
+        updatedUser.toPublicJSON()
       );
     } catch (error) {
       console.error(
@@ -303,7 +301,7 @@ class UserAdminServiceImpl implements UserAdminService {
 
   async deleteUser(userId: number) {
     try {
-      if (!userId) {
+      if (!userId || isNaN(userId)) {
         return handlingUtils.responseHandling.defaultResponseImpl(
           false,
           400,
@@ -311,7 +309,7 @@ class UserAdminServiceImpl implements UserAdminService {
         );
       }
 
-      const user = await User.findByPk(userId);
+      const user = await this.repository.findById(userId);
 
       if (!user) {
         return handlingUtils.responseHandling.defaultResponseImpl(
@@ -321,7 +319,15 @@ class UserAdminServiceImpl implements UserAdminService {
         );
       }
 
-      await user.destroy();
+      const result = await this.repository.delete(user);
+
+      if (!result) {
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          500,
+          "Erro ao excluir usuário"
+        );
+      }
 
       return handlingUtils.responseHandling.defaultResponseImpl(
         true,
@@ -346,7 +352,7 @@ class UserAdminServiceImpl implements UserAdminService {
 
   async deleteAllUsers() {
     try {
-      const users = await User.findAll();
+      const users = await this.repository.findAll(1000); // Aumentar limite para obter todos os usuários
 
       if (!users || users.length === 0) {
         return handlingUtils.responseHandling.defaultResponseImpl(
@@ -356,12 +362,14 @@ class UserAdminServiceImpl implements UserAdminService {
         );
       }
 
-      await Promise.all(users.map((user) => user.destroy()));
+      const result = await this.repository.deleteAll();
 
       return handlingUtils.responseHandling.defaultResponseImpl(
         true,
         200,
-        `${users.length} usuários foram excluídos com sucesso!`
+        `${
+          result > 0 ? result : users.length
+        } usuários foram excluídos com sucesso!`
       );
     } catch (error) {
       console.error(

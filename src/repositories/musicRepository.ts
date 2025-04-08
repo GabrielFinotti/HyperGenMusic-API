@@ -10,7 +10,7 @@ class MusicRepository implements IMusicRepository {
     try {
       return await this.musicModel.findByPk(musicId);
     } catch (error) {
-      throw new Error("Erro ao buscar música por ID.");
+      throw new Error(`Erro ao buscar música por ID: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -36,18 +36,18 @@ class MusicRepository implements IMusicRepository {
         ],
       };
 
-      return this.musicModel.findAll({
+      return await this.musicModel.findAll({
         where: whereCondition,
         limit,
         offset,
         order: [["createdAt", "DESC"]],
       });
     } catch (error) {
-      throw new Error("Erro ao buscar música por termos.");
+      throw new Error(`Erro ao buscar música por termos: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
-  async findAll(limit = 10, offset = 0) {
+  async findAll(limit?: number, offset?: number) {
     try {
       return await this.musicModel.findAll({
         limit,
@@ -55,7 +55,7 @@ class MusicRepository implements IMusicRepository {
         order: [["createdAt", "DESC"]],
       });
     } catch (error) {
-      throw new Error("Erro ao buscar todas as músicas.");
+      throw new Error(`Erro ao buscar todas as músicas: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -63,7 +63,7 @@ class MusicRepository implements IMusicRepository {
     try {
       return await this.musicModel.create(musicData);
     } catch (error) {
-      throw new Error("Erro ao criar música.");
+      throw new Error(`Erro ao criar música: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -79,36 +79,30 @@ class MusicRepository implements IMusicRepository {
 
         if (newValue !== undefined && newValue !== currentValue) {
           music.set(key, newValue);
-
           hasChanges = true;
         }
       });
 
       if (!hasChanges) {
         await transaction.rollback();
-
         return "Tudo está como antes, nada para atualizar";
       }
 
       await music.save({ transaction });
-
       await transaction.commit();
-
       return music;
     } catch (error) {
       await transaction.rollback();
-
-      throw new Error("Erro ao atualizar música.");
+      throw new Error(`Erro ao atualizar música: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
   async delete(music: Music) {
     try {
       await music.destroy();
-
       return true;
     } catch (error) {
-      throw new Error("Erro ao deletar música.");
+      throw new Error(`Erro ao deletar música: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -123,12 +117,10 @@ class MusicRepository implements IMusicRepository {
       });
 
       await transaction.commit();
-
       return result;
     } catch (error) {
       await transaction.rollback();
-
-      throw new Error("Erro ao deletar todas as músicas.");
+      throw new Error(`Erro ao deletar todas as músicas: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 }

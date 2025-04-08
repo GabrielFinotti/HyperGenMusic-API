@@ -1,6 +1,6 @@
-import { userRepository } from "../../repositories";
-import { UserInterface, DefaultResponseResult } from "../../types";
+import { UserInterface, DefaultResponseResult, IUserRepository } from "../../types";
 import { authUtils, handlingUtils } from "../../utils";
+import { userRepository } from "../../repositories";
 
 export interface UserService {
   register(userData: UserInterface): Promise<DefaultResponseResult>;
@@ -14,7 +14,7 @@ export interface UserService {
 }
 
 class UserServiceImpl implements UserService {
-  constructor(private repository = userRepository) {}
+  constructor(private repository: IUserRepository = userRepository) {}
 
   async register(userData: UserInterface) {
     try {
