@@ -1,6 +1,6 @@
 {
   "name": "hypergenmusic-api",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Api Streaming Music HyperGenMusic",
   "author": "Gabriel Henrique Finotti",
   "license": "Proprietária",
@@ -12,12 +12,8 @@
   },
   "scripts": {
     "build": "tsup src",
-    "clean": "rm -rf dist",
     "dev": "tsx watch src/server.ts",
-    "lint": "tsc --noEmit",
-    "prebuild": "npm run clean",
-    "start": "node dist/server.js",
-    "test": "echo \"No tests specified\" && exit 0"
+    "start": "node dist/server.js"
   },
   "repository": {
     "type": "git",

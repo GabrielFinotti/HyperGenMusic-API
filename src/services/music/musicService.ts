@@ -1,24 +1,42 @@
-import { Op } from "sequelize";
-import Music from "../../models/musicModel";
-import { DefaultResponseResult } from "../../types";
+import { DefaultResponseResult, IMusicRepository } from "../../types";
 import { handlingUtils } from "../../utils";
+import { musicRepository } from "../../repositories";
 
 export interface MusicService {
-  getAllMusic(): Promise<DefaultResponseResult>;
+  getAllMusic(limit?: number, offset?: number): Promise<DefaultResponseResult>;
   getMusicData(id: number): Promise<DefaultResponseResult>;
-  searchMusics(query: string): Promise<DefaultResponseResult>;
+  searchMusics(
+    query: string,
+    limit?: number,
+    offset?: number
+  ): Promise<DefaultResponseResult>;
 }
 
 class MusicServiceImpl implements MusicService {
-  async getAllMusic() {
-    try {
-      const musics = await Music.findAll({
-        limit: 10,
-        order: [["createdAt", "DESC"]],
-        attributes: ["id", "title", "artist", "imageUrl", "duration"],
-      });
+  constructor(private repository: IMusicRepository = musicRepository) {}
 
-      if (!musics) {
+  async getAllMusic(limit?: number, offset?: number) {
+    try {
+      
+      if (limit !== undefined && limit < 0) {
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          "O valor limite deve ser um número não negativo!"
+        );
+      }
+
+      if (offset !== undefined && offset < 0) {
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          "O valor de deslocamento deve ser um número não negativo!"
+        );
+      }
+
+      const musics = await this.repository.findAll(limit, offset);
+
+      if (!musics || musics.length === 0) {
         return handlingUtils.responseHandling.defaultResponseImpl(
           false,
           404,
@@ -30,13 +48,13 @@ class MusicServiceImpl implements MusicService {
         true,
         200,
         "Musicas recuperadas com sucesso",
-        musics
+        musics.map((music) => music.toApiFormat())
       );
     } catch (error) {
       console.error(
         `Erro ao recuperar músicas: ${
           error instanceof Error ? error.message : String(error)
-        }!`
+        }`.red.bgBlack
       );
 
       return handlingUtils.responseHandling.defaultResponseImpl(
@@ -57,7 +75,7 @@ class MusicServiceImpl implements MusicService {
         );
       }
 
-      const music = await Music.findByPk(musicId);
+      const music = await this.repository.findById(musicId);
 
       if (!music) {
         return handlingUtils.responseHandling.defaultResponseImpl(
@@ -88,7 +106,7 @@ class MusicServiceImpl implements MusicService {
     }
   }
 
-  async searchMusics(query: string, limit?: number) {
+  async searchMusics(query: string, limit?: number, offset?: number) {
     try {
       if (!query || query.trim() === "") {
         return handlingUtils.responseHandling.defaultResponseImpl(
@@ -98,11 +116,11 @@ class MusicServiceImpl implements MusicService {
         );
       }
 
-      if (limit && (isNaN(limit) || limit <= 0)) {
+      if ((limit && isNaN(limit)) || (offset && isNaN(offset))) {
         return handlingUtils.responseHandling.defaultResponseImpl(
           false,
           400,
-          "O limite deve ser um número maior que 0!"
+          "O valor de limite ou deslocamento deve ser do tipo numérico!"
         );
       }
 
@@ -119,28 +137,13 @@ class MusicServiceImpl implements MusicService {
         );
       }
 
-      const whereClause = {
-        [Op.or]: [
-          ...searchTerms.map((term) => ({
-            title: { [Op.iLike]: `%${term}%` },
-          })),
-          ...searchTerms.map((term) => ({
-            artist: { [Op.iLike]: `%${term}%` },
-          })),
-          ...searchTerms.map((term) => ({
-            genre: { [Op.iLike]: `%${term}%` },
-          })),
-        ],
-      };
+      const musics = await this.repository.findByTerms(
+        searchTerms,
+        limit,
+        offset
+      );
 
-      const musics = await Music.findAll({
-        where: whereClause,
-        limit: limit ?? 5,
-        order: [["title", "ASC"]],
-        attributes: ["id", "title", "artist", "imageUrl"],
-      });
-
-      if (!musics) {
+      if (!musics || musics.length === 0) {
         return handlingUtils.responseHandling.defaultResponseImpl(
           false,
           404,
@@ -152,17 +155,17 @@ class MusicServiceImpl implements MusicService {
         true,
         200,
         `${musics.length} músicas encontradas!`,
-        musics
+        musics.map((music) => music.toApiFormat())
       );
     } catch (error) {
       console.error(`Erro ao buscar músicas: ${error}`.red.bgBlack);
-    }
 
-    return handlingUtils.responseHandling.defaultResponseImpl(
-      false,
-      500,
-      "O servidor encontrou um erro inesperado ao buscar as músicas. Por favor, tente novamente mais tarde!"
-    );
+      return handlingUtils.responseHandling.defaultResponseImpl(
+        false,
+        500,
+        "O servidor encontrou um erro inesperado ao buscar as músicas. Por favor, tente novamente mais tarde!"
+      );
+    }
   }
 }
 

@@ -1,6 +1,6 @@
-import User from "../../models/userModel";
-import { UserInterface, DefaultResponseResult } from "../../types";
-import { authUtils, handlingUtils, userUtils } from "../../utils";
+import { UserInterface, DefaultResponseResult, IUserRepository } from "../../types";
+import { authUtils, handlingUtils } from "../../utils";
+import { userRepository } from "../../repositories";
 
 export interface UserService {
   register(userData: UserInterface): Promise<DefaultResponseResult>;
@@ -14,6 +14,8 @@ export interface UserService {
 }
 
 class UserServiceImpl implements UserService {
+  constructor(private repository: IUserRepository = userRepository) {}
+
   async register(userData: UserInterface) {
     try {
       const confirmUserData = authUtils.userAuth.userDataVerification(userData);
@@ -26,10 +28,9 @@ class UserServiceImpl implements UserService {
         );
       }
 
-      const existingUser = await userUtils.getUserData(
-        undefined,
-        userData.email,
-        userData.username
+      const existingUser = await this.repository.findByUsernameOrEmail(
+        userData.username,
+        userData.email
       );
 
       if (existingUser) {
@@ -44,7 +45,7 @@ class UserServiceImpl implements UserService {
         userData.role = "user";
       }
 
-      const newUser = await User.create(userData);
+      const newUser = await this.repository.create(userData);
 
       return handlingUtils.responseHandling.defaultResponseImpl(
         true,
@@ -77,10 +78,7 @@ class UserServiceImpl implements UserService {
         );
       }
 
-      const getProfile = await User.findOne({
-        where: { email },
-        attributes: { include: ["password"] },
-      });
+      const getProfile = await this.repository.findByEmail(email, true);
 
       if (!getProfile) {
         return handlingUtils.responseHandling.defaultResponseImpl(
@@ -133,7 +131,7 @@ class UserServiceImpl implements UserService {
 
   async getUserById(id: number) {
     try {
-      const userData = await userUtils.getUserData(id);
+      const userData = await this.repository.findById(id);
 
       if (!userData) {
         return handlingUtils.responseHandling.defaultResponseImpl(
@@ -177,12 +175,10 @@ class UserServiceImpl implements UserService {
         );
       }
 
-      const user = await User.findOne({
-        where: { id },
-        attributes: {
-          include: validatedUserData.password ? ["password"] : [],
-        },
-      });
+      const user = await this.repository.findById(
+        id,
+        userData.password ? true : false
+      );
 
       if (!user) {
         return handlingUtils.responseHandling.defaultResponseImpl(
@@ -192,20 +188,21 @@ class UserServiceImpl implements UserService {
         );
       }
 
-      const result = await userUtils.userDataUpdate(validatedUserData, user);
+      const result = await this.repository.update(user, userData);
 
-      if (result.error) {
+      if (typeof result === "string") {
         return handlingUtils.responseHandling.defaultResponseImpl(
           false,
           400,
-          result.error
+          result
         );
       }
 
       return handlingUtils.responseHandling.defaultResponseImpl(
         true,
         200,
-        result.message
+        "Dados atualizados com sucesso!",
+        result.toPublicJSON()
       );
     } catch (error) {
       console.error(
@@ -224,9 +221,9 @@ class UserServiceImpl implements UserService {
 
   async deleteUser(id: number, authHeader: string) {
     try {
-      const userData = await userUtils.getUserData(id);
+      const user = await this.repository.findById(id);
 
-      if (!userData) {
+      if (!user) {
         return handlingUtils.responseHandling.defaultResponseImpl(
           false,
           404,
@@ -252,7 +249,7 @@ class UserServiceImpl implements UserService {
         );
       }
 
-      await userData.destroy();
+      await this.repository.delete(user);
 
       return handlingUtils.responseHandling.defaultResponseImpl(
         true,

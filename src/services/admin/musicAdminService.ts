@@ -1,8 +1,7 @@
-import sequelize from "../../config/database/databaseConfig";
-import Music from "../../models/musicModel";
-import { folderUtils, handlingUtils } from "../../utils";
-import { UploadedFiles, DefaultResponseResult } from "../../types";
 import path from "path";
+import { folderUtils, handlingUtils } from "../../utils";
+import { UploadedFiles, DefaultResponseResult, MusicInterface, IMusicRepository } from "../../types";
+import { musicRepository } from "../../repositories";
 
 interface MusicAdminService {
   insertMusic(
@@ -29,20 +28,17 @@ class MusicAdminServiceImpl implements MusicAdminService {
   private imageDir!: string;
   private musicDir!: string;
 
-  constructor() {
+  constructor(private repository: IMusicRepository = musicRepository) {
     this.setupDirectories();
   }
 
   private async setupDirectories() {
     try {
-      const { imagesDir, songsDir } =
-        await folderUtils.setupUploadDirectories();
+      const { imagesDir, songsDir } = await folderUtils.setupUploadDirectories();
 
       this.imageDir = imagesDir;
       this.musicDir = songsDir;
-      console.log(
-        "Diretórios de música configurados com sucesso".green.bgBlack
-      );
+      console.log("Diretórios de música configurados com sucesso".green.bgBlack);
     } catch (error) {
       console.error(
         `Erro ao configurar diretórios: ${
@@ -65,8 +61,7 @@ class MusicAdminServiceImpl implements MusicAdminService {
 
     try {
       if (!title || !duration || !files.music || files.music.length === 0) {
-        files.image &&
-          (await folderUtils.deleteFileIfExists(files.image[0].path));
+        files.image && (await folderUtils.deleteFileIfExists(files.image[0].path));
 
         return handlingUtils.responseHandling.defaultResponseImpl(
           false,
@@ -89,14 +84,16 @@ class MusicAdminServiceImpl implements MusicAdminService {
         ? `${baseUrl}/uploads/images/${imageFileName}`
         : undefined;
 
-      const newMusic = await Music.create({
+      const musicData: MusicInterface = {
         title: title.trim(),
         songUrl,
         duration: parseInt(duration as string, 10),
         imageUrl,
-        artist: artist ?? undefined,
-        genre: genre ?? undefined,
-      });
+        artist: artist ? artist.trim() : undefined,
+        genre: genre ? genre.trim() : undefined,
+      };
+
+      const newMusic = await this.repository.create(musicData);
 
       musicFilePath = null;
       imageFilePath = null;
@@ -136,10 +133,8 @@ class MusicAdminServiceImpl implements MusicAdminService {
     let imageFilePath: string | null = null;
     let imageUrl: string | undefined;
 
-    const transaction = await sequelize.transaction();
-
     try {
-      const music = await Music.findByPk(musicId);
+      const music = await this.repository.findById(musicId);
 
       if (!music) {
         return handlingUtils.responseHandling.defaultResponseImpl(
@@ -159,38 +154,55 @@ class MusicAdminServiceImpl implements MusicAdminService {
 
       const imageFile = files?.image?.[0];
 
-      if (imageFile && music.imageUrl) {
-        imageUrl = await folderUtils.replaceImage(
-          music.imageUrl,
-          imageFile,
-          baseUrl,
-          this.imageDir
+      if (imageFile) {
+        imageFilePath = imageFile.path;
+        
+        if (music.imageUrl) {
+          imageUrl = await folderUtils.replaceImage(
+            music.imageUrl,
+            imageFile,
+            baseUrl,
+            this.imageDir
+          );
+        } else {
+          const imageFileName = path.basename(imageFile.path);
+          imageUrl = `${baseUrl}/uploads/images/${imageFileName}`;
+        }
+      }
+
+      const updateData: Partial<MusicInterface> = {
+        title: title?.trim(),
+        artist: artist?.trim(),
+        genre: genre?.trim(),
+        imageUrl: imageUrl,
+      };
+
+      // Remove campos indefinidos
+      Object.keys(updateData).forEach(key => {
+        if (updateData[key as keyof MusicInterface] === undefined) {
+          delete updateData[key as keyof MusicInterface];
+        }
+      });
+
+      const updatedMusic = await this.repository.update(music, updateData);
+
+      if (typeof updatedMusic === "string") {
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          400,
+          updatedMusic
         );
       }
 
-      await music.update(
-        {
-          title: title?.trim() ?? music.title,
-          artist: artist?.trim() ?? music.artist,
-          genre: genre?.trim() ?? music.genre,
-          imageUrl: imageUrl ?? music.imageUrl,
-        },
-        { transaction }
-      );
-
       imageFilePath = null;
-
-      await transaction.commit();
 
       return handlingUtils.responseHandling.defaultResponseImpl(
         true,
         200,
         "Música atualizada com sucesso!",
-        music.toApiFormat()
+        updatedMusic.toApiFormat()
       );
     } catch (error) {
-      await transaction.rollback();
-
       console.error(
         `Erro ao editar música: ${
           error instanceof Error ? error.message : String(error)
@@ -209,7 +221,7 @@ class MusicAdminServiceImpl implements MusicAdminService {
 
   async deleteMusic(musicId: number) {
     try {
-      const music = await Music.findByPk(musicId);
+      const music = await this.repository.findById(musicId);
 
       if (!music) {
         return handlingUtils.responseHandling.defaultResponseImpl(
@@ -229,29 +241,33 @@ class MusicAdminServiceImpl implements MusicAdminService {
       const musicFilePath = path.resolve(this.musicDir, musicFileName);
 
       await folderUtils.deleteFileIfExists(musicFilePath);
-      console.log(
-        `Arquivo de música excluído: ${musicFileName}`.yellow.bgBlack
-      );
+      console.log(`Arquivo de música excluído: ${musicFileName}`.yellow.bgBlack);
 
       if (imageFileName) {
         const imageFilePath = path.resolve(this.imageDir, imageFileName);
-
         await folderUtils.deleteFileIfExists(imageFilePath);
-        console.log(
-          `Arquivo de imagem excluído: ${imageFileName}`.yellow.bgBlack
+        console.log(`Arquivo de imagem excluído: ${imageFileName}`.yellow.bgBlack);
+      }
+
+      const result = await this.repository.delete(music);
+
+      if (!result) {
+        return handlingUtils.responseHandling.defaultResponseImpl(
+          false,
+          500,
+          "Erro ao excluir música do banco de dados"
         );
       }
 
-      await music.destroy();
-      console.log(
-        `Música ID: ${musicId} excluída do banco de dados`.green.bgBlack
-      );
+      console.log(`Música ID: ${musicId} excluída do banco de dados`.green.bgBlack);
+
+      const musicData = music.toApiFormat();
 
       return handlingUtils.responseHandling.defaultResponseImpl(
         true,
         200,
         "Música excluída com sucesso!",
-        music.toApiFormat()
+        musicData
       );
     } catch (error) {
       console.error(
@@ -270,7 +286,7 @@ class MusicAdminServiceImpl implements MusicAdminService {
 
   async deleteAllMusics() {
     try {
-      const musics = await Music.findAll();
+      const musics = await this.repository.findAll(1000);
 
       if (!this.imageDir || !this.musicDir) {
         await this.setupDirectories();
@@ -284,19 +300,18 @@ class MusicAdminServiceImpl implements MusicAdminService {
         );
       }
 
-      console.log(
-        `Iniciando exclusão de ${musics.length} músicas...`.cyan.bgBlack
-      );
+      console.log(`Iniciando exclusão de ${musics.length} músicas...`.cyan.bgBlack);
 
       await folderUtils.cleanUploadDirectories();
 
-      await Music.destroy({ where: {} });
+      const result = await this.repository.deleteAll();
+
       console.log(`Todas as músicas foram excluídas com sucesso`.green.bgBlack);
 
       return handlingUtils.responseHandling.defaultResponseImpl(
         true,
         200,
-        `${musics.length} músicas foram excluídas com sucesso!`
+        `${result > 0 ? result : musics.length} músicas foram excluídas com sucesso!`
       );
     } catch (error) {
       console.error(

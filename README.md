@@ -9,7 +9,7 @@
   [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
   [![Redis](https://img.shields.io/badge/Redis-Latest-DC382D?style=for-the-badge&logo=redis&logoColor=white)](https://redis.io/)
   
-  [![Versão](https://img.shields.io/badge/Versão-1.3.0-blue?style=for-the-badge)](https://github.com/GabrielFinotti/HyperGenMusic-API)
+  [![Versão](https://img.shields.io/badge/Versão-1.4.0-blue?style=for-the-badge)](https://github.com/GabrielFinotti/HyperGenMusic-API)
   [![Licença](https://img.shields.io/badge/Licença-Proprietária-red?style=for-the-badge)](LICENSE)
 </div>
 
@@ -29,15 +29,15 @@
 
 O HyperGenMusic API é uma infraestrutura backend completa para serviços de streaming de música, projetada com foco em desempenho, segurança e escalabilidade. Construída com TypeScript e Express, esta API implementa os padrões modernos de desenvolvimento, incluindo arquitetura em camadas, injeção de dependências e operações assíncronas eficientes.
 
-### ✨ Destaques da Versão 1.3.0:
+### ✨ Destaques da Versão 1.4.0:
 
-- Arquitetura em camadas com responsabilidades bem definidas
-- Design modular aprimorado para melhor organização de código
-- Injeção de dependências avançada
-- Implementação de padrões de projeto modernos
-- Sistema de logging detalhado e colorizado
-- Autenticação segura e gestão de tokens via JWT e Redis
-- Operações completas para gerenciamento de conteúdo musical
+- Padrão Repository implementado para acesso a dados
+- Tratamento detalhado de erros com mensagens descritivas
+- Design modular baseado em injeção de dependências
+- Melhoria na gestão de transações do banco de dados
+- Sistema de paginação aprimorado com parâmetros opcionais
+- Operações de imagem otimizadas para edição de músicas
+- Limpeza automática de recursos não utilizados
 
 ## 🔥 Recursos
 
@@ -59,6 +59,7 @@ O HyperGenMusic API é uma infraestrutura backend completa para serviços de str
 - Suporte para imagens de capa
 - Formatação automática de duração
 - Classificação inteligente de conteúdo
+- Paginação flexível com parâmetros opcionais de limite e deslocamento
 
 ### Painel Administrativo
 
@@ -68,6 +69,7 @@ O HyperGenMusic API é uma infraestrutura backend completa para serviços de str
 - Controle granular de permissões
 - Operações em lote para exclusão de conteúdo
 - Sincronização automática entre banco de dados e sistema de arquivos
+- Edição parcial de recursos com validações robustas
 
 ### Segurança Avançada
 
@@ -77,6 +79,7 @@ O HyperGenMusic API é uma infraestrutura backend completa para serviços de str
 - Verificação de permissões em cada requisição
 - Sanitização de dados de entrada
 - Hashing único para nomes de arquivos
+- Tratamento adequado de erros com feedback descritivo
 
 ## 🏗️ Arquitetura
 
@@ -91,6 +94,7 @@ src/
  │   └── user/        # Controladores de usuário
  ├── middleware/      # Middlewares de autenticação e validação
  ├── models/          # Modelos de dados (Sequelize)
+ ├── repositories/    # Padrão Repository para acesso a dados
  ├── routes/          # Definição de rotas
  ├── services/        # Lógica de negócios
  ├── types/           # Definições de tipos TypeScript
@@ -287,7 +291,17 @@ Resposta:
 
 ## 📈 Changelog
 
-### 1.3.0 (Atual)
+### 1.4.0 (Atual)
+
+- Padrão Repository implementado para acesso a dados
+- Tratamento detalhado de erros com mensagens descritivas
+- Design modular baseado em injeção de dependências
+- Melhoria na gestão de transações do banco de dados
+- Sistema de paginação aprimorado com parâmetros opcionais
+- Operações de imagem otimizadas para edição de músicas
+- Limpeza automática de recursos não utilizados
+
+### 1.3.0
 
 - Refatoração da estrutura de controladores
 - Design modular aprimorado
