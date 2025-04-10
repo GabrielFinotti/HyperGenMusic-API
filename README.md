@@ -87,28 +87,44 @@ O HyperGenMusic API segue uma arquitetura em camadas bem definida, garantindo se
 
 ```
 src/
- ├── config/          # Configurações do sistema (banco de dados, Redis, Multer)
- ├── controllers/     # Controladores de requisições HTTP
- │   ├── admin/       # Controladores administrativos
- │   ├── music/       # Controladores de música
- │   └── user/        # Controladores de usuário
- ├── middleware/      # Middlewares de autenticação e validação
- ├── models/          # Modelos de dados (Sequelize)
- ├── repositories/    # Padrão Repository para acesso a dados
- ├── routes/          # Definição de rotas
- ├── services/        # Lógica de negócios
- ├── types/           # Definições de tipos TypeScript
- ├── utils/           # Funções utilitárias
- └── server.ts        # Ponto de entrada da aplicação
+ ├── config/            # Configurações do sistema (banco de dados, Redis, Multer)
+ ├── controllers/       # Controladores de requisições HTTP
+ │   ├── admin/         # Controladores administrativos
+ │   ├── music/         # Controladores de música
+ │   └── user/          # Controladores de usuário
+ ├── middleware/        # Middlewares de autenticação e validação
+ │   ├── auth/          # Autenticação e autorização
+ │   └── errors/        # Tratamento de erros
+ ├── models/            # Modelos de dados (Sequelize)
+ ├── repositories/      # Padrão Repository para acesso a dados
+ ├── routes/            # Definição de rotas
+ ├── services/          # Lógica de negócios
+ │   ├── admin/         # Serviços administrativos
+ │   ├── music/         # Serviços de música
+ │   └── user/          # Serviços de usuário
+ ├── types/             # Definições de tipos TypeScript
+ │   ├── handling/      # Tipos para tratamento de respostas
+ │   ├── music/         # Interfaces relacionadas a músicas
+ │   ├── repositories/  # Interfaces dos repositórios
+ │   ├── services/      # Interfaces dos serviços
+ │   └── user/          # Interfaces relacionadas a usuários
+ ├── utils/             # Funções utilitárias
+ │   ├── auth/          # Utilitários de autenticação e verificação
+ │   ├── handlings/     # Manipuladores de resposta padronizados
+ │   └── uploads/       # Gerenciamento de uploads e arquivos
+ └── server.ts          # Ponto de entrada da aplicação
 ```
 
 ### Princípios de Design
 
-- **Separação de Responsabilidades**: Cada camada tem uma função específica
-- **Injeção de Dependências**: Reduzindo acoplamento entre componentes
-- **Design Modular**: Facilitando manutenção e extensibilidade
-- **Tratamento de Erros Centralizado**: Manipulação consistente de erros em toda a aplicação
-- **Validação Robusta**: Garantindo integridade dos dados em todos os níveis
+- **Separação de Responsabilidades**: Cada camada tem uma função específica e bem delimitada
+- **Injeção de Dependências**: Componentes recebem suas dependências, reduzindo acoplamento
+- **Design por Contrato**: Interfaces bem definidas para serviços e repositórios
+- **Tratamento de Erros Centralizado**: Sistema padronizado de resposta e tratamento de erros
+- **Validação em Camadas**: Validação de dados em múltiplos níveis (controlador, serviço, modelo)
+- **Repository Pattern**: Abstração da camada de acesso a dados permitindo maior testabilidade
+- **Princípio DRY (Don't Repeat Yourself)**: Reutilização de código através de utilitários compartilhados
+- **Transparência de Falhas**: Erros são tratados, registrados e comunicados de maneira consistente
 
 ## 📋 Requisitos
 

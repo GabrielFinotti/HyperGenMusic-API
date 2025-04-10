@@ -16,27 +16,27 @@ Este documento serve como controle de desenvolvimento para acompanhar as tarefas
 
 ### 1. Centralização do Tratamento de Erros
 
-- 🔴 Implementar middleware de tratamento de erros global
-- 🔴 Criar hierarquia de classes de erro customizadas
-- 🔴 Padronizar formato de resposta de erro nas APIs
+- 🟡 Implementar middleware de tratamento de erros global
+- 🟡 Criar hierarquia de classes de erro customizadas
+- 🟡 Padronizar formato de resposta de erro nas APIs
 
 ### 2. Implementação de Validação Avançada
 
-- 🔴 Adicionar validação robusta em todas as entradas de usuário
-- 🔴 Implementar middleware de validação centralizado
+- 🟢 Adicionar validação robusta em todas as entradas de usuário
+- 🟡 Implementar middleware de validação centralizado
 - 🔴 Utilizar Zod ou Joi para schemas de validação
 
 ### 3. Otimização de Consultas ao Banco de Dados
 
-- 🔴 Refatorar consultas para evitar N+1 queries
-- 🔴 Implementar indexação adequada
-- 🔴 Otimizar carregamento de relacionamentos
+- 🟡 Refatorar consultas para evitar N+1 queries
+- 🟢 Implementar indexação adequada
+- 🟡 Otimizar carregamento de relacionamentos
 
 ### 4. Sistema de Log Estruturado
 
-- 🔴 Implementar sistema de log com níveis (info, warn, error, debug)
+- 🟡 Implementar sistema de log com níveis (info, warn, error, debug)
 - 🔴 Armazenar logs em formatos estruturados para análise
-- 🔴 Adicionar contexto aos logs para facilitar debugging
+- 🟡 Adicionar contexto aos logs para facilitar debugging
 
 ---
 
@@ -44,13 +44,13 @@ Este documento serve como controle de desenvolvimento para acompanhar as tarefas
 
 ### 5. Padronização de Respostas de API
 
-- 🔴 Criar builder de resposta padrão
-- 🔴 Manter consistência em todas as respostas
-- 🔴 Incluir metadados úteis (paginação, status)
+- 🟢 Criar builder de resposta padrão
+- 🟢 Manter consistência em todas as respostas
+- 🟡 Incluir metadados úteis (paginação, status)
 
 ### 6. Refatoração de Controladores
 
-- 🔴 Aplicar padrão mediator para simplificar controladores
+- 🟡 Aplicar padrão mediator para simplificar controladores
 - 🔴 Separar lógica de negócios da camada de apresentação
 - 🔴 Reduzir duplicação de código
 
