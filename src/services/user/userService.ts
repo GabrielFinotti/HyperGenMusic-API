@@ -1,17 +1,6 @@
-import { UserInterface, DefaultResponseResult, IUserRepository } from "../../types";
+import { UserInterface, IUserRepository, UserService } from "../../types";
 import { authUtils, handlingUtils } from "../../utils";
 import { userRepository } from "../../repositories";
-
-export interface UserService {
-  register(userData: UserInterface): Promise<DefaultResponseResult>;
-  login(email: string, password: string): Promise<DefaultResponseResult>;
-  getUserById(id: number): Promise<DefaultResponseResult>;
-  updateUser(
-    id: number,
-    userData: Partial<UserInterface>
-  ): Promise<DefaultResponseResult>;
-  deleteUser(id: number, authHeader: string): Promise<DefaultResponseResult>;
-}
 
 class UserServiceImpl implements UserService {
   constructor(private repository: IUserRepository = userRepository) {}

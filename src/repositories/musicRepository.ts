@@ -10,7 +10,11 @@ class MusicRepository implements IMusicRepository {
     try {
       return await this.musicModel.findByPk(musicId);
     } catch (error) {
-      throw new Error(`Erro ao buscar música por ID: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(
+        `Erro ao buscar música por ID: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     }
   }
 
@@ -43,7 +47,11 @@ class MusicRepository implements IMusicRepository {
         order: [["createdAt", "DESC"]],
       });
     } catch (error) {
-      throw new Error(`Erro ao buscar música por termos: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(
+        `Erro ao buscar música por termos: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     }
   }
 
@@ -55,7 +63,11 @@ class MusicRepository implements IMusicRepository {
         order: [["createdAt", "DESC"]],
       });
     } catch (error) {
-      throw new Error(`Erro ao buscar todas as músicas: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(
+        `Erro ao buscar todas as músicas: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     }
   }
 
@@ -63,7 +75,11 @@ class MusicRepository implements IMusicRepository {
     try {
       return await this.musicModel.create(musicData);
     } catch (error) {
-      throw new Error(`Erro ao criar música: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(
+        `Erro ao criar música: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     }
   }
 
@@ -93,7 +109,11 @@ class MusicRepository implements IMusicRepository {
       return music;
     } catch (error) {
       await transaction.rollback();
-      throw new Error(`Erro ao atualizar música: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(
+        `Erro ao atualizar música: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     }
   }
 
@@ -102,7 +122,11 @@ class MusicRepository implements IMusicRepository {
       await music.destroy();
       return true;
     } catch (error) {
-      throw new Error(`Erro ao deletar música: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(
+        `Erro ao deletar música: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     }
   }
 
@@ -120,7 +144,11 @@ class MusicRepository implements IMusicRepository {
       return result;
     } catch (error) {
       await transaction.rollback();
-      throw new Error(`Erro ao deletar todas as músicas: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(
+        `Erro ao deletar todas as músicas: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     }
   }
 }
