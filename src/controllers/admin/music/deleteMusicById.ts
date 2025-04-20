@@ -4,7 +4,7 @@ import { musicAdminService } from "../../../services";
 const deleteMusicById = async (req: Request, res: Response) => {
   try {
     const musicId = parseInt(req.params.musicId);
-    
+
     const result = await musicAdminService.deleteMusic(musicId);
 
     res

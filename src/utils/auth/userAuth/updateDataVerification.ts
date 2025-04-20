@@ -15,7 +15,9 @@ function validateUsername(username?: string, errors: string[] = []): void {
   if (!username) return;
 
   if (username.trim() !== username) {
-    errors.push("Nome de usuário não pode começar ou terminar com espaço em branco!");
+    errors.push(
+      "Nome de usuário não pode começar ou terminar com espaço em branco!"
+    );
   }
 
   if (username.length < 6 || username.length > 12) {

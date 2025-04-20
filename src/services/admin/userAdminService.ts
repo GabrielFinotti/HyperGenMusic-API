@@ -1,27 +1,6 @@
-import {
-  UserInterface,
-  DefaultResponseResult,
-  IUserRepository,
-} from "../../types";
+import { UserInterface, IUserRepository, UserAdminService } from "../../types";
 import { authUtils, handlingUtils } from "../../utils";
 import { userRepository } from "../../repositories";
-
-interface UserAdminService {
-  getAllUsers(limit?: number, offset?: number): Promise<DefaultResponseResult>;
-  getUserData(userId: number): Promise<DefaultResponseResult>;
-  searchUser(
-    query: string,
-    limit?: number,
-    offset?: number
-  ): Promise<DefaultResponseResult>;
-  createUser(userData: UserInterface): Promise<DefaultResponseResult>;
-  editUser(
-    userId: number,
-    userData: Partial<UserInterface>
-  ): Promise<DefaultResponseResult>;
-  deleteUser(userId: number): Promise<DefaultResponseResult>;
-  deleteAllUsers(): Promise<DefaultResponseResult>;
-}
 
 class UserAdminServiceImpl implements UserAdminService {
   constructor(private repository: IUserRepository = userRepository) {}
@@ -236,8 +215,9 @@ class UserAdminServiceImpl implements UserAdminService {
           "ID de usuário inválido!"
         );
       }
-      
-      const validatedUserData = authUtils.userAuth.updateDataVerification(userData);
+
+      const validatedUserData =
+        authUtils.userAuth.updateDataVerification(userData);
 
       if (validatedUserData instanceof Array) {
         return handlingUtils.responseHandling.defaultResponseImpl(
@@ -262,7 +242,7 @@ class UserAdminServiceImpl implements UserAdminService {
       }
 
       // Remove campos indefinidos
-      Object.keys(validatedUserData).forEach(key => {
+      Object.keys(validatedUserData).forEach((key) => {
         if (validatedUserData[key as keyof UserInterface] === undefined) {
           delete validatedUserData[key as keyof UserInterface];
         }

@@ -1,28 +1,12 @@
 import path from "path";
 import { folderUtils, handlingUtils } from "../../utils";
-import { UploadedFiles, DefaultResponseResult, MusicInterface, IMusicRepository } from "../../types";
+import {
+  UploadedFiles,
+  MusicInterface,
+  IMusicRepository,
+  MusicAdminService,
+} from "../../types";
 import { musicRepository } from "../../repositories";
-
-interface MusicAdminService {
-  insertMusic(
-    title: string,
-    duration: string | number,
-    files: UploadedFiles,
-    baseUrl: string,
-    artist?: string,
-    genre?: string
-  ): Promise<DefaultResponseResult>;
-  deleteMusic(id: number): Promise<DefaultResponseResult>;
-  deleteAllMusics(): Promise<DefaultResponseResult>;
-  editMusic(
-    musicId: number,
-    baseUrl: string,
-    title?: string,
-    artist?: string,
-    genre?: string,
-    files?: UploadedFiles
-  ): Promise<DefaultResponseResult>;
-}
 
 class MusicAdminServiceImpl implements MusicAdminService {
   private imageDir!: string;
@@ -34,11 +18,14 @@ class MusicAdminServiceImpl implements MusicAdminService {
 
   private async setupDirectories() {
     try {
-      const { imagesDir, songsDir } = await folderUtils.setupUploadDirectories();
+      const { imagesDir, songsDir } =
+        await folderUtils.setupUploadDirectories();
 
       this.imageDir = imagesDir;
       this.musicDir = songsDir;
-      console.log("Diretórios de música configurados com sucesso".green.bgBlack);
+      console.log(
+        "Diretórios de música configurados com sucesso".green.bgBlack
+      );
     } catch (error) {
       console.error(
         `Erro ao configurar diretórios: ${
@@ -61,7 +48,8 @@ class MusicAdminServiceImpl implements MusicAdminService {
 
     try {
       if (!title || !duration || !files.music || files.music.length === 0) {
-        files.image && (await folderUtils.deleteFileIfExists(files.image[0].path));
+        files.image &&
+          (await folderUtils.deleteFileIfExists(files.image[0].path));
 
         return handlingUtils.responseHandling.defaultResponseImpl(
           false,
@@ -156,7 +144,7 @@ class MusicAdminServiceImpl implements MusicAdminService {
 
       if (imageFile) {
         imageFilePath = imageFile.path;
-        
+
         if (music.imageUrl) {
           imageUrl = await folderUtils.replaceImage(
             music.imageUrl,
@@ -178,7 +166,7 @@ class MusicAdminServiceImpl implements MusicAdminService {
       };
 
       // Remove campos indefinidos
-      Object.keys(updateData).forEach(key => {
+      Object.keys(updateData).forEach((key) => {
         if (updateData[key as keyof MusicInterface] === undefined) {
           delete updateData[key as keyof MusicInterface];
         }
@@ -241,12 +229,16 @@ class MusicAdminServiceImpl implements MusicAdminService {
       const musicFilePath = path.resolve(this.musicDir, musicFileName);
 
       await folderUtils.deleteFileIfExists(musicFilePath);
-      console.log(`Arquivo de música excluído: ${musicFileName}`.yellow.bgBlack);
+      console.log(
+        `Arquivo de música excluído: ${musicFileName}`.yellow.bgBlack
+      );
 
       if (imageFileName) {
         const imageFilePath = path.resolve(this.imageDir, imageFileName);
         await folderUtils.deleteFileIfExists(imageFilePath);
-        console.log(`Arquivo de imagem excluído: ${imageFileName}`.yellow.bgBlack);
+        console.log(
+          `Arquivo de imagem excluído: ${imageFileName}`.yellow.bgBlack
+        );
       }
 
       const result = await this.repository.delete(music);
@@ -259,7 +251,9 @@ class MusicAdminServiceImpl implements MusicAdminService {
         );
       }
 
-      console.log(`Música ID: ${musicId} excluída do banco de dados`.green.bgBlack);
+      console.log(
+        `Música ID: ${musicId} excluída do banco de dados`.green.bgBlack
+      );
 
       const musicData = music.toApiFormat();
 
@@ -300,7 +294,9 @@ class MusicAdminServiceImpl implements MusicAdminService {
         );
       }
 
-      console.log(`Iniciando exclusão de ${musics.length} músicas...`.cyan.bgBlack);
+      console.log(
+        `Iniciando exclusão de ${musics.length} músicas...`.cyan.bgBlack
+      );
 
       await folderUtils.cleanUploadDirectories();
 
@@ -311,7 +307,9 @@ class MusicAdminServiceImpl implements MusicAdminService {
       return handlingUtils.responseHandling.defaultResponseImpl(
         true,
         200,
-        `${result > 0 ? result : musics.length} músicas foram excluídas com sucesso!`
+        `${
+          result > 0 ? result : musics.length
+        } músicas foram excluídas com sucesso!`
       );
     } catch (error) {
       console.error(

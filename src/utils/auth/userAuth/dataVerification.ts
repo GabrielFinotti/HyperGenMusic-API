@@ -18,7 +18,9 @@ export const userDataVerification = (userData: UserInterface) => {
 
 function validateWhitespace(userData: UserInterface, errors: string[]): void {
   if (userData.username.trim() !== userData.username) {
-    errors.push("Nome de usuário não pode começar ou terminar com espaço em branco!");
+    errors.push(
+      "Nome de usuário não pode começar ou terminar com espaço em branco!"
+    );
   }
 
   if (userData.password.trim() !== userData.password) {

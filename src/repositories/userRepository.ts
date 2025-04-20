@@ -12,7 +12,11 @@ class UserRepository implements IUserRepository {
         attributes: includePassword ? { include: ["password"] } : undefined,
       });
     } catch (error) {
-      throw new Error(`Erro ao encontrar usuário por ID: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(
+        `Erro ao encontrar usuário por ID: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     }
   }
 
@@ -23,7 +27,11 @@ class UserRepository implements IUserRepository {
         attributes: includePassword ? { include: ["password"] } : undefined,
       });
     } catch (error) {
-      throw new Error(`Erro ao encontrar usuário por email: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(
+        `Erro ao encontrar usuário por email: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     }
   }
 
@@ -34,7 +42,11 @@ class UserRepository implements IUserRepository {
         attributes: includePassword ? { include: ["password"] } : undefined,
       });
     } catch (error) {
-      throw new Error(`Erro ao encontrar usuário por username: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(
+        `Erro ao encontrar usuário por username: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     }
   }
 
@@ -51,7 +63,11 @@ class UserRepository implements IUserRepository {
         attributes: includePassword ? { include: ["password"] } : undefined,
       });
     } catch (error) {
-      throw new Error(`Erro ao encontrar usuário por username ou email: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(
+        `Erro ao encontrar usuário por username ou email: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     }
   }
 
@@ -79,7 +95,11 @@ class UserRepository implements IUserRepository {
         order: [["createdAt", "DESC"]],
       });
     } catch (error) {
-      throw new Error(`Erro ao encontrar usuários por termos: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(
+        `Erro ao encontrar usuários por termos: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     }
   }
 
@@ -91,7 +111,11 @@ class UserRepository implements IUserRepository {
         order: [["createdAt", "DESC"]],
       });
     } catch (error) {
-      throw new Error(`Erro ao encontrar todos os usuários: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(
+        `Erro ao encontrar todos os usuários: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     }
   }
 
@@ -99,7 +123,11 @@ class UserRepository implements IUserRepository {
     try {
       return await this.userModel.create(userData);
     } catch (error) {
-      throw new Error(`Erro ao criar usuário: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(
+        `Erro ao criar usuário: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     }
   }
 
@@ -108,16 +136,26 @@ class UserRepository implements IUserRepository {
 
     try {
       let hasChanges = false;
+      const userDataCopy = { ...userData };
 
-      (Object.keys(userData) as Array<keyof UserInterface>).forEach((key) => {
-        const newValue = userData[key];
-        const currentValue = user.get(key);
+      if (
+        userDataCopy.password &&
+        (await user.comparePassword(userDataCopy.password))
+      ) {
+        delete userDataCopy.password;
+      }
 
-        if (newValue !== undefined && newValue !== currentValue) {
-          user.set(key, newValue);
-          hasChanges = true;
+      (Object.keys(userDataCopy) as Array<keyof UserInterface>).forEach(
+        (key) => {
+          const newValue = userDataCopy[key];
+          const currentValue = user.get(key);
+
+          if (newValue !== undefined && newValue !== currentValue) {
+            user.set(key, newValue);
+            hasChanges = true;
+          }
         }
-      });
+      );
 
       if (!hasChanges) {
         await transaction.rollback();
@@ -129,7 +167,11 @@ class UserRepository implements IUserRepository {
       return user;
     } catch (error) {
       await transaction.rollback();
-      throw new Error(`Erro ao atualizar usuário: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(
+        `Erro ao atualizar usuário: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     }
   }
 
@@ -138,7 +180,11 @@ class UserRepository implements IUserRepository {
       await user.destroy();
       return true;
     } catch (error) {
-      throw new Error(`Erro ao deletar usuário: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(
+        `Erro ao deletar usuário: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     }
   }
 
@@ -156,7 +202,11 @@ class UserRepository implements IUserRepository {
       return result;
     } catch (error) {
       await transaction.rollback();
-      throw new Error(`Erro ao deletar todos os usuários: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(
+        `Erro ao deletar todos os usuários: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     }
   }
 }

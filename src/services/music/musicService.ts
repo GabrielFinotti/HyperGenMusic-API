@@ -1,23 +1,12 @@
-import { DefaultResponseResult, IMusicRepository } from "../../types";
+import { IMusicRepository, MusicService } from "../../types";
 import { handlingUtils } from "../../utils";
 import { musicRepository } from "../../repositories";
-
-export interface MusicService {
-  getAllMusic(limit?: number, offset?: number): Promise<DefaultResponseResult>;
-  getMusicData(id: number): Promise<DefaultResponseResult>;
-  searchMusics(
-    query: string,
-    limit?: number,
-    offset?: number
-  ): Promise<DefaultResponseResult>;
-}
 
 class MusicServiceImpl implements MusicService {
   constructor(private repository: IMusicRepository = musicRepository) {}
 
   async getAllMusic(limit?: number, offset?: number) {
     try {
-      
       if (limit !== undefined && limit < 0) {
         return handlingUtils.responseHandling.defaultResponseImpl(
           false,
