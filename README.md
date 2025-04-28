@@ -29,7 +29,7 @@
 
 O HyperGenMusic API é uma infraestrutura backend completa para serviços de streaming de música, projetada com foco em desempenho, segurança e escalabilidade. Construída com TypeScript e Express, esta API implementa os padrões modernos de desenvolvimento, incluindo arquitetura em camadas, injeção de dependências e operações assíncronas eficientes.
 
-### ✨ Destaques da Versão 1.4.0:
+### ✨ Destaques da Versão 1.4.0
 
 - Padrão Repository implementado para acesso a dados
 - Tratamento detalhado de erros com mensagens descritivas
@@ -197,6 +197,7 @@ src/
   | `GET` | `/api/profile` | Obter perfil do usuário | Sim |
   | `PUT` | `/api/edit/profile` | Atualizar perfil | Sim |
   | `DELETE` | `/api/delete/profile` | Excluir conta | Sim |
+
 </details>
 
 <details>
@@ -207,6 +208,7 @@ src/
   | `GET` | `/api/musics` | Listar músicas | Sim |
   | `GET` | `/api/music/search?q=termo` | Buscar músicas | Sim |
   | `GET` | `/api/music/data/:id` | Detalhes da música | Sim |
+
 </details>
 
 <details>
@@ -224,6 +226,7 @@ src/
   | `PUT` | `/api/user/edit/:userid` | Editar usuário | Admin |
   | `DELETE` | `/api/user/delete/userId/:userId` | Excluir usuário | Admin |
   | `DELETE` | `/api/user/delete/all` | Excluir todos usuários | Admin |
+
 </details>
 
 ### Autenticação
@@ -251,6 +254,7 @@ Authorization: Bearer seu_token_jwt
 ````
 
 Resposta:
+
 ```json
 {
   "message": "Usuário logado com sucesso!",

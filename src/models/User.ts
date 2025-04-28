@@ -1,17 +1,8 @@
 import { DataTypes, Model, Optional } from "sequelize";
-import sequelize from "../config/database/databaseConfig";
+import sequelize from "../config/database/database_config";
 import Music from "./Music";
 import LikedMusics from "./LikedMusics";
-
-interface UserAttributes {
-  id: number;
-  username: string;
-  email: string;
-  password: string;
-  phone?: string;
-  imageUrl?: string;
-  role: "user" | "admin" | "dev";
-}
+import { UserAttributes } from "../types";
 
 interface UserCreationAttributes extends Optional<UserAttributes, "id"> {}
 

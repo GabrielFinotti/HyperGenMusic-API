@@ -1,13 +1,8 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "../config/database/databaseConfig";
+import sequelize from "../config/database/database_config";
 import User from "./User";
 import Music from "./Music";
-
-interface LikedMusicsAttributes {
-  userId: number;
-  musicId: number;
-  likedAt: Date;
-}
+import { LikedMusicsAttributes } from "../types";
 
 class LikedMusics
   extends Model<LikedMusicsAttributes>

@@ -1,28 +1,27 @@
-import { UserInterface } from "./user/userInterface";
-import { MusicInterface } from "./music/musicInterface";
-import { UploadedFiles } from "./uploads/uploadedFilesInterface";
 import {
-  DefaultResponseFunction,
-  DefaultResponseResult,
-} from "./handling/defaultReponse";
-import { IMusicRepository, IUserRepository } from "./repositories";
+  UserAttributes,
+  LikedMusicsAttributes,
+  MusicAttributes,
+  PlaylistAttributes,
+  PlaylistMusicsAttributes,
+} from "./models";
 import {
-  UserService,
-  MusicService,
-  UserAdminService,
-  MusicAdminService,
-} from "./services";
-
-export {
-  UserInterface,
-  MusicInterface,
-  UploadedFiles,
-  DefaultResponseFunction,
-  DefaultResponseResult,
+  ILikedMusicRepository,
   IMusicRepository,
+  IPlaylistMusicRepository,
+  IPlaylistRepository,
   IUserRepository,
-  UserService,
-  MusicService,
-  UserAdminService,
-  MusicAdminService,
+} from "./repositories";
+
+export type {
+  UserAttributes,
+  LikedMusicsAttributes,
+  MusicAttributes,
+  PlaylistAttributes,
+  PlaylistMusicsAttributes,
+  ILikedMusicRepository,
+  IMusicRepository,
+  IPlaylistMusicRepository,
+  IPlaylistRepository,
+  IUserRepository,
 };

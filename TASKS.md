@@ -86,6 +86,12 @@ Este documento serve como controle de desenvolvimento para acompanhar as tarefas
 - 🔴 Suporte a múltiplos formatos de áudio (mp3, wav, ogg, flac)
 - 🔴 Conversão automática para formatos suportados
 
+### 13.1. Integração com Armazenamento Externo (Cloudflare R2)
+
+- 🔴 Configurar conexão com o bucket R2 da Cloudflare
+- 🔴 Refatorar lógica de upload/download para usar R2 para músicas e imagens
+- 🔴 Implementar gerenciamento de URLs assinadas ou acesso público seguro
+
 ---
 
 ## Prioridade Normal (Recomendado)

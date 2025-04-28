@@ -1,15 +1,9 @@
 import { DataTypes, Model, Optional } from "sequelize";
-import sequelize from "../config/database/databaseConfig";
+import sequelize from "../config/database/database_config";
 import User from "./User";
 import Music from "./Music";
 import PlaylistMusics from "./PlaylistMusics";
-
-interface PlaylistAttributes {
-  id: number;
-  userId: number;
-  name: string;
-  description?: string;
-}
+import { PlaylistAttributes } from "../types";
 
 interface PlaylistCreationAttributes
   extends Optional<PlaylistAttributes, "id"> {}

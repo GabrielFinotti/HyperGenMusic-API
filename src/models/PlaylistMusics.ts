@@ -1,14 +1,8 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "../config/database/databaseConfig";
+import sequelize from "../config/database/database_config";
 import Playlist from "./Playlist";
 import Music from "./Music";
-
-interface PlaylistMusicsAttributes {
-  playlistId: number;
-  musicId: number;
-  position: number;
-  addedAt: Date;
-}
+import { PlaylistMusicsAttributes } from "../types";
 
 class PlaylistMusics
   extends Model<PlaylistMusicsAttributes>
