@@ -1,5 +1,5 @@
 import { Op } from "sequelize";
-import Music from "../models/musicModel";
+import Music from "../models/Music";
 import { IMusicRepository, MusicInterface } from "../types";
 import sequelize from "../config/database/databaseConfig";
 

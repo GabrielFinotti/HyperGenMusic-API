@@ -1,4 +1,4 @@
-import Music from "../../models/musicModel";
+import Music from "../../models/Music";
 import { MusicInterface } from "../music/musicInterface";
 
 export interface IMusicRepository {

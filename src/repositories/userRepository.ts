@@ -1,5 +1,5 @@
 import { Op } from "sequelize";
-import User from "../models/userModel";
+import User from "../models/User";
 import { IUserRepository, UserInterface } from "../types";
 import sequelize from "../config/database/databaseConfig";
 
