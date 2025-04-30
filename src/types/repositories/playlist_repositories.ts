@@ -1,5 +1,3 @@
-import { PlaylistAttributes } from "../models";
-
 export interface IPlaylistRepository {
   getAllPlaylists(): Promise<any>;
   getPlaylistById(playlistId: number): Promise<any>;

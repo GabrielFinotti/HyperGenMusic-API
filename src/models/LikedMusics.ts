@@ -10,7 +10,6 @@ class LikedMusics
 {
   declare userId: number;
   declare musicId: number;
-  declare likedAt: Date;
 }
 
 LikedMusics.init(
@@ -34,11 +33,6 @@ LikedMusics.init(
       },
       onUpdate: "CASCADE",
       onDelete: "CASCADE",
-    },
-    likedAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
     },
   },
   {
