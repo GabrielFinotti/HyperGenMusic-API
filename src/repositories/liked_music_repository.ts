@@ -1,13 +1,11 @@
 import { LikedMusics, Music, User } from "../models";
 import { ILikedMusicRepository } from "../types";
+import { LikedMusicData } from "../types";
 
 class LikedMusicRepository implements ILikedMusicRepository {
-  async likeMusic(userId: number, musicId: number) {
+  async likeMusic(data: LikedMusicData) {
     try {
-      const likedMusic = await LikedMusics.create({
-        userId,
-        musicId,
-      });
+      const likedMusic = await LikedMusics.create(data);
 
       return likedMusic;
     } catch (error) {
@@ -15,10 +13,10 @@ class LikedMusicRepository implements ILikedMusicRepository {
     }
   }
 
-  async unlikeMusic(userId: number, musicId: number) {
+  async unlikeMusic(data: LikedMusicData) {
     try {
       const result = await LikedMusics.destroy({
-        where: { userId, musicId },
+        where: { userId: data.userId, musicId: data.musicId },
       });
 
       return result > 0;
@@ -45,10 +43,10 @@ class LikedMusicRepository implements ILikedMusicRepository {
     }
   }
 
-  async checkIfUserLikedMusic(userId: number, musicId: number) {
+  async checkIfUserLikedMusic(data: LikedMusicData) {
     try {
       const likedMusic = await LikedMusics.findOne({
-        where: { userId, musicId },
+        where: { userId: data.userId, musicId: data.musicId },
       });
 
       return likedMusic !== null;

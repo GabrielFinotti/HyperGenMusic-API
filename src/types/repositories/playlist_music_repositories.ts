@@ -1,6 +1,16 @@
+import { PlaylistMusics } from "../../models";
+import { PlaylistMusicData } from "../interfaces";
+
 export interface IPlaylistMusicRepository {
-  addMusicToPlaylist(data: any): Promise<any>;
-  removeMusicFromPlaylist(playlistId: number, musicId: number): Promise<any>;
-  getMusicsByPlaylistId(playlistId: number): Promise<any>;
-  updateMusicPosition(playlistId: number, musicId: number, newPosition: number): Promise<any>;
+  addMusicToPlaylist(data: PlaylistMusicData): Promise<PlaylistMusics>;
+  removeMusicFromPlaylist(
+    playlistId: number,
+    musicId: number
+  ): Promise<boolean>;
+  getMusicsByPlaylistId(playlistId: number): Promise<PlaylistMusics[]>;
+  updateMusicPosition(
+    playlistId: number,
+    musicId: number,
+    newPosition: number
+  ): Promise<boolean>;
 }

@@ -73,13 +73,13 @@ Este documento serve como controle de desenvolvimento para acompanhar as tarefas
 
 ### 11. Sistema de Playlists
 
-- 🔴 CRUD de playlists (criar, editar, remover, listar)
-- 🔴 Adicionar/remover músicas em playlists
+- 🟢 CRUD de playlists (criar, editar, remover, listar)
+- 🟢 Adicionar/remover músicas em playlists
 
 ### 12. Histórico e Favoritos
 
 - 🔴 Registrar histórico de reprodução do usuário
-- 🔴 Permitir favoritar músicas
+- 🟡 Permitir favoritar músicas
 
 ### 13. Upload e Conversão de Arquivos
 
@@ -110,9 +110,10 @@ Este documento serve como controle de desenvolvimento para acompanhar as tarefas
 
 ### 16. Refatoração para Arquitetura em Camadas
 
-- 🔴 Separar claramente camadas (Controller → Service → Repository)
+- 🟡 Separar claramente camadas (Controller → Service → Repository)
+- 🟢 Refatorados repositórios para usar Data Transfer Objects (DTOs), melhorando a passagem de dados.
 - 🔴 Implementar inversão de dependência
-- 🔴 Documentar interfaces entre camadas
+- 🟢 Documentar interfaces entre camadas
 
 ### 17. Documentação Automática de APIs
 
@@ -122,12 +123,12 @@ Este documento serve como controle de desenvolvimento para acompanhar as tarefas
 
 ### 18. Sistema de Busca Avançada
 
-- 🔴 Implementar busca por múltiplos critérios (gênero, artista, álbum, etc)
+- 🟡 Implementar busca por múltiplos critérios (gênero, artista, álbum, etc)
 - 🔴 Suporte a filtros e ordenação
 
 ### 19. Upload de Imagens de Perfil
 
-- 🔴 Permitir upload e edição de avatar do usuário
+- 🟡 Permitir upload e edição de avatar do usuário
 - 🔴 Validação de tamanho e formato
 
 ---
@@ -154,8 +155,8 @@ Este documento serve como controle de desenvolvimento para acompanhar as tarefas
 
 ### 23. Refatoração de Configurações
 
-- 🔴 Centralizar configurações em um módulo único
-- 🔴 Implementar verificação de variáveis de ambiente
+- 🟡 Centralizar configurações em um módulo único
+- 🟡 Implementar verificação de variáveis de ambiente
 - 🔴 Adicionar suporte a múltiplos ambientes
 
 ### 24. Internacionalização (i18n)
@@ -167,5 +168,5 @@ Este documento serve como controle de desenvolvimento para acompanhar as tarefas
 
 ## Observações Adicionais
 
-- Atualizado em: 22/04/2025
+- Atualizado em: 03/05/2025
 - Responsável: Gabriel Henrique Finotti

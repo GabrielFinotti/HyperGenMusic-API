@@ -1,6 +1,7 @@
 import { Op } from "sequelize";
 import { User } from "../models";
 import { IUserRepository } from "../types";
+import { UserData } from "../types";
 
 class UserRepository implements IUserRepository {
   async getAllUser() {
@@ -50,7 +51,7 @@ class UserRepository implements IUserRepository {
     }
   }
 
-  async createUser(data: any) {
+  async createUser(data: UserData) {
     try {
       const newUser = await User.create(data);
 
@@ -60,7 +61,7 @@ class UserRepository implements IUserRepository {
     }
   }
 
-  async updateUser(userId: string, data: any) {
+  async updateUser(userId: string, data: UserData) {
     try {
       const transaction = await User.sequelize?.transaction();
       const user = (await User.findByPk(userId, { transaction })) as User;

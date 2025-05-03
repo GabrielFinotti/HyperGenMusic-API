@@ -11,7 +11,6 @@ class PlaylistMusics
   declare playlistId: number;
   declare musicId: number;
   declare position: number;
-  declare addedAt: Date;
 }
 
 PlaylistMusics.init(
@@ -28,7 +27,7 @@ PlaylistMusics.init(
     },
     musicId: {
       type: DataTypes.INTEGER,
-      primaryKey: true, 
+      primaryKey: true,
       references: {
         model: Music,
         key: "id",
@@ -38,12 +37,7 @@ PlaylistMusics.init(
     },
     position: {
       type: DataTypes.INTEGER,
-      allowNull: false, 
-    },
-    addedAt: {
-      type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: DataTypes.NOW,
     },
   },
   {

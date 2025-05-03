@@ -15,7 +15,6 @@ class Playlist
   declare id: number;
   declare userId: number;
   declare name: string;
-  declare description?: string;
 
   declare musics?: Music[];
 }
@@ -42,13 +41,6 @@ Playlist.init(
       allowNull: false,
       validate: {
         notEmpty: true,
-      },
-    },
-    description: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        max: 100,
       },
     },
   },

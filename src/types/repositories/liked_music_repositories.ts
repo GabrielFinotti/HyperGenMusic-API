@@ -1,8 +1,9 @@
 import { LikedMusics, Music } from "../../models";
+import { LikedMusicData } from "../interfaces";
 
 export interface ILikedMusicRepository {
-  likeMusic(userId: number, musicId: number): Promise<LikedMusics>;
-  unlikeMusic(userId: number, musicId: number): Promise<boolean>;
+  likeMusic(data: LikedMusicData): Promise<LikedMusics>;
+  unlikeMusic(data: LikedMusicData): Promise<boolean>;
   getLikedMusicsByUserId(userId: number): Promise<Music[] | null>;
-  checkIfUserLikedMusic(userId: number, musicId: number): Promise<boolean>;
+  checkIfUserLikedMusic(data: LikedMusicData): Promise<boolean>;
 }

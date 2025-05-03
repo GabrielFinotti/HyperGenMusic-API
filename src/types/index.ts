@@ -12,6 +12,13 @@ import {
   IPlaylistRepository,
   IUserRepository,
 } from "./repositories";
+import {
+  UserData,
+  LikedMusicData,
+  MusicData,
+  PlaylistData,
+  PlaylistMusicData,
+} from "./interfaces";
 
 export type {
   UserAttributes,
@@ -19,6 +26,11 @@ export type {
   MusicAttributes,
   PlaylistAttributes,
   PlaylistMusicsAttributes,
+  UserData,
+  LikedMusicData,
+  MusicData,
+  PlaylistData,
+  PlaylistMusicData,
   ILikedMusicRepository,
   IMusicRepository,
   IPlaylistMusicRepository,
