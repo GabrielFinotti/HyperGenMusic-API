@@ -10,3 +10,11 @@ const app = express();
 app.use(json());
 app.use(cors());
 
+app.use("/api");
+
+async function startServer() {
+  try {
+  } catch (error) {}
+}
+
+startServer();

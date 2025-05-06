@@ -18,6 +18,8 @@ import {
   MusicData,
   PlaylistData,
   PlaylistMusicData,
+  ResponseError,
+  ResponseSuccess,
 } from "./interfaces";
 
 export type {
@@ -31,6 +33,8 @@ export type {
   MusicData,
   PlaylistData,
   PlaylistMusicData,
+  ResponseError,
+  ResponseSuccess,
   ILikedMusicRepository,
   IMusicRepository,
   IPlaylistMusicRepository,

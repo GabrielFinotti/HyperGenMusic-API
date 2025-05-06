@@ -30,7 +30,6 @@ User.init(
     },
     username: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
       validate: {
         len: [6, 12],
@@ -83,7 +82,6 @@ User.init(
     },
     indexes: [
       {
-        unique: true,
         fields: ["username"],
       },
       {

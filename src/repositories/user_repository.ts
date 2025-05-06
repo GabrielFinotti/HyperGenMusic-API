@@ -34,6 +34,19 @@ class UserRepository implements IUserRepository {
     }
   }
 
+  async getUserIncludingPassword(email: string) {
+    try {
+      const user = await User.findOne({
+        where: { email },
+        attributes: { include: ["password"] },
+      });
+
+      return user ?? null;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getUserByTerm(term: string) {
     try {
       const whereClause = {
@@ -61,7 +74,7 @@ class UserRepository implements IUserRepository {
     }
   }
 
-  async updateUser(userId: string, data: UserData) {
+  async updateUser(userId: string, data: Partial<UserData>) {
     try {
       const transaction = await User.sequelize?.transaction();
       const user = (await User.findByPk(userId, { transaction })) as User;
