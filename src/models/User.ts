@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize";
-import sequelize from "../config/database/database_config";
+import sequelize from "../config/database/postgre_config";
 import Music from "./Music";
 import LikedMusics from "./LikedMusics";
 import { UserAttributes } from "../types";
