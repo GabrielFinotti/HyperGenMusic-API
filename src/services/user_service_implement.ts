@@ -1,9 +1,10 @@
+import { User } from "../models";
 import { UserRepository } from "../repositories";
-import { UserData } from "../types";
+import { IUserRepository, UserData, UserService } from "../types";
 import { responseUtils, securityUtils } from "../utils";
 
-class UserService {
-  constructor(private userRepository: UserRepository) {}
+class UserServiceImpl implements UserService {
+  constructor(private userRepository: IUserRepository = UserRepository) {}
 
   async userRegister(userData: UserData) {
     try {
@@ -68,11 +69,17 @@ class UserService {
         return responseUtils.createErrorResponse("Invalid password", 401);
       }
 
-      const { password: _, ...userWithoutPassword } = user;
+      const userFormatted: Partial<User> = {
+        username: user.username,
+        email: user.email,
+        imageUrl: user.imageUrl,
+        phone: user.phone,
+        role: user.role,
+      };
 
       return responseUtils.createSuccessResponse(
         "User logged in successfully",
-        userWithoutPassword,
+        userFormatted,
         200
       );
     } catch (error) {
@@ -158,4 +165,4 @@ class UserService {
   }
 }
 
-export default UserService;
+export default new UserServiceImpl();
