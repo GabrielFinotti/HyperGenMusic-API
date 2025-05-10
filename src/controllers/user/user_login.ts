@@ -6,11 +6,12 @@ import { User } from "../../models";
 
 const userLogin = async (req: Request, res: Response) => {
   try {
-    const userData = req.body as { email: string; password: string };
+    const userData = req.body as { email: string; password: string, isLong: boolean };
 
     const isError = await UserServiceImpl.userLogin(
       userData.email,
-      userData.password
+      userData.password,
+      userData.isLong
     );
 
     if (!isError.success) {
@@ -19,12 +20,10 @@ const userLogin = async (req: Request, res: Response) => {
       return;
     }
 
-    const result = isError as ResponseSuccess<User>;
+    const result = isError as ResponseSuccess<(string | Partial<User>)[]>;
 
     res.status(result.statusCode).send(result);
   } catch (error) {
-    console.error(`Error in userLogin controller: ${error}`);
-
     const err = responseUtils.createErrorResponse("Internal server error", 500);
 
     res.status(err.errorCode).send(err);

@@ -1,13 +1,13 @@
 import { User } from "../../models";
-import { UserData } from "../interfaces";
+import { UserAttributes } from "../models";
 
 export interface IUserRepository {
   getAllUser(): Promise<User[] | null>;
-  getUserById(userId: string): Promise<User | null>;
+  getUserById(userId: number): Promise<User | null>;
   getUserByEmail(email: string): Promise<User | null>;
   getUserIncludingPassword(email: string): Promise<User | null>;
   getUserByTerm(term: string): Promise<User[] | null>;
-  createUser(data: UserData): Promise<User>;
-  updateUser(userId: string, data: Partial<UserData>): Promise<User>;
-  deleteUser(userId: string): Promise<boolean>;
+  createUser(data: Partial<UserAttributes>): Promise<User>;
+  updateUser(userId: number, data: Partial<UserAttributes>): Promise<User>;
+  deleteUser(userId: number): Promise<boolean>;
 }

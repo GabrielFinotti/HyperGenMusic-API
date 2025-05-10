@@ -20,8 +20,6 @@ const userRegister = async (req: Request, res: Response) => {
 
     res.status(result.statusCode).send(result);
   } catch (error) {
-    console.error(`Error in userRegister controller: ${error}`);
-
     const err = responseUtils.createErrorResponse("Internal server error", 500);
 
     res.status(err.errorCode).send(err);

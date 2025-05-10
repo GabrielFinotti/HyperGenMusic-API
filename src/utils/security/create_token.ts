@@ -1,10 +1,10 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { constants } from "../../../utils";
+import { constants } from "..";
 
 dotenv.config();
 
-const createToken = (userId: string, isLong: boolean) => {
+const createToken = (userId: number, isLong: boolean) => {
   return jwt.sign({ userId }, process.env.SECRET_KEY as string, {
     expiresIn: isLong
       ? constants.authTokenTemp.MAX_TEMP

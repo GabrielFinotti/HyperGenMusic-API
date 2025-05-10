@@ -1,7 +1,6 @@
 import { Op } from "sequelize";
 import { User } from "../models";
-import { IUserRepository } from "../types";
-import { UserData } from "../types";
+import { IUserRepository, UserAttributes } from "../types";
 
 class UserRepository implements IUserRepository {
   async getAllUser() {
@@ -14,7 +13,7 @@ class UserRepository implements IUserRepository {
     }
   }
 
-  async getUserById(userId: string) {
+  async getUserById(userId: number) {
     try {
       const user = await User.findByPk(userId);
 
@@ -64,9 +63,9 @@ class UserRepository implements IUserRepository {
     }
   }
 
-  async createUser(data: UserData) {
+  async createUser(data: Partial<UserAttributes>) {
     try {
-      const newUser = await User.create(data);
+      const newUser = await User.create(data as UserAttributes);
 
       return newUser;
     } catch (error) {
@@ -74,7 +73,7 @@ class UserRepository implements IUserRepository {
     }
   }
 
-  async updateUser(userId: string, data: Partial<UserData>) {
+  async updateUser(userId: number, data: Partial<UserAttributes>) {
     try {
       const transaction = await User.sequelize?.transaction();
       const user = (await User.findByPk(userId, { transaction })) as User;
@@ -95,7 +94,7 @@ class UserRepository implements IUserRepository {
     }
   }
 
-  async deleteUser(userId: string) {
+  async deleteUser(userId: number) {
     try {
       const result = await User.destroy({ where: { id: userId } });
 

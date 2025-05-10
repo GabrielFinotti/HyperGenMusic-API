@@ -1,6 +1,11 @@
 import { User } from "../models";
 import { UserRepository } from "../repositories";
-import { IUserRepository, UserData, UserService } from "../types";
+import {
+  IUserRepository,
+  UserAttributes,
+  UserData,
+  UserService,
+} from "../types";
 import { responseUtils, securityUtils } from "../utils";
 
 class UserServiceImpl implements UserService {
@@ -29,12 +34,12 @@ class UserServiceImpl implements UserService {
         userData.password
       );
 
-      const userDataFinal: UserData = {
+      const userDataFinal: Partial<UserAttributes> = {
         username: userData.username,
         email: userData.email,
         password: hashedPassword,
-        image: userData.image,
         phone: userData.phone,
+        imageUrl: "",
         role: !userData.role ? "user" : userData.role,
       };
 
@@ -52,7 +57,7 @@ class UserServiceImpl implements UserService {
     }
   }
 
-  async userLogin(email: string, password: string) {
+  async userLogin(email: string, password: string, isLong: boolean = false) {
     try {
       const user = await this.userRepository.getUserIncludingPassword(email);
 
@@ -77,9 +82,15 @@ class UserServiceImpl implements UserService {
         role: user.role,
       };
 
+      const token = securityUtils.createToken(user.id, isLong);
+
+      if (!token) {
+        throw new Error("Failed to create token");
+      }
+
       return responseUtils.createSuccessResponse(
         "User logged in successfully",
-        userFormatted,
+        [userFormatted, token],
         200
       );
     } catch (error) {
@@ -89,7 +100,7 @@ class UserServiceImpl implements UserService {
     }
   }
 
-  async userUpdate(userId: string, userData: Partial<UserData>) {
+  async userUpdate(userId: number, userData: Partial<UserData>) {
     try {
       const validationData = securityUtils.verifyUserData(userData, true);
 
@@ -106,11 +117,11 @@ class UserServiceImpl implements UserService {
         return responseUtils.createErrorResponse("User not found", 404);
       }
 
-      const userDataUpdate: Partial<UserData> = {
+      const userDataUpdate: Partial<UserAttributes> = {
         username: userData.username,
         email: userData.email,
         password: userData.password,
-        image: userData.image,
+        imageUrl: "",
         phone: userData.phone,
         role: userData.role,
       };
@@ -138,7 +149,7 @@ class UserServiceImpl implements UserService {
     }
   }
 
-  async userDelete(userId: string) {
+  async userDelete(userId: number) {
     try {
       const existingUser = await this.userRepository.getUserById(userId);
 

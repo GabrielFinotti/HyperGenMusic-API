@@ -1,6 +1,6 @@
 import { Op } from "sequelize";
 import { Music } from "../models";
-import { IMusicRepository } from "../types";
+import { IMusicRepository, MusicAttributes, MusicData } from "../types";
 
 class MusicRepository implements IMusicRepository {
   async getAllMusic() {
@@ -13,7 +13,7 @@ class MusicRepository implements IMusicRepository {
     }
   }
 
-  async getMusicById(musicId: string) {
+  async getMusicById(musicId: number) {
     try {
       const music = await Music.findByPk(musicId);
 
@@ -41,9 +41,9 @@ class MusicRepository implements IMusicRepository {
     }
   }
 
-  async createMusic(music: any) {
+  async createMusic(music: Partial<MusicAttributes>) {
     try {
-      const newMusic = await Music.create(music);
+      const newMusic = await Music.create(music as MusicAttributes);
 
       return newMusic;
     } catch (error) {
@@ -51,7 +51,7 @@ class MusicRepository implements IMusicRepository {
     }
   }
 
-  async updateMusic(musicId: string, data: any) {
+  async updateMusic(musicId: number, data: Partial<MusicAttributes>) {
     try {
       const transaction = await Music.sequelize?.transaction();
       const music = (await Music.findByPk(musicId)) as Music;
@@ -72,7 +72,7 @@ class MusicRepository implements IMusicRepository {
     }
   }
 
-  async deleteMusic(musicId: string) {
+  async deleteMusic(musicId: number) {
     try {
       const result = await Music.destroy({
         where: { id: musicId },
@@ -85,4 +85,4 @@ class MusicRepository implements IMusicRepository {
   }
 }
 
-export default MusicRepository;
+export default new MusicRepository();

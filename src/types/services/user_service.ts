@@ -8,10 +8,10 @@ export interface UserService {
   userLogin(
     email: string,
     password: string
-  ): Promise<ResponseError | ResponseSuccess<Partial<User>>>;
+  ): Promise<ResponseError | ResponseSuccess<(string | Partial<User>)[]>>;
   userUpdate(
-    userId: string,
+    userId: number,
     userData: Partial<UserData>
   ): Promise<ResponseError | ResponseSuccess<User>>;
-  userDelete(userId: string): Promise<ResponseError | ResponseSuccess<null>>;
+  userDelete(userId: number): Promise<ResponseError | ResponseSuccess<null>>;
 }

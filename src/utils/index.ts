@@ -1,5 +1,10 @@
 import { minChar, regex, authTokenTemp } from "./const";
-import { verifyUserData, comparePassword, hashPassword } from "./security";
+import {
+  verifyUserData,
+  comparePassword,
+  hashPassword,
+  createToken,
+} from "./security";
 import { createErrorResponse, createSuccessResponse } from "./response";
 
 export const constants = {
@@ -12,6 +17,7 @@ export const securityUtils = {
   verifyUserData,
   hashPassword,
   comparePassword,
+  createToken,
 };
 
 export const responseUtils = {
