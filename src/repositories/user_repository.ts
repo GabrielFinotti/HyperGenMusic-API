@@ -65,9 +65,9 @@ class UserRepository implements IUserRepository {
 
   async createUser(data: Partial<UserAttributes>) {
     try {
-      const newUser = await User.create(data as UserAttributes);
+      await User.create(data as UserAttributes);
 
-      return newUser;
+      return;
     } catch (error) {
       throw error;
     }
@@ -96,9 +96,9 @@ class UserRepository implements IUserRepository {
 
   async deleteUser(userId: number) {
     try {
-      const result = await User.destroy({ where: { id: userId } });
+      await User.destroy({ where: { id: userId } });
 
-      return result > 0;
+      return;
     } catch (error) {
       throw error;
     }

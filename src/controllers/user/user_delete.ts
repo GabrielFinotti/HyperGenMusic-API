@@ -1,14 +1,13 @@
 import { Request, Response } from "express";
-import { ResponseSuccess, UserData } from "../../types";
 import { UserServiceImpl } from "../../services";
-import { User } from "../../models";
+import { ResponseSuccess } from "../../types";
 import { responseUtils } from "../../utils";
 
-const userRegister = async (req: Request, res: Response) => {
+const userDelete = async (req: Request, res: Response) => {
   try {
-    const userData = req.body as UserData;
-
-    const isError = await UserServiceImpl.userRegister(userData);
+    const isError = await UserServiceImpl.userDelete(
+      parseInt(req.params.userId)
+    );
 
     if (!isError.success) {
       res.status(isError.errorCode).send(isError);
@@ -20,10 +19,10 @@ const userRegister = async (req: Request, res: Response) => {
 
     res.status(result.statusCode).send(result);
   } catch (error) {
-    const err = responseUtils.createErrorResponse("Internal server error", 500);
+    const err = responseUtils.createErrorResponse("Internal Server Error", 500);
 
     res.status(err.errorCode).send(err);
   }
 };
 
-export default userRegister;
+export default userDelete;

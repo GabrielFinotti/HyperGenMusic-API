@@ -2,6 +2,8 @@ import { User } from "../models";
 import { UserRepository } from "../repositories";
 import {
   IUserRepository,
+  ResponseError,
+  ResponseSuccess,
   UserAttributes,
   UserData,
   UserService,
@@ -41,13 +43,11 @@ class UserServiceImpl implements UserService {
         role: !userData.role ? "user" : userData.role,
       };
 
-      const createdUser = await this.userRepository.createUser(userDataFinal);
-
-      const newUser = await this.userRepository.getUserById(createdUser.id);
+      await this.userRepository.createUser(userDataFinal);
 
       return responseUtils.createSuccessResponse(
         "User registered successfully",
-        newUser,
+        null,
         201
       );
     } catch (error) {
@@ -157,11 +157,7 @@ class UserServiceImpl implements UserService {
         return responseUtils.createErrorResponse("User not found", 404);
       }
 
-      const deletedUser = await this.userRepository.deleteUser(userId);
-
-      if (!deletedUser) {
-        return responseUtils.createErrorResponse("Failed to delete user", 500);
-      }
+      await this.userRepository.deleteUser(userId);
 
       return responseUtils.createSuccessResponse(
         "User deleted successfully",
@@ -170,6 +166,26 @@ class UserServiceImpl implements UserService {
       );
     } catch (error) {
       console.error("Error deleting user:", error);
+
+      throw error;
+    }
+  }
+
+  async getProfileData(userId: number) {
+    try {
+      const user = await this.userRepository.getUserById(userId);
+
+      if (!user) {
+        return responseUtils.createErrorResponse("User not found", 404);
+      }
+
+      return responseUtils.createSuccessResponse(
+        "User profile retrieved successfully",
+        user,
+        200
+      );
+    } catch (error) {
+      console.error("Error getting user profile:", error);
 
       throw error;
     }
