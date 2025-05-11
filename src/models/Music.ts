@@ -1,9 +1,7 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../config/database/postgre_config";
 import Playlist from "./Playlist";
-import PlaylistMusics from "./PlaylistMusics";
-import User from "./User"; 
-import LikedMusics from "./LikedMusics"; 
+import User from "./User";
 import { MusicAttributes } from "../types";
 
 interface MusicCreationAttributes extends Optional<MusicAttributes, "id"> {}
@@ -16,9 +14,9 @@ class Music
   declare title: string;
   declare artist: string;
   declare genre?: string;
-  declare imageUrl?: string; 
+  declare imageUrl?: string;
   declare duration: number;
-  declare songUrl: string; 
+  declare songUrl: string;
 
   declare playlists?: Playlist[];
   declare likedByUsers?: User[];
@@ -49,7 +47,7 @@ Music.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    imageUrl: { 
+    imageUrl: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
@@ -84,21 +82,5 @@ Music.init(
     ],
   }
 );
-
-Music.belongsToMany(Playlist, {
-  through: PlaylistMusics, 
-  foreignKey: "musicId", 
-  otherKey: "playlistId", 
-  as: "playlists", 
-  timestamps: false,
-});
-
-Music.belongsToMany(User, {
-  through: LikedMusics, 
-  foreignKey: "musicId", 
-  otherKey: "userId", 
-  as: "likedByUsers", 
-  timestamps: false,
-});
 
 export default Music;

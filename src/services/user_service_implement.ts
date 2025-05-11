@@ -38,12 +38,12 @@ class UserServiceImpl implements UserService {
         username: userData.username,
         email: userData.email,
         password: hashedPassword,
-        phone: userData.phone,
-        imageUrl: "",
         role: !userData.role ? "user" : userData.role,
       };
 
-      const newUser = await this.userRepository.createUser(userDataFinal);
+      const createdUser = await this.userRepository.createUser(userDataFinal);
+
+      const newUser = await this.userRepository.getUserById(createdUser.id);
 
       return responseUtils.createSuccessResponse(
         "User registered successfully",
@@ -90,7 +90,7 @@ class UserServiceImpl implements UserService {
 
       return responseUtils.createSuccessResponse(
         "User logged in successfully",
-        [userFormatted, token],
+        [userFormatted, { token }],
         200
       );
     } catch (error) {

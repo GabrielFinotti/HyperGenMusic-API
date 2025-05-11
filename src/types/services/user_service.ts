@@ -8,7 +8,7 @@ export interface UserService {
   userLogin(
     email: string,
     password: string
-  ): Promise<ResponseError | ResponseSuccess<(string | Partial<User>)[]>>;
+  ): Promise<ResponseError | ResponseSuccess<({token: string} | Partial<User>)[]>>;
   userUpdate(
     userId: number,
     userData: Partial<UserData>

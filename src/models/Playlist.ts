@@ -1,8 +1,6 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../config/database/postgre_config";
-import User from "./User";
 import Music from "./Music";
-import PlaylistMusics from "./PlaylistMusics";
 import { PlaylistAttributes } from "../types";
 
 interface PlaylistCreationAttributes
@@ -30,7 +28,7 @@ Playlist.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: User,
+        model: "users",
         key: "id",
       },
       onUpdate: "CASCADE",
@@ -55,23 +53,5 @@ Playlist.init(
     ],
   }
 );
-
-Playlist.belongsTo(User, {
-  foreignKey: "userId",
-  as: "user",
-});
-
-User.hasMany(Playlist, {
-  foreignKey: "userId",
-  as: "playlists",
-});
-
-Playlist.belongsToMany(Music, {
-  through: PlaylistMusics,
-  foreignKey: "playlistId",
-  otherKey: "musicId",
-  as: "musics",
-  timestamps: false,
-});
 
 export default Playlist;

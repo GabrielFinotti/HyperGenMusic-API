@@ -1,7 +1,7 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../config/database/postgre_config";
 import Music from "./Music";
-import LikedMusics from "./LikedMusics";
+import Playlist from "./Playlist";
 import { UserAttributes } from "../types";
 
 interface UserCreationAttributes extends Optional<UserAttributes, "id"> {}
@@ -19,6 +19,7 @@ class User
   declare role: "user" | "admin" | "dev";
 
   declare likedMusics?: Music[];
+  declare playlists?: Playlist[];
 }
 
 User.init(
@@ -91,13 +92,5 @@ User.init(
     ],
   }
 );
-
-User.belongsToMany(Music, {
-  through: LikedMusics,
-  foreignKey: "userId",
-  otherKey: "musicId",
-  as: "likedMusics",
-  timestamps: false,
-});
 
 export default User;

@@ -1,7 +1,5 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../config/database/postgre_config";
-import User from "./User";
-import Music from "./Music";
 import { LikedMusicsAttributes } from "../types";
 
 class LikedMusics
@@ -18,7 +16,7 @@ LikedMusics.init(
       type: DataTypes.INTEGER,
       primaryKey: true,
       references: {
-        model: User,
+        model: "users",
         key: "id",
       },
       onUpdate: "CASCADE",
@@ -28,7 +26,7 @@ LikedMusics.init(
       type: DataTypes.INTEGER,
       primaryKey: true,
       references: {
-        model: Music,
+        model: "musics",
         key: "id",
       },
       onUpdate: "CASCADE",
