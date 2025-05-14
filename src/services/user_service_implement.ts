@@ -2,13 +2,11 @@ import { User } from "../models";
 import { UserRepository } from "../repositories";
 import {
   IUserRepository,
-  ResponseError,
-  ResponseSuccess,
   UserAttributes,
   UserData,
   UserService,
 } from "../types";
-import { responseUtils, securityUtils } from "../utils";
+import { responseUtils, securityUtils, storageUtils } from "../utils";
 
 class UserServiceImpl implements UserService {
   constructor(private userRepository: IUserRepository = UserRepository) {}
@@ -36,12 +34,8 @@ class UserServiceImpl implements UserService {
         userData.password
       );
 
-      const userDataFinal: Partial<UserAttributes> = {
-        username: userData.username,
-        email: userData.email,
-        password: hashedPassword,
-        role: !userData.role ? "user" : userData.role,
-      };
+      const userDataFinal: Partial<UserAttributes> = userData;
+      userDataFinal.password = hashedPassword;
 
       await this.userRepository.createUser(userDataFinal);
 
@@ -102,6 +96,31 @@ class UserServiceImpl implements UserService {
 
   async userUpdate(userId: number, userData: Partial<UserData>) {
     try {
+      for (const key in userData) {
+        if (Object.prototype.hasOwnProperty.call(userData, key)) {
+          const typedKey = key as keyof UserData;
+
+          if (userData[typedKey] === "") {
+            userData[typedKey] = undefined;
+          }
+        }
+      }
+
+      Object.keys(userData).forEach((key) => {
+        const typedKey = key as keyof UserData;
+
+        if (userData[typedKey] === undefined) {
+          delete userData[typedKey];
+        }
+      });
+
+      if (Object.keys(userData).length === 0) {
+        return responseUtils.createErrorResponse(
+          "No data provided for update",
+          400
+        );
+      }
+
       const validationData = securityUtils.verifyUserData(userData, true);
 
       if (validationData.length > 0) {
@@ -111,35 +130,78 @@ class UserServiceImpl implements UserService {
         );
       }
 
-      const existingUser = await this.userRepository.getUserById(userId);
+      let existingUser: User | null = null;
+
+      if (userData.password) {
+        existingUser = await this.userRepository.getUserIncludingPassword(
+          undefined,
+          userId
+        );
+      } else {
+        existingUser = await this.userRepository.getUserById(userId);
+      }
 
       if (!existingUser) {
         return responseUtils.createErrorResponse("User not found", 404);
       }
 
-      const userDataUpdate: Partial<UserAttributes> = {
-        username: userData.username,
-        email: userData.email,
-        password: userData.password,
-        imageUrl: "",
-        phone: userData.phone,
-        role: userData.role,
-      };
+      let userDataUpdate: Partial<UserAttributes> = {};
+
+      if (userData.email && userData.email !== existingUser.email) {
+        const emailExists = await this.userRepository.getUserByEmail(
+          userData.email
+        );
+
+        if (emailExists) {
+          return responseUtils.createErrorResponse("Email already exists", 409);
+        }
+
+        userDataUpdate.email = userData.email;
+      }
+
+      if (userData.username && userData.username !== existingUser.username) {
+        userDataUpdate.username = userData.username;
+      }
 
       if (userData.password) {
-        userDataUpdate.password = await securityUtils.hashPassword(
-          userData.password
+        if (
+          !(await securityUtils.comparePassword(
+            userData.password,
+            existingUser.password
+          ))
+        ) {
+          userDataUpdate.password = await securityUtils.hashPassword(
+            userData.password
+          );
+        }
+      }
+
+      if (userData.phone && userData.phone !== existingUser.phone) {
+        userDataUpdate.phone = userData.phone;
+      }
+
+      if (userData.imageUrl && existingUser.imageUrl) {
+        await storageUtils.deleteArchiveForBucket(existingUser.imageUrl);
+
+        userDataUpdate.imageUrl = userData.imageUrl;
+      } else {
+        userDataUpdate.imageUrl = userData.imageUrl;
+      }
+
+      if (Object.keys(userDataUpdate).length === 0) {
+        return responseUtils.createErrorResponse(
+          "Data provided for update is the same as existing data",
+          400
         );
       }
 
-      const updatedUser = await this.userRepository.updateUser(
-        userId,
-        userDataUpdate
-      );
+      await this.userRepository.updateUser(userId, userDataUpdate);
+
+      const userUpdateFormatted = await this.userRepository.getUserById(userId);
 
       return responseUtils.createSuccessResponse(
         "User updated successfully",
-        updatedUser,
+        userUpdateFormatted,
         200
       );
     } catch (error) {

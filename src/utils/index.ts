@@ -6,6 +6,7 @@ import {
   createToken,
 } from "./security";
 import { createErrorResponse, createSuccessResponse } from "./response";
+import { deleteArchiveForBucket } from "./storage";
 
 export const constants = {
   minChar,
@@ -23,4 +24,8 @@ export const securityUtils = {
 export const responseUtils = {
   createErrorResponse,
   createSuccessResponse,
+};
+
+export const storageUtils = {
+  deleteArchiveForBucket,
 };

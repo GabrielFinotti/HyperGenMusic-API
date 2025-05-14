@@ -3,6 +3,6 @@ export interface UserData {
   email: string;
   password: string;
   phone?: string;
-  image?: Blob;
+  imageUrl?: string;
   role: "user" | "admin" | "dev";
 }

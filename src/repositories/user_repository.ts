@@ -1,4 +1,4 @@
-import { Op } from "sequelize";
+import { Op, WhereOptions } from "sequelize";
 import { User } from "../models";
 import { IUserRepository, UserAttributes } from "../types";
 
@@ -33,10 +33,20 @@ class UserRepository implements IUserRepository {
     }
   }
 
-  async getUserIncludingPassword(email: string) {
+  async getUserIncludingPassword(email?: string, userId?: number) {
     try {
+      const whereClause: WhereOptions<UserAttributes> = {}
+
+      if(email) {
+        whereClause.email = email;
+      }
+
+      if(userId) {
+        whereClause.id = userId;
+      }
+
       const user = await User.findOne({
-        where: { email },
+        where: whereClause,
         attributes: { include: ["password"] },
       });
 

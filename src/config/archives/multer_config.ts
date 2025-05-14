@@ -15,7 +15,7 @@ const multerConfig = {
     contentType: multerS3.AUTO_CONTENT_TYPE,
     key: (req: Request, file: Express.Multer.File, cb: any) => {
       crypto.randomBytes(16, (err, hash) => {
-        if (err) cb(err);
+        if (err) return cb(err);
 
         const fileName = `${hash.toString("hex")}-${file.originalname}`;
 
@@ -24,7 +24,7 @@ const multerConfig = {
     },
   }),
   limits: {
-    fileSize: 300 * 1024 * 1024
+    fileSize: 300 * 1024 * 1024,
   },
   fileFilter: (req: Request, file: Express.Multer.File, cb: any) => {
     const allowedMimes = [
