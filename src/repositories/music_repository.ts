@@ -1,11 +1,14 @@
 import { Op } from "sequelize";
 import { Music } from "../models";
-import { IMusicRepository, MusicAttributes, MusicData } from "../types";
+import { IMusicRepository, MusicAttributes } from "../types";
 
 class MusicRepository implements IMusicRepository {
-  async getAllMusic() {
+  async getAllMusic(limit: number = 10, offset: number = 0) {
     try {
-      const musics = await Music.findAll();
+      const musics = await Music.findAll({
+        limit,
+        offset,
+      });
 
       return musics.length > 0 ? musics : null;
     } catch (error) {
@@ -23,7 +26,7 @@ class MusicRepository implements IMusicRepository {
     }
   }
 
-  async getMusicByTerm(term: string) {
+  async getMusicByTerm(term: string, limit: number = 10, offset: number = 0) {
     try {
       const whereClause = {
         [Op.or]: [
@@ -33,7 +36,25 @@ class MusicRepository implements IMusicRepository {
         ],
       };
 
-      const musics = await Music.findAll({ where: whereClause });
+      const musics = await Music.findAll({
+        where: whereClause,
+        limit,
+        offset,
+      });
+
+      return musics.length > 0 ? musics : null;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getMusicByGenre(genre: string, limit: number = 10, offset: number = 0) {
+    try {
+      const musics = await Music.findAll({
+        where: { genre },
+        limit,
+        offset,
+      });
 
       return musics.length > 0 ? musics : null;
     } catch (error) {
@@ -43,9 +64,7 @@ class MusicRepository implements IMusicRepository {
 
   async createMusic(music: Partial<MusicAttributes>) {
     try {
-      const newMusic = await Music.create(music as MusicAttributes);
-
-      return newMusic;
+      await Music.create(music as MusicAttributes);
     } catch (error) {
       throw error;
     }
@@ -74,11 +93,9 @@ class MusicRepository implements IMusicRepository {
 
   async deleteMusic(musicId: number) {
     try {
-      const result = await Music.destroy({
+      await Music.destroy({
         where: { id: musicId },
       });
-
-      return result > 0;
     } catch (error) {
       throw error;
     }

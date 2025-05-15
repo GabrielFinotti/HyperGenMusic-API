@@ -12,7 +12,7 @@ import {
   IPlaylistRepository,
   IUserRepository,
 } from "./repositories";
-import { UserService } from "./services";
+import { UserService, MusicService } from "./services";
 import {
   UserData,
   LikedMusicData,
@@ -42,4 +42,5 @@ export type {
   IPlaylistRepository,
   IUserRepository,
   UserService,
+  MusicService, 
 };

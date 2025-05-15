@@ -3,9 +3,12 @@ import { User } from "../models";
 import { IUserRepository, UserAttributes } from "../types";
 
 class UserRepository implements IUserRepository {
-  async getAllUser() {
+  async getAllUser(limit: number = 10, offset: number = 0) {
     try {
-      const users = await User.findAll();
+      const users = await User.findAll({
+        limit,
+        offset,
+      });
 
       return users.length > 0 ? users : null;
     } catch (error) {
@@ -35,13 +38,13 @@ class UserRepository implements IUserRepository {
 
   async getUserIncludingPassword(email?: string, userId?: number) {
     try {
-      const whereClause: WhereOptions<UserAttributes> = {}
+      const whereClause: WhereOptions<UserAttributes> = {};
 
-      if(email) {
+      if (email) {
         whereClause.email = email;
       }
 
-      if(userId) {
+      if (userId) {
         whereClause.id = userId;
       }
 
@@ -56,7 +59,7 @@ class UserRepository implements IUserRepository {
     }
   }
 
-  async getUserByTerm(term: string) {
+  async getUserByTerm(term: string, limit: number = 10, offset: number = 0) {
     try {
       const whereClause = {
         [Op.or]: [
@@ -65,7 +68,11 @@ class UserRepository implements IUserRepository {
         ],
       };
 
-      const users = await User.findAll({ where: whereClause });
+      const users = await User.findAll({
+        where: whereClause,
+        limit,
+        offset,
+      });
 
       return users.length > 0 ? users : null;
     } catch (error) {
@@ -76,8 +83,6 @@ class UserRepository implements IUserRepository {
   async createUser(data: Partial<UserAttributes>) {
     try {
       await User.create(data as UserAttributes);
-
-      return;
     } catch (error) {
       throw error;
     }
@@ -107,8 +112,6 @@ class UserRepository implements IUserRepository {
   async deleteUser(userId: number) {
     try {
       await User.destroy({ where: { id: userId } });
-
-      return;
     } catch (error) {
       throw error;
     }
