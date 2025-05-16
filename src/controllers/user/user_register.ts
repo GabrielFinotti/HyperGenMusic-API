@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { ResponseSuccess, UserData } from "../../types";
 import { UserServiceImpl } from "../../services";
-import { User } from "../../models";
 import { responseUtils } from "../../utils";
 
 const userRegister = async (req: Request, res: Response) => {

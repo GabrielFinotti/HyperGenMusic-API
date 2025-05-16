@@ -207,6 +207,10 @@ class UserServiceImpl implements UserService {
     } catch (error) {
       console.error("Error updating user:", error);
 
+      if (userData.imageUrl) {
+        await storageUtils.deleteArchiveForBucket(userData.imageUrl);
+      }
+
       throw error;
     }
   }

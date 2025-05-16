@@ -7,13 +7,6 @@ class MusicServiceImpl implements MusicService {
 
   async getAllMusic(limit: number, offset: number) {
     try {
-      if (isNaN(limit) || isNaN(offset) || limit < 0 || offset < 0) {
-        return responseUtils.createErrorResponse(
-          "Invalid limit or offset.",
-          400
-        );
-      }
-
       const musics = await this.musicRepository.getAllMusic(limit, offset);
 
       if (!musics) {
@@ -37,13 +30,6 @@ class MusicServiceImpl implements MusicService {
 
   async getMusicByTerm(term: string, limit: number, offset: number) {
     try {
-      if (isNaN(limit) || isNaN(offset) || limit < 0 || offset < 0) {
-        return responseUtils.createErrorResponse(
-          "Invalid limit or offset.",
-          400
-        );
-      }
-
       const musics = await this.musicRepository.getMusicByTerm(
         term,
         limit,
@@ -74,13 +60,6 @@ class MusicServiceImpl implements MusicService {
 
   async getMusicByGenre(genre: string, limit: number, offset: number) {
     try {
-      if (isNaN(limit) || isNaN(offset) || limit < 0 || offset < 0) {
-        return responseUtils.createErrorResponse(
-          "Invalid limit or offset.",
-          400
-        );
-      }
-
       const musics = await this.musicRepository.getMusicByGenre(
         genre,
         limit,
