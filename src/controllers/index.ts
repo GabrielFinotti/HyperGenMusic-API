@@ -1,4 +1,16 @@
-import { userLogin, userRegister, userDelete, getProfile, userUpdate } from "./user";
+import {
+  userLogin,
+  userRegister,
+  userDelete,
+  getProfile,
+  userUpdate,
+} from "./user";
+import {
+  getMusicData,
+  getAllMusic,
+  getMusicGenre,
+  getMusicTerm,
+} from "./music";
 
 export const userController = {
   userLogin,
@@ -8,4 +20,9 @@ export const userController = {
   userUpdate,
 };
 
-export const musicController = {};
+export const musicController = {
+  getMusicData,
+  getAllMusic,
+  getMusicGenre,
+  getMusicTerm,
+};
