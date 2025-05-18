@@ -13,8 +13,8 @@ export interface MusicService {
   ): Promise<ResponseError | ResponseSuccess<Music[]>>;
   getMusicByGenre(
     genre: string,
-    limit?: number,
-    offset?: number
+    limit: number,
+    offset: number
   ): Promise<ResponseError | ResponseSuccess<Music[]>>;
   getMusicData(
     musicId: number

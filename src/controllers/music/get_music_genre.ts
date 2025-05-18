@@ -20,6 +20,14 @@ const getMusicGenre = async (req: Request, res: Response) => {
       offset = 0;
     }
 
+    if (!query.genre) {
+      const err = responseUtils.createErrorResponse("Genre is required.", 400);
+
+      res.status(err.errorCode).send(err);
+
+      return;
+    }
+
     const isError = await MusicServiceImpl.getMusicByGenre(
       query.genre as string,
       limit,

@@ -180,12 +180,14 @@ class UserServiceImpl implements UserService {
         userDataUpdate.phone = userData.phone;
       }
 
-      if (userData.imageUrl && existingUser.imageUrl) {
-        await storageUtils.deleteArchiveForBucket(existingUser.imageUrl);
-
-        userDataUpdate.imageUrl = userData.imageUrl;
-      } else {
-        userDataUpdate.imageUrl = userData.imageUrl;
+      if (userData.imageUrl) {
+        if (existingUser.imageUrl) {
+          await storageUtils.deleteArchiveForBucket(existingUser.imageUrl);
+          
+          userDataUpdate.imageUrl = userData.imageUrl;
+        } else {
+          userDataUpdate.imageUrl = userData.imageUrl;
+        }
       }
 
       if (Object.keys(userDataUpdate).length === 0) {
