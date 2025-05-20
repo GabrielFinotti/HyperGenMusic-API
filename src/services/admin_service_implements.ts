@@ -48,13 +48,9 @@ class AdminServiceImpl implements AdminService {
     try {
       const result = await this.userRepository.deleteAllUsers();
 
-      if (!result) {
-        return responseUtils.createErrorResponse("No users found", 404);
-      }
-
       return responseUtils.createSuccessResponse(
         `${result} users deleted`,
-        result,
+        null,
         200
       );
     } catch (error) {
@@ -91,6 +87,28 @@ class AdminServiceImpl implements AdminService {
 
   async updateMusic(musicId: number, musicData: Partial<MusicData>) {
     try {
+      const existingMusic = await this.musicRepository.getMusicById(musicId);
+
+      if (!existingMusic) {
+        return responseUtils.createErrorResponse("Music not found", 404);
+      }
+
+      const validationData = securityUtils.verifyMusicData(musicData, true);
+
+      if (validationData.length > 0) {
+        return responseUtils.createErrorResponse(
+          `Invalid Music Data: ${validationData}`,
+          400
+        );
+      }
+
+      const music = await this.musicRepository.updateMusic(musicId, musicData);
+
+      return responseUtils.createSuccessResponse(
+        "Music updated successfully",
+        music,
+        200
+      );
     } catch (error) {
       console.error("Error updating music:", error);
 
@@ -100,6 +118,19 @@ class AdminServiceImpl implements AdminService {
 
   async deleteMusic(musicId: number) {
     try {
+      const existingMusic = await this.musicRepository.getMusicById(musicId);
+
+      if (!existingMusic) {
+        return responseUtils.createErrorResponse("Music not found", 404);
+      }
+
+      await this.musicRepository.deleteMusic(musicId);
+
+      return responseUtils.createSuccessResponse(
+        "Music deleted successfully",
+        null,
+        204
+      );
     } catch (error) {
       console.error("Error deleting music:", error);
 
@@ -109,6 +140,13 @@ class AdminServiceImpl implements AdminService {
 
   async deleteAllMusic() {
     try {
+      const result = await this.musicRepository.deleteAllMusic();
+
+      return responseUtils.createSuccessResponse(
+        `${result} music deleted`,
+        null,
+        200
+      );
     } catch (error) {
       console.error("Error deleting all music:", error);
 

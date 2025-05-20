@@ -56,4 +56,4 @@ class LikedMusicRepository implements ILikedMusicRepository {
   }
 }
 
-export default LikedMusicRepository;
+export default new LikedMusicRepository();

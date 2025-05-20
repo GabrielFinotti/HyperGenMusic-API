@@ -17,5 +17,5 @@ export interface IUserRepository {
   createUser(data: Partial<UserAttributes>): Promise<void>;
   updateUser(userId: number, data: Partial<UserAttributes>): Promise<User>;
   deleteUser(userId: number): Promise<void>;
-  deleteAllUsers(): Promise<number | null>;
+  deleteAllUsers(): Promise<number>;
 }

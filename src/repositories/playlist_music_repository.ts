@@ -59,4 +59,4 @@ class PlaylistMusicRepository implements IPlaylistMusicRepository {
   }
 }
 
-export default PlaylistMusicRepository;
+export default new PlaylistMusicRepository();

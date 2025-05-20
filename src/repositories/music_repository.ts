@@ -100,6 +100,30 @@ class MusicRepository implements IMusicRepository {
       throw error;
     }
   }
+
+  async deleteAllMusic() {
+    try {
+      const transaction = await Music.sequelize?.transaction();
+
+      try {
+        const result = await Music.destroy({
+          where: {},
+          truncate: true,
+          transaction,
+        });
+
+        await transaction?.commit();
+
+        return result;
+      } catch (error) {
+        await transaction?.rollback();
+
+        throw error;
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default new MusicRepository();

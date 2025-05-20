@@ -128,15 +128,11 @@ class UserRepository implements IUserRepository {
           transaction,
         });
 
-        if (result === 0) {
-          return null;
-        }
-
-        transaction?.commit();
+        await transaction?.commit();
 
         return result;
       } catch (error) {
-        transaction?.rollback();
+        await transaction?.rollback();
 
         throw error;
       }

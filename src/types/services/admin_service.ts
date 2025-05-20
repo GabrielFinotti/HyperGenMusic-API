@@ -7,7 +7,7 @@ export interface AdminService {
     limit: number,
     offset: number
   ): Promise<ResponseError | ResponseSuccess<User[]>>;
-  deleteAllUsers(): Promise<ResponseError | ResponseSuccess<number>>;
+  deleteAllUsers(): Promise<ResponseError | ResponseSuccess<null>>;
   createMusic(
     musicData: MusicData
   ): Promise<ResponseError | ResponseSuccess<null>>;

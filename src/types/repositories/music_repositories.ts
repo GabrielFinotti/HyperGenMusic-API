@@ -17,4 +17,5 @@ export interface IMusicRepository {
   createMusic(music: Partial<MusicAttributes>): Promise<void>;
   updateMusic(musicId: number, data: Partial<MusicAttributes>): Promise<Music>;
   deleteMusic(musicId: number): Promise<void>;
+  deleteAllMusic(): Promise<number>;
 }
