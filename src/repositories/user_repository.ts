@@ -116,6 +116,34 @@ class UserRepository implements IUserRepository {
       throw error;
     }
   }
+
+  async deleteAllUsers() {
+    try {
+      const transaction = await User.sequelize?.transaction();
+
+      try {
+        const result = await User.destroy({
+          where: {},
+          truncate: true,
+          transaction,
+        });
+
+        if (result === 0) {
+          return null;
+        }
+
+        transaction?.commit();
+
+        return result;
+      } catch (error) {
+        transaction?.rollback();
+
+        throw error;
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default new UserRepository();

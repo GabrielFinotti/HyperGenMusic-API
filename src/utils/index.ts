@@ -1,6 +1,7 @@
 import { minChar, regex, authTokenTemp } from "./const";
 import {
   verifyUserData,
+  verifyMusicData,
   comparePassword,
   hashPassword,
   createToken,
@@ -16,6 +17,7 @@ export const constants = {
 
 export const securityUtils = {
   verifyUserData,
+  verifyMusicData,
   hashPassword,
   comparePassword,
   createToken,

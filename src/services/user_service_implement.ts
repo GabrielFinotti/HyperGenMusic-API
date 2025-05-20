@@ -183,7 +183,7 @@ class UserServiceImpl implements UserService {
       if (userData.imageUrl) {
         if (existingUser.imageUrl) {
           await storageUtils.deleteArchiveForBucket(existingUser.imageUrl);
-          
+
           userDataUpdate.imageUrl = userData.imageUrl;
         } else {
           userDataUpdate.imageUrl = userData.imageUrl;
@@ -226,6 +226,10 @@ class UserServiceImpl implements UserService {
       }
 
       await this.userRepository.deleteUser(userId);
+
+      if (existingUser.imageUrl) {
+        await storageUtils.deleteArchiveForBucket(existingUser.imageUrl);
+      }
 
       return responseUtils.createSuccessResponse(
         "User deleted successfully",
