@@ -15,7 +15,10 @@ export interface UserService {
     userId: number,
     userData: Partial<UserData>
   ): Promise<ResponseError | ResponseSuccess<User>>;
-  userDelete(userId: number): Promise<ResponseError | ResponseSuccess<null>>;
+  userDelete(
+    userId: number,
+    token: string
+  ): Promise<ResponseError | ResponseSuccess<null>>;
   getProfileData(
     userId: number
   ): Promise<ResponseError | ResponseSuccess<User>>;

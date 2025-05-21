@@ -217,13 +217,15 @@ class UserServiceImpl implements UserService {
     }
   }
 
-  async userDelete(userId: number) {
+  async userDelete(userId: number, token: string) {
     try {
       const existingUser = await this.userRepository.getUserById(userId);
 
       if (!existingUser) {
         return responseUtils.createErrorResponse("User not found", 404);
       }
+
+      await securityUtils.revokeToken(token);
 
       await this.userRepository.deleteUser(userId);
 

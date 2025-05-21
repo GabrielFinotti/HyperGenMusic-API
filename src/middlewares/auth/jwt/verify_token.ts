@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import redisClient from "../../../config/database/redis_config";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { responseUtils } from "../../../utils";
@@ -14,6 +15,15 @@ const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
 
       res.status(err.errorCode).send(err);
 
+      return;
+    }
+
+    const isRevoked = await redisClient.get(`Blacklisted:${token}`);
+
+    if (isRevoked) {
+      const err = responseUtils.createErrorResponse("Token revoked", 401);
+
+      res.status(err.errorCode).send(err);
       return;
     }
 

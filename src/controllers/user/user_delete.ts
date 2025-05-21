@@ -5,8 +5,11 @@ import { responseUtils } from "../../utils";
 
 const userDelete = async (req: Request, res: Response) => {
   try {
+    const token = req.headers.authorization?.split(" ")[1] as string;
+
     const isError = await UserServiceImpl.userDelete(
-      parseInt(req.params.userId)
+      parseInt(req.params.userId),
+      token
     );
 
     if (!isError.success) {

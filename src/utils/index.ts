@@ -5,6 +5,7 @@ import {
   comparePassword,
   hashPassword,
   createToken,
+  revokeToken,
 } from "./security";
 import { createErrorResponse, createSuccessResponse } from "./response";
 import { deleteArchiveForBucket } from "./storage";
@@ -21,6 +22,7 @@ export const securityUtils = {
   hashPassword,
   comparePassword,
   createToken,
+  revokeToken,
 };
 
 export const responseUtils = {
