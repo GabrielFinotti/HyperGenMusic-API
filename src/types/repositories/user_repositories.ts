@@ -2,7 +2,7 @@ import { User } from "../../models";
 import { UserAttributes } from "../models";
 
 export interface IUserRepository {
-  getAllUser(limit: number, offset: number): Promise<User[] | null>;
+  getAllUsers(limit: number, offset: number): Promise<User[] | null>;
   getUserById(userId: number): Promise<User | null>;
   getUserByEmail(email: string): Promise<User | null>;
   getUserIncludingPassword(

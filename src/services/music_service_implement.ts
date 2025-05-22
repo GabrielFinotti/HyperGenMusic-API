@@ -7,7 +7,7 @@ class MusicServiceImpl implements MusicService {
 
   async getAllMusic(limit: number, offset: number) {
     try {
-      const musics = await this.musicRepository.getAllMusic(limit, offset);
+      const musics = await this.musicRepository.getAllMusics(limit, offset);
 
       if (!musics) {
         return responseUtils.createErrorResponse("No music found.", 404);

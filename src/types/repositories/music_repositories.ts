@@ -2,7 +2,7 @@ import { Music } from "../../models";
 import { MusicAttributes } from "../models";
 
 export interface IMusicRepository {
-  getAllMusic(limit: number, offset: number): Promise<Music[] | null>;
+  getAllMusics(limit: number, offset: number): Promise<Music[] | null>;
   getMusicById(musicId: number): Promise<Music | null>;
   getMusicByTerm(
     term: string,

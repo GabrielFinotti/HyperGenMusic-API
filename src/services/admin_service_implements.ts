@@ -13,6 +13,33 @@ class AdminServiceImpl implements AdminService {
     private musicRepository: IMusicRepository = MusicRepository
   ) {}
 
+  async getAllUsers(limit: number, offset: number) {
+    try {
+      if (isNaN(limit) || isNaN(offset)) {
+        return responseUtils.createErrorResponse(
+          "Limit and offset must be numbers",
+          400
+        );
+      }
+
+      const users = await this.userRepository.getAllUsers(limit, offset);
+
+      if (!users) {
+        return responseUtils.createErrorResponse("No users found", 404);
+      }
+
+      return responseUtils.createSuccessResponse(
+        `${users.length} users found`,
+        users,
+        200
+      );
+    } catch (error) {
+      console.error("Error fetching all users:", error);
+
+      return responseUtils.createErrorResponse("Internal server error", 500);
+    }
+  }
+
   async getUserByTerm(term: string, limit: number, offset: number) {
     try {
       if (isNaN(limit) || isNaN(offset)) {

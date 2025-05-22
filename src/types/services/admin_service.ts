@@ -2,6 +2,10 @@ import { Music, User } from "../../models";
 import { MusicData, ResponseError, ResponseSuccess } from "../interfaces";
 
 export interface AdminService {
+  getAllUsers(
+    limit: number,
+    offset: number
+  ): Promise<ResponseError | ResponseSuccess<User[]>>;
   getUserByTerm(
     term: string,
     limit: number,

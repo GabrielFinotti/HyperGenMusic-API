@@ -14,7 +14,7 @@ const app = express();
 app.use(json());
 app.use(cors());
 
-app.use("/api", userRouter, musicRouter);
+app.use("/api/v2", userRouter, musicRouter);
 
 async function startServer() {
   try {

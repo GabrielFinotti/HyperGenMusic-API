@@ -3,7 +3,7 @@ import { Music } from "../models";
 import { IMusicRepository, MusicAttributes } from "../types";
 
 class MusicRepository implements IMusicRepository {
-  async getAllMusic(limit: number = 10, offset: number = 0) {
+  async getAllMusics(limit: number = 10, offset: number = 0) {
     try {
       const musics = await Music.findAll({
         limit,

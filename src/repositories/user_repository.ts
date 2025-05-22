@@ -3,7 +3,7 @@ import { User } from "../models";
 import { IUserRepository, UserAttributes } from "../types";
 
 class UserRepository implements IUserRepository {
-  async getAllUser(limit: number = 10, offset: number = 0) {
+  async getAllUsers(limit: number = 10, offset: number = 0) {
     try {
       const users = await User.findAll({
         limit,
