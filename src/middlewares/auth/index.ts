@@ -1,7 +1,10 @@
 import { verifyToken } from "./jwt";
+import { adminAccess } from "./rules";
 
 export const jwt = {
   verifyToken,
 };
 
-export const rules = {};
+export const rules = {
+  adminAccess,
+};
