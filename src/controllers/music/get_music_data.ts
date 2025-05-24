@@ -23,6 +23,7 @@ const getMusicData = async (req: Request, res: Response) => {
 
     if (!isError.success) {
       res.status(isError.errorCode).send(isError);
+      
       return;
     }
 

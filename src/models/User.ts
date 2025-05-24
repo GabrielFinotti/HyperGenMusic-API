@@ -17,6 +17,7 @@ class User
   declare imageUrl?: string;
   declare phone?: string;
   declare role: "user" | "admin" | "dev";
+  declare lastToken?: string;
 
   declare likedMusics?: Music[];
   declare playlists?: Playlist[];
@@ -73,6 +74,10 @@ User.init(
       allowNull: false,
       defaultValue: "user",
     },
+    lastToken: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    }
   },
   {
     sequelize,

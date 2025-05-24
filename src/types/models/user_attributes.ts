@@ -6,4 +6,5 @@ export interface UserAttributes {
   phone?: string;
   imageUrl?: string;
   role: "user" | "admin" | "dev";
+  lastToken?: string;
 }

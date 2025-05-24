@@ -17,7 +17,7 @@ export interface UserService {
   ): Promise<ResponseError | ResponseSuccess<User>>;
   userDelete(
     userId: number,
-    token: string
+    token?: string
   ): Promise<ResponseError | ResponseSuccess<null>>;
   getProfileData(
     userId: number

@@ -1,7 +1,7 @@
 import express, { json } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { userRouter, musicRouter } from "./routes";
+import { userRouter, musicRouter, adminRouter } from "./routes";
 import sequelize, {
   initializeDatabase,
 } from "./config/database/postgre_config";
@@ -14,7 +14,7 @@ const app = express();
 app.use(json());
 app.use(cors());
 
-app.use("/api/v2", userRouter, musicRouter);
+app.use("/api/v2", userRouter, musicRouter, adminRouter);
 
 async function startServer() {
   try {
@@ -24,7 +24,7 @@ async function startServer() {
     await sequelize.authenticate();
     console.log("Database connection established successfully.".green);
 
-    await sequelize.sync();
+    await sequelize.sync({ alter: true });
     console.log("All models were synchronized successfully.".green);
 
     app.listen(process.env.PORT, () => {

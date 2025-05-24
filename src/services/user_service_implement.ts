@@ -82,6 +82,8 @@ class UserServiceImpl implements UserService {
         throw new Error("Failed to create token");
       }
 
+      await this.userRepository.updateUser(user.id, { lastToken: token });
+
       return responseUtils.createSuccessResponse(
         "User logged in successfully",
         [userFormatted, { token }],
@@ -217,7 +219,7 @@ class UserServiceImpl implements UserService {
     }
   }
 
-  async userDelete(userId: number, token: string) {
+  async userDelete(userId: number, token?: string) {
     try {
       const existingUser = await this.userRepository.getUserById(userId);
 
@@ -225,7 +227,7 @@ class UserServiceImpl implements UserService {
         return responseUtils.createErrorResponse("User not found", 404);
       }
 
-      await securityUtils.revokeToken(token);
+      if (token) await securityUtils.revokeToken(token);
 
       await this.userRepository.deleteUser(userId);
 

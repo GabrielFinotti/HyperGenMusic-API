@@ -10,7 +10,7 @@ const getMusicGenre = async (req: Request, res: Response) => {
 
     let limit = parseInt(query.limit as string);
 
-    if (isNaN(limit) || limit < 0) {
+    if (isNaN(limit) || limit <= 0) {
       limit = 10;
     }
 

@@ -24,6 +24,7 @@ const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
       const err = responseUtils.createErrorResponse("Token revoked", 401);
 
       res.status(err.errorCode).send(err);
+      
       return;
     }
 

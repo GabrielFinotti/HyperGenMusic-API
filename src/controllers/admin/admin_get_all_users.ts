@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { responseUtils } from "../../utils";
-import { MusicServiceImpl } from "../../services";
+import { AdminServiceImpl } from "../../services";
 import { ResponseSuccess } from "../../types";
-import { Music } from "../../models";
+import { User } from "../../models";
 
-const getMusicTerm = async (req: Request, res: Response) => {
+const adminGetAllUsers = async (req: Request, res: Response) => {
   try {
     const query = req.query;
 
@@ -20,11 +20,7 @@ const getMusicTerm = async (req: Request, res: Response) => {
       offset = 0;
     }
 
-    const isError = await MusicServiceImpl.getMusicByTerm(
-      query.term as string,
-      limit,
-      offset
-    );
+    const isError = await AdminServiceImpl.getAllUsers(limit, offset);
 
     if (!isError.success) {
       res.status(isError.errorCode).send(isError);
@@ -32,12 +28,12 @@ const getMusicTerm = async (req: Request, res: Response) => {
       return;
     }
 
-    const result = isError as ResponseSuccess<Music[]>;
+    const users = isError as ResponseSuccess<User[]>;
 
-    res.status(result.statusCode).send(result);
+    res.status(users.statusCode).send(users);
   } catch (error) {
     const err = responseUtils.createErrorResponse(
-      "An error occurred while fetching music term.",
+      "An error occurred while fetching users.",
       500
     );
 
@@ -45,4 +41,4 @@ const getMusicTerm = async (req: Request, res: Response) => {
   }
 };
 
-export default getMusicTerm;
+export default adminGetAllUsers;

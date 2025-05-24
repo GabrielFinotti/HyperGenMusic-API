@@ -21,6 +21,7 @@ export async function initializeDatabase() {
 
   try {
     await pgClient.connect();
+    
     const res = await pgClient.query(
       `SELECT 1 FROM pg_database WHERE datname = '${dbName}'`
     );

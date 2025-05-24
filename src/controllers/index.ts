@@ -12,6 +12,15 @@ import {
   getMusicTerm,
 } from "./music";
 
+import {
+  adminGetAllUsers,
+  adminGetUsersTerm,
+  adminCreateUser,
+  adminUpdateUser,
+  adminDeleteUser,
+  adminDeleteAllUser,
+} from "./admin";
+
 export const userController = {
   userLogin,
   userRegister,
@@ -25,4 +34,13 @@ export const musicController = {
   getAllMusic,
   getMusicGenre,
   getMusicTerm,
+};
+
+export const adminController = {
+  adminGetAllUsers,
+  adminGetUsersTerm,
+  adminCreateUser,
+  adminUpdateUser,
+  adminDeleteUser,
+  adminDeleteAllUser,
 };
