@@ -1,5 +1,6 @@
-import getAllMusics from "./getAllMusics";
-import getMusicData from "./getMusicData";
-import searchMusics from "./searchMusics";
+import getAllMusic from "./get_all_music";
+import getMusicGenre from "./get_music_genre";
+import getMusicTerm from "./get_music_term";
+import getMusicData from "./get_music_data";
 
-export { getAllMusics, getMusicData, searchMusics };
+export { getAllMusic, getMusicGenre, getMusicTerm, getMusicData };

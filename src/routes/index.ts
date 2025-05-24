@@ -1,5 +1,5 @@
-import { musicRoutes } from "./music/index";
-import { adminRoutes } from "./admin/index";
-import { userRoutes } from "./user/index";
+import { userRouter } from "./user_router";
+import { musicRouter } from "./music_router";
+import { adminRouter } from "./admin_router";
 
-export { musicRoutes, adminRoutes, userRoutes };
+export { userRouter, musicRouter, adminRouter };

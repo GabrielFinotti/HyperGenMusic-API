@@ -1,49 +1,46 @@
 import {
-  userRegister,
   userLogin,
-  userUpdate,
+  userRegister,
   userDelete,
-  userData,
+  getProfile,
+  userUpdate,
 } from "./user";
 import {
-  createUser,
-  deleteAllMusics,
-  deleteAllUser,
-  deleteMusicById,
-  deleteUser,
-  editMusic,
-  editUser,
-  getAllUsers,
-  getUserData,
-  insertMusic,
-  searchUser,
+  getMusicData,
+  getAllMusic,
+  getMusicGenre,
+  getMusicTerm,
+} from "./music";
+
+import {
+  adminGetAllUsers,
+  adminGetUsersTerm,
+  adminCreateUser,
+  adminUpdateUser,
+  adminDeleteUser,
+  adminDeleteAllUser,
 } from "./admin";
-import { getAllMusics, getMusicData, searchMusics } from "./music";
 
 export const userController = {
-  userRegister,
   userLogin,
-  userUpdate,
+  userRegister,
   userDelete,
-  userData,
+  getProfile,
+  userUpdate,
 };
 
 export const musicController = {
-  getAllMusics,
   getMusicData,
-  searchMusics,
+  getAllMusic,
+  getMusicGenre,
+  getMusicTerm,
 };
 
 export const adminController = {
-  insertMusic,
-  deleteMusicById,
-  deleteAllMusics,
-  editMusic,
-  getAllUsers,
-  getUserData,
-  searchUser,
-  createUser,
-  editUser,
-  deleteAllUser,
-  deleteUser,
+  adminGetAllUsers,
+  adminGetUsersTerm,
+  adminCreateUser,
+  adminUpdateUser,
+  adminDeleteUser,
+  adminDeleteAllUser,
 };

@@ -1,6 +1,5 @@
-import userService from "./user/userService";
-import musicService from "./music/musicService";
-import musicAdminService from "./admin/musicAdminService";
-import userAdminService from "./admin/userAdminService";
+import UserServiceImpl from "./user_service_implement";
+import MusicServiceImpl from "./music_service_implement";
+import AdminServiceImpl from "./admin_service_implements";
 
-export { userService, musicService, musicAdminService, userAdminService };
+export { UserServiceImpl, MusicServiceImpl, AdminServiceImpl };

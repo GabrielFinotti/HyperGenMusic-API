@@ -1,30 +1,15 @@
-import {
-  deleteAllMusics,
-  deleteMusicById,
-  editMusic,
-  insertMusic,
-} from "./music";
-
-import {
-  getAllUsers,
-  searchUser,
-  createUser,
-  deleteAllUser,
-  deleteUser,
-  editUser,
-  getUserData,
-} from "./user";
+import adminGetAllUsers from "./admin_get_all_users";
+import adminGetUsersTerm from "./admin_get_users_term";
+import adminCreateUser from "./admin_create_user";
+import adminUpdateUser from "./admin_update_user";
+import adminDeleteUser from "./admin_delete_user";
+import adminDeleteAllUser from "./admin_delete_all_user";
 
 export {
-  insertMusic,
-  deleteMusicById,
-  deleteAllMusics,
-  editMusic,
-  getAllUsers,
-  getUserData,
-  searchUser,
-  createUser,
-  editUser,
-  deleteAllUser,
-  deleteUser,
+  adminGetAllUsers,
+  adminGetUsersTerm,
+  adminCreateUser,
+  adminUpdateUser,
+  adminDeleteUser,
+  adminDeleteAllUser,
 };

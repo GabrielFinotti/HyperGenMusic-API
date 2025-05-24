@@ -1,6 +1,5 @@
-import { MusicService } from "./musicService";
-import { UserService } from "./userService";
-import { UserAdminService } from "./userAdminService";
-import { MusicAdminService } from "./musicAdminService";
+import { UserService } from "./user_service";
+import { MusicService } from "./music_service";
+import { AdminService } from "./admin_service";
 
-export { MusicService, UserService, UserAdminService, MusicAdminService };
+export { UserService, MusicService, AdminService };

@@ -1,7 +1,7 @@
-import userRegister from "./userRegister";
-import userLogin from "./userLogin";
-import userUpdate from "./userUpdate";
-import userDelete from "./userDelete";
-import userData from "./userData";
+import userLogin from "./user_login";
+import userRegister from "./user_register";
+import userDelete from "./user_delete";
+import getProfile from "./get_profile";
+import userUpdate from "./user_update";
 
-export { userRegister, userLogin, userUpdate, userDelete, userData };
+export { userLogin, userRegister, userDelete, getProfile, userUpdate };
