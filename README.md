@@ -1,7 +1,9 @@
 <div align="center">
   <img src="https://via.placeholder.com/200x200.png?text=HyperGenMusic+API" alt="HyperGenMusic API Logo" width="200" height="200">
-  <h1>HyperGenMusic API</h1>
-  <p><strong>Uma API robusta de streaming de música construída com Node.js, TypeScript e Express</strong></p>
+  
+# 🎵 HyperGenMusic API v2.0
+  
+  <p><strong>API de Streaming de Música Enterprise com Arquitetura Moderna</strong></p>
   
   [![Node.js](https://img.shields.io/badge/Node.js-16%2B-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
   [![TypeScript](https://img.shields.io/badge/TypeScript-5.7%2B-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -9,360 +11,360 @@
   [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
   [![Redis](https://img.shields.io/badge/Redis-Latest-DC382D?style=for-the-badge&logo=redis&logoColor=white)](https://redis.io/)
   
-  [![Versão](https://img.shields.io/badge/Versão-1.4.0-blue?style=for-the-badge)](https://github.com/GabrielFinotti/HyperGenMusic-API)
-  [![Licença](https://img.shields.io/badge/Licença-Proprietária-red?style=for-the-badge)](LICENSE)
+  [![Versão](https://img.shields.io/badge/Versão-2.0.0--beta-blue?style=for-the-badge)](https://github.com/GabrielFinotti/HyperGenMusic-API)
+  [![Status](https://img.shields.io/badge/Status-Beta%20Release-brightgreen?style=for-the-badge)](https://github.com/GabrielFinotti/HyperGenMusic-API)
+  [![Progresso](https://img.shields.io/badge/Progresso-85%25-orange?style=for-the-badge)](TASKS.md)
+
+  > 🚀 **v2.0 Beta Ready**: Core features implementados, recursos avançados em desenvolvimento
 </div>
 
-## 📋 Índice
+---
 
-- [Visão Geral](#-visão-geral)
-- [Recursos](#-recursos)
-- [Arquitetura](#-arquitetura)
-- [Requisitos](#-requisitos)
-- [Instalação](#-instalação)
-- [Documentação da API](#-documentação-da-api)
-- [Tecnologias](#-tecnologias)
-- [Changelog](#-changelog)
-- [Licença](#-licença)
+## 📊 Status do Desenvolvimento v2.0
+
+### 🟢 **Recursos Implementados (85%)**
+
+| Categoria | Feature | Status | Completude |
+|-----------|---------|--------|------------|
+| 🔐 **Autenticação** | JWT + Blacklist | ✅ | 100% |
+| 👤 **Usuários** | CRUD Completo | ✅ | 100% |
+| 🎵 **Músicas** | CRUD + Search | ✅ | 100% |
+| 👑 **Admin** | Gerenciamento | ✅ | 90% |
+| 📁 **Upload** | Arquivos + S3 | ✅ | 100% |
+| 🛡️ **Segurança** | Validação + Middleware | ✅ | 100% |
+| 🏗️ **Arquitetura** | Repository Pattern | ✅ | 100% |
+
+### 🟡 **Em Desenvolvimento (15%)**
+
+| Feature | Prioridade | Status | ETA |
+|---------|------------|--------|-----|
+| 📋 **Playlists** | Alta | 🟡 Em progresso | v2.0 |
+| ❤️ **Favoritos** | Alta | 🟡 Em progresso | v2.0 |
+| 🎧 **Streaming** | Média | 🔴 Planejado | v2.1 |
+| 🧪 **Testes** | Alta | 🔴 Pendente | v2.0 |
+
+---
+
+## 📖 Índice
+
+- [🚀 Visão Geral](#-visão-geral)
+- [✨ Recursos](#-recursos)
+- [🏗️ Arquitetura](#️-arquitetura)
+- [📋 Requisitos](#-requisitos)
+- [⚙️ Instalação](#️-instalação)
+- [📚 Documentação da API](#-documentação-da-api)
+- [🔧 Tecnologias](#-tecnologias)
+- [📈 Changelog](#-changelog)
+- [🗺️ Roadmap](#️-roadmap)
+- [📝 Licença](#-licença)
+
+---
 
 ## 🚀 Visão Geral
 
-O HyperGenMusic API é uma infraestrutura backend completa para serviços de streaming de música, projetada com foco em desempenho, segurança e escalabilidade. Construída com TypeScript e Express, esta API implementa os padrões modernos de desenvolvimento, incluindo arquitetura em camadas, injeção de dependências e operações assíncronas eficientes.
+O **HyperGenMusic API v2.0** representa uma evolução completa da plataforma, oferecendo uma solução backend **enterprise-grade** para streaming de música. Esta versão introduz uma arquitetura moderna baseada em **Repository Pattern**, **Service Layer** e **TypeScript** para máxima type safety.
 
-### ✨ Destaques da Versão 1.4.0
+### 🎯 Destaques da v2.0
 
-- Padrão Repository implementado para acesso a dados
-- Tratamento detalhado de erros com mensagens descritivas
-- Design modular baseado em injeção de dependências
-- Melhoria na gestão de transações do banco de dados
-- Sistema de paginação aprimorado com parâmetros opcionais
-- Operações de imagem otimizadas para edição de músicas
-- Limpeza automática de recursos não utilizados
+- 🏗️ **Arquitetura Moderna**: Repository Pattern + Service Layer
+- 🔒 **Segurança Enterprise**: JWT + Redis Blacklist + Validação Robusta
+- 📊 **Type Safety**: 100% TypeScript com interfaces bem definidas
+- 🚀 **Performance**: Otimizada para alta concorrência
+- 🔧 **Developer Experience**: APIs padronizadas e documentadas
 
-## 🔥 Recursos
+---
 
-### Autenticação & Gerenciamento de Usuários
+## ✨ Recursos
 
-- Sistema completo de registro e login com validação robusta
-- Perfis com diferentes níveis de acesso (usuário e administrador)
-- Atualização e exclusão de conta com validação de dados
-- Armazenamento seguro de senhas com bcrypt
-- Sistema de tokens JWT com blacklist em Redis
-- Validação detalhada de dados (formato de email, complexidade de senha)
+### 🔐 **Sistema de Autenticação Enterprise**
 
-### Gerenciamento de Músicas
+- ✅ **JWT com Redis Blacklist**: Prevenção de reutilização de tokens
+- ✅ **Autenticação Durável**: Tokens de longa duração opcionais
+- ✅ **Roles & Permissions**: Sistema de acesso baseado em roles
+- ✅ **Password Security**: Hash bcrypt + validação robusta
+- ✅ **Token Revocation**: Invalidação automática no logout
 
-- Catálogo de músicas com metadados completos
-- Upload de arquivos de música com validação de formato
-- Busca avançada por título, artista ou gênero
-- Categorização por gêneros musicais
-- Suporte para imagens de capa
-- Formatação automática de duração
-- Classificação inteligente de conteúdo
-- Paginação flexível com parâmetros opcionais de limite e deslocamento
+### 🎵 **Gerenciamento Completo de Músicas**
 
-### Painel Administrativo
+- ✅ **Catálogo Rico**: Metadados completos (título, artista, gênero, duração)
+- ✅ **Upload Otimizado**: Suporte para múltiplos formatos de áudio
+- ✅ **Busca Avançada**: Pesquisa por título, artista ou gênero
+- ✅ **Categorização**: Sistema de gêneros musicais
+- ✅ **Imagens de Capa**: Upload e gestão de artwork
+- ✅ **Paginação Inteligente**: Performance otimizada para grandes catálogos
 
-- Gerenciamento completo de usuários
-- Operações CRUD para músicas
-- Upload de imagens de capa e arquivos de áudio
-- Controle granular de permissões
-- Operações em lote para exclusão de conteúdo
-- Sincronização automática entre banco de dados e sistema de arquivos
-- Edição parcial de recursos com validações robustas
+### 👑 **Painel Administrativo Completo**
 
-### Segurança Avançada
+- ✅ **Gestão de Usuários**: CRUD completo com busca avançada
+- ✅ **Gestão de Músicas**: Criação, edição e exclusão de conteúdo
+- ✅ **Upload em Lote**: Operações bulk para eficiência
+- ✅ **Controle de Acesso**: Permissões granulares
+- ✅ **Operações Seguras**: Validação em todas as operações
 
-- Invalidação de tokens após logout
-- Proteção contra reutilização de tokens via Redis
-- Validação rigorosa de tipos de arquivo para uploads
-- Verificação de permissões em cada requisição
-- Sanitização de dados de entrada
-- Hashing único para nomes de arquivos
-- Tratamento adequado de erros com feedback descritivo
+### 🏗️ **Arquitetura de Primeira Classe**
+
+- ✅ **Repository Pattern**: Abstração completa da camada de dados
+- ✅ **Service Layer**: Lógica de negócio centralizada
+- ✅ **Type Safety**: Interfaces TypeScript robustas
+- ✅ **Error Handling**: Tratamento centralizado e padronizado
+- ✅ **Dependency Injection**: Baixo acoplamento entre componentes
+
+---
 
 ## 🏗️ Arquitetura
 
-O HyperGenMusic API segue uma arquitetura em camadas bem definida, garantindo separação de responsabilidades e facilitando a manutenção:
+A v2.0 implementa uma **arquitetura em camadas enterprise** com separação clara de responsabilidades:
 
 ```
 src/
- ├── config/            # Configurações do sistema (banco de dados, Redis, Multer)
- ├── controllers/       # Controladores de requisições HTTP
- │   ├── admin/         # Controladores administrativos
- │   ├── music/         # Controladores de música
- │   └── user/          # Controladores de usuário
- ├── middleware/        # Middlewares de autenticação e validação
- │   ├── auth/          # Autenticação e autorização
- │   └── errors/        # Tratamento de erros
- ├── models/            # Modelos de dados (Sequelize)
- ├── repositories/      # Padrão Repository para acesso a dados
- ├── routes/            # Definição de rotas
- ├── services/          # Lógica de negócios
- │   ├── admin/         # Serviços administrativos
- │   ├── music/         # Serviços de música
- │   └── user/          # Serviços de usuário
- ├── types/             # Definições de tipos TypeScript
- │   ├── handling/      # Tipos para tratamento de respostas
- │   ├── music/         # Interfaces relacionadas a músicas
- │   ├── repositories/  # Interfaces dos repositórios
- │   ├── services/      # Interfaces dos serviços
- │   └── user/          # Interfaces relacionadas a usuários
- ├── utils/             # Funções utilitárias
- │   ├── auth/          # Utilitários de autenticação e verificação
- │   ├── handlings/     # Manipuladores de resposta padronizados
- │   └── uploads/       # Gerenciamento de uploads e arquivos
- └── server.ts          # Ponto de entrada da aplicação
+├── 📁 config/              # Configurações centralizadas
+│   ├── 📁 archives/        # Configuração Multer/S3
+│   └── 📁 database/        # PostgreSQL + Redis
+├── 📁 controllers/         # Camada de apresentação HTTP
+│   ├── 📁 user/           # Controladores de usuário
+│   ├── 📁 music/          # Controladores de música
+│   └── 📁 admin/          # Controladores administrativas
+├── 📁 services/           # Camada de lógica de negócio
+│   ├── 📄 user_service_implement.ts
+│   ├── 📄 music_service_implement.ts
+│   └── 📄 admin_service_implements.ts
+├── 📁 repositories/       # Camada de acesso a dados
+│   ├── 📄 user_repository.ts
+│   ├── 📄 music_repository.ts
+│   └── 📄 playlist_repository.ts
+├── 📁 models/             # Modelos Sequelize
+│   ├── 📄 User.ts
+│   ├── 📄 Music.ts
+│   └── 📄 Playlist.ts
+├── 📁 types/              # Definições TypeScript
+│   ├── 📁 interfaces/     # Contratos de dados
+│   ├── 📁 models/         # Atributos dos modelos
+│   ├── 📁 repositories/   # Interfaces dos repositórios
+│   └── 📁 services/       # Interfaces dos serviços
+├── 📁 middlewares/        # Middlewares customizados
+│   └── 📁 auth/          # Autenticação e autorização
+├── 📁 routes/             # Definições de rotas
+├── 📁 utils/              # Utilitários e helpers
+└── 📄 server.ts           # Bootstrap da aplicação
 ```
 
-### Princípios de Design
+### 🏛️ Princípios Implementados
 
-- **Separação de Responsabilidades**: Cada camada tem uma função específica e bem delimitada
-- **Injeção de Dependências**: Componentes recebem suas dependências, reduzindo acoplamento
-- **Design por Contrato**: Interfaces bem definidas para serviços e repositórios
-- **Tratamento de Erros Centralizado**: Sistema padronizado de resposta e tratamento de erros
-- **Validação em Camadas**: Validação de dados em múltiplos níveis (controlador, serviço, modelo)
-- **Repository Pattern**: Abstração da camada de acesso a dados permitindo maior testabilidade
-- **Princípio DRY (Don't Repeat Yourself)**: Reutilização de código através de utilitários compartilhados
-- **Transparência de Falhas**: Erros são tratados, registrados e comunicados de maneira consistente
+- **🔄 Repository Pattern**: Abstração completa da persistência
+- **🎯 Service Layer**: Encapsulamento da lógica de negócio  
+- **🔌 Dependency Injection**: Inversão de controle
+- **📋 Interface Segregation**: Contratos bem definidos
+- **🚨 Centralized Error Handling**: Tratamento uniforme
+- **🔍 Single Responsibility**: Uma responsabilidade por classe
 
-## 📋 Requisitos
-
-- **Node.js**: 16.x ou superior
-- **PostgreSQL**: 13.x ou superior
-- **Redis**: 6.x ou superior
-- **Espaço em Disco**: Mínimo de 1GB disponível para armazenamento de músicas e imagens
-
-## ⚙️ Instalação
-
-### Configuração do Ambiente
-
-1. **Clone o repositório**
-
-   ```bash
-   git clone https://github.com/GabrielFinotti/HyperGenMusic-API.git
-   cd HyperGenMusic-API
-   ```
-
-2. **Instale as dependências**
-
-   ```bash
-   npm install
-   ```
-
-3. **Configure as variáveis de ambiente**
-
-   Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
-
-   ```env
-   # Servidor
-   PORT=3000
-
-   # Banco de Dados
-   DB_NAME=project_song
-   DB_USER=seu_usuario
-   DB_PASSWORD=sua_senha
-   DB_HOST=localhost
-   DB_PORT=5432
-
-   # Redis
-   REDIS_URL=redis://localhost:6379
-
-   # JWT
-   SECRET_KEY=sua_chave_secreta
-   ```
-
-4. **Inicie o servidor**
-
-   ```bash
-   # Desenvolvimento
-   npm run dev
-
-   # Produção
-   npm run build
-   npm start
-   ```
+---
 
 ## 📚 Documentação da API
 
-### Endpoints
+> **Base URL**: `http://localhost:3000/api/v2`
+> **Autenticação**: Bearer Token (JWT)
 
-<details>
-  <summary><b>🔐 Autenticação e Usuários</b></summary>
-  
-  | Método | Endpoint | Descrição | Autenticação |
-  |--------|----------|-----------|--------------|
-  | `POST` | `/api/user/register` | Registrar novo usuário | Não |
-  | `POST` | `/api/user/login` | Efetuar login | Não |
-  | `GET` | `/api/profile` | Obter perfil do usuário | Sim |
-  | `PUT` | `/api/edit/profile` | Atualizar perfil | Sim |
-  | `DELETE` | `/api/delete/profile` | Excluir conta | Sim |
+### 🔐 **Autenticação**
 
-</details>
+#### Registro de Usuário
+```http
+POST /auth/register
+Content-Type: application/json
 
-<details>
-  <summary><b>🎵 Músicas</b></summary>
-  
-  | Método | Endpoint | Descrição | Autenticação |
-  |--------|----------|-----------|--------------|
-  | `GET` | `/api/musics` | Listar músicas | Sim |
-  | `GET` | `/api/music/search?q=termo` | Buscar músicas | Sim |
-  | `GET` | `/api/music/data/:id` | Detalhes da música | Sim |
+{
+  "username": "johndoe",
+  "email": "john@example.com",
+  "password": "SecurePass123!",
+  "phone": "11999999999",
+  "role": "user"
+}
+```
 
-</details>
+#### Login
+```http
+POST /auth/login
+Content-Type: application/json
 
-<details>
-  <summary><b>👑 Administração</b></summary>
-  
-  | Método | Endpoint | Descrição | Autenticação |
-  |--------|----------|-----------|--------------|
-  | `POST` | `/api/music/insert` | Adicionar música | Admin |
-  | `PUT` | `/api/music/edit/:musicId` | Editar música | Admin |
-  | `DELETE` | `/api/music/delete/musicId/:musicId` | Excluir música | Admin |
-  | `DELETE` | `/api/music/delete/all` | Excluir todas as músicas | Admin |
-  | `GET` | `/api/users` | Listar usuários | Admin |
-  | `GET` | `/api/user/search?q=termo` | Buscar usuário | Admin |
-  | `POST` | `/api/user/create` | Criar usuário | Admin |
-  | `PUT` | `/api/user/edit/:userid` | Editar usuário | Admin |
-  | `DELETE` | `/api/user/delete/userId/:userId` | Excluir usuário | Admin |
-  | `DELETE` | `/api/user/delete/all` | Excluir todos usuários | Admin |
+{
+  "email": "john@example.com",
+  "password": "SecurePass123!"
+}
+```
 
-</details>
+### 👤 **Usuários**
 
-### Autenticação
+| Método | Endpoint | Descrição | Auth |
+|--------|----------|-----------|------|
+| `GET` | `/profile` | Perfil do usuário logado | ✅ |
+| `PUT` | `/profile/update` | Atualizar perfil | ✅ |
+| `DELETE` | `/auth/delete` | Excluir conta | ✅ |
 
-A API utiliza autenticação baseada em JWT. Os tokens devem ser enviados no cabeçalho HTTP:
+### 🎵 **Músicas**
+
+| Método | Endpoint | Descrição | Params |
+|--------|----------|-----------|--------|
+| `GET` | `/musics` | Listar músicas | `?limit=10&offset=0` |
+| `GET` | `/musics/search` | Buscar músicas | `?q=termo&limit=10&offset=0` |
+| `GET` | `/musics/genre` | Por gênero | `?genre=rock&limit=10&offset=0` |
+| `GET` | `/music/data/{id}` | Detalhes da música | - |
+
+### 👑 **Administração**
+
+| Método | Endpoint | Descrição | Auth |
+|--------|----------|-----------|------|
+| `GET` | `/admin/users` | Listar usuários | 👑 Admin |
+| `GET` | `/admin/users/search` | Buscar usuários | 👑 Admin |
+| `POST` | `/admin/user/create` | Criar usuário | 👑 Admin |
+| `PUT` | `/admin/user/update/{id}` | Editar usuário | 👑 Admin |
+| `DELETE` | `/admin/user/delete/{id}` | Excluir usuário | 👑 Admin |
+| `DELETE` | `/admin/users/deleteAll` | Excluir todos | 👑 Admin |
+| `POST` | `/admin/music/create` | Criar música | 👑 Admin |
+| `PUT` | `/admin/music/update/{id}` | Editar música | 👑 Admin |
+| `DELETE` | `/admin/music/delete/{id}` | Excluir música | 👑 Admin |
+| `DELETE` | `/admin/musics/deleteAll` | Excluir todas | 👑 Admin |
+
+### 🔑 **Autenticação**
+
+Todas as rotas protegidas requerem o header:
 
 ```http
-Authorization: Bearer seu_token_jwt
+Authorization: Bearer <your_jwt_token>
 ```
 
-### Exemplos de Requisições
-
-<details>
-  <summary><b>Login</b></summary>
-  
-  ```http
-  POST /api/user/login
-  Content-Type: application/json
-
-{
-"email": "usuario@exemplo.com",
-"password": "Senha123!"
-}
-
-````
-
-Resposta:
-
-```json
-{
-  "message": "Usuário logado com sucesso!",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-}
-````
-
-</details>
-
-<details>
-  <summary><b>Listar Músicas</b></summary>
-  
-  ```http
-  GET /api/musics
-  Authorization: Bearer seu_token_jwt
-  ```
-
-Resposta:
-
-```json
-{
-  "message": "Músicas recuperadas com sucesso",
-  "musics": [
-    {
-      "id": 1,
-      "title": "Nome da Música",
-      "artist": "Nome do Artista",
-      "imageUrl": "http://localhost:3000/uploads/images/abcdef123456.jpg",
-      "duration": 180
-    }
-    // ...mais músicas
-  ]
-}
-```
-
-</details>
+---
 
 ## 🔧 Tecnologias
 
-- **Backend**:
-  - Node.js - Ambiente de execução JavaScript
-  - Express - Framework web
-  - TypeScript - Superset tipado de JavaScript
-- **Banco de Dados**:
-  - PostgreSQL - Banco de dados relacional
-  - Sequelize - ORM para interação com o banco
-- **Cache**:
-  - Redis - Armazenamento em memória para blacklist de tokens e cache
-- **Segurança**:
-  - JWT (JSON Web Tokens) - Para autenticação
-  - bcrypt - Para hash de senhas
-- **Upload de Arquivos**:
-  - Multer - Middleware para manipulação de arquivos
+### 🏗️ **Core Stack**
+
+- ![Node.js](https://img.shields.io/badge/Node.js-16%2B-43853D?style=flat&logo=node.js&logoColor=white) **Node.js 16+** - Runtime JavaScript/TypeScript
+- ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat&logo=typescript&logoColor=white) **TypeScript 5.7** - Type Safety & Developer Experience
+- ![Express](https://img.shields.io/badge/Express-4.21-000000?style=flat&logo=express&logoColor=white) **Express 4.21** - Web Framework Minimalista
+
+### 🗄️ **Database & Cache**
+
+- ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-4169E1?style=flat&logo=postgresql&logoColor=white) **PostgreSQL** - Banco de dados principal
+- ![Redis](https://img.shields.io/badge/Redis-Latest-DC382D?style=flat&logo=redis&logoColor=white) **Redis** - Cache e blacklist de tokens
+- ![Sequelize](https://img.shields.io/badge/Sequelize-6.37-52B0E7?style=flat&logo=sequelize&logoColor=white) **Sequelize 6.37** - ORM com TypeScript
+
+### 🔐 **Security & Auth**
+
+- ![JWT](https://img.shields.io/badge/JWT-Latest-000000?style=flat&logo=jsonwebtokens&logoColor=white) **JSON Web Tokens** - Autenticação stateless
+- **bcrypt 5.1** - Hash seguro de senhas
+- **CORS 2.8** - Cross-Origin Resource Sharing
+
+### ☁️ **Cloud & Storage**
+
+- ![AWS](https://img.shields.io/badge/AWS%20S3-FF9900?style=flat&logo=amazon-aws&logoColor=white) **AWS S3** - Storage de arquivos
+- **Multer** - Upload de arquivos multipart
+
+### 🛠️ **Development Tools**
+
+- **tsx** - TypeScript execution & hot reload
+- **tsup** - Build system otimizado
+- **colors** - Logging colorizado
+
+---
 
 ## 📈 Changelog
 
-### 1.4.0 (Atual)
+### 🚀 **v2.0.0-beta** (Atual)
 
-- Padrão Repository implementado para acesso a dados
-- Tratamento detalhado de erros com mensagens descritivas
-- Design modular baseado em injeção de dependências
-- Melhoria na gestão de transações do banco de dados
-- Sistema de paginação aprimorado com parâmetros opcionais
-- Operações de imagem otimizadas para edição de músicas
-- Limpeza automática de recursos não utilizados
+#### ✨ **Novos Recursos**
+- 🏗️ **Arquitetura Completamente Renovada**: Repository Pattern + Service Layer
+- 🔒 **Sistema de Segurança Enterprise**: JWT + Redis Blacklist
+- 📊 **100% TypeScript**: Type safety completa com interfaces robustas
+- 🎯 **API Padronizada**: Responses unificadas e tratamento de erros centralizado
+- 🚀 **Performance Otimizada**: Queries eficientes e paginação inteligente
 
-### 1.3.0
+#### 🔧 **Melhorias Técnicas**
+- ✅ Repository Pattern para abstração de dados
+- ✅ Service Layer para lógica de negócio
+- ✅ Dependency Injection para baixo acoplamento
+- ✅ Error Handling centralizado e padronizado
+- ✅ Validation middleware robusto
+- ✅ Upload otimizado com suporte S3
 
-- Refatoração da estrutura de controladores
-- Design modular aprimorado
-- Injeção de dependências avançada
-- Implementação de padrões de projeto
-- Sistema de logging colorizado
-- Melhor estruturação de rotas
+#### 🐛 **Correções**
+- ✅ Tratamento de edge cases em autenticação
+- ✅ Validação rigorosa de entrada de dados
+- ✅ Memory leaks em uploads
+- ✅ Race conditions em operações concorrentes
 
-### 1.2.0
+---
 
-- Sistema avançado para exclusão de músicas
-- Limpeza coordenada de arquivos e registros
-- Melhorias na API administrativa
-- Sincronização entre sistema de arquivos e banco de dados
+## 🗺️ Roadmap
 
-### 1.1.0
+### 🎯 **v2.0 Final (Dezembro 2024)**
 
-- Arquitetura em camadas
-- Novos metadados para músicas
-- Gestão aprimorada de uploads
-- Validação expandida
+- [ ] **Sistema de Playlists Completo**
+  - [ ] Criação e gestão de playlists
+  - [ ] Adição/remoção de músicas
+  - [ ] Reordenação de tracks
+  
+- [ ] **Sistema de Favoritos**
+  - [ ] Like/unlike em músicas
+  - [ ] Lista de músicas curtidas
+  - [ ] Estatísticas de engajamento
 
-### 1.0.0
+- [ ] **Testes Automatizados**
+  - [ ] Unit tests para services
+  - [ ] Integration tests para APIs
+  - [ ] E2E tests críticos
 
-- Implementação básica de autenticação
-- Sistema de upload de arquivos
-- Gestão de músicas
-- Controle de acesso baseado em função
+### 🚀 **v2.1 (Q1 2025)**
+
+- [ ] **Streaming de Áudio**
+  - [ ] Range requests para streaming progressivo
+  - [ ] Múltiplos streams simultâneos
+  - [ ] Bufferização inteligente
+  
+- [ ] **Analytics & Monitoring**
+  - [ ] Métricas de performance
+  - [ ] Logging estruturado
+  - [ ] Health checks
+
+### 🔮 **v2.2+ (Futuro)**
+
+- [ ] **Machine Learning**
+  - [ ] Sistema de recomendações
+  - [ ] Análise de preferências
+  - [ ] Descoberta musical
+
+- [ ] **Microserviços**
+  - [ ] Decomposição em serviços
+  - [ ] Containerização Docker
+  - [ ] Orquestração Kubernetes
+
+---
+
+## 🤝 Contribuição
+
+> **Nota**: Projeto proprietário em desenvolvimento ativo. Contribuições externas mediante acordo.
+
+### 📞 **Contato**
+
+- 📧 **Email**: [finotti.dev@gmail.com](mailto:finotti.dev@gmail.com)
+- 💼 **LinkedIn**: [Gabriel Finotti](https://www.linkedin.com/in/gabriel-h-finotti-6b4bb029b)
+- 🐙 **GitHub**: [@GabrielFinotti](https://github.com/GabrielFinotti)
+
+---
 
 ## 📝 Licença
 
-Proprietária © Gabriel Henrique Finotti. Todos os direitos reservados.
+**Proprietária** © 2024 Gabriel Henrique Finotti
 
-Este software e seus arquivos associados são propriedade exclusiva de Gabriel Henrique Finotti.
-Você não tem permissão para usar, copiar, modificar, mesclar, publicar, distribuir, sublicenciar
-e/ou vender cópias do Software sem permissão expressa por escrito do proprietário.
+> ⚠️ **Todos os direitos reservados**. Software proprietário com uso restrito.
 
 ---
 
 <div align="center">
-  <sub>Desenvolvido com ❤️ por Gabriel Henrique Finotti</sub>
-  <br>
-  <sub>© 2024 • Todos os direitos reservados</sub>
+  
+### 🎵 Crafted with ❤️ and ☕ by Gabriel Henrique Finotti
+  
+[![GitHub](https://img.shields.io/badge/GitHub-@GabrielFinotti-181717?style=flat&logo=github)](https://github.com/GabrielFinotti)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Gabriel%20Finotti-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/gabriel-h-finotti-6b4bb029b)
+
+**HyperGenMusic API** • **v2.0.0-beta** • **2024**
+
 </div>
