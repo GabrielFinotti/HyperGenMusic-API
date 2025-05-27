@@ -14,7 +14,7 @@ import { PlaylistData } from "../interfaces";
 
 /**
  * Contrato para repositório de playlists
- * 
+ *
  * Define métodos para gerenciamento de playlists de usuários
  * incluindo criação, atualização, busca e remoção.
  */
@@ -25,14 +25,14 @@ export interface IPlaylistRepository {
    * @returns Array de playlists do usuário
    */
   getPlaylistsByUserId(userId: number): Promise<Playlist[]>;
-  
+
   /**
    * Cria nova playlist para o usuário
    * @param playlistData - Dados da playlist a criar
    * @returns Playlist criada
    */
   createPlaylist(playlistData: PlaylistData): Promise<Playlist>;
-  
+
   /**
    * Atualiza dados da playlist
    * @param playlistId - ID da playlist a atualizar
@@ -41,9 +41,9 @@ export interface IPlaylistRepository {
    */
   updatePlaylist(
     playlistId: number,
-    playlistData: PlaylistData
+    playlistData: Partial<PlaylistData>
   ): Promise<Playlist>;
-  
+
   /**
    * Remove playlist pelo ID
    * @param playlistId - ID da playlist a remover

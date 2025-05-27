@@ -8,6 +8,8 @@
  * - UserServiceImpl: Lógica de negócio para gestão de usuários
  * - MusicServiceImpl: Lógica de negócio para catálogo musical
  * - AdminServiceImpl: Lógica de negócio para operações administrativas
+ * - PlaylistServiceImpl: Lógica de negócio para gerenciamento de playlists
+ * - LikedMusicServiceImpl: Lógica de negócio para sistema de curtidas
  *
  * @author HyperGenMusic Team
  * @version 2.0.0-rc.1
@@ -15,5 +17,13 @@
 import UserServiceImpl from "./user_service_implement";
 import MusicServiceImpl from "./music_service_implement";
 import AdminServiceImpl from "./admin_service_implements";
+import PlaylistServiceImpl from "./playlist_service_implement";
+import LikedMusicServiceImpl from "./liked_music_service_implement";
 
-export { UserServiceImpl, MusicServiceImpl, AdminServiceImpl };
+export { 
+  UserServiceImpl, 
+  MusicServiceImpl, 
+  AdminServiceImpl,
+  PlaylistServiceImpl,
+  LikedMusicServiceImpl 
+};

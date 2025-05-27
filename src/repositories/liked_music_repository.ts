@@ -23,40 +23,6 @@ import { LikedMusicData } from "../types";
  */
 class LikedMusicRepository implements ILikedMusicRepository {
   /**
-   * Adiciona uma música às favoritas do usuário
-   * @param data - Dados da associação usuário-música
-   * @returns Registro de curtida criado
-   * @throws Erro do banco de dados ou violação de constraints
-   */
-  async likeMusic(data: LikedMusicData) {
-    try {
-      const likedMusic = await LikedMusics.create(data);
-
-      return likedMusic;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  /**
-   * Remove uma música das favoritas do usuário
-   * @param data - Dados da associação usuário-música
-   * @returns true se removido com sucesso, false se não encontrado
-   * @throws Erro do banco de dados
-   */
-  async unlikeMusic(data: LikedMusicData) {
-    try {
-      const result = await LikedMusics.destroy({
-        where: { userId: data.userId, musicId: data.musicId },
-      });
-
-      return result > 0;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  /**
    * Recupera todas as músicas curtidas por um usuário
    * Utiliza relacionamento Sequelize para buscar através da associação
    * @param userId - ID do usuário
@@ -83,17 +49,57 @@ class LikedMusicRepository implements ILikedMusicRepository {
 
   /**
    * Verifica se um usuário já curtiu uma música específica
-   * @param data - Dados da associação usuário-música
+   * @param likedMusicData - Dados da associação usuário-música
    * @returns true se já curtiu, false caso contrário
    * @throws Erro do banco de dados
    */
-  async checkIfUserLikedMusic(data: LikedMusicData) {
+  async checkIfUserLikedMusic(likedMusicData: LikedMusicData) {
     try {
       const likedMusic = await LikedMusics.findOne({
-        where: { userId: data.userId, musicId: data.musicId },
+        where: {
+          userId: likedMusicData.userId,
+          musicId: likedMusicData.musicId,
+        },
       });
 
       return likedMusic !== null;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Adiciona uma música às favoritas do usuário
+   * @param likedMusicData - Dados da associação usuário-música
+   * @returns Registro de curtida criado
+   * @throws Erro do banco de dados ou violação de constraints
+   */
+  async likeMusic(likedMusicData: LikedMusicData) {
+    try {
+      const likedMusic = await LikedMusics.create(likedMusicData);
+
+      return likedMusic;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Remove uma música das favoritas do usuário
+   * @param likedMusicData - Dados da associação usuário-música
+   * @returns true se removido com sucesso, false se não encontrado
+   * @throws Erro do banco de dados
+   */
+  async unlikeMusic(likedMusicData: LikedMusicData) {
+    try {
+      const result = await LikedMusics.destroy({
+        where: {
+          userId: likedMusicData.userId,
+          musicId: likedMusicData.musicId,
+        },
+      });
+
+      return result > 0;
     } catch (error) {
       throw error;
     }

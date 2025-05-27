@@ -11,16 +11,16 @@
   [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
   [![Redis](https://img.shields.io/badge/Redis-Latest-DC382D?style=for-the-badge&logo=redis&logoColor=white)](https://redis.io/)
     [![Versão](https://img.shields.io/badge/Versão-2.0.0--rc.1-blue?style=for-the-badge)](https://github.com/GabrielFinotti/HyperGenMusic-API)
-  [![Status](https://img.shields.io/badge/Status-Release%20Candidate-brightgreen?style=for-the-badge)](https://github.com/GabrielFinotti/HyperGenMusic-API)[![Progresso](https://img.shields.io/badge/Progresso-90%25-brightgreen?style=for-the-badge)](TASKS.md)
+  [![Status](https://img.shields.io/badge/Status-Release%20Candidate-brightgreen?style=for-the-badge)](https://github.com/GabrielFinotti/HyperGenMusic-API)  [![Progresso](https://img.shields.io/badge/Progresso-95%25-brightgreen?style=for-the-badge)](TASKS.md)
 
-  > 🚀 **v2.0 Release Candidate**: Core features estáveis, API enterprise-ready
+  > 🚀 **v2.0 Release Candidate**: Core features estáveis, estruturas avançadas implementadas
 </div>
 
 ---
 
 ## 📊 Status do Desenvolvimento v2.0
 
-### 🟢 **Recursos Implementados (90%)**
+### 🟢 **Recursos Implementados (95%)**
 
 | Categoria | Feature | Status | Completude |
 |-----------|---------|--------|------------|
@@ -33,12 +33,12 @@
 | 🏗️ **Arquitetura** | Repository Pattern | ✅ | 100% |
 | 📚 **Documentação** | JSDoc Enterprise | ✅ | 100% |
 
-### 🟡 **Em Desenvolvimento (10%)**
+### 🟡 **Em Desenvolvimento (5%)**
 
 | Feature | Prioridade | Status | ETA |
 |---------|------------|--------|-----|
-| 📋 **Playlists** | Alta | 🟡 Em progresso | v2.0 |
-| ❤️ **Favoritos** | Alta | 🟡 Em progresso | v2.0 |
+| 📋 **Playlists** | Alta | 🟡 70% estruturado | v2.0 |
+| ❤️ **Favoritos** | Alta | 🟡 70% estruturado | v2.0 |
 | 🎧 **Streaming** | Média | 🔴 Planejado | v2.1 |
 | 🧪 **Testes** | Alta | 🔴 Pendente | v2.0 |
 
@@ -133,15 +133,21 @@ src/
 ├── 📁 services/           # Camada de lógica de negócio
 │   ├── 📄 user_service_implement.ts
 │   ├── 📄 music_service_implement.ts
-│   └── 📄 admin_service_implements.ts
+│   ├── 📄 admin_service_implements.ts
+│   ├── 📄 playlist_service_implement.ts    # 🆕 v2.0
+│   └── 📄 liked_music_service_implement.ts # 🆕 v2.0
 ├── 📁 repositories/       # Camada de acesso a dados
 │   ├── 📄 user_repository.ts
 │   ├── 📄 music_repository.ts
-│   └── 📄 playlist_repository.ts
+│   ├── 📄 playlist_repository.ts           # 🆕 v2.0
+│   ├── 📄 playlist_music_repository.ts     # 🆕 v2.0
+│   └── 📄 liked_music_repository.ts        # 🆕 v2.0
 ├── 📁 models/             # Modelos Sequelize
 │   ├── 📄 User.ts
 │   ├── 📄 Music.ts
-│   └── 📄 Playlist.ts
+│   ├── 📄 Playlist.ts                      # 🆕 v2.0
+│   ├── 📄 PlaylistMusics.ts               # 🆕 v2.0
+│   └── 📄 LikedMusics.ts                  # 🆕 v2.0
 ├── 📁 types/              # Definições TypeScript
 │   ├── 📁 interfaces/     # Contratos de dados
 │   ├── 📁 models/         # Atributos dos modelos
@@ -231,6 +237,28 @@ Content-Type: application/json
 | `DELETE` | `/admin/music/delete/{id}` | Excluir música | 👑 Admin |
 | `DELETE` | `/admin/musics/deleteAll` | Excluir todas | 👑 Admin |
 
+### 📋 **Playlists** *(Em Desenvolvimento - v2.0)*
+
+| Método | Endpoint | Descrição | Auth | Status |
+|--------|----------|-----------|------|--------|
+| `POST` | `/playlists` | Criar playlist | ✅ | 🔴 Planejado |
+| `GET` | `/playlists` | Listar playlists | ✅ | 🔴 Planejado |
+| `GET` | `/playlists/{id}` | Detalhes da playlist | ✅ | 🔴 Planejado |
+| `PUT` | `/playlists/{id}` | Atualizar playlist | ✅ | 🔴 Planejado |
+| `DELETE` | `/playlists/{id}` | Deletar playlist | ✅ | 🔴 Planejado |
+| `POST` | `/playlists/{id}/musics` | Adicionar música | ✅ | 🔴 Planejado |
+| `DELETE` | `/playlists/{id}/musics/{musicId}` | Remover música | ✅ | 🔴 Planejado |
+| `PUT` | `/playlists/{id}/positions` | Reordenar músicas | ✅ | 🔴 Planejado |
+
+### ❤️ **Favoritos** *(Em Desenvolvimento - v2.0)*
+
+| Método | Endpoint | Descrição | Auth | Status |
+|--------|----------|-----------|------|--------|
+| `POST` | `/favorites` | Curtir música | ✅ | 🔴 Planejado |
+| `DELETE` | `/favorites/{musicId}` | Descurtir música | ✅ | 🔴 Planejado |
+| `GET` | `/favorites` | Listar favoritas | ✅ | 🔴 Planejado |
+| `GET` | `/favorites/{musicId}/status` | Status da curtida | ✅ | 🔴 Planejado |
+
 ### 🔑 **Autenticação**
 
 Todas as rotas protegidas requerem o header:
@@ -276,7 +304,7 @@ Authorization: Bearer <your_jwt_token>
 
 ## 📈 Changelog
 
-### 🚀 **v2.0.0-rc.1** (Atual)
+### 🚀 **v2.0.0-rc.1** (Atual - 27/05/2025)
 
 #### ✨ **Novos Recursos**
 
@@ -286,6 +314,8 @@ Authorization: Bearer <your_jwt_token>
 - 🎯 **API Padronizada**: Responses unificadas e tratamento de erros centralizado
 - 🚀 **Performance Otimizada**: Queries eficientes e paginação inteligente
 - 📚 **Documentação JSDoc Enterprise**: Headers padronizados em 46+ arquivos TypeScript
+- 📋 **Estruturas de Playlists**: Modelos, repositórios e contratos implementados
+- ❤️ **Estruturas de Favoritos**: Sistema de curtidas com repositórios completos
 
 #### 🔧 **Melhorias Técnicas**
 
@@ -296,6 +326,9 @@ Authorization: Bearer <your_jwt_token>
 - ✅ Validation middleware robusto
 - ✅ Upload otimizado com suporte S3
 - ✅ JSDoc Headers com padrão @author "HyperGenMusic Team" e @version "2.0.0"
+- ✅ Interfaces TypeScript para Playlists e LikedMusic
+- ✅ Repositórios com transações e validações avançadas
+- ✅ Sistema de exports organizado para novos módulos
 
 #### 🐛 **Correções**
 
@@ -310,15 +343,17 @@ Authorization: Bearer <your_jwt_token>
 
 ### 🎯 **v2.0 Final (Junho 2025)**
 
-- [ ] **Sistema de Playlists Completo**
-  - [ ] Criação e gestão de playlists
-  - [ ] Adição/remoção de músicas
-  - [ ] Reordenação de tracks
+- [x] **Estruturas de Playlists**
+  - [x] Modelos e repositórios implementados
+  - [x] Interfaces de serviço documentadas
+  - [ ] Implementação da lógica de negócio
+  - [ ] Controllers e rotas REST
   
-- [ ] **Sistema de Favoritos**
-  - [ ] Like/unlike em músicas
-  - [ ] Lista de músicas curtidas
-  - [ ] Estatísticas de engajamento
+- [x] **Estruturas de Favoritos**
+  - [x] Modelos e repositórios implementados  
+  - [x] Interfaces de serviço documentadas
+  - [ ] Implementação da lógica de negócio
+  - [ ] Controllers e APIs de curtidas
 
 - [ ] **Testes Automatizados**
   - [ ] Unit tests para services

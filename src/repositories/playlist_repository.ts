@@ -63,7 +63,7 @@ class PlaylistRepository implements IPlaylistRepository {
    */
   async updatePlaylist(
     playlistId: number,
-    playlistData: PlaylistData
+    playlistData: Partial<PlaylistData>
   ): Promise<Playlist> {
     const transaction = await Playlist.sequelize?.transaction();
 

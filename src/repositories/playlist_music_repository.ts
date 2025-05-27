@@ -23,44 +23,6 @@ import { PlaylistMusicData } from "../types";
  */
 class PlaylistMusicRepository implements IPlaylistMusicRepository {
   /**
-   * Adiciona uma música a uma playlist específica
-   * @param data - Dados da associação playlist-música (inclui posição)
-   * @returns Registro de associação criado
-   * @throws Erro de validação ou banco de dados
-   */
-  async addMusicToPlaylist(data: PlaylistMusicData): Promise<PlaylistMusics> {
-    try {
-      const result = await PlaylistMusics.create(data);
-
-      return result;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  /**
-   * Remove uma música de uma playlist específica
-   * @param playlistId - ID da playlist
-   * @param musicId - ID da música a ser removida
-   * @returns true se removida com sucesso, false se não encontrada
-   * @throws Erro do banco de dados
-   */
-  async removeMusicFromPlaylist(
-    playlistId: number,
-    musicId: number
-  ): Promise<boolean> {
-    try {
-      const result = await PlaylistMusics.destroy({
-        where: { playlistId, musicId },
-      });
-
-      return result > 0;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  /**
    * Recupera todas as músicas de uma playlist ordenadas por posição
    * @param playlistId - ID da playlist
    * @returns Array de músicas ordenadas por posição ascendente
@@ -72,6 +34,24 @@ class PlaylistMusicRepository implements IPlaylistMusicRepository {
         where: { playlistId },
         order: [["position", "ASC"]],
       });
+
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Adiciona uma música a uma playlist específica
+   * @param playlistMusicData - Dados da associação playlist-música (inclui posição)
+   * @returns Registro de associação criado
+   * @throws Erro de validação ou banco de dados
+   */
+  async addMusicToPlaylist(
+    playlistMusicData: PlaylistMusicData
+  ): Promise<PlaylistMusics> {
+    try {
+      const result = await PlaylistMusics.create(playlistMusicData);
 
       return result;
     } catch (error) {
@@ -99,6 +79,28 @@ class PlaylistMusicRepository implements IPlaylistMusicRepository {
       );
 
       return result[0] > 0;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Remove uma música de uma playlist específica
+   * @param playlistId - ID da playlist
+   * @param musicId - ID da música a ser removida
+   * @returns true se removida com sucesso, false se não encontrada
+   * @throws Erro do banco de dados
+   */
+  async removeMusicFromPlaylist(
+    playlistId: number,
+    musicId: number
+  ): Promise<boolean> {
+    try {
+      const result = await PlaylistMusics.destroy({
+        where: { playlistId, musicId },
+      });
+
+      return result > 0;
     } catch (error) {
       throw error;
     }

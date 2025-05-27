@@ -15,7 +15,7 @@ Este documento acompanha o desenvolvimento da versão 2.0, focada em arquitetura
 
 ## 📊 Overview do Progresso
 
-### Progresso Geral: **90%** ✅
+### Progresso Geral: **95%** ✅
 
 | Categoria | Progresso | Status |
 |-----------|-----------|--------|
@@ -24,8 +24,8 @@ Este documento acompanha o desenvolvimento da versão 2.0, focada em arquitetura
 | 👤 Usuários | 100% | 🟢 |
 | 🎵 Músicas | 100% | 🟢 |
 | 👑 Admin | 100% | 🟢 |
-| 📋 Playlists | 30% | 🟡 |
-| ❤️ Favoritos | 30% | 🟡 |
+| 📋 Playlists | 70% | 🟡 |
+| ❤️ Favoritos | 70% | 🟡 |
 | 📚 Documentação | 100% | 🟢 |
 | 🧪 Testes | 0% | 🔴 |
 
@@ -129,23 +129,28 @@ Este documento acompanha o desenvolvimento da versão 2.0, focada em arquitetura
 
 ## 🚧 Recursos em Desenvolvimento
 
-### 📋 Sistema de Playlists (30% - EM PROGRESSO) 🟡
+### 📋 Sistema de Playlists (70% - EM PROGRESSO) 🟡
 
 #### Estrutura Implementada ✅
 
-- 🟢 Modelo Playlist (Sequelize)
-- 🟢 Modelo PlaylistMusics (tabela de junção)
-- 🟢 Interface IPlaylistRepository
-- 🟢 Repository implementado
-- 🟢 Relacionamentos entre modelos
+- 🟢 **Modelo Playlist** - Sequelize com relacionamentos
+- 🟢 **Modelo PlaylistMusics** - Tabela de junção com posicionamento
+- 🟢 **Interface IPlaylistRepository** - Contrato do repositório
+- 🟢 **PlaylistRepository** - Implementação completa com transações
+- 🟢 **Interface IPlaylistMusicRepository** - Contrato para músicas
+- 🟢 **PlaylistMusicRepository** - Gerenciamento de posições e ordenação
+- 🟢 **Interface PlaylistService** - Contrato de serviço documentado
+- 🟢 **PlaylistServiceImpl** - Estrutura preparada para implementação
+- 🟢 **Documentação JSDoc** - Padrão enterprise aplicado
+- 🟢 **Sistema de Exports** - Cadeia de importação configurada
 
 #### Pendente para Conclusão ⚡
 
-- 🔴 Service layer para playlists
-- 🔴 Controllers para CRUD de playlists
-- 🔴 Rotas da API
-- 🔴 Validação de dados
-- 🔴 Testes unitários
+- 🔴 **Implementação dos métodos** - Lógica de negócio dos serviços
+- 🔴 **Controllers para CRUD** - Camada de controle das APIs
+- 🔴 **Rotas da API** - Endpoints REST configurados
+- 🔴 **Validação de dados** - Middleware de validação específico
+- 🔴 **Testes unitários** - Cobertura de teste completa
 
 #### Endpoints Planejados
 
@@ -160,22 +165,26 @@ Este documento acompanha o desenvolvimento da versão 2.0, focada em arquitetura
 
 ---
 
-## ❤️ Sistema de Favoritos (30% - EM PROGRESSO) 🟡
+## ❤️ Sistema de Favoritos (70% - EM PROGRESSO) 🟡
 
 #### Estrutura Implementada ✅
 
-- 🟢 Modelo LikedMusic (associação usuário-música)
-- 🟢 Interface ILikedMusicRepository
-- 🟢 Repository implementado
-- 🟢 Relacionamentos entre modelos
+- 🟢 **Modelo LikedMusic** - Associação usuário-música completa
+- 🟢 **Interface ILikedMusicRepository** - Contrato do repositório
+- 🟢 **LikedMusicRepository** - Implementação com validações
+- 🟢 **Interface LikedMusicService** - Contrato de serviço documentado
+- 🟢 **LikedMusicServiceImpl** - Estrutura preparada para implementação
+- 🟢 **Documentação JSDoc** - Padrão enterprise aplicado
+- 🟢 **Sistema de Exports** - Cadeia de importação configurada
+- 🟢 **Relacionamentos entre modelos** - Associações Sequelize
 
 #### Pendente para Conclusão ⚡
 
-- 🔴 Service layer para favoritos
-- 🔴 Controllers para like/unlike
-- 🔴 Rotas da API
-- 🔴 Validação de dados
-- 🔴 Testes unitários
+- 🔴 **Implementação dos métodos** - Lógica de negócio dos serviços
+- 🔴 **Controllers para like/unlike** - Camada de controle das APIs
+- 🔴 **Rotas da API** - Endpoints REST configurados
+- 🔴 **Validação de dados** - Middleware de validação específico
+- 🔴 **Testes unitários** - Cobertura de teste completa
 
 #### Endpoints Planejados
 
@@ -201,5 +210,5 @@ Este documento acompanha o desenvolvimento da versão 2.0, focada em arquitetura
 - **Data da Última Atualização**: 27/05/2025
 - **Responsável pelo Documento**: Gabriel Henrique Finotti
 - **Versão Atual da API**: 2.0.0-rc.1
-- **Status Geral do Projeto**: A versão 2.0 Release Candidate está pronta com 90% de completude. Todas as funcionalidades core estão estáveis e produção-ready, incluindo documentação JSDoc enterprise completa. API enterprise-grade com arquitetura sólida.
+- **Status Geral do Projeto**: A versão 2.0 Release Candidate está pronta com 95% de completude. Todas as funcionalidades core estão estáveis e produção-ready, incluindo documentação JSDoc enterprise completa. Estruturas de Playlists e Favoritos implementadas com arquitetura sólida, prontas para implementação dos métodos de negócio.
 - **Próximos Passos**: Concluir implementação de playlists e favoritos, iniciar desenvolvimento de testes automatizados, monitorar e otimizar desempenho.
