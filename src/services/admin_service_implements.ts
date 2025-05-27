@@ -1,3 +1,18 @@
+/**
+ * Serviço de Administração - HyperGenMusic API v2.0
+ *
+ * Implementa toda a lógica de negócio para operações administrativas,
+ * incluindo gestão de usuários e músicas com privilégios elevados.
+ *
+ * Funcionalidades:
+ * - CRUD completo de usuários
+ * - CRUD completo de músicas
+ * - Operações em lote (delete all)
+ * - Validação rigorosa de dados
+ *
+ * @author HyperGenMusic Team
+ * @version 2.0.0-rc.1
+ */
 import { MusicRepository, UserRepository } from "../repositories";
 import {
   AdminService,
@@ -40,6 +55,13 @@ class AdminServiceImpl implements AdminService {
     }
   }
 
+  /**
+   * Busca usuários pelo termo com paginação
+   * @param term - Termo a ser pesquisado
+   * @param limit - Limite de resultados por página
+   * @param offset - Número de registros a pular
+   * @returns Lista paginada de usuários que correspondem ao termo ou erro
+   */
   async getUserByTerm(term: string, limit: number, offset: number) {
     try {
       if (isNaN(limit) || isNaN(offset)) {
@@ -71,6 +93,11 @@ class AdminServiceImpl implements AdminService {
     }
   }
 
+  /**
+   * Remove todos os usuários do sistema
+   * ⚠️ OPERAÇÃO DESTRUTIVA - Use com extrema cautela
+   * @returns Confirmação de remoção ou erro
+   */
   async deleteAllUsers() {
     try {
       const result = await this.userRepository.deleteAllUsers();
@@ -87,6 +114,11 @@ class AdminServiceImpl implements AdminService {
     }
   }
 
+  /**
+   * Cria uma nova música no catálogo
+   * @param musicData - Dados completos da música
+   * @returns Confirmação de criação ou erro de validação
+   */
   async createMusic(musicData: MusicData) {
     try {
       const validationData = securityUtils.verifyMusicData(musicData, false);
@@ -112,6 +144,12 @@ class AdminServiceImpl implements AdminService {
     }
   }
 
+  /**
+   * Atualiza os dados de uma música existente
+   * @param musicId - ID da música a ser atualizada
+   * @param musicData - Novos dados da música
+   * @returns Confirmação de atualização ou erro
+   */
   async updateMusic(musicId: number, musicData: Partial<MusicData>) {
     try {
       if (isNaN(musicId)) {
@@ -149,6 +187,11 @@ class AdminServiceImpl implements AdminService {
     }
   }
 
+  /**
+   * Remove uma música do catálogo
+   * @param musicId - ID da música a ser removida
+   * @returns Confirmação de remoção ou erro
+   */
   async deleteMusic(musicId: number) {
     try {
       const existingMusic = await this.musicRepository.getMusicById(musicId);
@@ -171,6 +214,11 @@ class AdminServiceImpl implements AdminService {
     }
   }
 
+  /**
+   * Remove todas as músicas do catálogo
+   * ⚠️ OPERAÇÃO DESTRUTIVA - Use com extrema cautela
+   * @returns Confirmação de remoção ou erro
+   */
   async deleteAllMusic() {
     try {
       const result = await this.musicRepository.deleteAllMusic();

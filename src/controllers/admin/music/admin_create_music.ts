@@ -1,8 +1,36 @@
+/**
+ * Controller de Criação Administrativa de Música - HyperGenMusic API v2.0
+ *
+ * Gerencia a criação de novas músicas no catálogo através do painel
+ * administrativo, incluindo processamento de uploads de arquivos de
+ * áudio e imagens de capa com validação completa.
+ *
+ * Funcionalidades:
+ * - Criação de música com metadados completos
+ * - Upload obrigatório de arquivo de áudio
+ * - Upload opcional de imagem de capa
+ * - Validação de tipos de arquivo
+ * - Integração com AWS S3/Cloudflare R2
+ * - Resposta padronizada de sucesso/erro
+ *
+ * @author HyperGenMusic Team
+ * @version 2.0.0-rc.1
+ */
 import { Request, Response } from "express";
 import { responseUtils } from "../../../utils";
 import { AdminServiceImpl } from "../../../services";
 import { MusicData, ResponseSuccess } from "../../../types";
 
+/**
+ * Controller Administrativo - Criação de Música
+ *
+ * Cria nova música no catálogo com upload de arquivos.
+ * Processa arquivo de áudio (obrigatório) e imagem de capa (opcional).
+ *
+ * @param req.body - Metadados da música (MusicData)
+ * @param req.files - Arquivos: music (áudio) e image (capa)
+ * @returns Confirmação de criação ou erro de validação
+ */
 const adminCreateMusic = async (req: Request, res: Response) => {
   try {
     const musicData = req.body as MusicData;
