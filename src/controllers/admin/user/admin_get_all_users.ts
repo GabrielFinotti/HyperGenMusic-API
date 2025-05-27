@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { responseUtils } from "../../utils";
-import { AdminServiceImpl } from "../../services";
-import { ResponseSuccess } from "../../types";
-import { User } from "../../models";
+import { responseUtils } from "../../../utils";
+import { AdminServiceImpl } from "../../../services";
+import { ResponseSuccess } from "../../../types";
+import { User } from "../../../models";
 
-const adminGetUsersTerm = async (req: Request, res: Response) => {
+const adminGetAllUsers = async (req: Request, res: Response) => {
   try {
     const query = req.query;
 
@@ -20,11 +20,7 @@ const adminGetUsersTerm = async (req: Request, res: Response) => {
       offset = 0;
     }
 
-    const isError = await AdminServiceImpl.getUserByTerm(
-      query.term as string,
-      limit,
-      offset
-    );
+    const isError = await AdminServiceImpl.getAllUsers(limit, offset);
 
     if (!isError.success) {
       res.status(isError.errorCode).send(isError);
@@ -45,4 +41,4 @@ const adminGetUsersTerm = async (req: Request, res: Response) => {
   }
 };
 
-export default adminGetUsersTerm;
+export default adminGetAllUsers;

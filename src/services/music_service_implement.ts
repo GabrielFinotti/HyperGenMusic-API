@@ -5,7 +5,7 @@ import { responseUtils } from "../utils";
 class MusicServiceImpl implements MusicService {
   constructor(private musicRepository: IMusicRepository = MusicRepository) {}
 
-  async getAllMusic(limit: number, offset: number) {
+  async getAllMusics(limit: number, offset: number) {
     try {
       const musics = await this.musicRepository.getAllMusics(limit, offset);
 

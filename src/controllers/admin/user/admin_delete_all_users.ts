@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { responseUtils } from "../../utils";
-import { AdminServiceImpl } from "../../services";
-import { ResponseSuccess } from "../../types";
+import { responseUtils } from "../../../utils";
+import { AdminServiceImpl } from "../../../services";
+import { ResponseSuccess } from "../../../types";
 
-const adminDeleteAllUser = async (req: Request, res: Response) => {
+const adminDeleteAllUsers = async (req: Request, res: Response) => {
   try {
     const isError = await AdminServiceImpl.deleteAllUsers();
 
@@ -26,4 +26,4 @@ const adminDeleteAllUser = async (req: Request, res: Response) => {
   }
 };
 
-export default adminDeleteAllUser;
+export default adminDeleteAllUsers;

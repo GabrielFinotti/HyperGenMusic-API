@@ -17,8 +17,14 @@ import {
   adminGetUsersTerm,
   adminCreateUser,
   adminUpdateUser,
-  adminDeleteUser,
+  adminDeleteUsers,
   adminDeleteAllUser,
+  adminGetAllMusics,
+  adminGetMusicTerm,
+  adminCreateMusic,
+  adminUpdateMusic,
+  adminDeleteMusic,
+  adminDeleteAllMusics,
 } from "./admin";
 
 export const userController = {
@@ -41,6 +47,12 @@ export const adminController = {
   adminGetUsersTerm,
   adminCreateUser,
   adminUpdateUser,
-  adminDeleteUser,
+  adminDeleteUsers,
   adminDeleteAllUser,
+  adminGetAllMusics,
+  adminGetMusicTerm,
+  adminCreateMusic,
+  adminUpdateMusic,
+  adminDeleteMusic,
+  adminDeleteAllMusics,
 };

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { responseUtils } from "../../utils";
-import { UserServiceImpl } from "../../services";
-import { ResponseSuccess, UserData } from "../../types";
+import { responseUtils } from "../../../utils";
+import { UserServiceImpl } from "../../../services";
+import { ResponseSuccess, UserData } from "../../../types";
 
 const adminCreateUser = async (req: Request, res: Response) => {
   try {

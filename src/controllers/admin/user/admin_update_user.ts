@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { responseUtils } from "../../utils";
-import { UserServiceImpl } from "../../services";
-import { User } from "../../models";
-import { ResponseSuccess } from "../../types";
+import { responseUtils } from "../../../utils";
+import { UserServiceImpl } from "../../../services";
+import { User } from "../../../models";
+import { ResponseSuccess } from "../../../types";
 
 const adminUpdateUser = async (req: Request, res: Response) => {
   try {

@@ -2,7 +2,7 @@ import { Music } from "../../models";
 import { ResponseError, ResponseSuccess } from "../interfaces";
 
 export interface MusicService {
-  getAllMusic(
+  getAllMusics(
     limit: number,
     offset: number
   ): Promise<ResponseError | ResponseSuccess<Music[]>>;

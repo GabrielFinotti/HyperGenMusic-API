@@ -1,15 +1,32 @@
-import adminGetAllUsers from "./admin_get_all_users";
-import adminGetUsersTerm from "./admin_get_users_term";
-import adminCreateUser from "./admin_create_user";
-import adminUpdateUser from "./admin_update_user";
-import adminDeleteUser from "./admin_delete_user";
-import adminDeleteAllUser from "./admin_delete_all_user";
+import {
+  adminGetAllUsers,
+  adminGetUsersTerm,
+  adminCreateUser,
+  adminUpdateUser,
+  adminDeleteUsers,
+  adminDeleteAllUser,
+} from "./user";
+
+import {
+  adminGetAllMusics,
+  adminGetMusicTerm,
+  adminCreateMusic,
+  adminUpdateMusic,
+  adminDeleteMusic,
+  adminDeleteAllMusics,
+} from "./music";
 
 export {
   adminGetAllUsers,
   adminGetUsersTerm,
   adminCreateUser,
   adminUpdateUser,
-  adminDeleteUser,
+  adminDeleteUsers,
   adminDeleteAllUser,
+  adminGetAllMusics,
+  adminGetMusicTerm,
+  adminCreateMusic,
+  adminUpdateMusic,
+  adminDeleteMusic,
+  adminDeleteAllMusics,
 };

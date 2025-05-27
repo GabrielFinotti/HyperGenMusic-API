@@ -114,6 +114,10 @@ class AdminServiceImpl implements AdminService {
 
   async updateMusic(musicId: number, musicData: Partial<MusicData>) {
     try {
+      if (isNaN(musicId)) {
+        return responseUtils.createErrorResponse("Invalid music ID", 400);
+      }
+
       const existingMusic = await this.musicRepository.getMusicById(musicId);
 
       if (!existingMusic) {
@@ -129,7 +133,9 @@ class AdminServiceImpl implements AdminService {
         );
       }
 
-      const music = await this.musicRepository.updateMusic(musicId, musicData);
+      await this.musicRepository.updateMusic(musicId, musicData);
+
+      const music = await this.musicRepository.getMusicById(musicId);
 
       return responseUtils.createSuccessResponse(
         "Music updated successfully",

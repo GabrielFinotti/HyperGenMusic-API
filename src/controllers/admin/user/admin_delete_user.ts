@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { responseUtils } from "../../utils";
-import { UserServiceImpl } from "../../services";
-import { ResponseSuccess } from "../../types";
-import { User } from "../../models";
+import { responseUtils } from "../../../utils";
+import { UserServiceImpl } from "../../../services";
+import { ResponseSuccess } from "../../../types";
+import { User } from "../../../models";
 
 const adminDeleteUser = async (req: Request, res: Response) => {
   try {
