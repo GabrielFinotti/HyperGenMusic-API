@@ -1,15 +1,48 @@
-import adminGetAllUsers from "./admin_get_all_users";
-import adminGetUsersTerm from "./admin_get_users_term";
-import adminCreateUser from "./admin_create_user";
-import adminUpdateUser from "./admin_update_user";
-import adminDeleteUser from "./admin_delete_user";
-import adminDeleteAllUser from "./admin_delete_all_user";
+/**
+ * Agregador Principal de Controllers Administrativos - HyperGenMusic API v2.0
+ *
+ * Centraliza e exporta todos os controllers administrativos da aplicação,
+ * organizando operações de gestão de usuários e músicas em um ponto único.
+ *
+ * Módulos incluídos:
+ * - Controllers de Usuário: CRUD completo e busca de usuários
+ * - Controllers de Música: CRUD completo e gestão do catálogo
+ *
+ * Todos os controllers requerem privilégios administrativos e são
+ * protegidos pelos middlewares de autenticação e autorização.
+ *
+ * @author HyperGenMusic Team
+ * @version 2.0.0-rc.1
+ */
+import {
+  adminGetAllUsers,
+  adminGetUsersTerm,
+  adminCreateUser,
+  adminUpdateUser,
+  adminDeleteUsers,
+  adminDeleteAllUser,
+} from "./user";
+
+import {
+  adminGetAllMusics,
+  adminGetMusicTerm,
+  adminCreateMusic,
+  adminUpdateMusic,
+  adminDeleteMusic,
+  adminDeleteAllMusics,
+} from "./music";
 
 export {
   adminGetAllUsers,
   adminGetUsersTerm,
   adminCreateUser,
   adminUpdateUser,
-  adminDeleteUser,
+  adminDeleteUsers,
   adminDeleteAllUser,
+  adminGetAllMusics,
+  adminGetMusicTerm,
+  adminCreateMusic,
+  adminUpdateMusic,
+  adminDeleteMusic,
+  adminDeleteAllMusics,
 };

@@ -1,3 +1,33 @@
+/**
+ * Utilitário de Validação de Dados de Música - HyperGenMusic API v2.0
+ *
+ * Fornece validação robusta de dados de música para operações de
+ * criação e atualização, aplicando regras de negócio específicas
+ * como formato de URLs, duração e validação de metadados.
+ *
+ * Funcionalidades:
+ * - Validação completa para criação de música
+ * - Validação parcial para atualizações
+ * - Verificação de URLs de audio e imagem
+ * - Validação de duração e metadados
+ * - Verificação de tipos e comprimentos mínimos
+ *
+ * @author HyperGenMusic Team
+ * @version 2.0.0-rc.1
+ *
+ * @param musicData - Dados da música a serem validados
+ * @param isUpdate - Se true, permite validação parcial; se false, exige dados completos
+ * @returns String com erros encontrados (vazia se válido)
+ *
+ * @example
+ * ```typescript
+ * // Validação para criação
+ * const errors = verifyMusicData(newMusic, false);
+ *
+ * // Validação para atualização
+ * const updateErrors = verifyMusicData({ title: "New Title" }, true);
+ * ```
+ */
 import { constants } from "..";
 import { MusicData } from "../../types";
 

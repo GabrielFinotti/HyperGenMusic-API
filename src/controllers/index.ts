@@ -1,3 +1,21 @@
+/**
+ * Agregador Principal de Controllers - HyperGenMusic API v2.0
+ *
+ * Centraliza e organiza todos os controllers da aplicação em objetos
+ * categorizados por funcionalidade, fornecendo um ponto único de acesso
+ * para todas as operações da API.
+ *
+ * Categorias disponíveis:
+ * - userController: Operações de usuário (auth, perfil, CRUD)
+ * - musicController: Operações públicas de música (consulta, busca)
+ * - adminController: Operações administrativas (gestão completa)
+ *
+ * Estrutura organizada para facilitar importação e uso pelos roteadores
+ * e manter separação clara de responsabilidades por domínio.
+ *
+ * @author HyperGenMusic Team
+ * @version 2.0.0-rc.1
+ */
 import {
   userLogin,
   userRegister,
@@ -17,8 +35,14 @@ import {
   adminGetUsersTerm,
   adminCreateUser,
   adminUpdateUser,
-  adminDeleteUser,
+  adminDeleteUsers,
   adminDeleteAllUser,
+  adminGetAllMusics,
+  adminGetMusicTerm,
+  adminCreateMusic,
+  adminUpdateMusic,
+  adminDeleteMusic,
+  adminDeleteAllMusics,
 } from "./admin";
 
 export const userController = {
@@ -41,6 +65,12 @@ export const adminController = {
   adminGetUsersTerm,
   adminCreateUser,
   adminUpdateUser,
-  adminDeleteUser,
+  adminDeleteUsers,
   adminDeleteAllUser,
+  adminGetAllMusics,
+  adminGetMusicTerm,
+  adminCreateMusic,
+  adminUpdateMusic,
+  adminDeleteMusic,
+  adminDeleteAllMusics,
 };

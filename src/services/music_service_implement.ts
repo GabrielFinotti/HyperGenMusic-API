@@ -1,11 +1,45 @@
+/**
+ * Serviço de Música - HyperGenMusic API v2.0
+ *
+ * Implementa toda a lógica de negócio para operações relacionadas ao catálogo
+ * de músicas, incluindo listagem, busca por termo/gênero e recuperação de dados.
+ *
+ * Funcionalidades:
+ * - Listagem paginada do catálogo completo
+ * - Busca por termo (título, artista, álbum)
+ * - Filtros por gênero musical
+ * - Recuperação de dados específicos por ID
+ *
+ * @author HyperGenMusic Team
+ * @version 2.0.0-rc.1
+ */
 import { MusicRepository } from "../repositories";
 import { IMusicRepository, MusicService } from "../types";
 import { responseUtils } from "../utils";
 
+/**
+ * Implementação do serviço de músicas
+ *
+ * Gerencia toda a lógica de negócio para consultas e operações
+ * de leitura do catálogo musical da aplicação.
+ *
+ * @class MusicServiceImpl
+ * @implements {MusicService}
+ */
 class MusicServiceImpl implements MusicService {
+  /**
+   * Injeta dependência do repositório de músicas
+   * @param musicRepository - Repository para operações de música
+   */
   constructor(private musicRepository: IMusicRepository = MusicRepository) {}
 
-  async getAllMusic(limit: number, offset: number) {
+  /**
+   * Recupera todas as músicas do catálogo com paginação
+   * @param limit - Número máximo de músicas por página
+   * @param offset - Número de músicas a pular (para paginação)
+   * @returns Lista paginada de músicas ou erro
+   */
+  async getAllMusics(limit: number, offset: number) {
     try {
       const musics = await this.musicRepository.getAllMusics(limit, offset);
 
@@ -28,6 +62,14 @@ class MusicServiceImpl implements MusicService {
     }
   }
 
+  /**
+   * Busca músicas por termo de pesquisa
+   * Pesquisa em título, artista e álbum
+   * @param term - Termo de busca
+   * @param limit - Número máximo de resultados
+   * @param offset - Número de resultados a pular
+   * @returns Músicas que correspondem ao termo ou erro
+   */
   async getMusicByTerm(term: string, limit: number, offset: number) {
     try {
       const musics = await this.musicRepository.getMusicByTerm(
@@ -58,6 +100,13 @@ class MusicServiceImpl implements MusicService {
     }
   }
 
+  /**
+   * Filtra músicas por gênero musical
+   * @param genre - Gênero musical para filtrar
+   * @param limit - Número máximo de resultados
+   * @param offset - Número de resultados a pular
+   * @returns Músicas do gênero especificado ou erro
+   */
   async getMusicByGenre(genre: string, limit: number, offset: number) {
     try {
       const musics = await this.musicRepository.getMusicByGenre(
@@ -88,6 +137,11 @@ class MusicServiceImpl implements MusicService {
     }
   }
 
+  /**
+   * Recupera dados completos de uma música específica
+   * @param musicId - ID único da música
+   * @returns Dados completos da música ou erro se não encontrada
+   */
   async getMusicData(musicId: number) {
     try {
       const music = await this.musicRepository.getMusicById(musicId);

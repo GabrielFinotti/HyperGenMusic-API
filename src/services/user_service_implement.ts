@@ -1,3 +1,20 @@
+/**
+ * Serviço de Usuários - HyperGenMusic API v2.0
+ *
+ * Implementa toda a lógica de negócio relacionada aos usuários,
+ * incluindo autenticação, registro, atualização e gerenciamento de perfil.
+ *
+ * Funcionalidades:
+ * - Registro de novos usuários com validação
+ * - Autenticação e geração de tokens JWT
+ * - Atualização de perfil e upload de imagens
+ * - Exclusão de contas com revogação de tokens
+ * - Recuperação de dados de perfil
+ *
+ * @implements UserService
+ * @author HyperGenMusic Team
+ * @version 2.0.0-rc.1
+ */
 import { User } from "../models";
 import { UserRepository } from "../repositories";
 import {
@@ -9,8 +26,17 @@ import {
 import { responseUtils, securityUtils, storageUtils } from "../utils";
 
 class UserServiceImpl implements UserService {
+  /**
+   * Injeta dependência do repositório de usuários
+   * @param userRepository - Repository para operações de usuário
+   */
   constructor(private userRepository: IUserRepository = UserRepository) {}
 
+  /**
+   * Registra um novo usuário no sistema
+   * @param userData - Dados completos do usuário
+   * @returns Confirmação de criação ou erro de validação
+   */
   async userRegister(userData: UserData) {
     try {
       const validationData = securityUtils.verifyUserData(userData, false);
@@ -51,6 +77,13 @@ class UserServiceImpl implements UserService {
     }
   }
 
+  /**
+   * Realiza o login de um usuário
+   * @param email - Email do usuário
+   * @param password - Senha do usuário
+   * @param isLong - Indica se o token deve ser de longa duração
+   * @returns Dados do usuário e token JWT ou erro de autenticação
+   */
   async userLogin(email: string, password: string, isLong: boolean = false) {
     try {
       const user = await this.userRepository.getUserIncludingPassword(email);
@@ -96,6 +129,12 @@ class UserServiceImpl implements UserService {
     }
   }
 
+  /**
+   * Atualiza os dados do perfil do usuário
+   * @param userId - ID do usuário
+   * @param userData - Dados a serem atualizados
+   * @returns Confirmação de atualização ou erro de validação
+   */
   async userUpdate(userId: number, userData: Partial<UserData>) {
     try {
       for (const key in userData) {
@@ -219,6 +258,12 @@ class UserServiceImpl implements UserService {
     }
   }
 
+  /**
+   * Exclui um usuário do sistema
+   * @param userId - ID do usuário
+   * @param token - Token JWT para revogação
+   * @returns Confirmação de exclusão ou erro
+   */
   async userDelete(userId: number, token?: string) {
     try {
       const existingUser = await this.userRepository.getUserById(userId);
@@ -247,6 +292,11 @@ class UserServiceImpl implements UserService {
     }
   }
 
+  /**
+   * Recupera os dados do perfil do usuário
+   * @param userId - ID do usuário
+   * @returns Dados do usuário ou erro
+   */
   async getProfileData(userId: number) {
     try {
       const user = await this.userRepository.getUserById(userId);
