@@ -4,12 +4,12 @@
  * Centraliza e exporta todas as implementações concretas dos serviços
  * da aplicação, fornecendo as classes que encapsulam a lógica de negócio.
  *
- * Implementações incluídas:
- * - UserServiceImpl: Lógica de negócio para gestão de usuários
- * - MusicServiceImpl: Lógica de negócio para catálogo musical
- * - AdminServiceImpl: Lógica de negócio para operações administrativas
- * - PlaylistServiceImpl: Lógica de negócio para gerenciamento de playlists
- * - LikedMusicServiceImpl: Lógica de negócio para sistema de curtidas
+ * Implementações completas incluídas:
+ * - UserServiceImpl: Lógica de negócio para gestão de usuários ✅
+ * - MusicServiceImpl: Lógica de negócio para catálogo musical ✅
+ * - AdminServiceImpl: Lógica de negócio para operações administrativas ✅
+ * - PlaylistServiceImpl: Lógica de negócio para gerenciamento de playlists ✅ (8 métodos)
+ * - LikedMusicServiceImpl: Lógica de negócio para sistema de curtidas ✅ (4 métodos)
  *
  * @author HyperGenMusic Team
  * @version 2.0.0-rc.1

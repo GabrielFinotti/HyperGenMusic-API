@@ -5,11 +5,15 @@
  * ao gerenciamento de playlists, incluindo operações CRUD de playlists
  * e gerenciamento completo de músicas dentro das playlists.
  *
+ * Métodos definidos (8 total):
+ * - CRUD de playlists: getPlaylistByUserId, createPlaylist, updatePlaylist, deletePlaylist
+ * - Gerenciamento de músicas: getMusicsByPlaylistId, addMusicToPlaylist, updateMusicPosition, removeMusicFromPlaylist
+ *
  * @interface PlaylistService
  * @author HyperGenMusic Team
  * @version 2.0.0-rc.1
  */
-import { Playlist } from "../../models";
+import { Playlist, PlaylistMusics } from "../../models";
 import {
   PlaylistData,
   PlaylistMusicData,
@@ -19,9 +23,10 @@ import {
 
 /**
  * Contrato para serviços de playlists
- * 
+ *
  * Define o contrato para todas as operações de negócio envolvendo playlists,
- * incluindo CRUD completo de playlists e gerenciamento de músicas com posicionamento.
+ * incluindo CRUD completo de playlists e gerenciamento avançado de músicas 
+ * com posicionamento, ordenação e reposicionamento dinâmico.
  */
 export interface PlaylistService {
   /**
@@ -33,7 +38,7 @@ export interface PlaylistService {
   getPlaylistByUserId(
     userId: number
   ): Promise<ResponseError | ResponseSuccess<Playlist[]>>;
-  
+
   /**
    * Cria uma nova playlist para o usuário
    *
@@ -43,7 +48,7 @@ export interface PlaylistService {
   createPlaylist(
     playlistData: PlaylistData
   ): Promise<ResponseError | ResponseSuccess<Playlist>>;
-  
+
   /**
    * Atualiza os dados de uma playlist existente
    *
@@ -55,7 +60,7 @@ export interface PlaylistService {
     playlistId: number,
     playlistData: Partial<PlaylistData>
   ): Promise<ResponseError | ResponseSuccess<Playlist>>;
-  
+
   /**
    * Remove uma playlist do sistema
    *
@@ -65,7 +70,7 @@ export interface PlaylistService {
   deletePlaylist(
     playlistId: number
   ): Promise<ResponseError | ResponseSuccess<boolean>>;
-  
+
   /**
    * Recupera todas as músicas de uma playlist ordenadas por posição
    *
@@ -74,8 +79,8 @@ export interface PlaylistService {
    */
   getMusicsByPlaylistId(
     playlistId: number
-  ): Promise<ResponseError | ResponseSuccess<PlaylistMusicData[]>>;
-  
+  ): Promise<ResponseError | ResponseSuccess<PlaylistMusics[]>>;
+
   /**
    * Adiciona uma música a uma playlist em posição específica
    *
@@ -84,8 +89,8 @@ export interface PlaylistService {
    */
   addMusicToPlaylist(
     playlistMusicData: PlaylistMusicData
-  ): Promise<ResponseError | ResponseSuccess<PlaylistMusicData>>;
-  
+  ): Promise<ResponseError | ResponseSuccess<PlaylistMusics>>;
+
   /**
    * Atualiza a posição de uma música dentro da playlist
    *
@@ -99,7 +104,7 @@ export interface PlaylistService {
     musicId: number,
     newPosition: number
   ): Promise<ResponseError | ResponseSuccess<boolean>>;
-  
+
   /**
    * Remove uma música específica de uma playlist
    *

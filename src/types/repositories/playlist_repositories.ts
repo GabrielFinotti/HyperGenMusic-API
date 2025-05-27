@@ -2,8 +2,15 @@
  * Interface do Repositório de Playlists - HyperGenMusic API v2.0
  *
  * Define o contrato para operações de acesso a dados relacionadas
- * ao modelo Playlist, estabelecendo métodos para CRUD de playlists
- * de usuários.
+ * ao modelo Playlist, estabelecendo métodos para CRUD completo de 
+ * playlists de usuários, incluindo consultas por usuário e por ID.
+ *
+ * Métodos definidos:
+ * - getPlaylistsByUserId: Busca por usuário
+ * - getPlaylistById: Busca por ID específico
+ * - createPlaylist: Criação de playlist
+ * - updatePlaylist: Atualização de dados
+ * - deletePlaylist: Remoção segura
  *
  * @interface IPlaylistRepository
  * @author HyperGenMusic Team
@@ -15,8 +22,8 @@ import { PlaylistData } from "../interfaces";
 /**
  * Contrato para repositório de playlists
  *
- * Define métodos para gerenciamento de playlists de usuários
- * incluindo criação, atualização, busca e remoção.
+ * Define métodos para gerenciamento completo de playlists de usuários
+ * incluindo criação, atualização, busca por usuário/ID e remoção segura.
  */
 export interface IPlaylistRepository {
   /**
@@ -25,6 +32,13 @@ export interface IPlaylistRepository {
    * @returns Array de playlists do usuário
    */
   getPlaylistsByUserId(userId: number): Promise<Playlist[]>;
+
+  /**
+   * Recupera uma playlist pelo ID
+   * @param playlistId - ID da playlist a recuperar
+   * @returns Playlist encontrada ou null se não existir
+   */
+  getPlaylistById(playlistId: number): Promise<Playlist | null>;
 
   /**
    * Cria nova playlist para o usuário

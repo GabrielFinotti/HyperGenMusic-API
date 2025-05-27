@@ -2,8 +2,15 @@
  * Repositório de Playlist - HyperGenMusic API v2.0
  *
  * Implementa o padrão Repository para operações de acesso a dados
- * relacionadas ao modelo Playlist. Gerencia operações CRUD para
- * playlists dos usuários.
+ * relacionadas ao modelo Playlist. Gerencia operações CRUD completas
+ * para playlists dos usuários, incluindo consultas por usuário e ID.
+ *
+ * Métodos implementados:
+ * - getPlaylistsByUserId: Busca playlists por usuário
+ * - getPlaylistById: Busca playlist específica por ID
+ * - createPlaylist: Criação de nova playlist
+ * - updatePlaylist: Atualização com transações
+ * - deletePlaylist: Remoção segura
  *
  * @author HyperGenMusic Team
  * @version 2.0.0-rc.1
@@ -16,7 +23,9 @@ import { PlaylistData } from "../types";
  * Implementação do repositório de playlists
  *
  * Gerencia todas as operações de acesso a dados para playlists,
- * incluindo criação, atualização, remoção e consultas por usuário.
+ * incluindo criação, atualização, remoção e consultas por usuário e ID.
+ * Implementa 6 métodos: getPlaylistsByUserId, getPlaylistById, createPlaylist,
+ * updatePlaylist, deletePlaylist com transações seguras.
  *
  * @class PlaylistRepository
  * @implements {IPlaylistRepository}
@@ -33,6 +42,22 @@ class PlaylistRepository implements IPlaylistRepository {
       const playlists = await Playlist.findAll({ where: { userId } });
 
       return playlists;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Recupera uma playlist pelo ID
+   * @param playlistId - ID da playlist a ser recuperada
+   * @returns Playlist encontrada ou null se não existir
+   * @throws Erro do banco de dados
+   */
+  async getPlaylistById(playlistId: number) {
+    try {
+      const playlist = await Playlist.findByPk(playlistId);
+
+      return playlist;
     } catch (error) {
       throw error;
     }
