@@ -1,5 +1,5 @@
 /**
- * Controller de Registro de Usuário - HyperGenMusic API v2.0
+ * Controller de Registro de Usuário - HyperMusic API v2.0
  *
  * Gerencia o processo de criação de novos usuários na plataforma,
  * incluindo validação completa de dados, verificação de duplicatas
@@ -12,7 +12,7 @@
  * - Criação de registro no banco
  * - Resposta padronizada de confirmação
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Request, Response } from "express";

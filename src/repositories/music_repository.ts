@@ -1,11 +1,11 @@
 /**
- * Repositório de Música - HyperGenMusic API v2.0
+ * Repositório de Música - HyperMusic API v2.0
  *
  * Implementa o padrão Repository para operações de acesso a dados
  * relacionadas ao modelo Music. Fornece uma camada de abstração
  * sobre o Sequelize ORM para operações CRUD.
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Op } from "sequelize";

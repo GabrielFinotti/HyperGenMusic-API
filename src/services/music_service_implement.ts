@@ -1,5 +1,5 @@
 /**
- * Serviço de Música - HyperGenMusic API v2.0
+ * Serviço de Música - HyperMusic API v2.0
  *
  * Implementa toda a lógica de negócio para operações relacionadas ao catálogo
  * de músicas, incluindo listagem, busca por termo/gênero e recuperação de dados.
@@ -10,7 +10,7 @@
  * - Filtros por gênero musical
  * - Recuperação de dados específicos por ID
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { MusicRepository } from "../repositories";

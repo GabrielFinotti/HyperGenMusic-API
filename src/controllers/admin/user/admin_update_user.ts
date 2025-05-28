@@ -1,5 +1,5 @@
 /**
- * Controller Administrativo - Atualizar Usuário - HyperGenMusic API v2.0
+ * Controller Administrativo - Atualizar Usuário - HyperMusic API v2.0
  *
  * Gerencia a atualização de dados de usuários através do painel
  * administrativo, permitindo modificação de privilégios, dados
@@ -12,7 +12,7 @@
  * - Controle de acesso restrito
  * - Auditoria de alterações
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Request, Response } from "express";

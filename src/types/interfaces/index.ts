@@ -1,5 +1,5 @@
 /**
- * Agregador de Interfaces - HyperGenMusic API v2.0
+ * Agregador de Interfaces - HyperMusic API v2.0
  *
  * Centraliza e exporta todas as interfaces de dados e contratos
  * da aplicação, incluindo DTOs de entrada e padrões de resposta.
@@ -15,7 +15,7 @@
  * - ResponseError: Padrão de resposta de erro da API
  * - ResponseSuccess: Padrão de resposta de sucesso da API
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { UserData } from "./user_data";

@@ -1,5 +1,5 @@
 /**
- * Controller de Remoção Individual de Música - HyperGenMusic API v2.0
+ * Controller de Remoção Individual de Música - HyperMusic API v2.0
  *
  * Gerencia a remoção de músicas específicas do catálogo através do
  * painel administrativo, incluindo limpeza de relacionamentos e
@@ -13,7 +13,7 @@
  * - Validação de existência da música
  * - Resposta padronizada de confirmação
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Request, Response } from "express";

@@ -1,7 +1,7 @@
 /**
  * Modelo de Usuário do Sistema
  *
- * Representa um usuário no HyperGenMusic, incluindo dados pessoais,
+ * Representa um usuário no HyperMusic, incluindo dados pessoais,
  * credenciais de acesso e relacionamentos com músicas e playlists.
  *
  * Relacionamentos:

@@ -1,5 +1,5 @@
 /**
- * Controller de Perfil de Usuário - HyperGenMusic API v2.0
+ * Controller de Perfil de Usuário - HyperMusic API v2.0
  *
  * Gerencia a recuperação de dados do perfil do usuário autenticado,
  * fornecendo informações pessoais e configurações da conta de
@@ -12,7 +12,7 @@
  * - Resposta otimizada
  * - Tratamento de erros
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Request, Response } from "express";

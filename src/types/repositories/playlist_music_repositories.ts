@@ -1,12 +1,12 @@
 /**
- * Interface do Repositório de Músicas da Playlist - HyperGenMusic API v2.0
+ * Interface do Repositório de Músicas da Playlist - HyperMusic API v2.0
  *
  * Define o contrato para operações de acesso a dados relacionadas
  * ao modelo PlaylistMusics, estabelecendo métodos para gerenciamento
  * da relação many-to-many entre playlists e músicas.
  *
  * @interface IPlaylistMusicRepository
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { PlaylistMusics } from "../../models";

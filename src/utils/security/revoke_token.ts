@@ -1,5 +1,5 @@
 /**
- * Utilitário de Revogação de Tokens JWT - HyperGenMusic API v2.0
+ * Utilitário de Revogação de Tokens JWT - HyperMusic API v2.0
  *
  * Fornece funcionalidade de revogação de tokens JWT através de
  * blacklist armazenada no Redis, garantindo que tokens invalidados
@@ -11,7 +11,7 @@
  * - Limpeza automática de tokens expirados
  * - Validação de tokens antes da revogação
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import redisClient from "../../config/database/redis_config";

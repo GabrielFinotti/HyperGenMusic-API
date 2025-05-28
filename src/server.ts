@@ -1,5 +1,5 @@
 /**
- * Servidor Principal - HyperGenMusic API v2.0
+ * Servidor Principal - HyperMusic API v2.0
  *
  * Configuração e inicialização do servidor Express com:
  * - Middleware básico (JSON, CORS)
@@ -7,17 +7,17 @@
  * - Conexão com banco PostgreSQL
  * - Sincronização de modelos Sequelize
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import express, { json } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import "colors";
 import { userRouter, musicRouter, adminRouter } from "./routes";
 import sequelize, {
   initializeDatabase,
 } from "./config/database/postgre_config";
-export * from "colors";
 
 dotenv.config();
 

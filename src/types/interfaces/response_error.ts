@@ -1,11 +1,11 @@
 /**
- * Interface de Resposta de Erro - HyperGenMusic API v2.0
+ * Interface de Resposta de Erro - HyperMusic API v2.0
  *
  * Define a estrutura padronizada para respostas de erro da API,
  * garantindo consistência na comunicação de falhas aos clientes.
  *
  * @interface ResponseError
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 export interface ResponseError {

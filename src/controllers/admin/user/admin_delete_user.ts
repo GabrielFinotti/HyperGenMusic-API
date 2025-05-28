@@ -1,5 +1,5 @@
 /**
- * Controller Administrativo - Deletar Usuário - HyperGenMusic API v2.0
+ * Controller Administrativo - Deletar Usuário - HyperMusic API v2.0
  *
  * Gerencia a remoção individual de usuários através do painel
  * administrativo, incluindo revogação de tokens, limpeza de dados
@@ -12,7 +12,7 @@
  * - Validação de permissões
  * - Log de auditoria
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Request, Response } from "express";

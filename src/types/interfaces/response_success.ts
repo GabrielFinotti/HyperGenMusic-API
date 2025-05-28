@@ -1,12 +1,12 @@
 /**
- * Interface de Resposta de Sucesso - HyperGenMusic API v2.0
+ * Interface de Resposta de Sucesso - HyperMusic API v2.0
  *
  * Define a estrutura padronizada para respostas de sucesso da API,
  * garantindo consistência na comunicação de dados aos clientes.
  *
  * @template T - Tipo dos dados retornados na resposta
  * @interface ResponseSuccess
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 export interface ResponseSuccess<T> {

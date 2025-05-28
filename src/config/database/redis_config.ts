@@ -1,5 +1,5 @@
 /**
- * Configuração Redis - HyperGenMusic API v2.0
+ * Configuração Redis - HyperMusic API v2.0
  *
  * Configura e inicializa a conexão com o servidor Redis
  * para cache e armazenamento temporário de dados, incluindo
@@ -11,7 +11,7 @@
  * - Tratamento de erros de conexão
  * - Cliente singleton para toda a aplicação
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Redis } from "ioredis";

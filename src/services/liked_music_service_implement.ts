@@ -1,5 +1,5 @@
 /**
- * Implementação do Serviço de Músicas Curtidas - HyperGenMusic API v2.0
+ * Implementação do Serviço de Músicas Curtidas - HyperMusic API v2.0
  *
  * Implementa toda a lógica de negócio para operações relacionadas ao
  * sistema de curtidas/favoritos, incluindo validações e controle
@@ -14,7 +14,7 @@
  * - Integração completa com repositório de dados
  * - 4 métodos completamente funcionais
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { LikedMusicRepository } from "../repositories";

@@ -1,5 +1,5 @@
 /**
- * Utilitário de Criação de Respostas de Sucesso - HyperGenMusic API v2.0
+ * Utilitário de Criação de Respostas de Sucesso - HyperMusic API v2.0
  *
  * Fornece padronização para criação de respostas de sucesso consistentes
  * em toda a API, seguindo a interface ResponseSuccess estabelecida
@@ -11,7 +11,7 @@
  * - Mensagens descritivas de sucesso
  * - Garantia de type safety TypeScript
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { ResponseSuccess } from "../../types";

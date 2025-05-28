@@ -1,5 +1,5 @@
 /**
- * Utilitário de Validação de Dados de Usuário - HyperGenMusic API v2.0
+ * Utilitário de Validação de Dados de Usuário - HyperMusic API v2.0
  *
  * Fornece validação robusta de dados de usuário para operações de
  * criação e atualização, aplicando regras de negócio específicas
@@ -12,7 +12,7 @@
  * - Validação de força de senha
  * - Verificação de tipos e comprimentos mínimos
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { UserData } from "../../types";

@@ -1,5 +1,5 @@
 /**
- * Serviço de Usuários - HyperGenMusic API v2.0
+ * Serviço de Usuários - HyperMusic API v2.0
  *
  * Implementa toda a lógica de negócio relacionada aos usuários,
  * incluindo autenticação, registro, atualização e gerenciamento de perfil.
@@ -12,7 +12,7 @@
  * - Recuperação de dados de perfil
  *
  * @implements UserService
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { User } from "../models";

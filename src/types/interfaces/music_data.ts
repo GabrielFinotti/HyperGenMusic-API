@@ -1,11 +1,11 @@
 /**
- * Interface de Dados de Música - HyperGenMusic API v2.0
+ * Interface de Dados de Música - HyperMusic API v2.0
  *
  * Define a estrutura de dados para operações de entrada de música,
  * como criação e atualização, excluindo campos gerados automaticamente.
  *
  * @interface MusicData
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 export interface MusicData {

@@ -1,5 +1,5 @@
 /**
- * Controller de Listagem de Músicas - HyperGenMusic API v2.0
+ * Controller de Listagem de Músicas - HyperMusic API v2.0
  *
  * Gerencia a recuperação paginada do catálogo completo de músicas,
  * oferecendo acesso público ao acervo musical da plataforma com
@@ -12,7 +12,7 @@
  * - Otimização de consultas
  * - Resposta estruturada
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Request, Response } from "express";

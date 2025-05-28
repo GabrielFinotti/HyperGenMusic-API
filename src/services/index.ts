@@ -1,5 +1,5 @@
 /**
- * Agregador de Implementações de Serviços - HyperGenMusic API v2.0
+ * Agregador de Implementações de Serviços - HyperMusic API v2.0
  *
  * Centraliza e exporta todas as implementações concretas dos serviços
  * da aplicação, fornecendo as classes que encapsulam a lógica de negócio.
@@ -11,7 +11,7 @@
  * - PlaylistServiceImpl: Lógica de negócio para gerenciamento de playlists ✅ (8 métodos)
  * - LikedMusicServiceImpl: Lógica de negócio para sistema de curtidas ✅ (4 métodos)
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import UserServiceImpl from "./user_service_implement";

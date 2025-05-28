@@ -1,12 +1,12 @@
 /**
- * Interface do Serviço Administrativo - HyperGenMusic API v2.0
+ * Interface do Serviço Administrativo - HyperMusic API v2.0
  *
  * Define o contrato para operações administrativas de alto privilégio,
  * incluindo gestão completa de usuários e músicas com operações
  * CRUD e funcionalidades destrutivas.
  *
  * @interface AdminService
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Music, User } from "../../models";

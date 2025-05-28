@@ -1,5 +1,5 @@
 /**
- * Configuração PostgreSQL - HyperGenMusic API v2.0
+ * Configuração PostgreSQL - HyperMusic API v2.0
  *
  * Configura e inicializa a conexão com o banco de dados PostgreSQL
  * usando Sequelize ORM. Gerencia criação automática do banco de dados
@@ -11,7 +11,7 @@
  * - Configuração otimizada do Sequelize
  * - Validação de variáveis de ambiente
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Sequelize } from "sequelize";

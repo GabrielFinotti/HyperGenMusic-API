@@ -1,11 +1,11 @@
 /**
- * Interface de Dados de Música Curtida - HyperGenMusic API v2.0
+ * Interface de Dados de Música Curtida - HyperMusic API v2.0
  *
  * Define a estrutura de dados para operações de curtida/descurtida,
  * representando a associação entre usuário e música.
  *
  * @interface LikedMusicData
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 export interface LikedMusicData {

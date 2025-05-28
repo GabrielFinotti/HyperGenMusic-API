@@ -1,5 +1,5 @@
 /**
- * Interface do Repositório de Playlists - HyperGenMusic API v2.0
+ * Interface do Repositório de Playlists - HyperMusic API v2.0
  *
  * Define o contrato para operações de acesso a dados relacionadas
  * ao modelo Playlist, estabelecendo métodos para CRUD completo de 
@@ -13,7 +13,7 @@
  * - deletePlaylist: Remoção segura
  *
  * @interface IPlaylistRepository
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Playlist } from "../../models";

@@ -1,5 +1,5 @@
 /**
- * Constantes de Validação de Dados - HyperGenMusic API v2.0
+ * Constantes de Validação de Dados - HyperMusic API v2.0
  *
  * Define padrões de validação, limites de caracteres e expressões
  * regulares utilizadas em toda a aplicação para garantir
@@ -10,7 +10,7 @@
  * - Expressões regulares para validação de formato
  * - Padrões para email, URLs e outros formatos
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  *
  * @example

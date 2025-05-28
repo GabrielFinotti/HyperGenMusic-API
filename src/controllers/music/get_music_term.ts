@@ -1,5 +1,5 @@
 /**
- * Controller de Busca por Termo - HyperGenMusic API v2.0
+ * Controller de Busca por Termo - HyperMusic API v2.0
  *
  * Gerencia a busca textual no catálogo musical por termo livre,
  * pesquisando em múltiplos campos (título, artista, álbum) com
@@ -12,7 +12,7 @@
  * - Resultados relevantes
  * - Performance otimizada
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Request, Response } from "express";

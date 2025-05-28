@@ -1,5 +1,5 @@
 /**
- * Agregador Principal de Middlewares - HyperGenMusic API v2.0
+ * Agregador Principal de Middlewares - HyperMusic API v2.0
  *
  * Centraliza e exporta todos os middlewares da aplicação
  * organizados por categoria funcional.
@@ -8,7 +8,7 @@
  * - jwt: Middlewares de autenticação JWT
  * - rules: Middlewares de autorização e controle de acesso
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { jwt } from "./auth";

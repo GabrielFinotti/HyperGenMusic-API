@@ -1,11 +1,11 @@
 /**
- * Atributos do Modelo Music - HyperGenMusic API v2.0
+ * Atributos do Modelo Music - HyperMusic API v2.0
  *
  * Define a estrutura de dados para o modelo Music, incluindo
  * metadados da música, URLs de recursos e informações técnicas.
  *
  * @interface MusicAttributes
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 export interface MusicAttributes {

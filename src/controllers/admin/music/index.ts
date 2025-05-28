@@ -1,5 +1,5 @@
 /**
- * Agregador de Controllers de Música Administrativos - HyperGenMusic API v2.0
+ * Agregador de Controllers de Música Administrativos - HyperMusic API v2.0
  *
  * Centraliza e exporta todos os controllers administrativos para operações
  * de gestão do catálogo musical, incluindo CRUD completo e busca avançada.
@@ -12,7 +12,7 @@
  * - adminDeleteMusic: Remoção individual
  * - adminDeleteAllMusics: Remoção em lote (operação destrutiva)
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import adminGetAllMusics from "./admin_get_all_musics";

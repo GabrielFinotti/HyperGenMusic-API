@@ -1,5 +1,5 @@
 /**
- * Controller de Atualização Administrativa de Música - HyperGenMusic API v2.0
+ * Controller de Atualização Administrativa de Música - HyperMusic API v2.0
  *
  * Gerencia a atualização de metadados de músicas existentes no
  * catálogo através do painel administrativo, permitindo modificação
@@ -13,7 +13,7 @@
  * - Preservação de arquivos de mídia existentes
  * - Resposta padronizada de confirmação
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Request, Response } from "express";

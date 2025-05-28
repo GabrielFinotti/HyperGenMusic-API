@@ -1,5 +1,5 @@
 /**
- * Agregador de Repositórios - HyperGenMusic API v2.0
+ * Agregador de Repositórios - HyperMusic API v2.0
  *
  * Centraliza e exporta todas as implementações de repositórios
  * da aplicação, facilitando importações e manutenção do código.
@@ -11,7 +11,7 @@
  * - PlaylistRepository: Gestão de playlists
  * - PlaylistMusicRepository: Relacionamento playlist-música
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import UserRepository from "./user_repository";

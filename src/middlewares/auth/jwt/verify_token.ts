@@ -1,5 +1,5 @@
 /**
- * Middleware de Verificação de Tokens JWT - HyperGenMusic API v2.0
+ * Middleware de Verificação de Tokens JWT - HyperMusic API v2.0
  *
  * Middleware de autenticação que valida tokens JWT em requisições protegidas,
  * verificando assinatura, expiração e status de revogação através de
@@ -12,7 +12,7 @@
  * - Injeção de userId nos parâmetros da requisição
  * - Tratamento de erros de autenticação
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { NextFunction, Request, Response } from "express";

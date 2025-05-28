@@ -1,5 +1,5 @@
 /**
- * Controller Administrativo - Listar Todos os Usuários - HyperGenMusic API v2.0
+ * Controller Administrativo - Listar Todos os Usuários - HyperMusic API v2.0
  *
  * Gerencia a recuperação paginada de todos os usuários da plataforma
  * para administradores, incluindo dados completos e controle de acesso
@@ -12,7 +12,7 @@
  * - Dados completos de perfil
  * - Auditoria de consultas
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Request, Response } from "express";

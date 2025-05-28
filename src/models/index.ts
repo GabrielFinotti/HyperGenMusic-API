@@ -1,5 +1,5 @@
 /**
- * Agregador de Modelos e Relacionamentos - HyperGenMusic API v2.0
+ * Agregador de Modelos e Relacionamentos - HyperMusic API v2.0
  *
  * Centraliza todos os modelos Sequelize e define os relacionamentos
  * entre as entidades do sistema.
@@ -16,7 +16,7 @@
  * - User N:M Music (via LikedMusics)
  * - Playlist N:M Music (via PlaylistMusics)
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import User from "./User";

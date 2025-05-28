@@ -1,5 +1,5 @@
 /**
- * Agregador de Controllers de Usuário Administrativos - HyperGenMusic API v2.0
+ * Agregador de Controllers de Usuário Administrativos - HyperMusic API v2.0
  *
  * Centraliza e exporta todos os controllers administrativos para gestão
  * completa de usuários, incluindo operações CRUD e busca avançada.
@@ -12,7 +12,7 @@
  * - adminDeleteUsers: Remoção individual com limpeza de tokens
  * - adminDeleteAllUser: Remoção em lote (operação destrutiva)
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import adminGetAllUsers from "./admin_get_all_users";

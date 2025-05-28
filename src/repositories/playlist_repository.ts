@@ -1,5 +1,5 @@
 /**
- * Repositório de Playlist - HyperGenMusic API v2.0
+ * Repositório de Playlist - HyperMusic API v2.0
  *
  * Implementa o padrão Repository para operações de acesso a dados
  * relacionadas ao modelo Playlist. Gerencia operações CRUD completas
@@ -12,7 +12,7 @@
  * - updatePlaylist: Atualização com transações
  * - deletePlaylist: Remoção segura
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Playlist } from "../models";

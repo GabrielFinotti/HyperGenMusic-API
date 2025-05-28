@@ -1,11 +1,11 @@
 /**
- * Interface do Serviço de Músicas - HyperGenMusic API v2.0
+ * Interface do Serviço de Músicas - HyperMusic API v2.0
  *
  * Define o contrato para a camada de lógica de negócio relacionada
  * ao catálogo musical, incluindo consultas públicas e operações de busca.
  *
  * @interface MusicService
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Music } from "../../models";

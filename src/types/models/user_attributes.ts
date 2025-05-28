@@ -1,11 +1,11 @@
 /**
- * Atributos do Modelo User - HyperGenMusic API v2.0
+ * Atributos do Modelo User - HyperMusic API v2.0
  *
  * Define a estrutura de dados para o modelo User, incluindo
  * campos obrigatórios e opcionais, tipos de dados e roles.
  *
  * @interface UserAttributes
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 export interface UserAttributes {

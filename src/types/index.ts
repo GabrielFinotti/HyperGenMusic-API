@@ -1,5 +1,5 @@
 /**
- * Agregador Principal de Tipos - HyperGenMusic API v2.0
+ * Agregador Principal de Tipos - HyperMusic API v2.0
  *
  * Centraliza e exporta todos os tipos, interfaces e contratos
  * da aplicação, fornecendo um ponto único de importação para
@@ -12,7 +12,7 @@
  * - Data Interfaces: DTOs para entrada de dados ✅
  * - Response Interfaces: Padrões de resposta da API ✅
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import {

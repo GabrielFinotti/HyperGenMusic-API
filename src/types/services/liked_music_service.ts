@@ -1,5 +1,5 @@
 /**
- * Interface do Serviço de Músicas Curtidas - HyperGenMusic API v2.0
+ * Interface do Serviço de Músicas Curtidas - HyperMusic API v2.0
  *
  * Define o contrato para a camada de lógica de negócio relacionada
  * ao sistema de curtidas/favoritos, incluindo operações de curtir,
@@ -12,7 +12,7 @@
  * - unlikeMusic: Remove dos favoritos
  *
  * @interface LikedMusicService
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Music } from "../../models";

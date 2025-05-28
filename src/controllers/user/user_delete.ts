@@ -1,5 +1,5 @@
 /**
- * Controller de Exclusão de Usuário - HyperGenMusic API v2.0
+ * Controller de Exclusão de Usuário - HyperMusic API v2.0
  *
  * Gerencia o processo de remoção de contas de usuário da plataforma,
  * incluindo revogação de tokens, limpeza de dados associados e
@@ -12,7 +12,7 @@
  * - Limpeza de relacionamentos
  * - Resposta de confirmação
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Request, Response } from "express";

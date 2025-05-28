@@ -1,5 +1,5 @@
 /**
- * Controller Administrativo - Busca de Músicas por Termo - HyperGenMusic API v2.0
+ * Controller Administrativo - Busca de Músicas por Termo - HyperMusic API v2.0
  *
  * Fornece funcionalidade de busca textual avançada no catálogo de músicas
  * para administradores, permitindo busca por título, artista ou gênero
@@ -11,7 +11,7 @@
  * - Validação rigorosa de parâmetros
  * - Resultados ordenados por relevância
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Request, Response } from "express";

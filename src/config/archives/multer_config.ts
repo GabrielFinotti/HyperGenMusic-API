@@ -1,5 +1,5 @@
 /**
- * Configuração Multer - HyperGenMusic API v2.0
+ * Configuração Multer - HyperMusic API v2.0
  *
  * Configura o middleware Multer para upload de arquivos diretamente
  * para Cloudflare R2, incluindo validação de tipos, geração de nomes
@@ -12,7 +12,7 @@
  * - Limite de 300MB por arquivo
  * - ACL público para acesso direto
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import multer from "multer";

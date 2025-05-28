@@ -1,5 +1,5 @@
 /**
- * Utilitário de Criação de Respostas de Erro - HyperGenMusic API v2.0
+ * Utilitário de Criação de Respostas de Erro - HyperMusic API v2.0
  *
  * Fornece padronização para criação de respostas de erro consistentes
  * em toda a API, seguindo a interface ResponseError estabelecida
@@ -11,7 +11,7 @@
  * - Mensagens descritivas de erro
  * - Garantia de tipagem TypeScript
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { ResponseError } from "../../types";

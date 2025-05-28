@@ -1,5 +1,5 @@
 /**
- * Agregador de Rotas - HyperGenMusic API v2.0
+ * Agregador de Rotas - HyperMusic API v2.0
  *
  * Centraliza e exporta todas as definições de rotas da aplicação,
  * organizando os endpoints por módulo funcional.
@@ -9,7 +9,7 @@
  * - musicRouter: Rotas públicas do catálogo musical
  * - adminRouter: Rotas administrativas protegidas
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { userRouter } from "./user_router";

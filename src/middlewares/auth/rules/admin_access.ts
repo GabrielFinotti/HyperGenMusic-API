@@ -1,5 +1,5 @@
 /**
- * Middleware de Controle de Acesso Administrativo - HyperGenMusic API v2.0
+ * Middleware de Controle de Acesso Administrativo - HyperMusic API v2.0
  *
  * Middleware de autorização que verifica se o usuário autenticado
  * possui privilégios administrativos necessários para acessar
@@ -11,7 +11,7 @@
  * - Controle de acesso granular por nível de permissão
  * - Bloqueio de usuários sem privilégios adequados
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { NextFunction, Request, Response } from "express";

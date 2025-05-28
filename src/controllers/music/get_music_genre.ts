@@ -1,5 +1,5 @@
 /**
- * Controller de Filtro por Gênero - HyperGenMusic API v2.0
+ * Controller de Filtro por Gênero - HyperMusic API v2.0
  *
  * Gerencia a recuperação de músicas filtradas por gênero musical,
  * oferecendo busca especializada com paginação para categorização
@@ -12,7 +12,7 @@
  * - Busca otimizada
  * - Resposta estruturada
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Request, Response } from "express";

@@ -1,5 +1,5 @@
 /**
- * Agregador de Utilitários - HyperGenMusic API v2.0
+ * Agregador de Utilitários - HyperMusic API v2.0
  *
  * Centraliza e exporta todos os utilitários da aplicação
  * organizados por categoria funcional.

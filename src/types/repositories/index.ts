@@ -1,5 +1,5 @@
 /**
- * Agregador de Interfaces de Repositórios - HyperGenMusic API v2.0
+ * Agregador de Interfaces de Repositórios - HyperMusic API v2.0
  *
  * Centraliza e exporta todas as interfaces que definem os contratos
  * da camada de repositórios, estabelecendo os métodos para acesso
@@ -12,7 +12,7 @@
  * - IPlaylistMusicRepository: Contrato para associações playlist-música
  * - ILikedMusicRepository: Contrato para sistema de curtidas
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { IUserRepository } from "./user_repositories";

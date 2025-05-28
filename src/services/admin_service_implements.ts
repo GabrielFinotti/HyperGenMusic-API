@@ -1,5 +1,5 @@
 /**
- * Serviço de Administração - HyperGenMusic API v2.0
+ * Serviço de Administração - HyperMusic API v2.0
  *
  * Implementa toda a lógica de negócio para operações administrativas,
  * incluindo gestão de usuários e músicas com privilégios elevados.
@@ -10,7 +10,7 @@
  * - Operações em lote (delete all)
  * - Validação rigorosa de dados
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { MusicRepository, UserRepository } from "../repositories";

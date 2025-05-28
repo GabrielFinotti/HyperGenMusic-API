@@ -1,5 +1,5 @@
 /**
- * Agregador de Controllers de Música Públicos - HyperGenMusic API v2.0
+ * Agregador de Controllers de Música Públicos - HyperMusic API v2.0
  *
  * Centraliza e exporta todos os controllers públicos para consulta
  * do catálogo musical, incluindo listagem, busca e filtros.
@@ -10,7 +10,7 @@
  * - getMusicTerm: Busca textual por termo
  * - getMusicData: Detalhes completos de música específica
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import getAllMusic from "./get_all_music";

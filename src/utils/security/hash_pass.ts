@@ -1,5 +1,5 @@
 /**
- * Utilitário de Hash de Senhas - HyperGenMusic API v2.0
+ * Utilitário de Hash de Senhas - HyperMusic API v2.0
  *
  * Fornece funcionalidades de criptografia e verificação de senhas
  * utilizando bcrypt com salt rounds configuráveis para máxima
@@ -11,7 +11,7 @@
  * - Salt rounds configuráveis (padrão: 12)
  * - Tratamento de erros de criptografia
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  *
  * @example

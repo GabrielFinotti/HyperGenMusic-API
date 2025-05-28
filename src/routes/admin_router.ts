@@ -1,5 +1,5 @@
 /**
- * Router de Administração - HyperGenMusic API v2.0
+ * Router de Administração - HyperMusic API v2.0
  *
  * Centraliza todas as rotas administrativas da API, incluindo:
  * - Gestão completa de usuários (CRUD + busca)
@@ -11,7 +11,7 @@
  * - Privilégios de administrador (rules.adminAccess)
  *
  * @security Admin/Dev role required
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Router } from "express";

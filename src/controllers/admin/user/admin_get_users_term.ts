@@ -1,5 +1,5 @@
 /**
- * Controller Administrativo - Buscar Usuários por Termo - HyperGenMusic API v2.0
+ * Controller Administrativo - Buscar Usuários por Termo - HyperMusic API v2.0
  *
  * Gerencia a busca de usuários por termo para administradores,
  * permitindo localização rápida de contas específicas através
@@ -12,7 +12,7 @@
  * - Acesso restrito a admins
  * - Resultados detalhados
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Request, Response } from "express";

@@ -1,5 +1,5 @@
 /**
- * Agregador de Utilitários de Segurança - HyperGenMusic API v2.0
+ * Agregador de Utilitários de Segurança - HyperMusic API v2.0
  *
  * Centraliza e exporta todas as funções relacionadas à segurança,
  * validação de dados, criptografia e gestão de tokens.
@@ -12,7 +12,7 @@
  * - createToken: Criação de tokens JWT
  * - revokeToken: Revogação e blacklist de tokens
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import verifyUserData from "./verify_user_data";

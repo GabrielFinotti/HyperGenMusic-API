@@ -1,5 +1,5 @@
 /**
- * Implementação do Serviço de Playlists - HyperGenMusic API v2.0
+ * Implementação do Serviço de Playlists - HyperMusic API v2.0
  *
  * Implementa toda a lógica de negócio para operações relacionadas ao
  * gerenciamento de playlists, incluindo CRUD completo de playlists
@@ -14,7 +14,7 @@
  * - Integração com repositórios de dados
  * - 8 métodos completamente funcionais
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { PlaylistRepository, PlaylistMusicRepository } from "../repositories";

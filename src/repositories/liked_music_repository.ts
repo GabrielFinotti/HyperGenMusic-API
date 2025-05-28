@@ -1,11 +1,11 @@
 /**
- * Repositório de Músicas Curtidas - HyperGenMusic API v2.0
+ * Repositório de Músicas Curtidas - HyperMusic API v2.0
  *
  * Implementa o padrão Repository para operações de acesso a dados
  * relacionadas ao modelo LikedMusics. Gerencia o relacionamento
  * many-to-many entre usuários e suas músicas favoritas.
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { LikedMusics, Music, User } from "../models";

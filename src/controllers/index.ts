@@ -1,5 +1,5 @@
 /**
- * Agregador Principal de Controllers - HyperGenMusic API v2.0
+ * Agregador Principal de Controllers - HyperMusic API v2.0
  *
  * Centraliza e organiza todos os controllers da aplicação em objetos
  * categorizados por funcionalidade, fornecendo um ponto único de acesso
@@ -13,7 +13,7 @@
  * Estrutura organizada para facilitar importação e uso pelos roteadores
  * e manter separação clara de responsabilidades por domínio.
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import {

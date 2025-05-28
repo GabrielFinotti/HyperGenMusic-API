@@ -1,7 +1,7 @@
 <div align="center">
-  <img src="https://via.placeholder.com/200x200.png?text=HyperGenMusic+API" alt="HyperGenMusic API Logo" width="200" height="200">
+  <img src="https://via.placeholder.com/200x200.png?text=HyperMusic+API" alt="HyperMusic API Logo" width="200" height="200">
   
-# 🎵 HyperGenMusic API v2.0
+# 🎵 HyperMusic API v2.0
   
   <p><strong>API de Streaming de Música Enterprise com Arquitetura Moderna</strong></p>
   
@@ -9,9 +9,8 @@
   [![TypeScript](https://img.shields.io/badge/TypeScript-5.7%2B-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
   [![Express](https://img.shields.io/badge/Express-4.21%2B-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
   [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-  [![Redis](https://img.shields.io/badge/Redis-Latest-DC382D?style=for-the-badge&logo=redis&logoColor=white)](https://redis.io/)
-    [![Versão](https://img.shields.io/badge/Versão-2.0.0--rc.1-blue?style=for-the-badge)](https://github.com/GabrielFinotti/HyperGenMusic-API)
-  [![Status](https://img.shields.io/badge/Status-Release%20Candidate-brightgreen?style=for-the-badge)](https://github.com/GabrielFinotti/HyperGenMusic-API)    [![Progresso](https://img.shields.io/badge/Progresso-99%25-brightgreen?style=for-the-badge)](TASKS.md)
+  [![Redis](https://img.shields.io/badge/Redis-Latest-DC382D?style=for-the-badge&logo=redis&logoColor=white)](https://redis.io/)    [![Versão](https://img.shields.io/badge/Versão-2.0.0--rc.1-blue?style=for-the-badge)](https://github.com/GabrielFinotti/HyperMusic-API)
+  [![Status](https://img.shields.io/badge/Status-Release%20Candidate-brightgreen?style=for-the-badge)](https://github.com/GabrielFinotti/HyperMusic-API)    [![Progresso](https://img.shields.io/badge/Progresso-99%25-brightgreen?style=for-the-badge)](TASKS.md)
 
   > 🚀 **v2.0 Release Candidate**: Core features estáveis, sistemas de playlists e favoritos implementados
 </div>
@@ -61,7 +60,7 @@
 
 ## 🚀 Visão Geral
 
-O **HyperGenMusic API v2.0** representa uma evolução completa da plataforma, oferecendo uma solução backend **enterprise-grade** para streaming de música. Esta versão introduz uma arquitetura moderna baseada em **Repository Pattern**, **Service Layer** e **TypeScript** para máxima type safety.
+O **HyperMusic API v2.0** representa uma evolução completa da plataforma, oferecendo uma solução backend **enterprise-grade** para streaming de música. Esta versão introduz uma arquitetura moderna baseada em **Repository Pattern**, **Service Layer** e **TypeScript** para máxima type safety.
 
 ### 🎯 Destaques da v2.0
 
@@ -127,7 +126,7 @@ O **HyperGenMusic API v2.0** representa uma evolução completa da plataforma, o
 ### 📚 **Documentação Enterprise**
 
 - ✅ **JSDoc Headers**: Documentação padronizada em 46+ arquivos TypeScript
-- ✅ **Padrão Consistente**: Headers com @author "HyperGenMusic Team" e @version "2.0.0"
+- ✅ **Padrão Consistente**: Headers com @author "HyperMusic Team" e @version "2.0.0"
 - ✅ **Funcionalidades Detalhadas**: Descrições completas de cada módulo
 - ✅ **Cobertura Total**: Controllers, Services, Repositories, Models, Utils e Middlewares
 
@@ -341,7 +340,7 @@ Authorization: Bearer <your_jwt_token>
 - ✅ Error Handling centralizado e padronizado
 - ✅ Validation middleware robusto
 - ✅ Upload otimizado com suporte S3
-- ✅ JSDoc Headers com padrão @author "HyperGenMusic Team" e @version "2.0.0"
+- ✅ JSDoc Headers com padrão @author "HyperMusic Team" e @version "2.0.0"
 - ✅ **PlaylistServiceImpl**: 8 métodos funcionais com validações robustas
 - ✅ **LikedMusicServiceImpl**: 4 métodos funcionais com prevenção de duplicatas
 - ✅ Sistema de posicionamento dinâmico para playlists
@@ -432,6 +431,6 @@ Authorization: Bearer <your_jwt_token>
 [![GitHub](https://img.shields.io/badge/GitHub-@GabrielFinotti-181717?style=flat&logo=github)](https://github.com/GabrielFinotti)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Gabriel%20Finotti-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/gabriel-h-finotti-6b4bb029b)
 
-**HyperGenMusic API** • **v2.0.0-rc.1** • **2025**
+**HyperMusic API** • **v2.0.0-rc.1** • **2025**
 
 </div>

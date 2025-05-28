@@ -1,5 +1,5 @@
 /**
- * Controller de Listagem Administrativa de Música - HyperGenMusic API v2.0
+ * Controller de Listagem Administrativa de Música - HyperMusic API v2.0
  *
  * Gerencia a listagem completa do catálogo musical através do painel
  * administrativo com controles rígidos de paginação e validação
@@ -13,7 +13,7 @@
  * - Metadados completos incluindo IDs
  * - Resposta estruturada para gestão
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Request, Response } from "express";

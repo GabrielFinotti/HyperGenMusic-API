@@ -1,4 +1,4 @@
-# HyperGenMusic-API v2.0 - Controle de Desenvolvimento
+# HyperMusic-API v2.0 - Controle de Desenvolvimento
 
 ## Análise de Progresso da v2.0
 

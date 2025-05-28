@@ -1,5 +1,5 @@
 /**
- * Configuração Cloudflare R2 - HyperGenMusic API v2.0
+ * Configuração Cloudflare R2 - HyperMusic API v2.0
  *
  * Configura o cliente S3 para Cloudflare R2, utilizado para
  * armazenamento de arquivos de música, imagens de capa e
@@ -11,7 +11,7 @@
  * - Região automática para otimização global
  * - Credenciais seguras via AWS SDK
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { S3Client } from "@aws-sdk/client-s3";

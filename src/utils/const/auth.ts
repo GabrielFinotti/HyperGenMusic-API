@@ -1,5 +1,5 @@
 /**
- * Constantes de Autenticação - HyperGenMusic API v2.0
+ * Constantes de Autenticação - HyperMusic API v2.0
  *
  * Define configurações de tempo de vida para tokens JWT,
  * incluindo durações para diferentes tipos de autenticação
@@ -10,7 +10,7 @@
  * - MAX_TEMP: Duração máxima para tokens de longa duração
  * - Valores em segundos para compatibilidade com JWT
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  *
  * @example

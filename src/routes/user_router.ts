@@ -1,5 +1,5 @@
 /**
- * Router de Usuários - HyperGenMusic API v2.0
+ * Router de Usuários - HyperMusic API v2.0
  *
  * Gerencia todas as operações relacionadas aos usuários:
  * - Autenticação (login/register/logout)
@@ -9,7 +9,7 @@
  * Endpoints públicos: /auth/login, /auth/register
  * Endpoints protegidos: Requerem JWT válido
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Router } from "express";

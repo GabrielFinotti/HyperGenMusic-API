@@ -1,5 +1,5 @@
 /**
- * Utilitário de Criação de Tokens JWT - HyperGenMusic API v2.0
+ * Utilitário de Criação de Tokens JWT - HyperMusic API v2.0
  *
  * Fornece geração de tokens JWT para autenticação de usuários
  * com diferentes durações baseadas no tipo de login (temporário ou longo).
@@ -11,7 +11,7 @@
  * - Payload personalizado com dados do usuário
  * - Configuração segura via variáveis de ambiente
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import jwt from "jsonwebtoken";

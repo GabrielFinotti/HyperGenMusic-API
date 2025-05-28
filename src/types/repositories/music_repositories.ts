@@ -1,12 +1,12 @@
 /**
- * Interface do Repositório de Músicas - HyperGenMusic API v2.0
+ * Interface do Repositório de Músicas - HyperMusic API v2.0
  *
  * Define o contrato para operações de acesso a dados relacionadas
  * ao modelo Music, estabelecendo métodos para CRUD completo e consultas
  * especializadas como busca por termo e filtro por gênero.
  *
  * @interface IMusicRepository
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Music } from "../../models";

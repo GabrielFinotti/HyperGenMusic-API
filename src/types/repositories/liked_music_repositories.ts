@@ -1,12 +1,12 @@
 /**
- * Interface do Repositório de Músicas Curtidas - HyperGenMusic API v2.0
+ * Interface do Repositório de Músicas Curtidas - HyperMusic API v2.0
  *
  * Define o contrato para operações de acesso a dados relacionadas
  * ao modelo LikedMusics, estabelecendo métodos para gerenciamento
  * do sistema de curtidas entre usuários e músicas.
  *
  * @interface ILikedMusicRepository
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { LikedMusics, Music } from "../../models";

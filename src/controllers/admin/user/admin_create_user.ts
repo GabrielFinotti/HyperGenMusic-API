@@ -1,5 +1,5 @@
 /**
- * Controller Administrativo - Criar Usuário - HyperGenMusic API v2.0
+ * Controller Administrativo - Criar Usuário - HyperMusic API v2.0
  *
  * Gerencia a criação de novos usuários através do painel administrativo,
  * permitindo que administradores criem contas com privilégios específicos
@@ -12,7 +12,7 @@
  * - Bypass de restrições padrão
  * - Auditoria de criação
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Request, Response } from "express";

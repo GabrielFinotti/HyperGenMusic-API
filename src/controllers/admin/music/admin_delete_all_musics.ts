@@ -1,5 +1,5 @@
 /**
- * Controller de Remoção Completa de Catálogo - HyperGenMusic API v2.0
+ * Controller de Remoção Completa de Catálogo - HyperMusic API v2.0
  *
  * Gerencia a operação destrutiva de remoção completa do catálogo
  * musical através do painel administrativo. Remove todas as músicas
@@ -15,7 +15,7 @@
  *
  * ⚠️ ATENÇÃO: Operação destrutiva, use apenas em desenvolvimento!
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Request, Response } from "express";

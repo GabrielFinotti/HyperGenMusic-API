@@ -1,5 +1,5 @@
 /**
- * Controller de Dados de Música - HyperGenMusic API v2.0
+ * Controller de Dados de Música - HyperMusic API v2.0
  *
  * Gerencia a recuperação de dados detalhados de uma música específica
  * do catálogo, fornecendo informações completas incluindo metadados,
@@ -12,7 +12,7 @@
  * - Tratamento de não encontrado
  * - Resposta otimizada
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Request, Response } from "express";

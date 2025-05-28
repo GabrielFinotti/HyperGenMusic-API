@@ -1,5 +1,5 @@
 /**
- * Modelo de Relacionamento Playlist-Música - HyperGenMusic API v2.0
+ * Modelo de Relacionamento Playlist-Música - HyperMusic API v2.0
  *
  * Define o modelo Sequelize para a tabela de junção entre Playlist e
  * Music, controlando a associação many-to-many com informações
@@ -13,7 +13,7 @@
  * - Validações de integridade referencial
  * - Índices otimizados para consultas
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { DataTypes, Model } from "sequelize";

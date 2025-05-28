@@ -1,5 +1,5 @@
 /**
- * Agregador de Controllers de Usuário - HyperGenMusic API v2.0
+ * Agregador de Controllers de Usuário - HyperMusic API v2.0
  *
  * Centraliza e exporta todos os controllers relacionados às operações
  * de usuário, incluindo autenticação, gestão de perfil e ciclo de vida.
@@ -11,7 +11,7 @@
  * - getProfile: Recuperação de dados do perfil do usuário
  * - userUpdate: Atualização de informações pessoais
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import userLogin from "./user_login";

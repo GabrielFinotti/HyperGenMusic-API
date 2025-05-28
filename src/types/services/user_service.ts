@@ -1,11 +1,11 @@
 /**
- * Interface do Serviço de Usuários - HyperGenMusic API v2.0
+ * Interface do Serviço de Usuários - HyperMusic API v2.0
  *
  * Define o contrato para a camada de lógica de negócio relacionada
  * aos usuários, incluindo autenticação, registro e gestão de perfil.
  *
  * @interface UserService
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { User } from "../../models";

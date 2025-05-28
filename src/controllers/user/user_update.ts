@@ -1,5 +1,5 @@
 /**
- * Controller de Atualização de Usuário - HyperGenMusic API v2.0
+ * Controller de Atualização de Usuário - HyperMusic API v2.0
  *
  * Gerencia o processo de atualização de dados de perfil dos usuários,
  * incluindo upload de imagens, validação de dados e preservação
@@ -12,7 +12,7 @@
  * - Preservação da segurança
  * - Resposta com dados atualizados
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Request, Response } from "express";

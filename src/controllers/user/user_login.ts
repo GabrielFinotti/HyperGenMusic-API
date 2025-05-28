@@ -1,5 +1,5 @@
 /**
- * Controller de Login de Usuário - HyperGenMusic API v2.0
+ * Controller de Login de Usuário - HyperMusic API v2.0
  *
  * Gerencia o processo de autenticação de usuários existentes,
  * validando credenciais e gerando tokens JWT para acesso à API.
@@ -11,7 +11,7 @@
  * - Resposta com dados parciais do usuário
  * - Tratamento centralizado de erros
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Request, Response } from "express";

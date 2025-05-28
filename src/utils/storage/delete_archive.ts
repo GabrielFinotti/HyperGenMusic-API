@@ -1,5 +1,5 @@
 /**
- * Utilitário de Remoção de Arquivos - HyperGenMusic API v2.0
+ * Utilitário de Remoção de Arquivos - HyperMusic API v2.0
  *
  * Fornece funcionalidade para remoção segura de arquivos do
  * Cloudflare R2, extraindo chaves de objeto de URLs e executando
@@ -11,7 +11,7 @@
  * - Validação de parâmetros de entrada
  * - Tratamento de erros de operação
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { DeleteObjectCommand } from "@aws-sdk/client-s3";

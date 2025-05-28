@@ -1,5 +1,5 @@
 /**
- * Controller de Criação Administrativa de Música - HyperGenMusic API v2.0
+ * Controller de Criação Administrativa de Música - HyperMusic API v2.0
  *
  * Gerencia a criação de novas músicas no catálogo através do painel
  * administrativo, incluindo processamento de uploads de arquivos de
@@ -13,7 +13,7 @@
  * - Integração com AWS S3/Cloudflare R2
  * - Resposta padronizada de sucesso/erro
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Request, Response } from "express";

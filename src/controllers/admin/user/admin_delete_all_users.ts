@@ -1,5 +1,5 @@
 /**
- * Controller de Remoção Completa de Usuários - HyperGenMusic API v2.0
+ * Controller de Remoção Completa de Usuários - HyperMusic API v2.0
  *
  * Gerencia a operação destrutiva de remoção completa da base de
  * usuários através do painel administrativo. Remove todos os usuários
@@ -15,7 +15,7 @@
  *
  * ⚠️ ATENÇÃO: Operação destrutiva, use apenas em desenvolvimento!
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { Request, Response } from "express";

@@ -1,5 +1,5 @@
 /**
- * Agregador de Constantes - HyperGenMusic API v2.0
+ * Agregador de Constantes - HyperMusic API v2.0
  *
  * Centraliza e exporta todas as constantes da aplicação,
  * incluindo parâmetros de validação e configurações.
@@ -9,7 +9,7 @@
  * - regex: Expressões regulares para validação de formatos
  * - authTokenTemp: Configurações de tempo de vida dos tokens
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { minChar, regex } from "./verify_data";

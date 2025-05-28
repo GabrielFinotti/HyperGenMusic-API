@@ -1,5 +1,5 @@
 /**
- * Modelo de Música - HyperGenMusic API v2.0
+ * Modelo de Música - HyperMusic API v2.0
  *
  * Define o modelo Sequelize para a entidade Music, representando
  * músicas no catálogo da plataforma com todos os metadados,
@@ -13,7 +13,7 @@
  * - Índices otimizados para busca
  * - Timestamps automáticos
  *
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 import { DataTypes, Model, Optional } from "sequelize";
@@ -27,7 +27,7 @@ interface MusicCreationAttributes extends Optional<MusicAttributes, "id"> {}
 /**
  * Modelo de Música do Sistema
  *
- * Representa uma música no catálogo do HyperGenMusic, incluindo
+ * Representa uma música no catálogo do HyperMusic, incluindo
  * metadados como título, artista, duração e URLs para arquivos.
  *
  * Relacionamentos:

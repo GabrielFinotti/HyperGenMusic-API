@@ -1,11 +1,11 @@
 /**
- * Atributos do Modelo Playlist - HyperGenMusic API v2.0
+ * Atributos do Modelo Playlist - HyperMusic API v2.0
  *
  * Define a estrutura de dados para o modelo Playlist, incluindo
  * relacionamento com usuário e informações básicas.
  *
  * @interface PlaylistAttributes
- * @author HyperGenMusic Team
+ * @author HyperMusic Team
  * @version 2.0.0-rc.1
  */
 export interface PlaylistAttributes {
