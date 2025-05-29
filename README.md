@@ -10,16 +10,16 @@
   [![Express](https://img.shields.io/badge/Express-4.21%2B-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
   [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
   [![Redis](https://img.shields.io/badge/Redis-Latest-DC382D?style=for-the-badge&logo=redis&logoColor=white)](https://redis.io/)    [![Versão](https://img.shields.io/badge/Versão-2.0.0--rc.1-blue?style=for-the-badge)](https://github.com/GabrielFinotti/HyperMusic-API)
-  [![Status](https://img.shields.io/badge/Status-Release%20Candidate-brightgreen?style=for-the-badge)](https://github.com/GabrielFinotti/HyperMusic-API)    [![Progresso](https://img.shields.io/badge/Progresso-99%25-brightgreen?style=for-the-badge)](TASKS.md)
+  [![Status](https://img.shields.io/badge/Status-Release%20Candidate-brightgreen?style=for-the-badge)](https://github.com/GabrielFinotti/HyperMusic-API)    [![Progresso](https://img.shields.io/badge/Progresso-97%25-brightgreen?style=for-the-badge)](TASKS.md)
 
-  > 🚀 **v2.0 Release Candidate**: Core features estáveis, sistemas de playlists e favoritos implementados
+  > 🚀 **v2.0 Release Candidate**: Core features estáveis, sistemas de playlists e favoritos 95% implementados
 </div>
 
 ---
 
 ## 📊 Status do Desenvolvimento v2.0
 
-### 🟢 **Recursos Implementados (99%)**
+### 🟢 **Recursos Implementados (97%)**
 
 | Categoria | Feature | Status | Completude |
 |-----------|---------|--------|------------|
@@ -27,8 +27,8 @@
 | 👤 **Usuários** | CRUD Completo | ✅ | 100% |
 | 🎵 **Músicas** | CRUD + Search | ✅ | 100% |
 | 👑 **Admin** | Gerenciamento | ✅ | 100% |
-| 📋 **Playlists** | Sistema Completo | ✅ | 100% |
-| ❤️ **Favoritos** | Sistema de Curtidas | ✅ | 100% |
+| 📋 **Playlists** | Sistema Completo | ✅ | 95% |
+| ❤️ **Favoritos** | Sistema de Curtidas | ✅ | 95% |
 | 📁 **Upload** | Arquivos + S3 | ✅ | 100% |
 | 🛡️ **Segurança** | Validação + Middleware | ✅ | 100% |
 | 🏗️ **Arquitetura** | Repository Pattern | ✅ | 100% |
@@ -38,8 +38,9 @@
 
 | Feature | Prioridade | Status | ETA |
 |---------|------------|--------|-----|
+| 🚦 **Rotas Playlist/Favoritos** | Alta | 🟡 Em Progresso | v2.0 Final |
+| 🧪 **Testes** | Alta | 🔴 Pendente | v2.0 Final |
 | 🎧 **Streaming** | Média | 🔴 Planejado | v2.1 |
-| 🧪 **Testes** | Alta | 🔴 Pendente | v2.0 |
 
 ---
 
@@ -252,27 +253,27 @@ Content-Type: application/json
 | `DELETE` | `/admin/music/delete/{id}` | Excluir música | 👑 Admin |
 | `DELETE` | `/admin/musics/deleteAll` | Excluir todas | 👑 Admin |
 
-### 📋 **Playlists** *(Implementado - v2.0)*
+### 📋 **Playlists** *(95% Implementado - v2.0)*
 
 | Método | Endpoint | Descrição | Auth | Status |
 |--------|----------|-----------|------|--------|
-| `POST` | `/playlists` | Criar playlist | ✅ | ✅ Backend Ready |
-| `GET` | `/playlists` | Listar playlists do usuário | ✅ | ✅ Backend Ready |
-| `GET` | `/playlists/{id}` | Detalhes da playlist | ✅ | ✅ Backend Ready |
-| `PUT` | `/playlists/{id}` | Atualizar playlist | ✅ | ✅ Backend Ready |
-| `DELETE` | `/playlists/{id}` | Deletar playlist | ✅ | ✅ Backend Ready |
-| `POST` | `/playlists/{id}/musics` | Adicionar música | ✅ | ✅ Backend Ready |
-| `DELETE` | `/playlists/{id}/musics/{musicId}` | Remover música | ✅ | ✅ Backend Ready |
-| `PUT` | `/playlists/{id}/positions` | Reordenar músicas | ✅ | ✅ Backend Ready |
+| `POST` | `/playlists` | Criar playlist | ✅ | 🟡 Controller Ready |
+| `GET` | `/playlists/{userId}` | Listar playlists do usuário | ✅ | 🟡 Controller Ready |
+| `GET` | `/playlists/{id}/musics` | Músicas da playlist | ✅ | 🟡 Controller Ready |
+| `PUT` | `/playlists/{id}` | Atualizar playlist | ✅ | 🟡 Controller Ready |
+| `DELETE` | `/playlists/{id}` | Deletar playlist | ✅ | 🟡 Controller Ready |
+| `POST` | `/playlists/{id}/musics` | Adicionar música | ✅ | 🟡 Controller Ready |
+| `DELETE` | `/playlists/{id}/musics` | Remover música | ✅ | 🟡 Controller Ready |
+| `PUT` | `/playlists/{id}/positions` | Reordenar músicas | ✅ | 🟡 Controller Ready |
 
-### ❤️ **Favoritos** *(Implementado - v2.0)*
+### ❤️ **Favoritos** *(95% Implementado - v2.0)*
 
 | Método | Endpoint | Descrição | Auth | Status |
 |--------|----------|-----------|------|--------|
-| `POST` | `/favorites` | Curtir música | ✅ | ✅ Backend Ready |
-| `DELETE` | `/favorites/{musicId}` | Descurtir música | ✅ | ✅ Backend Ready |
-| `GET` | `/favorites` | Listar favoritas do usuário | ✅ | ✅ Backend Ready |
-| `GET` | `/favorites/{musicId}/status` | Status da curtida | ✅ | ✅ Backend Ready |
+| `POST` | `/favorites` | Curtir música | ✅ | 🟡 Controller Ready |
+| `DELETE` | `/favorites/{musicId}` | Descurtir música | ✅ | 🟡 Controller Ready |
+| `GET` | `/favorites/{userId}` | Listar favoritas do usuário | ✅ | 🟡 Controller Ready |
+| `GET` | `/favorites/{musicId}/status` | Status da curtida | ✅ | 🟡 Controller Ready |
 
 ### 🔑 **Autenticação**
 
@@ -319,7 +320,7 @@ Authorization: Bearer <your_jwt_token>
 
 ## 📈 Changelog
 
-### 🚀 **v2.0.0-rc.1** (Atual - 27/05/2025)
+### 🚀 **v2.0.0-rc.1** (Atual - 29/05/2025)
 
 #### ✨ **Novos Recursos**
 
@@ -329,8 +330,8 @@ Authorization: Bearer <your_jwt_token>
 - 🎯 **API Padronizada**: Responses unificadas e tratamento de erros centralizado
 - 🚀 **Performance Otimizada**: Queries eficientes e paginação inteligente
 - 📚 **Documentação JSDoc Enterprise**: Headers padronizados em 46+ arquivos TypeScript
-- 📋 **Sistema de Playlists Completo**: CRUD, gerenciamento de músicas e posicionamento implementados
-- ❤️ **Sistema de Favoritos Completo**: Curtir/descurtir, listagem e verificação de status implementados
+- 📋 **Sistema de Playlists 95% Completo**: CRUD, controllers e gerenciamento de músicas implementados
+- ❤️ **Sistema de Favoritos 95% Completo**: Controllers, curtir/descurtir e verificação de status implementados
 
 #### 🔧 **Melhorias Técnicas**
 
@@ -363,20 +364,22 @@ Authorization: Bearer <your_jwt_token>
   - [x] Modelos e repositórios implementados
   - [x] Interfaces de serviço documentadas
   - [x] Implementação completa da lógica de negócio
-  - [ ] Controllers e rotas REST
+  - [x] Controllers implementados
+  - [ ] Rotas REST e endpoints públicos
   
 - [x] **Sistema de Favoritos Completo**
   - [x] Modelos e repositórios implementados  
   - [x] Interfaces de serviço documentadas
   - [x] Implementação completa da lógica de negócio
-  - [ ] Controllers e APIs de curtidas
+  - [x] Controllers implementados
+  - [ ] Rotas REST e endpoints públicos
 
 - [ ] **Testes Automatizados**
   - [ ] Unit tests para services
   - [ ] Integration tests para APIs
   - [ ] E2E tests críticos
 
-> **🎉 Status Atual**: Lógica de negócio 100% implementada para Playlists e Favoritos. Próximo passo: implementar controllers e rotas REST.
+> **🎉 Status Atual**: Lógica de negócio e controllers 100% implementados para Playlists e Favoritos. Próximo passo: implementar rotas REST e expor endpoints públicos.
 
 ### 🚀 **v2.1 (Q3 2025)**
 
