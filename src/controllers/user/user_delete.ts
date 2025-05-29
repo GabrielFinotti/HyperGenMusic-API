@@ -1,20 +1,3 @@
-/**
- * Controller de Exclusão de Usuário - HyperGenMusic API v2.0
- *
- * Gerencia o processo de remoção de contas de usuário da plataforma,
- * incluindo revogação de tokens, limpeza de dados associados e
- * confirmação segura da operação.
- *
- * Funcionalidades:
- * - Autenticação via token JWT
- * - Revogação de tokens ativos
- * - Exclusão de dados do usuário
- * - Limpeza de relacionamentos
- * - Resposta de confirmação
- *
- * @author HyperGenMusic Team
- * @version 2.0.0-rc.1
- */
 import { Request, Response } from "express";
 import { UserServiceImpl } from "../../services";
 import { ResponseSuccess } from "../../types";
@@ -24,18 +7,18 @@ const userDelete = async (req: Request, res: Response) => {
   try {
     const token = req.headers.authorization?.split(" ")[1] as string;
 
-    const isError = await UserServiceImpl.userDelete(
+    const serviceResponse = await UserServiceImpl.userDelete(
       parseInt(req.params.userId),
       token
     );
 
-    if (!isError.success) {
-      res.status(isError.errorCode).send(isError);
+    if (!serviceResponse.success) {
+      res.status(serviceResponse.errorCode).send(serviceResponse);
 
       return;
     }
 
-    const result = isError as ResponseSuccess<null>;
+    const result = serviceResponse as ResponseSuccess<null>;
 
     res.status(result.statusCode).send(result);
   } catch (error) {

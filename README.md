@@ -1,7 +1,7 @@
 <div align="center">
-  <img src="https://via.placeholder.com/200x200.png?text=HyperGenMusic+API" alt="HyperGenMusic API Logo" width="200" height="200">
+  <img src="https://via.placeholder.com/200x200.png?text=HyperMusic+API" alt="HyperMusic API Logo" width="200" height="200">
   
-# 🎵 HyperGenMusic API v2.0
+# 🎵 HyperMusic API v2.0
   
   <p><strong>API de Streaming de Música Enterprise com Arquitetura Moderna</strong></p>
   
@@ -9,18 +9,17 @@
   [![TypeScript](https://img.shields.io/badge/TypeScript-5.7%2B-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
   [![Express](https://img.shields.io/badge/Express-4.21%2B-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
   [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Latest-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-  [![Redis](https://img.shields.io/badge/Redis-Latest-DC382D?style=for-the-badge&logo=redis&logoColor=white)](https://redis.io/)
-    [![Versão](https://img.shields.io/badge/Versão-2.0.0--rc.1-blue?style=for-the-badge)](https://github.com/GabrielFinotti/HyperGenMusic-API)
-  [![Status](https://img.shields.io/badge/Status-Release%20Candidate-brightgreen?style=for-the-badge)](https://github.com/GabrielFinotti/HyperGenMusic-API)[![Progresso](https://img.shields.io/badge/Progresso-90%25-brightgreen?style=for-the-badge)](TASKS.md)
+  [![Redis](https://img.shields.io/badge/Redis-Latest-DC382D?style=for-the-badge&logo=redis&logoColor=white)](https://redis.io/)    [![Versão](https://img.shields.io/badge/Versão-2.0.0--rc.1-blue?style=for-the-badge)](https://github.com/GabrielFinotti/HyperMusic-API)
+  [![Status](https://img.shields.io/badge/Status-Release%20Candidate-brightgreen?style=for-the-badge)](https://github.com/GabrielFinotti/HyperMusic-API)    [![Progresso](https://img.shields.io/badge/Progresso-97%25-brightgreen?style=for-the-badge)](TASKS.md)
 
-  > 🚀 **v2.0 Release Candidate**: Core features estáveis, API enterprise-ready
+  > 🚀 **v2.0 Release Candidate**: Core features estáveis, sistemas de playlists e favoritos 95% implementados
 </div>
 
 ---
 
 ## 📊 Status do Desenvolvimento v2.0
 
-### 🟢 **Recursos Implementados (90%)**
+### 🟢 **Recursos Implementados (97%)**
 
 | Categoria | Feature | Status | Completude |
 |-----------|---------|--------|------------|
@@ -28,19 +27,19 @@
 | 👤 **Usuários** | CRUD Completo | ✅ | 100% |
 | 🎵 **Músicas** | CRUD + Search | ✅ | 100% |
 | 👑 **Admin** | Gerenciamento | ✅ | 100% |
+| 📋 **Playlists** | Sistema Completo | ✅ | 95% |
+| ❤️ **Favoritos** | Sistema de Curtidas | ✅ | 95% |
 | 📁 **Upload** | Arquivos + S3 | ✅ | 100% |
 | 🛡️ **Segurança** | Validação + Middleware | ✅ | 100% |
 | 🏗️ **Arquitetura** | Repository Pattern | ✅ | 100% |
-| 📚 **Documentação** | JSDoc Enterprise | ✅ | 100% |
 
-### 🟡 **Em Desenvolvimento (10%)**
+### 🟡 **Em Desenvolvimento (1%)**
 
 | Feature | Prioridade | Status | ETA |
 |---------|------------|--------|-----|
-| 📋 **Playlists** | Alta | 🟡 Em progresso | v2.0 |
-| ❤️ **Favoritos** | Alta | 🟡 Em progresso | v2.0 |
+| 🚦 **Rotas Playlist/Favoritos** | Alta | 🟡 Em Progresso | v2.0 Final |
+| 🧪 **Testes** | Alta | 🔴 Pendente | v2.0 Final |
 | 🎧 **Streaming** | Média | 🔴 Planejado | v2.1 |
-| 🧪 **Testes** | Alta | 🔴 Pendente | v2.0 |
 
 ---
 
@@ -61,7 +60,7 @@
 
 ## 🚀 Visão Geral
 
-O **HyperGenMusic API v2.0** representa uma evolução completa da plataforma, oferecendo uma solução backend **enterprise-grade** para streaming de música. Esta versão introduz uma arquitetura moderna baseada em **Repository Pattern**, **Service Layer** e **TypeScript** para máxima type safety.
+O **HyperMusic API v2.0** representa uma evolução completa da plataforma, oferecendo uma solução backend **enterprise-grade** para streaming de música. Esta versão introduz uma arquitetura moderna baseada em **Repository Pattern**, **Service Layer** e **TypeScript** para máxima type safety.
 
 ### 🎯 Destaques da v2.0
 
@@ -108,11 +107,27 @@ O **HyperGenMusic API v2.0** representa uma evolução completa da plataforma, o
 - ✅ **Error Handling**: Tratamento centralizado e padronizado
 - ✅ **Dependency Injection**: Baixo acoplamento entre componentes
 
-### 📚 **Documentação Enterprise**
+### 📋 **Sistema de Playlists** (✅ Implementado v2.0)
 
-- ✅ **JSDoc Headers**: Documentação padronizada em 46+ arquivos TypeScript
-- ✅ **Padrão Consistente**: Headers com @author "HyperGenMusic Team" e @version "2.0.0"
-- ✅ **Funcionalidades Detalhadas**: Descrições completas de cada módulo
+- ✅ **CRUD Completo**: Criação, listagem, atualização e exclusão de playlists
+- ✅ **Gerenciamento de Músicas**: Adicionar, remover e reordenar músicas
+- ✅ **Sistema de Posicionamento**: Ordenação dinâmica das faixas
+- ✅ **Validações Robustas**: Verificação de duplicatas e integridade
+- ✅ **Relacionamentos**: Associações user-playlist com controle de acesso
+
+### ❤️ **Sistema de Favoritos** (✅ Implementado v2.0)
+
+- ✅ **Curtir/Descurtir**: Sistema completo de likes em músicas
+- ✅ **Lista de Favoritos**: Consulta de músicas curtidas por usuário
+- ✅ **Status de Curtidas**: Verificação se usuário curtiu determinada música
+- ✅ **Prevenção de Duplicatas**: Validação de integridade nas operações
+- ✅ **Performance Otimizada**: Consultas eficientes com relacionamentos
+
+### 📚 **Code Structure**
+
+- ✅ **TypeScript**: Tipagem forte em todos os módulos
+- ✅ **Padrão Consistente**: Arquitetura modular padronizada
+- ✅ **Funcionalidades Detalhadas**: Implementação completa de recursos
 - ✅ **Cobertura Total**: Controllers, Services, Repositories, Models, Utils e Middlewares
 
 ---
@@ -133,15 +148,21 @@ src/
 ├── 📁 services/           # Camada de lógica de negócio
 │   ├── 📄 user_service_implement.ts
 │   ├── 📄 music_service_implement.ts
-│   └── 📄 admin_service_implements.ts
+│   ├── 📄 admin_service_implements.ts
+│   ├── 📄 playlist_service_implement.ts    # 🆕 v2.0
+│   └── 📄 liked_music_service_implement.ts # 🆕 v2.0
 ├── 📁 repositories/       # Camada de acesso a dados
 │   ├── 📄 user_repository.ts
 │   ├── 📄 music_repository.ts
-│   └── 📄 playlist_repository.ts
+│   ├── 📄 playlist_repository.ts           # 🆕 v2.0
+│   ├── 📄 playlist_music_repository.ts     # 🆕 v2.0
+│   └── 📄 liked_music_repository.ts        # 🆕 v2.0
 ├── 📁 models/             # Modelos Sequelize
 │   ├── 📄 User.ts
 │   ├── 📄 Music.ts
-│   └── 📄 Playlist.ts
+│   ├── 📄 Playlist.ts                      # 🆕 v2.0
+│   ├── 📄 PlaylistMusics.ts               # 🆕 v2.0
+│   └── 📄 LikedMusics.ts                  # 🆕 v2.0
 ├── 📁 types/              # Definições TypeScript
 │   ├── 📁 interfaces/     # Contratos de dados
 │   ├── 📁 models/         # Atributos dos modelos
@@ -231,6 +252,28 @@ Content-Type: application/json
 | `DELETE` | `/admin/music/delete/{id}` | Excluir música | 👑 Admin |
 | `DELETE` | `/admin/musics/deleteAll` | Excluir todas | 👑 Admin |
 
+### 📋 **Playlists** *(95% Implementado - v2.0)*
+
+| Método | Endpoint | Descrição | Auth | Status |
+|--------|----------|-----------|------|--------|
+| `POST` | `/playlists` | Criar playlist | ✅ | 🟡 Controller Ready |
+| `GET` | `/playlists/{userId}` | Listar playlists do usuário | ✅ | 🟡 Controller Ready |
+| `GET` | `/playlists/{id}/musics` | Músicas da playlist | ✅ | 🟡 Controller Ready |
+| `PUT` | `/playlists/{id}` | Atualizar playlist | ✅ | 🟡 Controller Ready |
+| `DELETE` | `/playlists/{id}` | Deletar playlist | ✅ | 🟡 Controller Ready |
+| `POST` | `/playlists/{id}/musics` | Adicionar música | ✅ | 🟡 Controller Ready |
+| `DELETE` | `/playlists/{id}/musics` | Remover música | ✅ | 🟡 Controller Ready |
+| `PUT` | `/playlists/{id}/positions` | Reordenar músicas | ✅ | 🟡 Controller Ready |
+
+### ❤️ **Favoritos** *(95% Implementado - v2.0)*
+
+| Método | Endpoint | Descrição | Auth | Status |
+|--------|----------|-----------|------|--------|
+| `POST` | `/favorites` | Curtir música | ✅ | 🟡 Controller Ready |
+| `DELETE` | `/favorites/{musicId}` | Descurtir música | ✅ | 🟡 Controller Ready |
+| `GET` | `/favorites/{userId}` | Listar favoritas do usuário | ✅ | 🟡 Controller Ready |
+| `GET` | `/favorites/{musicId}/status` | Status da curtida | ✅ | 🟡 Controller Ready |
+
 ### 🔑 **Autenticação**
 
 Todas as rotas protegidas requerem o header:
@@ -276,7 +319,7 @@ Authorization: Bearer <your_jwt_token>
 
 ## 📈 Changelog
 
-### 🚀 **v2.0.0-rc.1** (Atual)
+### 🚀 **v2.0.0-rc.1** (Atual - 29/05/2025)
 
 #### ✨ **Novos Recursos**
 
@@ -285,7 +328,8 @@ Authorization: Bearer <your_jwt_token>
 - 📊 **100% TypeScript**: Type safety completa com interfaces robustas
 - 🎯 **API Padronizada**: Responses unificadas e tratamento de erros centralizado
 - 🚀 **Performance Otimizada**: Queries eficientes e paginação inteligente
-- 📚 **Documentação JSDoc Enterprise**: Headers padronizados em 46+ arquivos TypeScript
+- 📋 **Sistema de Playlists 95% Completo**: CRUD, controllers e gerenciamento de músicas implementados
+- ❤️ **Sistema de Favoritos 95% Completo**: Controllers, curtir/descurtir e verificação de status implementados
 
 #### 🔧 **Melhorias Técnicas**
 
@@ -295,7 +339,11 @@ Authorization: Bearer <your_jwt_token>
 - ✅ Error Handling centralizado e padronizado
 - ✅ Validation middleware robusto
 - ✅ Upload otimizado com suporte S3
-- ✅ JSDoc Headers com padrão @author "HyperGenMusic Team" e @version "2.0.0"
+- ✅ **PlaylistServiceImpl**: 8 métodos funcionais com validações robustas
+- ✅ **LikedMusicServiceImpl**: 4 métodos funcionais com prevenção de duplicatas
+- ✅ Sistema de posicionamento dinâmico para playlists
+- ✅ Relacionamentos Sequelize otimizados para novos módulos
+- ✅ **Code Cleanup**: Remoção de JSDoc para código mais limpo e focado
 
 #### 🐛 **Correções**
 
@@ -310,20 +358,26 @@ Authorization: Bearer <your_jwt_token>
 
 ### 🎯 **v2.0 Final (Junho 2025)**
 
-- [ ] **Sistema de Playlists Completo**
-  - [ ] Criação e gestão de playlists
-  - [ ] Adição/remoção de músicas
-  - [ ] Reordenação de tracks
+- [x] **Sistema de Playlists Completo**
+  - [x] Modelos e repositórios implementados
+  - [x] Interfaces de serviço documentadas
+  - [x] Implementação completa da lógica de negócio
+  - [x] Controllers implementados
+  - [ ] Rotas REST e endpoints públicos
   
-- [ ] **Sistema de Favoritos**
-  - [ ] Like/unlike em músicas
-  - [ ] Lista de músicas curtidas
-  - [ ] Estatísticas de engajamento
+- [x] **Sistema de Favoritos Completo**
+  - [x] Modelos e repositórios implementados  
+  - [x] Interfaces de serviço documentadas
+  - [x] Implementação completa da lógica de negócio
+  - [x] Controllers implementados
+  - [ ] Rotas REST e endpoints públicos
 
 - [ ] **Testes Automatizados**
   - [ ] Unit tests para services
   - [ ] Integration tests para APIs
   - [ ] E2E tests críticos
+
+> **🎉 Status Atual**: Lógica de negócio e controllers 100% implementados para Playlists e Favoritos. Próximo passo: implementar rotas REST e expor endpoints públicos.
 
 ### 🚀 **v2.1 (Q3 2025)**
 
@@ -378,6 +432,6 @@ Authorization: Bearer <your_jwt_token>
 [![GitHub](https://img.shields.io/badge/GitHub-@GabrielFinotti-181717?style=flat&logo=github)](https://github.com/GabrielFinotti)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Gabriel%20Finotti-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/gabriel-h-finotti-6b4bb029b)
 
-**HyperGenMusic API** • **v2.0.0-rc.1** • **2025**
+**HyperMusic API** • **v2.0.0-rc.1** • **2025**
 
 </div>

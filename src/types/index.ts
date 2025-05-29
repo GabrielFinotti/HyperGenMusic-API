@@ -1,20 +1,3 @@
-/**
- * Agregador Principal de Tipos - HyperGenMusic API v2.0
- *
- * Centraliza e exporta todos os tipos, interfaces e contratos
- * da aplicação, fornecendo um ponto único de importação para
- * toda a tipagem TypeScript do projeto.
- *
- * Categorias exportadas:
- * - Model Attributes: Estruturas de dados dos modelos
- * - Repository Interfaces: Contratos de acesso a dados
- * - Service Interfaces: Contratos de lógica de negócio
- * - Data Interfaces: DTOs para entrada de dados
- * - Response Interfaces: Padrões de resposta da API
- *
- * @author HyperGenMusic Team
- * @version 2.0.0-rc.1
- */
 import {
   UserAttributes,
   LikedMusicsAttributes,
@@ -29,7 +12,13 @@ import {
   IPlaylistRepository,
   IUserRepository,
 } from "./repositories";
-import { UserService, MusicService, AdminService } from "./services";
+import {
+  UserService,
+  MusicService,
+  AdminService,
+  PlaylistService,
+  LikedMusicService,
+} from "./services";
 import {
   UserData,
   LikedMusicData,
@@ -66,4 +55,6 @@ export type {
   UserService,
   MusicService,
   AdminService,
+  PlaylistService,
+  LikedMusicService,
 };

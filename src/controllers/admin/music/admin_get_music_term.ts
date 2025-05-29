@@ -1,36 +1,9 @@
-/**
- * Controller Administrativo - Busca de Músicas por Termo - HyperGenMusic API v2.0
- *
- * Fornece funcionalidade de busca textual avançada no catálogo de músicas
- * para administradores, permitindo busca por título, artista ou gênero
- * com paginação rigorosa e validação de parâmetros.
- *
- * Funcionalidades:
- * - Busca textual em título, artista e gênero
- * - Paginação obrigatória com limit e offset
- * - Validação rigorosa de parâmetros
- * - Resultados ordenados por relevância
- *
- * @author HyperGenMusic Team
- * @version 2.0.0-rc.1
- */
 import { Request, Response } from "express";
 import { responseUtils } from "../../../utils";
 import { MusicServiceImpl } from "../../../services";
 import { ResponseSuccess } from "../../../types";
 import { Music } from "../../../models";
 
-/**
- * Controller Administrativo - Buscar Músicas por Termo
- *
- * Realiza busca textual no catálogo de músicas por título,
- * artista ou gênero com resultados paginados.
- *
- * @param req.query.term - Termo de busca
- * @param req.query.limit - Limite de resultados (obrigatório)
- * @param req.query.offset - Registros a pular (obrigatório)
- * @returns Lista paginada de músicas encontradas
- */
 const adminGetMusicTerm = async (req: Request, res: Response) => {
   try {
     const query = req.query.term as string;
@@ -60,16 +33,19 @@ const adminGetMusicTerm = async (req: Request, res: Response) => {
 
       return;
     }
+    const serviceResponse = await MusicServiceImpl.getMusicByTerm(
+      query,
+      limit,
+      offset
+    );
 
-    const isError = await MusicServiceImpl.getMusicByTerm(query, limit, offset);
-
-    if (!isError.success) {
-      res.status(isError.errorCode).send(isError);
+    if (!serviceResponse.success) {
+      res.status(serviceResponse.errorCode).send(serviceResponse);
 
       return;
     }
 
-    const musics = isError as ResponseSuccess<Music[]>;
+    const musics = serviceResponse as ResponseSuccess<Music[]>;
 
     res.status(musics.statusCode).send(musics);
   } catch (error) {

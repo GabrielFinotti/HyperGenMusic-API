@@ -1,7 +1,7 @@
 {
-  "name": "hypergenmusic-api",
+  "name": "hypermusic-api",
   "version": "2.0.0-rc.1",
-  "description": "Api Streaming Music HyperGenMusic",
+  "description": "Api Streaming Music HyperMusic",
   "author": "Gabriel Henrique Finotti",
   "license": "Proprietária",
   "private": true,
@@ -14,10 +14,9 @@
     "build": "tsup src",
     "dev": "tsx watch src/server.ts",
     "start": "node dist/server.js"
-  },
-  "repository": {
+  },  "repository": {
     "type": "git",
-    "url": "git+https://github.com/GabrielFinotti/HyperGenMusic-API.git"
+    "url": "git+https://github.com/GabrielFinotti/HyperMusic-API.git"
   },
   "keywords": [
     "api",
@@ -26,11 +25,10 @@
     "node",
     "typescript",
     "express"
-  ],
-  "bugs": {
-    "url": "https://github.com/GabrielFinotti/HyperGenMusic-API/issues"
+  ],  "bugs": {
+    "url": "https://github.com/GabrielFinotti/HyperMusic-API/issues"
   },
-  "homepage": "https://github.com/GabrielFinotti/HyperGenMusic-API#readme",
+  "homepage": "https://github.com/GabrielFinotti/HyperMusic-API#readme",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.806.0",
     "bcrypt": "^5.1.1",

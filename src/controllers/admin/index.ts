@@ -1,19 +1,3 @@
-/**
- * Agregador Principal de Controllers Administrativos - HyperGenMusic API v2.0
- *
- * Centraliza e exporta todos os controllers administrativos da aplicação,
- * organizando operações de gestão de usuários e músicas em um ponto único.
- *
- * Módulos incluídos:
- * - Controllers de Usuário: CRUD completo e busca de usuários
- * - Controllers de Música: CRUD completo e gestão do catálogo
- *
- * Todos os controllers requerem privilégios administrativos e são
- * protegidos pelos middlewares de autenticação e autorização.
- *
- * @author HyperGenMusic Team
- * @version 2.0.0-rc.1
- */
 import {
   adminGetAllUsers,
   adminGetUsersTerm,
