@@ -1,42 +1,6 @@
-/**
- * Utilitário de Validação de Dados de Usuário - HyperMusic API v2.0
- *
- * Fornece validação robusta de dados de usuário para operações de
- * criação e atualização, aplicando regras de negócio específicas
- * como formato de email, força de senha e validação de campos.
- *
- * Funcionalidades:
- * - Validação completa para criação de usuário
- * - Validação parcial para atualizações
- * - Verificação de formato de email com regex
- * - Validação de força de senha
- * - Verificação de tipos e comprimentos mínimos
- *
- * @author HyperMusic Team
- * @version 2.0.0-rc.1
- */
 import { UserData } from "../../types";
 import { minChar, regex } from "../const";
 
-/**
- * Funções sobrecarregadas para validação de dados de usuário
- *
- * Valida dados de usuário de acordo com regras de negócio estabelecidas,
- * suportando tanto criação (dados completos) quanto atualização (dados parciais).
- *
- * @param userData - Dados do usuário a serem validados
- * @param isUpdate - Se true, permite validação parcial; se false, exige dados completos
- * @returns String com erros encontrados (vazia se válido)
- *
- * @example
- * ```typescript
- * // Validação para criação (dados completos obrigatórios)
- * const errors = verifyUserData(newUser, false);
- *
- * // Validação para atualização (dados parciais permitidos)
- * const updateErrors = verifyUserData({ email: "new@email.com" }, true);
- * ```
- */
 function verifyUserData(userData: UserData, isUpdate: false): string;
 function verifyUserData(userData: Partial<UserData>, isUpdate: true): string;
 

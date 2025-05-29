@@ -1,24 +1,3 @@
-/**
- * Agregador de Modelos e Relacionamentos - HyperMusic API v2.0
- *
- * Centraliza todos os modelos Sequelize e define os relacionamentos
- * entre as entidades do sistema.
- *
- * Modelos incluídos:
- * - User: Usuários do sistema
- * - Music: Catálogo de músicas
- * - Playlist: Playlists de usuários
- * - PlaylistMusics: Tabela de junção playlist-música
- * - LikedMusics: Tabela de junção usuário-música (curtidas)
- *
- * Relacionamentos definidos:
- * - User 1:N Playlist
- * - User N:M Music (via LikedMusics)
- * - Playlist N:M Music (via PlaylistMusics)
- *
- * @author HyperMusic Team
- * @version 2.0.0-rc.1
- */
 import User from "./User";
 import Music from "./Music";
 import Playlist from "./Playlist";

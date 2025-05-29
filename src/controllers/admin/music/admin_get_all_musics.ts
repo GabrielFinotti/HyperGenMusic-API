@@ -1,37 +1,9 @@
-/**
- * Controller de Listagem Administrativa de Música - HyperMusic API v2.0
- *
- * Gerencia a listagem completa do catálogo musical através do painel
- * administrativo com controles rígidos de paginação e validação
- * para operações de gestão do acervo.
- *
- * Funcionalidades:
- * - Listagem completa do catálogo musical
- * - Paginação obrigatória (limit/offset)
- * - Validação rigorosa de parâmetros
- * - Ordenação por critérios administrativos
- * - Metadados completos incluindo IDs
- * - Resposta estruturada para gestão
- *
- * @author HyperMusic Team
- * @version 2.0.0-rc.1
- */
 import { Request, Response } from "express";
 import { responseUtils } from "../../../utils";
 import { MusicServiceImpl } from "../../../services";
 import { ResponseSuccess } from "../../../types";
 import { Music } from "../../../models";
 
-/**
- * Controller Administrativo - Listar Todas as Músicas
- *
- * Lista todas as músicas do catálogo com paginação estrita.
- * Requer parâmetros obrigatórios de limit e offset para controle administrativo.
- *
- * @param req.query.limit - Limite de resultados (obrigatório, positivo)
- * @param req.query.offset - Registros a pular (obrigatório, não-negativo)
- * @returns Lista paginada de músicas
- */
 const adminGetAllMusics = async (req: Request, res: Response) => {
   try {
     const limit = parseInt(req.query.limit as string);
@@ -58,7 +30,8 @@ const adminGetAllMusics = async (req: Request, res: Response) => {
       res.status(err.errorCode).send(err);
 
       return;
-    }    const serviceResponse = await MusicServiceImpl.getAllMusics(limit, offset);
+    }
+    const serviceResponse = await MusicServiceImpl.getAllMusics(limit, offset);
 
     if (!serviceResponse.success) {
       res.status(serviceResponse.errorCode).send(serviceResponse);

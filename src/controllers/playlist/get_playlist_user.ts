@@ -14,7 +14,7 @@ const getPlaylistUser = async (req: Request, res: Response) => {
 
     if (!serviceResponse.success) {
       res.status(serviceResponse.errorCode).send(serviceResponse);
-      
+
       return;
     }
 
