@@ -5,13 +5,17 @@ import { likedMusicController } from "../controllers";
 const route = Router();
 
 route.get(
-  "/profile/musics/liked",
+  "/favorites",
   jwt.verifyToken,
   likedMusicController.getLikedMusicUser
 );
-route.post("/music/like", jwt.verifyToken, likedMusicController.likeMusic);
+route.post(
+  "/favorites/create",
+  jwt.verifyToken,
+  likedMusicController.likeMusic
+);
 route.delete(
-  "/music/unlike",
+  "/favorites/delete",
   jwt.verifyToken,
   likedMusicController.unlikeMusic
 );

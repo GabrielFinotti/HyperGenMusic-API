@@ -27,7 +27,6 @@ import {
 } from "./admin";
 import {
   getLikedMusicUser,
-  checkIfUserLikedMusic,
   likeMusic,
   unlikeMusic,
 } from "./likedMusic";
@@ -74,7 +73,6 @@ export const adminController = {
 
 export const likedMusicController = {
   getLikedMusicUser,
-  checkIfUserLikedMusic,
   likeMusic,
   unlikeMusic,
 };
