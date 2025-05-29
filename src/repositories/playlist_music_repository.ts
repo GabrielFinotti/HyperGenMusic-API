@@ -68,14 +68,17 @@ class PlaylistMusicRepository implements IPlaylistMusicRepository {
    * @throws Erro do banco de dados
    */
   async updateMusicPosition(
-    playlistId: number,
-    musicId: number,
-    newPosition: number
+    playlistMusicData: PlaylistMusicData
   ): Promise<boolean> {
     try {
       const result = await PlaylistMusics.update(
-        { position: newPosition },
-        { where: { playlistId, musicId } }
+        { position: playlistMusicData.position },
+        {
+          where: {
+            playlistId: playlistMusicData.playlistId,
+            musicId: playlistMusicData.musicId,
+          },
+        }
       );
 
       return result[0] > 0;
@@ -92,12 +95,14 @@ class PlaylistMusicRepository implements IPlaylistMusicRepository {
    * @throws Erro do banco de dados
    */
   async removeMusicFromPlaylist(
-    playlistId: number,
-    musicId: number
+    playListMusicData: PlaylistMusicData
   ): Promise<boolean> {
     try {
       const result = await PlaylistMusics.destroy({
-        where: { playlistId, musicId },
+        where: {
+          playlistId: playListMusicData.playlistId,
+          musicId: playListMusicData.musicId,
+        },
       });
 
       return result > 0;

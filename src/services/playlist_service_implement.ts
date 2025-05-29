@@ -99,6 +99,7 @@ class PlaylistServiceImpl implements PlaylistService {
       );
     }
   }
+
   /**
    * Cria uma nova playlist para um usuário
    *
@@ -157,6 +158,7 @@ class PlaylistServiceImpl implements PlaylistService {
       );
     }
   }
+
   /**
    * Atualiza dados de uma playlist existente
    *
@@ -216,6 +218,7 @@ class PlaylistServiceImpl implements PlaylistService {
       );
     }
   }
+
   /**
    * Remove uma playlist do sistema
    *
@@ -263,7 +266,9 @@ class PlaylistServiceImpl implements PlaylistService {
         500
       );
     }
-  }  /**
+  }
+
+  /**
    * Recupera todas as músicas de uma playlist específica
    *
    * Retorna a lista ordenada de músicas contidas em uma playlist,
@@ -312,6 +317,7 @@ class PlaylistServiceImpl implements PlaylistService {
       );
     }
   }
+
   /**
    * Adiciona uma música a uma playlist em posição específica
    *
@@ -373,6 +379,7 @@ class PlaylistServiceImpl implements PlaylistService {
       );
     }
   }
+
   /**
    * Atualiza a posição de uma música dentro da playlist
    *
@@ -394,20 +401,19 @@ class PlaylistServiceImpl implements PlaylistService {
    * }
    * ```
    */
-  async updateMusicPosition(
-    playlistId: number,
-    musicId: number,
-    newPosition: number
-  ) {
+  async updateMusicPosition(playlistMusicData: PlaylistMusicData) {
     try {
-      if (isNaN(playlistId) || isNaN(musicId)) {
+      if (
+        isNaN(playlistMusicData.playlistId) ||
+        isNaN(playlistMusicData.musicId)
+      ) {
         return responseUtils.createErrorResponse(
           "Invalid playlist ID or music ID",
           400
         );
       }
 
-      if (isNaN(newPosition) || newPosition < 1) {
+      if (isNaN(playlistMusicData.position) || playlistMusicData.position < 1) {
         return responseUtils.createErrorResponse(
           "Invalid position. Position must be a positive number",
           400
@@ -415,9 +421,7 @@ class PlaylistServiceImpl implements PlaylistService {
       }
 
       const updated = await this.playlistMusicRepository.updateMusicPosition(
-        playlistId,
-        musicId,
-        newPosition
+        playlistMusicData
       );
 
       if (!updated) {
@@ -441,6 +445,7 @@ class PlaylistServiceImpl implements PlaylistService {
       );
     }
   }
+  
   /**
    * Remove uma música de uma playlist
    *
@@ -461,9 +466,12 @@ class PlaylistServiceImpl implements PlaylistService {
    * }
    * ```
    */
-  async removeMusicFromPlaylist(playlistId: number, musicId: number) {
+  async removeMusicFromPlaylist(playlistMusicData: PlaylistMusicData) {
     try {
-      if (isNaN(playlistId) || isNaN(musicId)) {
+      if (
+        isNaN(playlistMusicData.playlistId) ||
+        isNaN(playlistMusicData.musicId)
+      ) {
         return responseUtils.createErrorResponse(
           "Invalid playlist ID or music ID",
           400
@@ -472,8 +480,7 @@ class PlaylistServiceImpl implements PlaylistService {
 
       const removed =
         await this.playlistMusicRepository.removeMusicFromPlaylist(
-          playlistId,
-          musicId
+          playlistMusicData
         );
 
       if (!removed) {

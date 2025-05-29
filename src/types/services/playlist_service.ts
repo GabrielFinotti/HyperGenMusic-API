@@ -25,7 +25,7 @@ import {
  * Contrato para serviços de playlists
  *
  * Define o contrato para todas as operações de negócio envolvendo playlists,
- * incluindo CRUD completo de playlists e gerenciamento avançado de músicas 
+ * incluindo CRUD completo de playlists e gerenciamento avançado de músicas
  * com posicionamento, ordenação e reposicionamento dinâmico.
  */
 export interface PlaylistService {
@@ -100,9 +100,7 @@ export interface PlaylistService {
    * @returns Promise com confirmação de atualização ou erro
    */
   updateMusicPosition(
-    playlistId: number,
-    musicId: number,
-    newPosition: number
+    playlistMusicData: PlaylistMusicData
   ): Promise<ResponseError | ResponseSuccess<boolean>>;
 
   /**
@@ -113,7 +111,6 @@ export interface PlaylistService {
    * @returns Promise com confirmação de remoção ou erro
    */
   removeMusicFromPlaylist(
-    playlistId: number,
-    musicId: number
+    playlistMusicData: PlaylistMusicData
   ): Promise<ResponseError | ResponseSuccess<boolean>>;
 }

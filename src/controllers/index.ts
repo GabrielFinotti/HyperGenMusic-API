@@ -49,6 +49,16 @@ import {
   likeMusic,
   unlikeMusic,
 } from "./likedMusic";
+import {
+  createPlaylist,
+  getPlaylistUser,
+  updatePlaylist,
+  deletePlaylist,
+  addMusicToPlaylist,
+  getMusicPlaylist,
+  updateMusicPosition,
+  removeMusicFromPlaylist,
+} from "./playlist";
 
 export const userController = {
   userLogin,
@@ -80,9 +90,20 @@ export const adminController = {
   adminDeleteAllMusics,
 };
 
-export const LikedMusicController = {
+export const likedMusicController = {
   getLikedMusicUser,
   checkIfUserLikedMusic,
   likeMusic,
   unlikeMusic,
+};
+
+export const playlistController = {
+  getPlaylistUser,
+  createPlaylist,
+  updatePlaylist,
+  deletePlaylist,
+  getMusicPlaylist,
+  addMusicToPlaylist,
+  updateMusicPosition,
+  removeMusicFromPlaylist,
 };
