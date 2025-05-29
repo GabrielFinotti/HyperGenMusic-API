@@ -2,7 +2,13 @@ import express, { json } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import "colors";
-import { userRouter, musicRouter, adminRouter } from "./routes";
+import {
+  userRouter,
+  musicRouter,
+  adminRouter,
+  playlistRouter,
+  likedMusicRouter,
+} from "./routes";
 import sequelize, {
   initializeDatabase,
 } from "./config/database/postgre_config";
@@ -14,7 +20,14 @@ const app = express();
 app.use(json());
 app.use(cors());
 
-app.use("/api/v2", userRouter, musicRouter, adminRouter);
+app.use(
+  "/api/v2",
+  userRouter,
+  musicRouter,
+  adminRouter,
+  playlistRouter,
+  likedMusicRouter
+);
 
 async function startServer() {
   try {
