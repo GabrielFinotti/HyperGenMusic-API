@@ -23,19 +23,19 @@ import { responseUtils } from "../../utils";
 const userDelete = async (req: Request, res: Response) => {
   try {
     const token = req.headers.authorization?.split(" ")[1] as string;
-
-    const isError = await UserServiceImpl.userDelete(
+    
+    const serviceResponse = await UserServiceImpl.userDelete(
       parseInt(req.params.userId),
       token
     );
 
-    if (!isError.success) {
-      res.status(isError.errorCode).send(isError);
+    if (!serviceResponse.success) {
+      res.status(serviceResponse.errorCode).send(serviceResponse);
 
       return;
     }
 
-    const result = isError as ResponseSuccess<null>;
+    const result = serviceResponse as ResponseSuccess<null>;
 
     res.status(result.statusCode).send(result);
   } catch (error) {

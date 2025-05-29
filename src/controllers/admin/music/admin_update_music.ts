@@ -35,17 +35,15 @@ import { Music } from "../../../models";
 const adminUpdateMusic = async (req: Request, res: Response) => {
   try {
     const musicId = parseInt(req.params.musicId);
-    const musicData = req.body as Partial<MusicData>;
+    const musicData = req.body as Partial<MusicData>;    const serviceResponse = await AdminServiceImpl.updateMusic(musicId, musicData);
 
-    const isError = await AdminServiceImpl.updateMusic(musicId, musicData);
-
-    if (!isError.success) {
-      res.status(isError.errorCode).send(isError);
+    if (!serviceResponse.success) {
+      res.status(serviceResponse.errorCode).send(serviceResponse);
 
       return;
     }
 
-    const result = isError as ResponseSuccess<Music>;
+    const result = serviceResponse as ResponseSuccess<Music>;
 
     res.status(result.statusCode).send(result);
   } catch (error) {

@@ -53,17 +53,15 @@ const adminDeleteUser = async (req: Request, res: Response) => {
       return;
     }
 
-    const lastToken = (userData as ResponseSuccess<User>).data?.lastToken;
+    const lastToken = (userData as ResponseSuccess<User>).data?.lastToken;    const serviceResponse = await UserServiceImpl.userDelete(userId, lastToken);
 
-    const isError = await UserServiceImpl.userDelete(userId, lastToken);
-
-    if (!isError.success) {
-      res.status(isError.errorCode).send(isError);
+    if (!serviceResponse.success) {
+      res.status(serviceResponse.errorCode).send(serviceResponse);
 
       return;
     }
 
-    const result = isError as ResponseSuccess<null>;
+    const result = serviceResponse as ResponseSuccess<null>;
 
     res.status(result.statusCode).send(result);
   } catch (error) {

@@ -34,17 +34,15 @@ import { ResponseSuccess } from "../../../types";
 const adminUpdateUser = async (req: Request, res: Response) => {
   try {
     const userId = parseInt(req.params.id);
-    const userData = req.body;
+    const userData = req.body;    const serviceResponse = await UserServiceImpl.userUpdate(userId, userData);
 
-    const isError = await UserServiceImpl.userUpdate(userId, userData);
-
-    if (!isError.success) {
-      res.status(isError.errorCode).send(isError);
+    if (!serviceResponse.success) {
+      res.status(serviceResponse.errorCode).send(serviceResponse);
 
       return;
     }
 
-    const result = isError as ResponseSuccess<User>;
+    const result = serviceResponse as ResponseSuccess<User>;
 
     res.status(result.statusCode).send(result);
   } catch (error) {

@@ -51,17 +51,15 @@ const adminCreateMusic = async (req: Request, res: Response) => {
 
     if (files[1]) {
       musicData.imageUrl = files[1].location;
-    }
+    }    const serviceResponse = await AdminServiceImpl.createMusic(musicData);
 
-    const isError = await AdminServiceImpl.createMusic(musicData);
-
-    if (!isError.success) {
-      res.status(isError.errorCode).send(isError);
+    if (!serviceResponse.success) {
+      res.status(serviceResponse.errorCode).send(serviceResponse);
 
       return;
     }
 
-    const result = isError as ResponseSuccess<null>;
+    const result = serviceResponse as ResponseSuccess<null>;
 
     res.status(result.statusCode).send(result);
   } catch (error) {

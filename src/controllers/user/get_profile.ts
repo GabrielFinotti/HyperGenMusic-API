@@ -32,17 +32,17 @@ import { ResponseSuccess } from "../../types";
  */
 const getProfile = async (req: Request, res: Response) => {
   try {
-    const isError = await UserServiceImpl.getProfileData(
+    const serviceResponse = await UserServiceImpl.getProfileData(
       parseInt(req.params.userId)
     );
 
-    if (!isError.success) {
-      res.status(isError.errorCode).send(isError);
+    if (!serviceResponse.success) {
+      res.status(serviceResponse.errorCode).send(serviceResponse);
 
       return;
     }
 
-    const result = isError as ResponseSuccess<User>;
+    const result = serviceResponse as ResponseSuccess<User>;
 
     res.status(result.statusCode).send(result);
   } catch (error) {

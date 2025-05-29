@@ -33,21 +33,27 @@ import { User } from "../../models";
  */
 const userLogin = async (req: Request, res: Response) => {
   try {
-    const userData = req.body as { email: string; password: string, isLong: boolean };
-
-    const isError = await UserServiceImpl.userLogin(
+    const userData = req.body as {
+      email: string;
+      password: string;
+      isLong: boolean;
+    };
+    
+    const serviceResponse = await UserServiceImpl.userLogin(
       userData.email,
       userData.password,
       userData.isLong
     );
 
-    if (!isError.success) {
-      res.status(isError.errorCode).send(isError);
+    if (!serviceResponse.success) {
+      res.status(serviceResponse.errorCode).send(serviceResponse);
 
       return;
     }
 
-    const result = isError as ResponseSuccess<(string | Partial<User>)[]>;
+    const result = serviceResponse as ResponseSuccess<
+      (string | Partial<User>)[]
+    >;
 
     res.status(result.statusCode).send(result);
   } catch (error) {

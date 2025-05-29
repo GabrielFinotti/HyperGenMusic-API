@@ -54,21 +54,19 @@ const getMusicGenre = async (req: Request, res: Response) => {
       res.status(err.errorCode).send(err);
 
       return;
-    }
-
-    const isError = await MusicServiceImpl.getMusicByGenre(
+    }    const serviceResponse = await MusicServiceImpl.getMusicByGenre(
       query.genre as string,
       limit,
       offset
     );
 
-    if (!isError.success) {
-      res.status(isError.errorCode).send(isError);
+    if (!serviceResponse.success) {
+      res.status(serviceResponse.errorCode).send(serviceResponse);
 
       return;
     }
 
-    const result = isError as ResponseSuccess<Music[]>;
+    const result = serviceResponse as ResponseSuccess<Music[]>;
 
     res.status(result.statusCode).send(result);
   } catch (error) {

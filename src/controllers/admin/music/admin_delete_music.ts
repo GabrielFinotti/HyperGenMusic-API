@@ -32,17 +32,15 @@ import { ResponseSuccess } from "../../../types";
  */
 const adminDeleteMusic = async (req: Request, res: Response) => {
   try {
-    const musicId = parseInt(req.params.musicId);
+    const musicId = parseInt(req.params.musicId);    const serviceResponse = await AdminServiceImpl.deleteMusic(musicId);
 
-    const isError = await AdminServiceImpl.deleteMusic(musicId);
-
-    if (!isError.success) {
-      res.status(isError.errorCode).send(isError);
+    if (!serviceResponse.success) {
+      res.status(serviceResponse.errorCode).send(serviceResponse);
 
       return;
     }
 
-    const result = isError as ResponseSuccess<null>;
+    const result = serviceResponse as ResponseSuccess<null>;
 
     res.status(result.statusCode).send(result);
   } catch (error) {

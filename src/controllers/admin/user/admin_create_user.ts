@@ -31,17 +31,15 @@ import { ResponseSuccess, UserData } from "../../../types";
  */
 const adminCreateUser = async (req: Request, res: Response) => {
   try {
-    const userData = req.body as UserData;
+    const userData = req.body as UserData;    const serviceResponse = await UserServiceImpl.userRegister(userData);
 
-    const isError = await UserServiceImpl.userRegister(userData);
-
-    if (!isError.success) {
-      res.status(isError.errorCode).send(isError);
+    if (!serviceResponse.success) {
+      res.status(serviceResponse.errorCode).send(serviceResponse);
 
       return;
     }
 
-    const result = isError as ResponseSuccess<null>;
+    const result = serviceResponse as ResponseSuccess<null>;
 
     res.status(result.statusCode).send(result);
   } catch (error) {

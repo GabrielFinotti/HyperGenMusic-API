@@ -59,17 +59,15 @@ const adminGetMusicTerm = async (req: Request, res: Response) => {
       res.status(err.errorCode).send(err);
 
       return;
-    }
+    }    const serviceResponse = await MusicServiceImpl.getMusicByTerm(query, limit, offset);
 
-    const isError = await MusicServiceImpl.getMusicByTerm(query, limit, offset);
-
-    if (!isError.success) {
-      res.status(isError.errorCode).send(isError);
+    if (!serviceResponse.success) {
+      res.status(serviceResponse.errorCode).send(serviceResponse);
 
       return;
     }
 
-    const musics = isError as ResponseSuccess<Music[]>;
+    const musics = serviceResponse as ResponseSuccess<Music[]>;
 
     res.status(musics.statusCode).send(musics);
   } catch (error) {

@@ -43,17 +43,15 @@ const getMusicData = async (req: Request, res: Response) => {
       res.status(err.errorCode).send(err);
 
       return;
-    }
+    }    const serviceResponse = await MusicServiceImpl.getMusicData(musicId);
 
-    const isError = await MusicServiceImpl.getMusicData(musicId);
+    if (!serviceResponse.success) {
+      res.status(serviceResponse.errorCode).send(serviceResponse);
 
-    if (!isError.success) {
-      res.status(isError.errorCode).send(isError);
-      
       return;
     }
 
-    const result = isError as ResponseSuccess<Music>;
+    const result = serviceResponse as ResponseSuccess<Music>;
 
     res.status(result.statusCode).send(result);
   } catch (error) {

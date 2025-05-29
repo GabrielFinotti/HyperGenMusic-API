@@ -40,16 +40,19 @@ const userUpdate = async (req: Request, res: Response) => {
     if (req.file) {
       userDataUpdate.imageUrl = (req.file as Express.MulterS3.File).location;
     }
+    
+    const serviceResponse = await UserServiceImpl.userUpdate(
+      userId,
+      userDataUpdate
+    );
 
-    const isError = await UserServiceImpl.userUpdate(userId, userDataUpdate);
-
-    if (!isError.success) {
-      res.status(isError.errorCode).send(isError);
+    if (!serviceResponse.success) {
+      res.status(serviceResponse.errorCode).send(serviceResponse);
 
       return;
     }
 
-    const result = isError as ResponseSuccess<User>;
+    const result = serviceResponse as ResponseSuccess<User>;
 
     res.status(result.statusCode).send(result);
   } catch (error) {

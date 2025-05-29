@@ -46,21 +46,19 @@ const getMusicTerm = async (req: Request, res: Response) => {
 
     if (isNaN(offset) || offset < 0) {
       offset = 0;
-    }
-
-    const isError = await MusicServiceImpl.getMusicByTerm(
+    }    const serviceResponse = await MusicServiceImpl.getMusicByTerm(
       query.term as string,
       limit,
       offset
     );
 
-    if (!isError.success) {
-      res.status(isError.errorCode).send(isError);
+    if (!serviceResponse.success) {
+      res.status(serviceResponse.errorCode).send(serviceResponse);
 
       return;
     }
 
-    const result = isError as ResponseSuccess<Music[]>;
+    const result = serviceResponse as ResponseSuccess<Music[]>;
 
     res.status(result.statusCode).send(result);
   } catch (error) {

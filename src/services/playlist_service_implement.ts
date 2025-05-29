@@ -49,7 +49,25 @@ class PlaylistServiceImpl implements PlaylistService {
     private playlistRepository: IPlaylistRepository = PlaylistRepository,
     private playlistMusicRepository: IPlaylistMusicRepository = PlaylistMusicRepository
   ) {}
-
+  /**
+   * Recupera todas as playlists pertencentes a um usuário específico
+   *
+   * Valida o ID do usuário e retorna todas as playlists criadas
+   * por ele. Inclui validação de entrada e tratamento de casos
+   * onde o usuário não possui playlists.
+   *
+   * @param {number} userId - ID único do usuário
+   * @returns {Promise<ResponseSuccess<any[]> | ResponseError>} Promise com lista de playlists ou erro
+   * @throws {Error} Quando há falha na comunicação com o repositório
+   *
+   * @example
+   * ```typescript
+   * const result = await playlistService.getPlaylistByUserId(123);
+   * if (result.success) {
+   *   console.log('Playlists do usuário:', result.data);
+   * }
+   * ```
+   */
   async getPlaylistByUserId(userId: number) {
     try {
       if (isNaN(userId)) {
@@ -81,7 +99,33 @@ class PlaylistServiceImpl implements PlaylistService {
       );
     }
   }
-
+  /**
+   * Cria uma nova playlist para um usuário
+   *
+   * Valida os dados de entrada e cria uma nova playlist no sistema.
+   * Inclui validações de ID do usuário e nome da playlist para
+   * garantir a integridade dos dados.
+   *
+   * @param {PlaylistData} playlistData - Dados da nova playlist
+   * @param {number} playlistData.userId - ID do usuário proprietário
+   * @param {string} playlistData.name - Nome da playlist (obrigatório e não vazio)
+   * @param {string} [playlistData.description] - Descrição opcional da playlist
+   * @returns {Promise<ResponseSuccess<any> | ResponseError>} Promise com dados da playlist criada ou erro
+   * @throws {Error} Quando há falha na comunicação com o repositório
+   *
+   * @example
+   * ```typescript
+   * const playlistData = {
+   *   userId: 123,
+   *   name: "Minha Playlist",
+   *   description: "Músicas favoritas"
+   * };
+   * const result = await playlistService.createPlaylist(playlistData);
+   * if (result.success) {
+   *   console.log('Playlist criada:', result.data);
+   * }
+   * ```
+   */
   async createPlaylist(playlistData: PlaylistData) {
     try {
       if (isNaN(playlistData.userId)) {
@@ -113,7 +157,29 @@ class PlaylistServiceImpl implements PlaylistService {
       );
     }
   }
-
+  /**
+   * Atualiza dados de uma playlist existente
+   *
+   * Permite atualização parcial dos dados da playlist, incluindo
+   * validações de entrada. Retorna os dados atualizados da playlist
+   * após a operação bem-sucedida.
+   *
+   * @param {number} playlistId - ID único da playlist a ser atualizada
+   * @param {Partial<PlaylistData>} playlistData - Dados parciais para atualização
+   * @param {string} [playlistData.name] - Novo nome da playlist (se fornecido, não pode ser vazio)
+   * @param {string} [playlistData.description] - Nova descrição da playlist
+   * @returns {Promise<ResponseSuccess<any> | ResponseError>} Promise com dados atualizados ou erro
+   * @throws {Error} Quando há falha na comunicação com o repositório
+   *
+   * @example
+   * ```typescript
+   * const updateData = { name: "Novo Nome", description: "Nova descrição" };
+   * const result = await playlistService.updatePlaylist(456, updateData);
+   * if (result.success) {
+   *   console.log('Playlist atualizada:', result.data);
+   * }
+   * ```
+   */
   async updatePlaylist(
     playlistId: number,
     playlistData: Partial<PlaylistData>
@@ -150,7 +216,25 @@ class PlaylistServiceImpl implements PlaylistService {
       );
     }
   }
-
+  /**
+   * Remove uma playlist do sistema
+   *
+   * Exclui permanentemente uma playlist e todas as suas associações
+   * de músicas. A operação inclui validação do ID e verificação
+   * da existência da playlist antes da exclusão.
+   *
+   * @param {number} playlistId - ID único da playlist a ser removida
+   * @returns {Promise<ResponseSuccess<boolean> | ResponseError>} Promise com sucesso da operação ou erro
+   * @throws {Error} Quando há falha na comunicação com o repositório
+   *
+   * @example
+   * ```typescript
+   * const result = await playlistService.deletePlaylist(456);
+   * if (result.success) {
+   *   console.log('Playlist removida com sucesso!');
+   * }
+   * ```
+   */
   async deletePlaylist(playlistId: number) {
     try {
       if (isNaN(playlistId)) {
@@ -179,7 +263,25 @@ class PlaylistServiceImpl implements PlaylistService {
         500
       );
     }
-  }
+  }  /**
+   * Recupera todas as músicas de uma playlist específica
+   *
+   * Retorna a lista ordenada de músicas contidas em uma playlist,
+   * incluindo informações de posicionamento. Valida o ID da playlist
+   * e trata casos onde a playlist está vazia.
+   *
+   * @param {number} playlistId - ID único da playlist
+   * @returns {Promise<ResponseSuccess<any[]> | ResponseError>} Promise com lista de músicas ou erro
+   * @throws {Error} Quando há falha na comunicação com o repositório
+   *
+   * @example
+   * ```typescript
+   * const result = await playlistService.getMusicsByPlaylistId(456);
+   * if (result.success) {
+   *   console.log('Músicas da playlist:', result.data);
+   * }
+   * ```
+   */
   async getMusicsByPlaylistId(playlistId: number) {
     try {
       if (isNaN(playlistId)) {
@@ -210,7 +312,29 @@ class PlaylistServiceImpl implements PlaylistService {
       );
     }
   }
-
+  /**
+   * Adiciona uma música a uma playlist em posição específica
+   *
+   * Insere uma música na playlist na posição especificada,
+   * reorganizando automaticamente as posições das outras músicas
+   * conforme necessário. Inclui validações completas de entrada.
+   *
+   * @param {PlaylistMusicData} playlistMusicData - Dados da música a ser adicionada
+   * @param {number} playlistMusicData.playlistId - ID da playlist de destino
+   * @param {number} playlistMusicData.musicId - ID da música a ser adicionada
+   * @param {number} playlistMusicData.position - Posição desejada (deve ser >= 1)
+   * @returns {Promise<ResponseSuccess<any> | ResponseError>} Promise com dados da associação criada ou erro
+   * @throws {Error} Quando há falha na comunicação com o repositório
+   *
+   * @example
+   * ```typescript
+   * const musicData = { playlistId: 123, musicId: 456, position: 1 };
+   * const result = await playlistService.addMusicToPlaylist(musicData);
+   * if (result.success) {
+   *   console.log('Música adicionada:', result.data);
+   * }
+   * ```
+   */
   async addMusicToPlaylist(playlistMusicData: PlaylistMusicData) {
     try {
       if (
@@ -249,7 +373,27 @@ class PlaylistServiceImpl implements PlaylistService {
       );
     }
   }
-
+  /**
+   * Atualiza a posição de uma música dentro da playlist
+   *
+   * Move uma música existente para uma nova posição na playlist,
+   * reorganizando automaticamente as posições das demais músicas.
+   * Inclui validações de IDs e posição de destino.
+   *
+   * @param {number} playlistId - ID da playlist onde a música está
+   * @param {number} musicId - ID da música a ter posição alterada
+   * @param {number} newPosition - Nova posição desejada (deve ser >= 1)
+   * @returns {Promise<ResponseSuccess<boolean> | ResponseError>} Promise com sucesso da operação ou erro
+   * @throws {Error} Quando há falha na comunicação com o repositório
+   *
+   * @example
+   * ```typescript
+   * const result = await playlistService.updateMusicPosition(123, 456, 3);
+   * if (result.success) {
+   *   console.log('Posição da música atualizada!');
+   * }
+   * ```
+   */
   async updateMusicPosition(
     playlistId: number,
     musicId: number,
@@ -297,7 +441,26 @@ class PlaylistServiceImpl implements PlaylistService {
       );
     }
   }
-
+  /**
+   * Remove uma música de uma playlist
+   *
+   * Exclui permanentemente a associação entre música e playlist,
+   * reorganizando automaticamente as posições das músicas restantes.
+   * A operação inclui validações de IDs e verificação de existência.
+   *
+   * @param {number} playlistId - ID da playlist de origem
+   * @param {number} musicId - ID da música a ser removida
+   * @returns {Promise<ResponseSuccess<boolean> | ResponseError>} Promise com sucesso da operação ou erro
+   * @throws {Error} Quando há falha na comunicação com o repositório
+   *
+   * @example
+   * ```typescript
+   * const result = await playlistService.removeMusicFromPlaylist(123, 456);
+   * if (result.success) {
+   *   console.log('Música removida da playlist!');
+   * }
+   * ```
+   */
   async removeMusicFromPlaylist(playlistId: number, musicId: number) {
     try {
       if (isNaN(playlistId) || isNaN(musicId)) {

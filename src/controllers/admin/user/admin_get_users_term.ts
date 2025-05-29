@@ -46,21 +46,19 @@ const adminGetUsersTerm = async (req: Request, res: Response) => {
 
     if (isNaN(offset) || offset < 0) {
       offset = 0;
-    }
-
-    const isError = await AdminServiceImpl.getUserByTerm(
+    }    const serviceResponse = await AdminServiceImpl.getUserByTerm(
       query.term as string,
       limit,
       offset
     );
 
-    if (!isError.success) {
-      res.status(isError.errorCode).send(isError);
+    if (!serviceResponse.success) {
+      res.status(serviceResponse.errorCode).send(serviceResponse);
 
       return;
     }
 
-    const users = isError as ResponseSuccess<User[]>;
+    const users = serviceResponse as ResponseSuccess<User[]>;
 
     res.status(users.statusCode).send(users);
   } catch (error) {

@@ -47,7 +47,25 @@ class LikedMusicServiceImpl implements LikedMusicService {
   constructor(
     private likedMusicRepository: ILikedMusicRepository = LikedMusicRepository
   ) {}
-
+  /**
+   * Recupera todas as músicas curtidas por um usuário específico
+   *
+   * Valida o ID do usuário e retorna todas as músicas que foram
+   * marcadas como favoritas pelo usuário. Inclui validação de entrada
+   * e tratamento robusto de erros.
+   *
+   * @param {number} userId - ID único do usuário
+   * @returns {Promise<ResponseSuccess<any[]> | ResponseError>} Promise com lista de músicas curtidas ou erro
+   * @throws {Error} Quando há falha na comunicação com o repositório
+   *
+   * @example
+   * ```typescript
+   * const result = await likedMusicService.getLikedMusicsByUserId(123);
+   * if (result.success) {
+   *   console.log('Músicas curtidas:', result.data);
+   * }
+   * ```
+   */
   async getLikedMusicsByUserId(userId: number) {
     try {
       if (isNaN(userId)) {
@@ -78,7 +96,28 @@ class LikedMusicServiceImpl implements LikedMusicService {
       );
     }
   }
-
+  /**
+   * Verifica se um usuário curtiu uma música específica
+   *
+   * Consulta o repositório para determinar se existe uma associação
+   * de curtida entre o usuário e a música informados. Retorna status
+   * booleano da curtida.
+   *
+   * @param {LikedMusicData} likedMusicData - Dados da associação usuário-música
+   * @param {number} likedMusicData.userId - ID do usuário
+   * @param {number} likedMusicData.musicId - ID da música
+   * @returns {Promise<ResponseSuccess<boolean> | ResponseError>} Promise com status da curtida ou erro
+   * @throws {Error} Quando há falha na comunicação com o repositório
+   *
+   * @example
+   * ```typescript
+   * const checkData = { userId: 123, musicId: 456 };
+   * const result = await likedMusicService.checkIfUserLikedMusic(checkData);
+   * if (result.success) {
+   *   console.log('Usuário curtiu a música:', result.data);
+   * }
+   * ```
+   */
   async checkIfUserLikedMusic(likedMusicData: LikedMusicData) {
     try {
       const isLiked = await this.likedMusicRepository.checkIfUserLikedMusic(
@@ -99,7 +138,28 @@ class LikedMusicServiceImpl implements LikedMusicService {
       );
     }
   }
-
+  /**
+   * Adiciona uma música aos favoritos do usuário
+   *
+   * Cria uma nova associação de curtida entre usuário e música.
+   * O repositório é responsável por validar duplicatas e garantir
+   * a integridade dos dados da associação.
+   *
+   * @param {LikedMusicData} likedMusicData - Dados da nova curtida
+   * @param {number} likedMusicData.userId - ID do usuário que está curtindo
+   * @param {number} likedMusicData.musicId - ID da música a ser curtida
+   * @returns {Promise<ResponseSuccess<boolean> | ResponseError>} Promise com sucesso da operação ou erro
+   * @throws {Error} Quando há falha na comunicação com o repositório
+   *
+   * @example
+   * ```typescript
+   * const likeData = { userId: 123, musicId: 456 };
+   * const result = await likedMusicService.likeMusic(likeData);
+   * if (result.success) {
+   *   console.log('Música curtida com sucesso!');
+   * }
+   * ```
+   */
   async likeMusic(likedMusicData: LikedMusicData) {
     try {
       const result = await this.likedMusicRepository.likeMusic(likedMusicData);
@@ -115,7 +175,28 @@ class LikedMusicServiceImpl implements LikedMusicService {
       return responseUtils.createErrorResponse("Failed to like music", 500);
     }
   }
-
+  /**
+   * Remove uma música dos favoritos do usuário
+   *
+   * Remove a associação de curtida entre usuário e música.
+   * A operação é idempotente, não gerando erro se a associação
+   * não existir previamente.
+   *
+   * @param {LikedMusicData} likedMusicData - Dados da curtida a ser removida
+   * @param {number} likedMusicData.userId - ID do usuário que está removendo a curtida
+   * @param {number} likedMusicData.musicId - ID da música a ter curtida removida
+   * @returns {Promise<ResponseSuccess<any> | ResponseError>} Promise com resultado da operação ou erro
+   * @throws {Error} Quando há falha na comunicação com o repositório
+   *
+   * @example
+   * ```typescript
+   * const unlikeData = { userId: 123, musicId: 456 };
+   * const result = await likedMusicService.unlikeMusic(unlikeData);
+   * if (result.success) {
+   *   console.log('Curtida removida com sucesso!');
+   * }
+   * ```
+   */
   async unlikeMusic(likedMusicData: LikedMusicData) {
     try {
       const result = await this.likedMusicRepository.unlikeMusic(

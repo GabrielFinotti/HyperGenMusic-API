@@ -32,16 +32,15 @@ import { ResponseSuccess } from "../../../types";
  * @returns Confirmação do número de usuários removidos
  */
 const adminDeleteAllUsers = async (req: Request, res: Response) => {
-  try {
-    const isError = await AdminServiceImpl.deleteAllUsers();
+  try {    const serviceResponse = await AdminServiceImpl.deleteAllUsers();
 
-    if (!isError.success) {
-      res.status(isError.errorCode).send(isError);
+    if (!serviceResponse.success) {
+      res.status(serviceResponse.errorCode).send(serviceResponse);
 
       return;
     }
 
-    const result = isError as ResponseSuccess<null>;
+    const result = serviceResponse as ResponseSuccess<null>;
 
     res.status(result.statusCode).send(result);
   } catch (error) {

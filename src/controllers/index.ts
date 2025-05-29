@@ -29,7 +29,6 @@ import {
   getMusicGenre,
   getMusicTerm,
 } from "./music";
-
 import {
   adminGetAllUsers,
   adminGetUsersTerm,
@@ -44,6 +43,12 @@ import {
   adminDeleteMusic,
   adminDeleteAllMusics,
 } from "./admin";
+import {
+  getLikedMusicUser,
+  checkIfUserLikedMusic,
+  likeMusic,
+  unlikeMusic,
+} from "./likedMusic";
 
 export const userController = {
   userLogin,
@@ -73,4 +78,11 @@ export const adminController = {
   adminUpdateMusic,
   adminDeleteMusic,
   adminDeleteAllMusics,
+};
+
+export const LikedMusicController = {
+  getLikedMusicUser,
+  checkIfUserLikedMusic,
+  likeMusic,
+  unlikeMusic,
 };
