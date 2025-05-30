@@ -25,9 +25,8 @@ import {
   MusicData,
   PlaylistData,
   PlaylistMusicData,
-  ResponseError,
-  ResponseSuccess,
 } from "./interfaces";
+import { ResponseError, ResponseSuccess } from "./response";
 
 export type {
   // Model Attributes

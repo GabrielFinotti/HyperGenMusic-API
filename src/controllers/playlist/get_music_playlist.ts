@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { responseUtils } from "../../utils";
 import { PlaylistServiceImpl } from "../../services";
 import { PlaylistMusics } from "../../models";
-import { ResponseSuccess } from "../../types/interfaces/response_success";
+import { ResponseSuccess } from "../../types";
 
 const getMusicPlaylist = async (req: Request, res: Response) => {
   try {
