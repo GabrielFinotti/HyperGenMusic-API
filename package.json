@@ -14,7 +14,8 @@
     "build": "tsup src",
     "dev": "tsx watch src/server.ts",
     "start": "node dist/server.js"
-  },  "repository": {
+  },
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/GabrielFinotti/HyperMusic-API.git"
   },
@@ -25,7 +26,8 @@
     "node",
     "typescript",
     "express"
-  ],  "bugs": {
+  ],
+  "bugs": {
     "url": "https://github.com/GabrielFinotti/HyperMusic-API/issues"
   },
   "homepage": "https://github.com/GabrielFinotti/HyperMusic-API#readme",

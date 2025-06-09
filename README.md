@@ -150,20 +150,20 @@ src/
 │   ├── 📄 user_service_implement.ts
 │   ├── 📄 music_service_implement.ts
 │   ├── 📄 admin_service_implements.ts
-│   ├── 📄 playlist_service_implement.ts    # 🆕 v2.0
-│   └── 📄 liked_music_service_implement.ts # 🆕 v2.0
+│   ├── 📄 playlist_service_implement.ts
+│   └── 📄 liked_music_service_implement.ts
 ├── 📁 repositories/       # Camada de acesso a dados
 │   ├── 📄 user_repository.ts
 │   ├── 📄 music_repository.ts
-│   ├── 📄 playlist_repository.ts           # 🆕 v2.0
-│   ├── 📄 playlist_music_repository.ts     # 🆕 v2.0
-│   └── 📄 liked_music_repository.ts        # 🆕 v2.0
+│   ├── 📄 playlist_repository.ts
+│   ├── 📄 playlist_music_repository.ts
+│   └── 📄 liked_music_repository.ts
 ├── 📁 models/             # Modelos Sequelize
 │   ├── 📄 User.ts
 │   ├── 📄 Music.ts
-│   ├── 📄 Playlist.ts                      # 🆕 v2.0
-│   ├── 📄 PlaylistMusics.ts               # 🆕 v2.0
-│   └── 📄 LikedMusics.ts                  # 🆕 v2.0
+│   ├── 📄 Playlist.ts
+│   ├── 📄 PlaylistMusics.ts
+│   └── 📄 LikedMusics.ts
 ├── 📁 types/              # Definições TypeScript
 │   ├── 📁 interfaces/     # Contratos de dados
 │   ├── 📁 models/         # Atributos dos modelos
