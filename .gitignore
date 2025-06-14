@@ -1,4 +1,39 @@
+# Dependências
 node_modules/
-dist/
+
+# Build
+/dist/
+
+# Variáveis de ambiente
 .env
-src/uploads/
+.env.*
+
+# Relatórios de cobertura de testes
+coverage/
+
+# Logs
+yarn-debug.log*
+yarn-error.log*
+npm-debug.log*
+logs/
+*.log
+
+# Diretórios temporários
+.tmp/
+tmp/
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Configurações de IDEs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Outros arquivos comuns
+*.local
+*.cache
