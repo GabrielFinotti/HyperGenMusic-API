@@ -12,7 +12,8 @@
   [![Redis](https://img.shields.io/badge/Redis-Latest-DC382D?style=for-the-badge&logo=redis&logoColor=white)](https://redis.io/)  [![Versão](https://img.shields.io/badge/Versão-2.0.0-success?style=for-the-badge)](https://github.com/GabrielFinotti/HyperMusic-API)
   [![Status](https://img.shields.io/badge/Status-Release%20Final-brightgreen?style=for-the-badge)](https://github.com/GabrielFinotti/HyperMusic-API)[![Progresso](https://img.shields.io/badge/Progresso-100%25-brightgreen?style=for-the-badge)](TASKS.md)
 
-  > 🎉 **v2.0 Release Final**: Todos os recursos core implementados e estáveis para produção
+> 🎉 **v2.0 Release Final**: Todos os recursos core implementados e estáveis para produção
+
 </div>
 
 ---
@@ -21,25 +22,25 @@
 
 ### 🟢 **Recursos Implementados (100%)**
 
-| Categoria | Feature | Status | Completude |
-|-----------|---------|--------|------------|
-| 🔐 **Autenticação** | JWT + Blacklist | ✅ | 100% |
-| 👤 **Usuários** | CRUD Completo | ✅ | 100% |
-| 🎵 **Músicas** | CRUD + Search | ✅ | 100% |
-| 👑 **Admin** | Gerenciamento | ✅ | 100% |
-| 📋 **Playlists** | Sistema Completo | ✅ | 100% |
-| ❤️ **Favoritos** | Sistema de Curtidas | ✅ | 100% |
-| 📁 **Upload** | Arquivos + S3 | ✅ | 100% |
-| 🛡️ **Segurança** | Validação + Middleware | ✅ | 100% |
-| 🏗️ **Arquitetura** | Repository Pattern | ✅ | 100% |
+| Categoria           | Feature                | Status | Completude |
+| ------------------- | ---------------------- | ------ | ---------- |
+| 🔐 **Autenticação** | JWT + Blacklist        | ✅     | 100%       |
+| 👤 **Usuários**     | CRUD Completo          | ✅     | 100%       |
+| 🎵 **Músicas**      | CRUD + Search          | ✅     | 100%       |
+| 👑 **Admin**        | Gerenciamento          | ✅     | 100%       |
+| 📋 **Playlists**    | Sistema Completo       | ✅     | 100%       |
+| ❤️ **Favoritos**    | Sistema de Curtidas    | ✅     | 100%       |
+| 📁 **Upload**       | Arquivos + S3          | ✅     | 100%       |
+| 🛡️ **Segurança**    | Validação + Middleware | ✅     | 100%       |
+| 🏗️ **Arquitetura**  | Repository Pattern     | ✅     | 100%       |
 
 ### 🚀 **Próximas Versões**
 
-| Feature | Prioridade | Status | ETA |
-|---------|------------|--------|-----|
-| 🎧 **Streaming** | Alta | 🔴 Planejado | v2.1 |
-| 📊 **Analytics** | Média | 🔴 Planejado | v2.1 |
-| 🧪 **Testes** | Baixa | 🔴 Futuro | v2.2+ |
+| Feature          | Prioridade | Status       | ETA   |
+| ---------------- | ---------- | ------------ | ----- |
+| 🎧 **Streaming** | Alta       | 🔴 Planejado | v2.1  |
+| 📊 **Analytics** | Média      | 🔴 Planejado | v2.1  |
+| 🧪 **Testes**    | Baixa      | 🔴 Futuro    | v2.2+ |
 
 ---
 
@@ -179,7 +180,7 @@ src/
 ### 🏛️ Princípios Implementados
 
 - **🔄 Repository Pattern**: Abstração completa da persistência
-- **🎯 Service Layer**: Encapsulamento da lógica de negócio  
+- **🎯 Service Layer**: Encapsulamento da lógica de negócio
 - **🔌 Dependency Injection**: Inversão de controle
 - **📋 Interface Segregation**: Contratos bem definidos
 - **🚨 Centralized Error Handling**: Tratamento uniforme
@@ -189,8 +190,7 @@ src/
 
 ## 📚 Documentação da API
 
-> **Base URL**: `http://localhost:3000/api/v2`
-> **Autenticação**: Bearer Token (JWT)
+> **Base URL**: `http://localhost:3000/api/v2` > **Autenticação**: Bearer Token (JWT)
 
 ### 🔐 **Autenticação**
 
@@ -223,56 +223,56 @@ Content-Type: application/json
 
 ### 👤 **Usuários**
 
-| Método | Endpoint | Descrição | Auth |
-|--------|----------|-----------|------|
-| `GET` | `/profile` | Perfil do usuário logado | ✅ |
-| `PUT` | `/profile/update` | Atualizar perfil | ✅ |
-| `DELETE` | `/auth/delete` | Excluir conta | ✅ |
+| Método   | Endpoint          | Descrição                | Auth |
+| -------- | ----------------- | ------------------------ | ---- |
+| `GET`    | `/profile`        | Perfil do usuário logado | ✅   |
+| `PUT`    | `/profile/update` | Atualizar perfil         | ✅   |
+| `DELETE` | `/auth/delete`    | Excluir conta            | ✅   |
 
 ### 🎵 **Músicas**
 
-| Método | Endpoint | Descrição | Params |
-|--------|----------|-----------|--------|
-| `GET` | `/musics` | Listar músicas | `?limit=10&offset=0` |
-| `GET` | `/musics/search` | Buscar músicas | `?q=termo&limit=10&offset=0` |
-| `GET` | `/musics/genre` | Por gênero | `?genre=rock&limit=10&offset=0` |
-| `GET` | `/music/data/{id}` | Detalhes da música | - |
+| Método | Endpoint           | Descrição          | Params                          |
+| ------ | ------------------ | ------------------ | ------------------------------- |
+| `GET`  | `/musics`          | Listar músicas     | `?limit=10&offset=0`            |
+| `GET`  | `/musics/search`   | Buscar músicas     | `?q=termo&limit=10&offset=0`    |
+| `GET`  | `/musics/genre`    | Por gênero         | `?genre=rock&limit=10&offset=0` |
+| `GET`  | `/music/data/{id}` | Detalhes da música | -                               |
 
 ### 👑 **Administração**
 
-| Método | Endpoint | Descrição | Auth |
-|--------|----------|-----------|------|
-| `GET` | `/admin/users` | Listar usuários | 👑 Admin |
-| `GET` | `/admin/users/search` | Buscar usuários | 👑 Admin |
-| `POST` | `/admin/user/create` | Criar usuário | 👑 Admin |
-| `PUT` | `/admin/user/update/{id}` | Editar usuário | 👑 Admin |
-| `DELETE` | `/admin/user/delete/{id}` | Excluir usuário | 👑 Admin |
-| `DELETE` | `/admin/users/deleteAll` | Excluir todos | 👑 Admin |
-| `POST` | `/admin/music/create` | Criar música | 👑 Admin |
-| `PUT` | `/admin/music/update/{id}` | Editar música | 👑 Admin |
-| `DELETE` | `/admin/music/delete/{id}` | Excluir música | 👑 Admin |
-| `DELETE` | `/admin/musics/deleteAll` | Excluir todas | 👑 Admin |
+| Método   | Endpoint                   | Descrição       | Auth     |
+| -------- | -------------------------- | --------------- | -------- |
+| `GET`    | `/admin/users`             | Listar usuários | 👑 Admin |
+| `GET`    | `/admin/users/search`      | Buscar usuários | 👑 Admin |
+| `POST`   | `/admin/user/create`       | Criar usuário   | 👑 Admin |
+| `PUT`    | `/admin/user/update/{id}`  | Editar usuário  | 👑 Admin |
+| `DELETE` | `/admin/user/delete/{id}`  | Excluir usuário | 👑 Admin |
+| `DELETE` | `/admin/users/deleteAll`   | Excluir todos   | 👑 Admin |
+| `POST`   | `/admin/music/create`      | Criar música    | 👑 Admin |
+| `PUT`    | `/admin/music/update/{id}` | Editar música   | 👑 Admin |
+| `DELETE` | `/admin/music/delete/{id}` | Excluir música  | 👑 Admin |
+| `DELETE` | `/admin/musics/deleteAll`  | Excluir todas   | 👑 Admin |
 
-### 📋 **Playlists** *(100% Completo - v2.0)*
+### 📋 **Playlists** _(100% Completo - v2.0)_
 
-| Método | Endpoint | Descrição | Auth | Status |
-|--------|----------|-----------|------|--------|
-| `GET` | `/playlists` | Listar playlists do usuário | ✅ | ✅ Funcionando |
-| `POST` | `/playlists/create` | Criar playlist | ✅ | ✅ Funcionando |
-| `PUT` | `/playlists/update/{playlistId}` | Atualizar playlist | ✅ | ✅ Funcionando |
-| `DELETE` | `/playlists/delete/{playlistId}` | Deletar playlist | ✅ | ✅ Funcionando |
-| `GET` | `/playlists/{playlistId}/musics` | Músicas da playlist | ✅ | ✅ Funcionando |
-| `POST` | `/playlists/{playlistId}/music/create` | Adicionar música | ✅ | ✅ Funcionando |
-| `PUT` | `/playlists/{playlistId}/music/position` | Reordenar músicas | ✅ | ✅ Funcionando |
-| `DELETE` | `/playlists/{playlistId}/music/delete` | Remover música | ✅ | ✅ Funcionando |
+| Método   | Endpoint                                 | Descrição                   | Auth | Status         |
+| -------- | ---------------------------------------- | --------------------------- | ---- | -------------- |
+| `GET`    | `/playlists`                             | Listar playlists do usuário | ✅   | ✅ Funcionando |
+| `POST`   | `/playlists/create`                      | Criar playlist              | ✅   | ✅ Funcionando |
+| `PUT`    | `/playlists/update/{playlistId}`         | Atualizar playlist          | ✅   | ✅ Funcionando |
+| `DELETE` | `/playlists/delete/{playlistId}`         | Deletar playlist            | ✅   | ✅ Funcionando |
+| `GET`    | `/playlists/{playlistId}/musics`         | Músicas da playlist         | ✅   | ✅ Funcionando |
+| `POST`   | `/playlists/{playlistId}/music/create`   | Adicionar música            | ✅   | ✅ Funcionando |
+| `PUT`    | `/playlists/{playlistId}/music/position` | Reordenar músicas           | ✅   | ✅ Funcionando |
+| `DELETE` | `/playlists/{playlistId}/music/delete`   | Remover música              | ✅   | ✅ Funcionando |
 
-### ❤️ **Favoritos** *(100% Completo - v2.0)*
+### ❤️ **Favoritos** _(100% Completo - v2.0)_
 
-| Método | Endpoint | Descrição | Auth | Status |
-|--------|----------|-----------|------|--------|
-| `GET` | `/favorites` | Listar favoritas do usuário | ✅ | ✅ Funcionando |
-| `POST` | `/favorites/create` | Curtir música | ✅ | ✅ Funcionando |
-| `DELETE` | `/favorites/delete` | Descurtir música | ✅ | ✅ Funcionando |
+| Método   | Endpoint            | Descrição                   | Auth | Status         |
+| -------- | ------------------- | --------------------------- | ---- | -------------- |
+| `GET`    | `/favorites`        | Listar favoritas do usuário | ✅   | ✅ Funcionando |
+| `POST`   | `/favorites/create` | Curtir música               | ✅   | ✅ Funcionando |
+| `DELETE` | `/favorites/delete` | Descurtir música            | ✅   | ✅ Funcionando |
 
 ### 🔑 **Autenticação**
 
@@ -365,9 +365,8 @@ Authorization: Bearer <your_jwt_token>
   - [x] Implementação completa da lógica de negócio
   - [x] Controllers implementados
   - [x] Rotas REST e endpoints públicos funcionais
-  
 - [x] **Sistema de Favoritos Completo**
-  - [x] Modelos e repositórios implementados  
+  - [x] Modelos e repositórios implementados
   - [x] Interfaces de serviço documentadas
   - [x] Implementação completa da lógica de negócio
   - [x] Controllers implementados
@@ -381,7 +380,6 @@ Authorization: Bearer <your_jwt_token>
   - [ ] Range requests para streaming progressivo
   - [ ] Múltiplos streams simultâneos
   - [ ] Bufferização inteligente
-  
 - [ ] **Analytics & Monitoring**
   - [ ] Métricas de performance
   - [ ] Logging estruturado
@@ -390,12 +388,14 @@ Authorization: Bearer <your_jwt_token>
 ### 🔮 **v2.2+ (Futuro)**
 
 - [ ] **Testes Automatizados**
+
   - [ ] Unit tests para services
   - [ ] Integration tests para APIs
   - [ ] E2E tests críticos
   - [ ] Setup de CI/CD
 
 - [ ] **Machine Learning**
+
   - [ ] Sistema de recomendações
   - [ ] Análise de preferências
   - [ ] Descoberta musical
@@ -437,3 +437,79 @@ Authorization: Bearer <your_jwt_token>
 **HyperMusic API** • **v2.0.0** • **2025**
 
 </div>
+
+# Estrutura de Pastas — API DDD
+
+```plaintext
+src/
+│
+├── app.ts                # Configuração principal do Express (middlewares, rotas, etc.)
+├── server.ts             # Ponto de entrada da aplicação (start do servidor)
+│
+├── config/               # Configurações gerais e de integração
+│   ├── database.ts       # Configuração do Sequelize
+│   ├── redis.ts          # Configuração do Redis
+│   ├── storage.ts        # Configuração do Cloudflare R2
+│   └── env.ts            # Carregamento e tipagem das variáveis de ambiente
+│
+├── domains/              # Cada domínio do negócio tem seu próprio subdiretório
+│   ├── user/
+│   │   ├── entities/     # Entidades do domínio (ex: User)
+│   │   ├── repositories/ # Interfaces e implementações de repositórios
+│   │   ├── services/     # Serviços de domínio (regras de negócio)
+│   │   ├── usecases/     # Casos de uso (aplicação de regras)
+│   │   ├── dtos/         # Data Transfer Objects (entrada/saída)
+│   │   └── validators/   # Schemas de validação (ex: zod)
+│   ├── music/
+│   │   └── ...           # Estrutura igual à de user
+│   ├── playlist/
+│   │   └── ...           # Estrutura igual à de user
+│   └── auth/
+│       └── ...           # Estrutura igual à de user
+│
+├── infra/                # Implementações de infraestrutura
+│   ├── database/         # Models do Sequelize, migrations, seeders
+│   ├── cache/            # Implementação do cache (Redis)
+│   ├── storage/          # Implementação do storage (Cloudflare R2)
+│   └── auth/             # Estratégias de autenticação (JWT, Google OAuth)
+│
+├── interfaces/           # Interface de entrada/saída (controllers, rotas, middlewares)
+│   ├── http/             # Controllers e rotas Express
+│   ├── middlewares/      # Middlewares globais (ex: auth, error handler)
+│   └── dtos/             # DTOs específicos de interface (opcional)
+│
+├── shared/               # Utilitários, helpers, erros globais, tipos comuns
+│   ├── errors/           # Classes de erro customizadas
+│   ├── utils/            # Funções utilitárias
+│   └── types/            # Tipos e interfaces globais
+│
+├── tests/                # Testes automatizados (unitários, integração)
+│
+└── docs/                 # Documentação (Swagger, exemplos de uso, etc.)
+```
+
+---
+
+## Explicação dos principais diretórios
+
+- **domains/**: Onde vive a lógica de negócio, separada por contexto (user, music, playlist, auth). Cada domínio tem suas entidades, repositórios, serviços, casos de uso, DTOs e validações.
+- **infra/**: Implementações técnicas (banco, cache, storage, autenticação). Aqui ficam os detalhes de como a aplicação interage com o mundo externo.
+- **interfaces/**: Camada de entrada/saída, principalmente HTTP (controllers, rotas, middlewares).
+- **shared/**: Código reutilizável entre domínios, como helpers, erros e tipos globais.
+- **config/**: Centraliza configurações e inicializações de integrações.
+- **tests/**: Testes organizados por domínio ou funcionalidade.
+- **docs/**: Documentação da API, exemplos, diagramas, etc.
+
+---
+
+## Recomendações
+
+- Mantenha cada domínio isolado, evitando dependências diretas entre eles.
+- Centralize validações e regras de negócio nos domínios, deixando controllers finos.
+- Use a pasta infra para tudo que for dependência externa (banco, cache, storage, autenticação).
+- Utilize a pasta shared para utilitários e tipos globais, evitando duplicação.
+- Documente endpoints e regras de negócio na pasta docs.
+
+---
+
+Essa estrutura facilita a escalabilidade, manutenção e evolução do projeto, seguindo os princípios do DDD e boas práticas de arquitetura em Node.js/TypeScript.
