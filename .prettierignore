@@ -1,4 +1,14 @@
-node_modules
-coverage
+# Ignore artifacts:
 build
-dist 
+dist
+coverage
+.next
+.vercel
+
+# Ignore node modules:
+node_modules
+
+# Ignore package manager files
+package-lock.json
+pnpm-lock.yaml
+yarn.lock 

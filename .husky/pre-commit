@@ -1,1 +1,2 @@
-npm run lint && npm run format:check
+#!/usr/bin/env sh
+npx lint-staged
